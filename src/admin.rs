@@ -23,6 +23,8 @@ fn format_ping(
 }
 
 const MAX_COMMITS_SHOWN: usize = 6;
+const SHORT_SHA_LENGTH: usize = 6;
+const MAX_COMMIT_MESSAGE_LENGTH: usize = 50;
 
 /// Shows debug information about the bot.
 #[poise::command(prefix_command)]
@@ -54,11 +56,14 @@ pub async fn debug(ctx: Context<'_>) -> Result<()> {
                     let timestamp = HumanTime::from(dt).to_text_en(Accuracy::Rough, Tense::Past);
 
                     let line = format!(
-                        "\n[`{}`]({}) {}: {:50}",
-                        &oid.to_string()[..6],
+                        "\n[`{}`]({}) {}: {}",
+                        &oid.to_string()[..SHORT_SHA_LENGTH],
                         repo.url,
                         timestamp,
-                        msg
+                        msg.trim()
+                            .chars()
+                            .take(MAX_COMMIT_MESSAGE_LENGTH)
+                            .collect::<String>()
                     );
 
                     Ok(acc + &line)
