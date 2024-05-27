@@ -53,7 +53,13 @@ pub async fn debug(ctx: Context<'_>) -> Result<()> {
 
                     let timestamp = HumanTime::from(dt).to_text_en(Accuracy::Rough, Tense::Past);
 
-                    let line = format!("\n[`{:06}`]({}) {}: {:50}", oid, repo.url, timestamp, msg);
+                    let line = format!(
+                        "\n[`{}`]({}) {}: {:50}",
+                        &oid.to_string()[..6],
+                        repo.url,
+                        timestamp,
+                        msg
+                    );
 
                     Ok(acc + &line)
                 })?;
