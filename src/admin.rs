@@ -22,7 +22,7 @@ fn format_ping(
     ))
 }
 
-const MAX_COMMITS_SHOWN: usize = 6;
+const MAX_COMMITS_SHOWN: usize = 4;
 const SHORT_SHA_LENGTH: usize = 6;
 const MAX_COMMIT_MESSAGE_LENGTH: usize = 50;
 
