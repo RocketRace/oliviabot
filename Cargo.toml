@@ -1,0 +1,13 @@
+[package]
+name = "oliviabot"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+chrono = "0.4.38"
+dotenvy = "0.15.7"
+envy = "0.4.2"
+git2 = "0.18.3"
+poise = { version = "0.6.1", features = ["cache"] }
+serde = { version = "1", features = ["derive"] }
+tokio = { version = "1", features = ["full"] }
