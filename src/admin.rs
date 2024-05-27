@@ -80,7 +80,11 @@ pub async fn debug(ctx: Context<'_>) -> Result<()> {
     let base_embed = serenity::CreateEmbed::new()
         .title("Recent commits")
         .description(commits)
-        .field("Stats", format!("{} servers\n", 0), true);
+        .field(
+            "Stats",
+            format!("{} servers\n", ctx.cache().guilds().len()),
+            true,
+        );
 
     let gateway = ctx.ping().await;
 
