@@ -11,14 +11,16 @@ fn format_ping(
     received: serenity::Timestamp,
     now: serenity::Timestamp,
     sent: Option<serenity::Timestamp>,
+    gateway: std::time::Duration,
 ) -> Result<String> {
     Ok(format!(
-        "Discord -> Bot: {}\nBot -> Discord: {}",
+        "Discord -> Bot: {}\nBot -> Discord: {}\nGateway: {:?}",
         format_duration(received, now)?,
         match sent {
             Some(sent) => format_duration(now, sent)?,
             None => "...".into(),
-        }
+        },
+        gateway
     ))
 }
 
@@ -77,17 +79,26 @@ pub async fn debug(ctx: Context<'_>) -> Result<()> {
 
     let base_embed = serenity::CreateEmbed::new()
         .title("Recent commits")
-        .description(commits);
+        .description(commits)
+        .field("Stats", format!("{} servers\n", 0), true);
 
-    let start_embed = base_embed
-        .clone()
-        .field("Ping", format_ping(received, now, None)?, true);
+    let gateway = ctx.ping().await;
+
+    // separate start and end embeds for pre- and post- edit
+    let start_embed =
+        base_embed
+            .clone()
+            .field("Ping", format_ping(received, now, None, gateway)?, true);
 
     let msg = ctx.send(CreateReply::default().embed(start_embed)).await?;
 
     let sent = msg.message().await?.timestamp;
 
-    let end_embed = base_embed.field("Ping", format_ping(received, now, Some(sent))?, true);
+    let end_embed = base_embed.field(
+        "Ping",
+        format_ping(received, now, Some(sent), gateway)?,
+        true,
+    );
 
     msg.edit(ctx, CreateReply::default().embed(end_embed))
         .await?;
