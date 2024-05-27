@@ -31,7 +31,7 @@ pub async fn debug(ctx: Context<'_>) -> Result<()> {
     let now = serenity::Timestamp::now();
 
     let commits = if let Some(repo) = &ctx.data().repo {
-        let handle = repo.handle.lock().unwrap();
+        let handle = repo.handle.lock().expect("mutex is no longer valid");
         let mut walk = handle.revwalk()?;
         walk.push_head()?;
         walk.set_sorting(git2::Sort::TOPOLOGICAL)?;
@@ -57,6 +57,8 @@ pub async fn debug(ctx: Context<'_>) -> Result<()> {
 
                     Ok(acc + &line)
                 })?;
+        #[allow(clippy::let_and_return)]
+        // https://github.com/rust-lang/rust-clippy/issues/12831
         tmp
     } else {
         "*No Git repository found*".into()
