@@ -1,61 +1,15 @@
-use chrono::{Days, TimeDelta};
-use poise::{builtins, serenity_prelude as serenity, CreateReply, Framework, FrameworkOptions};
-use serde::Deserialize;
+mod admin;
+mod state;
 
-// Shared state
-#[derive(Default)]
-struct Data {}
+use admin::debug;
+use poise::{builtins, serenity_prelude as serenity, Framework, FrameworkOptions};
+use serde::Deserialize;
+use state::Data;
 
 // Common types
-type Error = Box<dyn std::error::Error + Send + Sync>;
-type Context<'a> = poise::Context<'a, Data, Error>;
-type Result<T> = std::result::Result<T, Error>;
-
-fn format_delta(start: serenity::Timestamp, end: serenity::Timestamp) -> Result<String> {
-    Ok(format!("{:?}", end.signed_duration_since(*start).to_std()?))
-}
-
-/// Shows debug information about the bot.
-#[poise::command(prefix_command)]
-async fn debug(ctx: Context<'_>) -> Result<()> {
-    let received = ctx.created_at();
-    let now = serenity::Timestamp::now();
-
-    let make_ping = |sent: Option<serenity::Timestamp>| -> Result<String> {
-        Ok(format!(
-            "Discord -> Bot: {}\nBot -> Discord: {}",
-            format_delta(received, now)?,
-            match sent {
-                Some(sent) => format_delta(now, sent)?,
-                None => "...".into(),
-            }
-        ))
-    };
-
-    let base_embed = serenity::CreateEmbed::new()
-        .title("Debug statistics")
-        .field("Ping", make_ping(None)?, true);
-
-    let msg = ctx
-        .say(format!(
-            "Discord -> Bot: {}\nBot -> Discord: ...",
-            format_delta(received, now)?
-        ))
-        .await?;
-    let sent = msg.message().await?.timestamp;
-
-    msg.edit(
-        ctx,
-        CreateReply::default().content(
-            msg.message()
-                .await?
-                .content
-                .replace("...", &format_delta(now, sent)?),
-        ),
-    )
-    .await?;
-    Ok(())
-}
+pub type Error = Box<dyn std::error::Error + Send + Sync>;
+pub type Context<'a> = poise::Context<'a, Data, Error>;
+pub type Result<T> = std::result::Result<T, Error>;
 
 #[derive(Deserialize)]
 struct Config {
@@ -78,7 +32,7 @@ async fn main() -> Result<()> {
         .setup(|ctx, _ready, framework| {
             Box::pin(async move {
                 builtins::register_globally(ctx, &framework.options().commands).await?;
-                Ok(Data::default())
+                Data::new()
             })
         })
         .build();
