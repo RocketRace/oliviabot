@@ -30,6 +30,7 @@ impl Data {
                     .find_remote("origin")?
                     .url()
                     .ok_or("Repository remote URL is invalid UTF-8")?
+                    .trim_end_matches(".git")
                     .to_string();
 
                 data.repo = Some(Repo::new(Arc::new(Mutex::new(repo)), url));
