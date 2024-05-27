@@ -22,6 +22,8 @@ async fn main() -> Result<()> {
     dotenvy::dotenv()?;
     let config = envy::from_env::<Config>()?;
 
+    tracing_subscriber::fmt().compact().init();
+
     let intents =
         serenity::GatewayIntents::non_privileged() | serenity::GatewayIntents::MESSAGE_CONTENT;
 

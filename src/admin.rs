@@ -60,9 +60,10 @@ pub async fn debug(ctx: Context<'_>) -> Result<()> {
                     );
 
                     let line = format!(
-                        "\n[`{}`]({}) {}: {}",
+                        "\n[`{}`]({}/commit/{}) {}: {}",
                         &oid.to_string()[..SHORT_SHA_LENGTH],
                         repo.url,
+                        &oid.to_string(),
                         timestamp,
                         msg.trim()
                             .chars()
