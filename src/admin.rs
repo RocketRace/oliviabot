@@ -1,6 +1,5 @@
 use crate::{Context, Result};
 use chrono::{DateTime, FixedOffset, Offset, Utc};
-use chrono_humanize::{Accuracy, HumanTime, Tense};
 use poise::{serenity_prelude as serenity, CreateReply};
 
 fn format_duration(start: serenity::Timestamp, end: serenity::Timestamp) -> Result<String> {
@@ -55,7 +54,10 @@ pub async fn debug(ctx: Context<'_>) -> Result<()> {
                             &FixedOffset::east_opt(offset_minutes * 60).unwrap_or(Utc.fix()),
                         );
 
-                    let timestamp = HumanTime::from(dt).to_text_en(Accuracy::Rough, Tense::Past);
+                    let timestamp = serenity::utils::FormattedTimestamp::new(
+                        serenity::Timestamp::from(dt),
+                        Some(serenity::FormattedTimestampStyle::RelativeTime),
+                    );
 
                     let line = format!(
                         "\n[`{}`]({}) {}: {}",
