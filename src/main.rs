@@ -52,11 +52,19 @@ async fn main() -> Result<()> {
         })
         .build();
 
-    serenity::ClientBuilder::new(token, intents)
+    let mut client = serenity::ClientBuilder::new(token, intents)
         .framework(framework)
-        .await?
-        .start()
         .await?;
 
+    let shard_manager = client.shard_manager.clone();
+    tokio::spawn(async move {
+        tokio::signal::ctrl_c()
+            .await
+            .expect("Failed to register ctrl-c handler");
+
+        shard_manager.shutdown_all().await;
+    });
+
+    client.start().await?;
     Ok(())
 }
