@@ -26,7 +26,7 @@ impl Data {
     pub async fn from_config(config: &PublicConfig) -> Result<Self> {
         let mut data = Data {
             repo: None,
-            db: SqlitePool::connect(&config.db_url).await?,
+            db: SqlitePool::connect(&config.database_url).await?,
         };
         match git2::Repository::discover(".") {
             Ok(repo) => {

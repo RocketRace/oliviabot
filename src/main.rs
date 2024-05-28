@@ -5,7 +5,6 @@ mod util;
 use admin::debug;
 use poise::{builtins, serenity_prelude as serenity, Framework, FrameworkOptions};
 use serde::Deserialize;
-use serde_prefix::prefix_all;
 use state::Data;
 
 // Common types
@@ -20,10 +19,9 @@ struct Config {
     public: PublicConfig,
 }
 
-#[prefix_all("pub.")]
 #[derive(Debug, Clone, Deserialize)]
 pub struct PublicConfig {
-    pub db_url: String,
+    pub database_url: String,
 }
 
 #[tokio::main]
