@@ -1,8 +1,9 @@
 use std::sync::{Arc, Mutex};
 
+use sqlx::SqlitePool;
 use tracing::warn;
 
-use crate::Result;
+use crate::{PublicConfig, Result};
 
 pub struct Repo {
     pub handle: Arc<Mutex<git2::Repository>>,
@@ -16,14 +17,17 @@ impl Repo {
 }
 
 // Shared state
-#[derive(Default)]
 pub struct Data {
     pub repo: Option<Repo>,
+    pub db: SqlitePool,
 }
 
 impl Data {
-    pub fn new() -> Result<Self> {
-        let mut data = Data::default();
+    pub async fn from_config(config: &PublicConfig) -> Result<Self> {
+        let mut data = Data {
+            repo: None,
+            db: SqlitePool::connect(&config.db_url).await?,
+        };
         match git2::Repository::discover(".") {
             Ok(repo) => {
                 let url = repo

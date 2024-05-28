@@ -5,6 +5,7 @@ mod util;
 use admin::debug;
 use poise::{builtins, serenity_prelude as serenity, Framework, FrameworkOptions};
 use serde::Deserialize;
+use serde_prefix::prefix_all;
 use state::Data;
 
 // Common types
@@ -12,15 +13,23 @@ pub type Error = Box<dyn std::error::Error + Send + Sync>;
 pub type Context<'a> = poise::Context<'a, Data, Error>;
 pub type Result<T> = std::result::Result<T, Error>;
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Debug, Clone)]
 struct Config {
     token: String,
+    #[serde(flatten)]
+    public: PublicConfig,
+}
+
+#[prefix_all("pub.")]
+#[derive(Debug, Clone, Deserialize)]
+pub struct PublicConfig {
+    pub db_url: String,
 }
 
 #[tokio::main]
 async fn main() -> Result<()> {
     dotenvy::dotenv()?;
-    let config = envy::from_env::<Config>()?;
+    let Config { token, public } = envy::from_env::<Config>()?;
 
     tracing_subscriber::fmt().compact().init();
 
@@ -35,12 +44,12 @@ async fn main() -> Result<()> {
         .setup(|ctx, _ready, framework| {
             Box::pin(async move {
                 builtins::register_globally(ctx, &framework.options().commands).await?;
-                Data::new()
+                Data::from_config(&public).await
             })
         })
         .build();
 
-    serenity::ClientBuilder::new(config.token, intents)
+    serenity::ClientBuilder::new(token, intents)
         .framework(framework)
         .await?
         .start()
