@@ -26,7 +26,12 @@ pub struct PublicConfig {
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    dotenvy::dotenv()?;
+    if std::env::var("DEV").is_ok() {
+        dotenvy::from_filename("dev.env")?;
+    } else {
+        dotenvy::dotenv()?;
+    }
+
     let Config { token, public } = envy::from_env::<Config>()?;
 
     tracing_subscriber::fmt().compact().init();
