@@ -1,7 +1,7 @@
 use std::sync::{Arc, Mutex};
 
 use sqlx::SqlitePool;
-use tracing::warn;
+use tracing::{info, warn};
 
 use crate::{PublicConfig, Result};
 
@@ -28,6 +28,11 @@ impl Data {
             repo: None,
             db: SqlitePool::connect(&config.database_url).await?,
         };
+
+        info!("Running migrations");
+        sqlx::migrate!().run(&data.db).await?;
+
+        info!("Discovering local git repository");
         match git2::Repository::discover(".") {
             Ok(repo) => {
                 let url = repo
@@ -44,6 +49,7 @@ impl Data {
             }
         }
 
+        info!("Initialized state");
         Ok(data)
     }
 }
