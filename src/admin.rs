@@ -81,6 +81,7 @@ pub async fn debug(ctx: Context<'_>) -> Result<()> {
     };
 
     let base_embed = serenity::CreateEmbed::new()
+        .color(ctx.data().config.default_embed_color)
         .title("Recent commits")
         .description(commits)
         .field(

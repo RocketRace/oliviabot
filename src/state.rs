@@ -20,12 +20,14 @@ impl Repo {
 pub struct Data {
     pub repo: Option<Repo>,
     pub db: SqlitePool,
+    pub config: PublicConfig,
 }
 
 impl Data {
     pub async fn from_config(config: &PublicConfig) -> Result<Self> {
         let mut data = Data {
             repo: None,
+            config: config.clone(),
             db: SqlitePool::connect(&config.database_url).await?,
         };
 
