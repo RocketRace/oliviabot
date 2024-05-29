@@ -3,7 +3,7 @@ use std::sync::{Arc, Mutex};
 use sqlx::SqlitePool;
 use tracing::{info, warn};
 
-use crate::{PublicConfig, Result};
+use crate::{Config, Result};
 
 pub struct Repo {
     pub handle: Arc<Mutex<git2::Repository>>,
@@ -20,11 +20,11 @@ impl Repo {
 pub struct Data {
     pub repo: Option<Repo>,
     pub db: SqlitePool,
-    pub config: PublicConfig,
+    pub config: Config,
 }
 
 impl Data {
-    pub async fn from_config(config: &PublicConfig) -> Result<Self> {
+    pub async fn from_config(config: &Config) -> Result<Self> {
         let mut data = Data {
             repo: None,
             config: config.clone(),
