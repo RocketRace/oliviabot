@@ -1,9 +1,11 @@
-use crate::{Commands, Context, Result};
+use crate::{Context, Result};
 use chrono::{DateTime, FixedOffset, Offset, Utc};
 use poise::{samples::HelpConfiguration, serenity_prelude as serenity, CreateReply};
 
-pub fn commands() -> Commands {
-    vec![help(), debug()]
+use super::Cog;
+
+pub fn cog() -> Cog {
+    Cog::new(vec![help(), debug()], "Meta".to_string())
 }
 
 fn format_duration(start: serenity::Timestamp, end: serenity::Timestamp) -> Result<String> {
