@@ -1,9 +1,13 @@
-mod admin;
+mod cogs;
 mod state;
 mod util;
 
-use admin::debug;
-use poise::{builtins, serenity_prelude as serenity, Framework, FrameworkOptions};
+use cogs::meta::{debug, help};
+use poise::{
+    builtins,
+    serenity_prelude::{self as serenity},
+    Framework, FrameworkOptions,
+};
 use serde::{de::Error as _, Deserialize, Deserializer};
 use state::Data;
 use tracing::info;
@@ -58,7 +62,7 @@ async fn main() -> Result<()> {
 
     let framework = Framework::builder()
         .options(FrameworkOptions {
-            commands: vec![debug()],
+            commands: vec![debug(), help()],
             ..Default::default()
         })
         .setup(|ctx, ready, framework| {

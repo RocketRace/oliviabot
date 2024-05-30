@@ -1,6 +1,6 @@
 use crate::{Context, Result};
 use chrono::{DateTime, FixedOffset, Offset, Utc};
-use poise::{serenity_prelude as serenity, CreateReply};
+use poise::{samples::HelpConfiguration, serenity_prelude as serenity, CreateReply};
 
 fn format_duration(start: serenity::Timestamp, end: serenity::Timestamp) -> Result<String> {
     Ok(format!("{:?}", end.signed_duration_since(*start).to_std()?))
@@ -28,7 +28,7 @@ const SHORT_SHA_LENGTH: usize = 6;
 const MAX_COMMIT_MESSAGE_LENGTH: usize = 50;
 
 /// Shows debug information about the bot.
-#[poise::command(prefix_command)]
+#[poise::command(prefix_command, category = "Meta")]
 pub async fn debug(ctx: Context<'_>) -> Result<()> {
     let received = ctx.created_at();
     let now = serenity::Timestamp::now();
@@ -110,5 +110,16 @@ pub async fn debug(ctx: Context<'_>) -> Result<()> {
 
     msg.edit(ctx, CreateReply::default().embed(end_embed))
         .await?;
+    Ok(())
+}
+
+/// Get help on the bot or a command
+#[poise::command(prefix_command, slash_command, category = "Meta")]
+pub async fn help(
+    ctx: Context<'_>,
+    #[description = "Command to show help about"] command: Option<String>,
+) -> Result<()> {
+    let config = HelpConfiguration::default();
+    poise::builtins::help(ctx, command.as_deref(), config).await?;
     Ok(())
 }
