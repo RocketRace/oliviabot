@@ -2,7 +2,6 @@ mod cogs;
 mod state;
 mod util;
 
-use cogs::meta::{debug, help};
 use poise::{
     builtins,
     serenity_prelude::{self as serenity},
@@ -16,6 +15,7 @@ use tracing::info;
 pub type Error = Box<dyn std::error::Error + Send + Sync>;
 pub type Context<'a> = poise::Context<'a, Data, Error>;
 pub type Result<T> = std::result::Result<T, Error>;
+pub type Commands = Vec<poise::Command<Data, Error>>;
 
 #[derive(Deserialize, Debug, Clone)]
 pub struct Config {
@@ -62,7 +62,7 @@ async fn main() -> Result<()> {
 
     let framework = Framework::builder()
         .options(FrameworkOptions {
-            commands: vec![debug(), help()],
+            commands: cogs::commands(),
             ..Default::default()
         })
         .setup(|ctx, ready, framework| {
