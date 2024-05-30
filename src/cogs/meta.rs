@@ -34,7 +34,7 @@ const SHORT_SHA_LENGTH: usize = 6;
 const MAX_COMMIT_MESSAGE_LENGTH: usize = 50;
 
 /// Shows debug information about the bot.
-#[poise::command(prefix_command, category = "Meta")]
+#[poise::command(prefix_command)]
 async fn debug(ctx: Context<'_>) -> Result<()> {
     let received = ctx.created_at();
     let now = serenity::Timestamp::now();
@@ -120,7 +120,7 @@ async fn debug(ctx: Context<'_>) -> Result<()> {
 }
 
 /// Get help on the bot or a command
-#[poise::command(prefix_command, slash_command, category = "Meta")]
+#[poise::command(prefix_command, slash_command)]
 async fn help(
     ctx: Context<'_>,
     #[description = "Command to show help about"] command: Option<String>,
