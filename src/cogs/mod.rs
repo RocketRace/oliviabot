@@ -1,5 +1,6 @@
 use crate::Commands;
 
+mod gadgets;
 mod meta;
 
 pub struct Cog {
@@ -15,7 +16,7 @@ impl Cog {
 
 // This is a hacky sort of cog framework around poise's commands.
 pub fn commands() -> Commands {
-    let cogs = [meta::cog()];
+    let cogs = [meta::cog(), gadgets::cog()];
 
     let mut result = vec![];
     for cog in cogs {

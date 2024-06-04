@@ -2,7 +2,8 @@
 .DS_Store
 .vscode
 *.env
-
+.venv
+__pycache__
 *.db
 *.db-shm
 *.db-wal
