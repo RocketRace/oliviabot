@@ -1220,6 +1220,7 @@ dependencies = [
  "envy",
  "git2",
  "poise",
+ "rand",
  "regex",
  "serde",
  "sqlx",

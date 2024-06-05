@@ -15,7 +15,7 @@ use tracing::info;
 // Common types
 pub type Error = Box<dyn std::error::Error + Send + Sync>;
 pub type Context<'a> = poise::Context<'a, Data, Error>;
-pub type Result<T> = std::result::Result<T, Error>;
+pub type Result<T, E = Error> = std::result::Result<T, E>;
 pub type Commands = Vec<poise::Command<Data, Error>>;
 
 #[derive(Deserialize, Debug, Clone)]

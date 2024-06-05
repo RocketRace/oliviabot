@@ -176,7 +176,7 @@ discorder = {escape: unescaper(escaper(escape)) for escape in escapes if escaper
 for distro, logo in logos.items():
     def subber(match: re.Match):
         return discorder.get(match.group(0), "")
-    logos[distro] = re.sub(ansi_pattern, subber, logo)
+    logos[distro] = re.sub(ansi_pattern, subber, logo).replace('`', "`\u200b")
 
 with open("logos.py", "w") as f:
     f.write("variants = ")
