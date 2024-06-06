@@ -1,4 +1,4 @@
-use poise::serenity_prelude::CreateEmbed;
+use poise::serenity_prelude as serenity;
 use poise::CreateReply;
 use rand::seq::IteratorRandom;
 use rand::thread_rng;
@@ -27,7 +27,14 @@ async fn neofetch(ctx: Context<'_>, #[rest] distro: String) -> Result<()> {
             .1
     };
     let logo = neofetch::logos()[distro];
-    let embed = CreateEmbed::new().description(format!("```ansi\n{logo}\n```"));
+    let embed = serenity::CreateEmbed::new()
+        .description(format!("```ansi\n{logo}\n```"))
+        .footer(serenity::CreateEmbedFooter::new(
+            "Neofetch data last updated:",
+        ))
+        .timestamp(serenity::Timestamp::from_unix_timestamp(
+            neofetch::LAST_UPDATED_POSIX,
+        )?);
     ctx.send(CreateReply::default().embed(embed)).await?;
     Ok(())
 }
