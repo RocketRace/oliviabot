@@ -18,7 +18,7 @@ async fn neofetch(ctx: Context<'_>, #[rest] distro: Option<String>) -> Result<()
         neofetch::patterns()
             .iter()
             .find(|(pattern, _, _)| pattern.is_match(&distro))
-            .ok_or("No such distro found")?
+            .ok_or(format!("Distro '{}' not found", distro))?
             .1
     } else {
         neofetch::variants()
