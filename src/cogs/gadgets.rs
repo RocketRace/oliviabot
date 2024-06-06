@@ -13,18 +13,18 @@ pub fn cog() -> Cog {
 }
 
 #[poise::command(prefix_command, slash_command)]
-async fn neofetch(ctx: Context<'_>, #[rest] distro: String) -> Result<()> {
-    let distro = if distro.is_empty() {
+async fn neofetch(ctx: Context<'_>, #[rest] distro: Option<String>) -> Result<()> {
+    let distro = if let Some(distro) = distro {
+        neofetch::patterns()
+            .iter()
+            .find(|(pattern, _, _)| pattern.is_match(&distro))
+            .ok_or("No such distro found")?
+            .1
+    } else {
         neofetch::variants()
             .keys()
             .choose(&mut thread_rng())
             .unwrap()
-    } else {
-        neofetch::patterns()
-            .iter()
-            .find(|(pattern, _, _)| pattern.is_match(&distro))
-            .ok_or("err")?
-            .1
     };
     let logo = neofetch::logos()[distro];
     let embed = serenity::CreateEmbed::new()
