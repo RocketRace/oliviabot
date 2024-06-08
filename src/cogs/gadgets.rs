@@ -1,7 +1,6 @@
 use std::time::Duration;
 
 use poise::serenity_prelude as serenity;
-use poise::serenity_prelude::OnlineStatus;
 use poise::CreateReply;
 use rand::seq::IteratorRandom;
 use rand::thread_rng;
@@ -55,34 +54,33 @@ async fn neofetch(ctx: Context<'_>, #[rest] distro: Option<String>) -> Result<()
             neofetch::LAST_UPDATED_POSIX,
         )?);
 
-    let id = ctx.id();
-    let button = serenity::CreateButton::new(format!("{id}"))
-        .label("Mobile")
-        .style(serenity::ButtonStyle::Secondary);
+    // let id = ctx.id();
+    // let button = serenity::CreateButton::new(format!("{id}"))
+    //     .label("Mobile")
+    //     .style(serenity::ButtonStyle::Secondary);
 
-    let component = serenity::CreateActionRow::Buttons(vec![button]);
+    // let component = serenity::CreateActionRow::Buttons(vec![button]);
 
     ctx.send(
-        CreateReply::default()
-            .embed(embed)
-            .components(vec![component]),
+        CreateReply::default().embed(embed),
+        // .components(vec![component])
     )
     .await?;
 
-    while let Some(interaction) = serenity::ComponentInteractionCollector::new(ctx)
-        .author_id(ctx.author().id)
-        .channel_id(ctx.channel_id())
-        .timeout(Duration::from_secs(120))
-        .filter(move |mci| mci.data.custom_id == id.to_string())
-        .await
-    {
-        let _msg = interaction.message.clone();
-        // msg.edit(ctx).await?;
+    // while let Some(interaction) = serenity::ComponentInteractionCollector::new(ctx)
+    //     .author_id(ctx.author().id)
+    //     .channel_id(ctx.channel_id())
+    //     .timeout(Duration::from_secs(120))
+    //     .filter(move |mci| mci.data.custom_id == id.to_string())
+    //     .await
+    // {
+    //     let _msg = interaction.message.clone();
+    //     // msg.edit(ctx).await?;
 
-        interaction
-            .create_response(ctx, serenity::CreateInteractionResponse::Acknowledge)
-            .await?;
-    }
+    //     interaction
+    //         .create_response(ctx, serenity::CreateInteractionResponse::Acknowledge)
+    //         .await?;
+    // }
 
     Ok(())
 }

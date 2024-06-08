@@ -1214,7 +1214,6 @@ dependencies = [
 name = "oliviabot"
 version = "0.1.0"
 dependencies = [
- "bitflags 2.5.0",
  "chrono",
  "dotenvy",
  "envy",
