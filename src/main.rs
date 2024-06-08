@@ -58,8 +58,9 @@ async fn main() -> Result<()> {
         info!("Starting bot using main configuration")
     }
 
-    let intents =
-        serenity::GatewayIntents::non_privileged() | serenity::GatewayIntents::MESSAGE_CONTENT;
+    let intents = serenity::GatewayIntents::non_privileged()
+        | serenity::GatewayIntents::MESSAGE_CONTENT
+        | serenity::GatewayIntents::GUILD_PRESENCES;
 
     let framework = Framework::builder()
         .options(FrameworkOptions {
