@@ -52,6 +52,20 @@ async fn neofetch(
         .footer(serenity::CreateEmbedFooter::new(
             "Neofetch data last updated:",
         ))
+        .field(
+            format!(
+                "{}@{}",
+                ctx.author().name,
+                ctx.channel_id().name(ctx).await?
+            ),
+            format!(
+                "```\n\
+                OS: {distro}\n\
+                Host: Discord\n\
+                ```"
+            ),
+            false,
+        )
         .timestamp(serenity::Timestamp::from_unix_timestamp(
             neofetch::LAST_UPDATED_POSIX,
         )?);

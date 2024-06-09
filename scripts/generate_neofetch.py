@@ -99,7 +99,7 @@ for i, full_distro, proc in procs:
     start = end - len(empty.strip().splitlines())
     width = max(len(line.rstrip()) for line in empty.splitlines())
 
-    if width <= 30:
+    if width < 30:
         for suffix in ["_small", "_old", ""]:
             if full_distro.endswith(suffix):
                 mobile_variants.setdefault(suffix, []).append(full_distro.removesuffix(suffix))
@@ -217,10 +217,10 @@ with open("src/data/neofetch.rs", "w") as f:
     f.write(f"pub fn mobile_variants() -> HashMap<Variant, Vec<&'static str>> {{ HashMap::from([{mobile_variant_list}]) }}\n")
     
     # for random sampling
-    flat_distros = [distro for distros in variants.values() for distro in distros]
+    flat_distros = [distro + suffix for suffix, distros in variants.items() for distro in distros]
     f.write(f"pub const DISTROS: [&str; {len(flat_distros)}] = [{', '.join(
         rust_string(distro) for distro in flat_distros)}];\n")
-    flat_mobile_distros = [distro for distros in mobile_variants.values() for distro in distros]
+    flat_mobile_distros = [distro + suffix for suffix, distros in mobile_variants.items() for distro in distros]
     f.write(f"pub const MOBILE_DISTROS: [&str; {len(flat_mobile_distros)}] = [{', '.join(
         rust_string(distro) for distro in flat_mobile_distros)}];\n")
 
