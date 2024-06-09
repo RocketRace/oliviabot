@@ -129,7 +129,7 @@ discord_colors = {
 }
 
 def closest_color(r: int, g: int, b: int):
-    def distance(item: tuple[int, tuple[int, int, int]]):
+    def distance(item: tuple[int | None, tuple[int, int, int]]):
         x = colour.XYZ_to_Oklab(colour.sRGB_to_XYZ([r, g, b]))
         y = colour.XYZ_to_Oklab(colour.sRGB_to_XYZ(item[1]))
         return math.dist(x, y)

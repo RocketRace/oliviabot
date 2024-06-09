@@ -1,8 +1,6 @@
-use std::time::Duration;
-
 use poise::serenity_prelude as serenity;
 use poise::CreateReply;
-use rand::seq::IteratorRandom;
+use rand::seq::SliceRandom;
 use rand::thread_rng;
 
 use crate::data::neofetch;
@@ -15,34 +13,38 @@ pub fn cog() -> Cog {
 }
 
 #[poise::command(prefix_command, slash_command)]
-async fn neofetch(ctx: Context<'_>, #[rest] distro: Option<String>) -> Result<()> {
-    let mobile = if let Some(serenity::Presence {
-        client_status:
-            Some(serenity::ClientStatus {
-                mobile: Some(mobile_status),
-                ..
-            }),
-        status,
-        ..
-    }) = ctx
-        .guild()
-        .and_then(|guild| guild.presences.get(&ctx.author().id).cloned())
-    {
-        status == mobile_status
-    } else {
-        false
-    };
+async fn neofetch(
+    ctx: Context<'_>,
+    #[flag] mobile: bool,
+    #[rest] distro: Option<String>,
+) -> Result<()> {
+    let mobile = mobile
+        || if let Some(serenity::Presence {
+            client_status:
+                Some(serenity::ClientStatus {
+                    mobile: Some(mobile_status),
+                    ..
+                }),
+            status,
+            ..
+        }) = ctx
+            .guild()
+            .and_then(|guild| guild.presences.get(&ctx.author().id).cloned())
+        {
+            status == mobile_status
+        } else {
+            false
+        };
     let distro = if let Some(distro) = distro {
         neofetch::patterns()
             .iter()
             .find(|(pattern, _, _)| pattern.is_match(&distro))
             .ok_or(format!("Distro '{}' not found", distro))?
             .1
+    } else if mobile {
+        neofetch::MOBILE_DISTROS.choose(&mut thread_rng()).unwrap()
     } else {
-        neofetch::variants()
-            .keys()
-            .choose(&mut thread_rng())
-            .unwrap()
+        neofetch::DISTROS.choose(&mut thread_rng()).unwrap()
     };
     let logo = neofetch::logos()[distro];
     let embed = serenity::CreateEmbed::new()
