@@ -52,7 +52,9 @@ fn init_neofetch(tx: &Transaction) -> Result<()> {
                 variant TEXT NOT NULL,
                 pattern TEXT NOT NULL,
                 logo TEXT NOT NULL,
-                mobile_width TEXT NOT NULL
+                mobile_width TEXT NOT NULL,
+                color_index TEXT NOT NULL,
+                color_rgb TEXT NOT NULL
             )'
         )
         ",

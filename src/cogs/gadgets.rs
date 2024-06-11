@@ -41,7 +41,7 @@ async fn neofetch(
     let choices = {
         let mut stmt = conn
             .prepare(
-                "SELECT distro, logo FROM neofetch
+                "SELECT distro, logo, color_index, color_rgb FROM neofetch
                 WHERE (?1 IS NULL OR ?1 REGEXP pattern) AND (?2 IS NULL OR mobile_width = ?2)",
             )
             .context("Failed to prepare SQL statement")?;
@@ -50,10 +50,12 @@ async fn neofetch(
         let params = params![distro, mobile.then_some("1")];
 
         let rows = stmt
-            .query_map(params, |row| Ok((row.get(0)?, row.get(1)?)))
+            .query_map(params, |row| {
+                Ok((row.get(0)?, row.get(1)?, row.get(2)?, row.get(3)?))
+            })
             .context("Failed to execute SQL")?;
 
-        let mut choices: Vec<(String, String)> = vec![];
+        let mut choices: Vec<(String, String, String, String)> = vec![];
         for row in rows {
             choices.push(row?);
         }
@@ -62,30 +64,35 @@ async fn neofetch(
 
     let neofetch_updated = ctx.data().neofetch_updated;
 
-    let Some((distro, logo)) = choices.choose(&mut thread_rng()) else {
+    let Some((distro, logo, color_index, color_rgb)) = choices.choose(&mut thread_rng()) else {
         return Err("No such distro found")?;
     };
 
+    let r = u8::from_str_radix(&color_rgb[0..2], 16)?;
+    let g = u8::from_str_radix(&color_rgb[2..4], 16)?;
+    let b = u8::from_str_radix(&color_rgb[4..6], 16)?;
+
+    let accent = format!("\x1b[{color_index}m");
+    let normal = "\x1b[0m";
+
     let embed = serenity::CreateEmbed::new()
-        .description(format!("```ansi\n{logo}\n```"))
+        .description(format!(
+            "```ansi\n\
+            {logo}\n\
+            ```\n\
+            ```ansi\n\
+            {accent}{}@{}{normal}\n\
+            {accent}OS:{normal} {distro}\n\
+            {accent}Host:{normal} Discord\n\
+            ```",
+            ctx.author().name,
+            ctx.channel_id().name(ctx).await?
+        ))
         .footer(serenity::CreateEmbedFooter::new(
             "Neofetch data last updated:",
         ))
-        .field(
-            format!(
-                "{}@{}",
-                ctx.author().name,
-                ctx.channel_id().name(ctx).await?
-            ),
-            format!(
-                "```\n\
-                OS: {distro}\n\
-                Host: Discord\n\
-                ```"
-            ),
-            false,
-        )
-        .timestamp(neofetch_updated);
+        .timestamp(neofetch_updated)
+        .color(serenity::Colour::from_rgb(r, g, b));
 
     ctx.send(CreateReply::default().embed(embed)).await?;
 

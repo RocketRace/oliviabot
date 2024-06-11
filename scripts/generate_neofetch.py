@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # requirements: requests, hyfetch, rust, colour-science, matplotlib (optional)
+from collections import Counter
 import re
 import subprocess
 import requests
@@ -165,6 +166,61 @@ for i, (distro, suffix, pattern, logo, mobile_width) in enumerate(with_logos):
         return discorder.get(match.group(0), "")
     with_logos[i] = distro, suffix, pattern, re.sub(ansi_pattern, subber, logo).replace('`', "`\u200b"), mobile_width
 
+# === append most frequent color (aside from None) to row ===
+with_colors: list[tuple[str, str, str, str, int, int, str]] = []
+for row in with_logos:
+    logo = row[3]
+    pat = re.compile(r"\x1b\[(\d+)m")
+    escape_spans: list[tuple[int, int]] = []
+    color_changes: list[tuple[int, int | None]] = []
+    
+    for match in pat.finditer(logo):
+        start, end = match.span()
+        escape_spans.append((start, end))
+        color = int(match.group(1))
+        if color in discord_colors:
+            color_changes.append((start, color))
+        elif color == 0:
+            color_changes.append((start, None))
+    
+    logo_colors: list[int | None] = [None for _ in logo]
+    for pos, color in color_changes:
+        for i in range(pos, len(logo_colors)):
+            logo_colors[i] = color
+    
+    chars = list(logo)
+    for start, end in reversed(escape_spans):
+        chars[start:end] = logo_colors[start:end] = []
+
+    counter: Counter[int] = Counter()
+    color_filter = [color for c, color in zip(chars, logo_colors) 
+                    if not c.isspace() and color is not None]
+    counter.update(color_filter)
+    top = counter.most_common(3)
+    # skip black and white if possible, but prefer white
+    match top:
+        case [[30, _], [37, _], _] | [[37, _], [30, _], _]:
+            # third option available, skip black and white
+            top = top[2:]
+        case [[30, _], *_]:
+            # second option available, skip black
+            top = top[1:]
+        case [[37, _], [30, _]]:
+            # don't skip white for black
+            pass
+        case [[37, _], *_]:
+            # skip white for anything else
+            top = top[1:]
+        case _: pass
+    if len(top) == 2 and top[0][0] == 30: 
+        top = top[1:]
+    if top:
+        index = top[0][0]
+        rgb = bytes(discord_colors[index]).hex()
+        with_colors.append(row + (index, rgb))
+    else:
+        with_colors.append(row + (37, "ffffff"))
+
 # === push changes to data/ directory ===
 with open("data/neofetch_updated", "w") as f:
     now = int(datetime.datetime.now(datetime.UTC).timestamp())
@@ -172,4 +228,4 @@ with open("data/neofetch_updated", "w") as f:
 
 with open("data/neofetch.csv", "w") as f:
     import csv
-    csv.writer(f).writerows(with_logos)
+    csv.writer(f).writerows(with_colors)
