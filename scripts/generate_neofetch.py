@@ -6,13 +6,8 @@ import requests
 import datetime
 import colour
 import math
-import pathlib
 
-logos = {}
-variants = {}
-patterns = []
-
-# scrape distro list
+# === scrape distro list (and hardcode a few) ===
 print("generating neofetch logos...")
 src = requests.get("https://raw.githubusercontent.com/hykilpikonna/hyfetch/master/neofetch").text
 src = src.replace("|\\\n", "|")
@@ -26,11 +21,12 @@ distro_end = src[distro_start:].index("have ascii logos.") + distro_start
 distro_block = src[distro_start:distro_end].strip()
 distros = distro_block.replace("#", "").replace("\n", "").split(", ")
 kernel_names = [
-    # kernel name
+    # hardcoded kernel names
     "BSD", "Darwin", "GNU", "Linux", "Profelis SambaBOX", "SunOS"
 ]
 distros = sorted(list(set(distros + kernel_names)))
-# scrape pattern list
+
+# === scrape pattern list ===
 def branching(b: str):
     s = b.strip()
     start, end = s.startswith("*"), s.endswith("*")
@@ -51,69 +47,51 @@ raw_patterns = [
     for line in matches if pattern_pattern.fullmatch(line)
 ]
 
-matchers = {}
+# === append matching distro + suffix to each pattern ===
+maybe_with_distros: list[tuple[str, str, str] | None] = [None] * len(raw_patterns)
+suffixes = ["_old", "_small", ""]
 for distro in distros:
-    for suffix in ["_old", "_small", ""]:
-        matched = False
-        for i, opt in enumerate(raw_patterns):
-            if matched: break
-            if opt.match(f"{distro}{suffix}"):
-                matchers[distro, suffix] = opt.pattern
-                matched = True
-
-for distro in distros:
-    if matchers[distro, ""] == matchers.get((distro, "_old")):
-        matchers.pop((distro, "_old"))
-    if matchers[distro, ""] == matchers.get((distro, "_small")):
-        matchers.pop((distro, "_small"))
-
-# list of supported variants for each distro
-for (distro, variant) in matchers:
-    variants.setdefault(variant, []).append(distro)
-
-# the distro that each pattern maps to
-for pattern in raw_patterns:
-    for suffix, distros in variants.items():
-        for distro in distros:
+    # nonempty suffixes first
+    for suffix in suffixes:
+        for i, pattern in enumerate(raw_patterns):
             if pattern.match(f"{distro}{suffix}"):
-                patterns.append((pattern.pattern, distro, suffix))
+                maybe_with_distros[i] = (distro, suffix, pattern.pattern)
+                # find only the first pattern that matches our input
                 break
+# there may be orphan patterns
+with_distros: list[tuple[str, str, str]] = [row for row in maybe_with_distros if row]
 
-# determine ascii logo (more reliable to just ask *fetch directly)
+# === append ascii logos & mobile width to each pattern ===
+maybe_with_logos: list[tuple[str, str, str, str, int] | None] = [None]* len(raw_patterns)
+procs: list[tuple[int, subprocess.Popen[str]]] = []
+for i, (distro, suffix, _) in enumerate(with_distros):
+    proc = subprocess.Popen(["neowofetch", "--logo", "--stdout=off", "--ascii_distro", distro + suffix], text=True, stdout=subprocess.PIPE)
+    procs.append((i, proc))
+
 ansi_pattern = re.compile(r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])")
 
-# spawn a few hundred processes in parallel
-# I get about a 6x speedup which is not bad for 10 cores and zero effort
-procs = []
-for i, distro in enumerate(matchers):
-    full_distro = distro[0] + distro[1]
-    proc = subprocess.Popen(["neowofetch", "--logo", "--stdout=off", "--ascii_distro", full_distro], text=True, stdout=subprocess.PIPE)
-    procs.append((i, full_distro, proc))
-
-mobile_variants = {}
-for i, full_distro, proc in procs:
+for i, proc in procs:
     proc.wait()
+    if not proc.stdout: continue
     stdout = proc.stdout.read()
     empty = ansi_pattern.sub("", stdout)
     end = len(empty.rstrip().splitlines())
     start = end - len(empty.strip().splitlines())
     width = max(len(line.rstrip()) for line in empty.splitlines())
-
-    if width < 30:
-        for suffix in ["_small", "_old", ""]:
-            if full_distro.endswith(suffix):
-                mobile_variants.setdefault(suffix, []).append(full_distro.removesuffix(suffix))
-
+    # sqlite bools are 0|1
+    mobile_width = int(width < 30)
     # these escapes disable cursor and enable wraparound mode
     partial = stdout.removeprefix("\x1b[?25l\x1b[?7l")
     # remove cleanup lines from the end, as well as blank lines from the beginning
-    logos[full_distro] = "\n".join(line for line in partial.splitlines()[start:end]).lstrip("\n")
-    print(f"{i}/{len(matchers)}: {full_distro}")
+    term_logo = "\n".join(line for line in partial.splitlines()[start:end]).lstrip("\n")
+    maybe_with_logos[i] = distro, suffix, *_ = with_distros[i] + (term_logo, mobile_width)
+    print(f"{i}/{len(with_distros)}: {distro}{suffix}")
 
+with_logos = [x for x in maybe_with_logos if x is not None]
 
-# sanitize escapes to the set that discord allows
-escapes = set()
-for logo in logos.values():
+# === sanitize escapes to the set that discord allows ===
+escapes: set[str] = set()
+for _, _, _, logo, _ in with_logos:
     escapes = escapes | set(re.findall(ansi_pattern, logo))
 
 discord_colors = {
@@ -137,7 +115,7 @@ def closest_color(r: int, g: int, b: int):
 
 def escaper(st: str):
     s = list(map(int, filter(bool, st[2:-1].split(";"))))
-    out = []
+    out: list[int | None] = []
     while s:
         code = s.pop(0)
         match code:
@@ -166,6 +144,7 @@ def escaper(st: str):
                                     # close enough
                                     r = g = b = (n - 232) * 10
                                 out.append(closest_color(r, g, b))
+                    case _: pass
             case 0 | 1 | 4:
                 out.append(code)
             case 30 | 31 | 32 | 33 | 34 | 35 | 36 | 37:
@@ -174,59 +153,23 @@ def escaper(st: str):
                 out.append(code - 60)
             case other:
                 print("unknown code", other, s)
-    out = [n for n in out if n is not None]
-    return out
+    return [n for n in out if n is not None]
 
-unescaper = lambda s: f"\x1b[{";".join(map(str, s))}m"
+def unescaper(s: list[int]):
+    return f"\x1b[{";".join(map(str, s))}m"
 
 discorder = {escape: unescaper(escaper(escape)) for escape in escapes if escaper(escape)}
 
-for distro, logo in logos.items():
-    def subber(match: re.Match):
+for i, (distro, suffix, pattern, logo, mobile_width) in enumerate(with_logos):
+    def subber(match: re.Match[str]):
         return discorder.get(match.group(0), "")
-    logos[distro] = re.sub(ansi_pattern, subber, logo).replace('`', "`\u200b")
+    with_logos[i] = distro, suffix, pattern, re.sub(ansi_pattern, subber, logo).replace('`', "`\u200b"), mobile_width
 
-
-with open("src/data/neofetch.rs", "w") as f:
-    pathname = pathlib.Path(__file__).relative_to(pathlib.Path.cwd())
-    f.write(f"//! @generated by `{pathname}`.\n")
-    f.write(f"//! Please do not edit this manually.\n")
-    f.write(f"#![allow(clippy::invisible_characters)]\n")
-    f.write(f"use regex::Regex;\n")
-    f.write(f"use std::collections::HashMap;\n")
-    
+# === push changes to data/ directory ===
+with open("data/neofetch_updated", "w") as f:
     now = int(datetime.datetime.now(datetime.UTC).timestamp())
-    f.write(f'pub const LAST_UPDATED_POSIX: i64 = {now};\n')
+    f.write(f"{now}\n")
 
-    rust_string = lambda s: '"' + s.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n") + '"'
-
-    def suffix_enum(s):
-        match s:
-            case "": return "Variant::Standard"
-            case "_old": return "Variant::Old"
-            case "_small": return "Variant::Small"
-
-    f.write("#[derive(PartialEq, Eq, Hash)] pub enum Variant { Old, Small, Standard }\n")
-
-    # for flagged access
-    variant_list = ', '.join(f"({suffix_enum(variant)}, vec![{', '.join(rust_string(distro) for distro in distros)}])"
-                             for variant, distros in variants.items())
-    f.write(f"pub fn variants() -> HashMap<Variant, Vec<&'static str>> {{ HashMap::from([{variant_list}]) }}\n")
-    mobile_variant_list = ', '.join(f"({suffix_enum(variant)}, vec![{', '.join(rust_string(distro) for distro in distros)}])"
-                             for variant, distros in mobile_variants.items())
-    f.write(f"pub fn mobile_variants() -> HashMap<Variant, Vec<&'static str>> {{ HashMap::from([{mobile_variant_list}]) }}\n")
-    
-    # for random sampling
-    flat_distros = [distro + suffix for suffix, distros in variants.items() for distro in distros]
-    f.write(f"pub const DISTROS: [&str; {len(flat_distros)}] = [{', '.join(
-        rust_string(distro) for distro in flat_distros)}];\n")
-    flat_mobile_distros = [distro + suffix for suffix, distros in mobile_variants.items() for distro in distros]
-    f.write(f"pub const MOBILE_DISTROS: [&str; {len(flat_mobile_distros)}] = [{', '.join(
-        rust_string(distro) for distro in flat_mobile_distros)}];\n")
-
-    pattern_list = ', '.join(f"(Regex::new({rust_string(pattern)}).unwrap(), {rust_string(distro)}, {suffix_enum(suffix)})"
-                             for pattern, distro, suffix in patterns)
-    f.write(f"pub fn patterns() -> [(Regex, &'static str, Variant); {len(patterns)}] {{ [{pattern_list}] }}\n")
-
-    logo_list = ', '.join(f"({rust_string(name)}, {rust_string(logo)})" for name, logo in logos.items())
-    f.write(f"pub fn logos() -> HashMap<&'static str, &'static str> {{ HashMap::from([{logo_list}]) }}\n")
+with open("data/neofetch.csv", "w") as f:
+    import csv
+    csv.writer(f).writerows(with_logos)

@@ -1,9 +1,10 @@
+use anyhow::Context as _;
 use poise::serenity_prelude as serenity;
 use poise::CreateReply;
 use rand::seq::SliceRandom;
 use rand::thread_rng;
+use rusqlite::params;
 
-use crate::data::neofetch;
 use crate::{Context, Result};
 
 use super::Cog;
@@ -35,18 +36,36 @@ async fn neofetch(
         } else {
             false
         };
-    let distro = if let Some(distro) = distro {
-        neofetch::patterns()
-            .iter()
-            .find(|(pattern, _, _)| pattern.is_match(&distro))
-            .ok_or(format!("Distro '{}' not found", distro))?
-            .1
-    } else if mobile {
-        neofetch::MOBILE_DISTROS.choose(&mut thread_rng()).unwrap()
-    } else {
-        neofetch::DISTROS.choose(&mut thread_rng()).unwrap()
+    let conn = ctx.data().db.get()?;
+
+    let choices = {
+        let mut stmt = conn
+            .prepare(
+                "SELECT distro, logo FROM neofetch
+                WHERE (?1 IS NULL OR ?1 REGEXP pattern) AND (?2 IS NULL OR mobile_width = ?2)",
+            )
+            .context("Failed to prepare SQL statement")?;
+
+        // the internal csv table represents true/false as strings
+        let params = params![distro, mobile.then_some("1")];
+
+        let rows = stmt
+            .query_map(params, |row| Ok((row.get(0)?, row.get(1)?)))
+            .context("Failed to execute SQL")?;
+
+        let mut choices: Vec<(String, String)> = vec![];
+        for row in rows {
+            choices.push(row?);
+        }
+        choices
     };
-    let logo = neofetch::logos()[distro];
+
+    let neofetch_updated = ctx.data().neofetch_updated;
+
+    let Some((distro, logo)) = choices.choose(&mut thread_rng()) else {
+        return Err("No such distro found")?;
+    };
+
     let embed = serenity::CreateEmbed::new()
         .description(format!("```ansi\n{logo}\n```"))
         .footer(serenity::CreateEmbedFooter::new(
@@ -66,37 +85,9 @@ async fn neofetch(
             ),
             false,
         )
-        .timestamp(serenity::Timestamp::from_unix_timestamp(
-            neofetch::LAST_UPDATED_POSIX,
-        )?);
+        .timestamp(neofetch_updated);
 
-    // let id = ctx.id();
-    // let button = serenity::CreateButton::new(format!("{id}"))
-    //     .label("Mobile")
-    //     .style(serenity::ButtonStyle::Secondary);
-
-    // let component = serenity::CreateActionRow::Buttons(vec![button]);
-
-    ctx.send(
-        CreateReply::default().embed(embed),
-        // .components(vec![component])
-    )
-    .await?;
-
-    // while let Some(interaction) = serenity::ComponentInteractionCollector::new(ctx)
-    //     .author_id(ctx.author().id)
-    //     .channel_id(ctx.channel_id())
-    //     .timeout(Duration::from_secs(120))
-    //     .filter(move |mci| mci.data.custom_id == id.to_string())
-    //     .await
-    // {
-    //     let _msg = interaction.message.clone();
-    //     // msg.edit(ctx).await?;
-
-    //     interaction
-    //         .create_response(ctx, serenity::CreateInteractionResponse::Acknowledge)
-    //         .await?;
-    // }
+    ctx.send(CreateReply::default().embed(embed)).await?;
 
     Ok(())
 }
