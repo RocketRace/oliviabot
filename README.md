@@ -1,1 +1,1 @@
-# `oliviabot` is a discord bot for joy.
+`oliviabot` is a discord bot for joy.
