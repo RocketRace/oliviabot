@@ -44,7 +44,7 @@ pub fn init_db(pool: Pool<SqliteConnectionManager>) -> Result<()> {
 fn init_neofetch(tx: &Transaction) -> Result<()> {
     tx.execute_batch(
         "
-        CREATE VIRTUAL TABLE IF NOT EXISTS neofetch
+        CREATE VIRTUAL TABLE temp.neofetch
         USING csv(
             filename='data/neofetch.csv',
             schema='CREATE TABLE x(
