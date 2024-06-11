@@ -1,4 +1,4 @@
-Adélie,,^Adélie|^Adelie,"[0m[34m[1m                 [0m[36m[1m ,-^-___
+Adélie,,(?i:^Adélie|^Adelie),"[0m[34m[1m                 [0m[36m[1m ,-^-___
 [0m[36m[1m                /\\\///
 [0m[37m[1mrefined.[0m[34m[1m       /\\\\//
 [0m[37m[1mreliable.[0m[34m[1m     /\\\///
@@ -14,7 +14,7 @@ Adélie,,^Adélie|^Adelie,"[0m[34m[1m                 [0m[36m[1m ,-^-___
          /\\\\//
         //////
       /// [0m[36m[1m\\\\\[0m",1
-AIX,,^AIX,"[0m[32m[1m           `​:+ssssossossss+-`​
+AIX,,(?i:^AIX),"[0m[32m[1m           `​:+ssssossossss+-`​
         .oys///oyhddddhyo///sy+.
       /yo:+hNNNNNNNNNNNNNNNNh+:oy/
     :h/:yNNNNNNNNNNNNNNNNNNNNNNy-+h:
@@ -34,10 +34,10 @@ h//NNNNh  ossss`​ +h  md- .hm/ `​sNNNNN:+y
       :ys:/yNNNNNNNNNNNNNNNmy/:sy:
         .+ys///osyhhhhys+///sy+.
             -/osssossossso/-[0m",0
-Aperio GNU/Linux,,^Aperio\ GNU/Linux," _.._  _ ._.. _
+Aperio GNU/Linux,,(?i:^Aperio\ GNU/Linux)," _.._  _ ._.. _
 (_][_)(/,[  |(_)
    |   GNU/Linux[0m",1
-Aperture,,^Aperture,"[0m[36m[1m              .,-:;//;:=,
+Aperture,,(?i:^Aperture),"[0m[36m[1m              .,-:;//;:=,
           . :H@@@MM@M#H/.,+%;,
        ,/X+ +M@@M@MM%=,-%HMMM@X/,
      -+@MM; $M@@MH+-,;XMMMM@MMMM@+-
@@ -57,7 +57,7 @@ Aperture,,^Aperture,"[0m[36m[1m              .,-:;//;:=,
        =%@M@M#@$-.=$@MM@@@M; %M%=
          ,:+$+-,/H#MMMMMMM@= =,
                =++%%%%+/:-.[0m",0
-Asahi,,^Asahi,"[0m[33m[1m                   ##  [0m[32m[1m**
+Asahi,,(?i:^Asahi),"[0m[33m[1m                   ##  [0m[32m[1m**
                 [0m[33m[1m*####[0m[32m[1m****.
                   [0m[33m[1m###[0m[32m[1m,
                [0m[31m[1m...,[0m[33m[1m/#[0m[31m[1m,,,..
@@ -75,7 +75,7 @@ Asahi,,^Asahi,"[0m[33m[1m                   ##  [0m[32m[1m**
            [0m[31m[1m.((((((((([0m[37m[1m@@@@([30m[1m....
                [0m[31m[1m/((((([0m[37m[1m@@#[30m[1m...
                   [0m[31m[1m.(([30m[1m&,[0m",0
-Hash,,^Hash,"      +   ######   +
+Hash,,(?i:^Hash),"      +   ######   +
     ###   ######   ###
   #####   ######   #####
  ######   ######   ######
@@ -88,7 +88,7 @@ Hash,,^Hash,"      +   ######   +
   #####   ######   #####
     ###   ######   ###
       ~   ######   ~[0m",1
-HarDClanZ,,^HarDClanZ,"[0m[34m[1m          ........::::....
+HarDClanZ,,(?i:^HarDClanZ),"[0m[34m[1m          ........::::....
         ::################::..
       :########################:.
      :######**###################:
@@ -107,7 +107,7 @@ HarDClanZ,,^HarDClanZ,"[0m[34m[1m          ........::::....
       `​`​:##:.[0m[37m[1m@@@@@@@@@@@@[0m[34m[1m^## # :
          : ##  [0m[37m[1m\@@@;@@@/ [0m[34m[1m:: # :
                  [0m[37m[1m VVV[0m",0
-AlmaLinux,,^AlmaLinux,"[0m[31m[1m         'c:.
+AlmaLinux,,(?i:^AlmaLinux),"[0m[31m[1m         'c:.
 [0m[31m[1m        lkkkx, ..       [0m[33m[1m..   ,cc,
 [0m[31m[1m        okkkk:ckkx'  [0m[33m[1m.lxkkx.okkkkd
 [0m[31m[1m        .:llcokkx'  [0m[33m[1m:kkkxkko:xkkd,
@@ -127,7 +127,7 @@ AlmaLinux,,^AlmaLinux,"[0m[31m[1m         'c:.
                 ;kkkkl...
                 ;kkkkl
                  ,od;[0m",0
-Exodia Predator OS,,^Exodia\ Predator\ OS|^exodia\-predator|^Predator,"[0m[35m[1m-                                  :
+Exodia Predator OS,,(?i:^Exodia\ Predator\ OS|^exodia\-predator|^Predator),"[0m[35m[1m-                                  :
 [0m[35m[1m+:                                :+
 [0m[35m[1m++.                              .++
 [0m[35m[1m+++             :  .             +++
@@ -151,13 +151,13 @@ Exodia Predator OS,,^Exodia\ Predator\ OS|^exodia\-predator|^Predator,"[0m[35m
 [0m[35m[1m         =+.            .+=
 [0m[35m[1m         =-              -=
 [0m[35m[1m         :                :[0m",0
-Alpine,_small,^alpine_small$,"[0m[34m[1m   /\ /\
+Alpine,_small,(?i:^alpine_small$),"[0m[34m[1m   /\ /\
   /[0m[37m[1m/ [0m[34m[1m\  \
  /[0m[37m[1m/   [0m[34m[1m\  \
 /[0m[37m[1m//    [0m[34m[1m\  \
 [0m[37m[1m//      [0m[34m[1m\  \
          \[0m",1
-Alpine,,^Alpine,"[0m[34m[1m       .hddddddddddddddddddddddh.
+Alpine,,(?i:^Alpine),"[0m[34m[1m       .hddddddddddddddddddddddh.
       :dddddddddddddddddddddddddd:
      /dddddddddddddddddddddddddddd/
     +dddddddddddddddddddddddddddddd+
@@ -177,7 +177,7 @@ hdddyo+ohddyosdddddddddho+oydddy++ohdddh
      /dddddddddddddddddddddddddddd/
       :dddddddddddddddddddddddddd:
        .hddddddddddddddddddddddh.[0m",0
-Alter,,^Alter,"[0m[36m[1m                      %,
+Alter,,(?i:^Alter),"[0m[36m[1m                      %,
                     ^WWWw
                    'wwwwww
                   !wwwwwwww
@@ -197,7 +197,7 @@ Alter,,^Alter,"[0m[36m[1m                      %,
    8~~:~~:~~~~:~~~~_1ltltu          ,www
   5~~:~~:~~:~~:~~:~~~_1ltq             N,,
  g~:~~:~~~:~~:~~:~:~~~~1q                N,[0m",0
-Amazon,,^Amazon,"[0m[33m[1m             `​-/oydNNdyo:.`​
+Amazon,,(?i:^Amazon),"[0m[33m[1m             `​-/oydNNdyo:.`​
       `​.:+shmMMMMMMMMMMMMMMmhs+:.`​
     -+hNNMMMMMMMMMMMMMMMMMMMMMMNNho-
 .`​`​      -/+shmNNMMMMMMNNmhs+/-      `​`​.
@@ -216,7 +216,7 @@ dMMMMMMMMMMMMMMMMh    yMMMMMMMMMMMMMMMMd
 .:+ydNMMMMMMMMMMMh    yMMMMMMMMMMMNdy+:.
      `​.:+shNMMMMMh    yMMMMMNhs+:`​`​
             `​-+shy    shs+:`​[0m",0
-AmogOS,,^AmogOS,"[37m[1m             ___________
+AmogOS,,(?i:^AmogOS),"[37m[1m             ___________
             /           \
            /   [0m[36m[1m______[37m[1m    \
           /   [0m[36m[1m/      \[37m[1m    \
@@ -235,7 +235,7 @@ AmogOS,,^AmogOS,"[37m[1m             ___________
  \_________/   /            |
                \         __/
                 \_______/[0m",1
-Anarchy,,^Anarchy,"[0m[34m[1m..[0m[37m[1m
+Anarchy,,(?i:^Anarchy),"[0m[34m[1m..[0m[37m[1m
                         [0m[34m[1m..[0m[37m[1m
                       [0m[34m[1m:..[0m[37m[1m
                     [0m[34m[1m:+++.[0m[37m[1m
@@ -263,13 +263,13 @@ Anarchy,,^Anarchy,"[0m[34m[1m..[0m[37m[1m
                                 [0m[34m[1m.:[0m[37m[1m:
                                    [0m[34m[1m..[0m[37m[1m
                                     [0m[34m[1m..[0m[37m[1m[0m",0
-Android,_small,^android_small,"[0m[32m[1m  ;,           ,;
+Android,_small,(?i:^android_small),"[0m[32m[1m  ;,           ,;
    ';,.-----.,;'
   ,'           ',
  /    O     O    \
 |                 |
 '-----------------'[0m",1
-Android,,^Android,"[0m[32m[1m         -o          o-
+Android,,(?i:^Android),"[0m[32m[1m         -o          o-
           +hydNNNNdyh+
         +mMMMMMMMMMMMMm+
       `​dMM[0m[37m[1mm:[0m[32m[1mNMMMMMMN[0m[37m[1m:m[0m[32m[1mMMd`​
@@ -287,7 +287,7 @@ Android,,^Android,"[0m[32m[1m         -o          o-
           MMMMo  oMMMM
           MMMMo  oMMMM
           oNMm-  -mMNs[0m",0
-ArseLinux,,^ArseLinux,"                      ⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+ArseLinux,,(?i:^ArseLinux),"                      ⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⣶⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⠀⠀⠀⠀⠀⠀⣴⣶⠀⠀⠀⠀⠀
 ⢸⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣄⠀⠀⠀⠀⣼⠟⠁⠀⠀⢀⣀⠀
 ⢸⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡀⠀⢀⣤⡀⠀⠀⠀⠉⢻⣷⡄⠀⠀⠁⠀⢀⣤⣾⡿⠟⠀
@@ -302,7 +302,7 @@ ArseLinux,,^ArseLinux,"                      ⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀�
 ⠀⣿⡄⠀⠀⠀⠀⠈⠉⠉⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⠀⢸⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⠇⠀⠀⠀⠀⠀⠀⠘⠿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀[0m",0
-instantOS,,^instantOS,"     'cx0XWWMMWNKOd:'.
+instantOS,,(?i:^instantOS),"     'cx0XWWMMWNKOd:'.
   .;kNMMMMMMMMMMMMMWNKd'
  'kNMMMMMMWNNNWMMMMMMMMXo.
 ,0MMMMMW0o;'..,:dKWMMMMMWx.
@@ -322,7 +322,7 @@ kWMMMMNd.        ,kWMMMMMMK,
                            cXMMMMMMMMMM0
                             :0WMMMMMMNx,
                              .o0NMWNOc.[0m",0
-Antergos,,^Antergos,"[0m[36m[1m              `​.-/::/-`​`​
+Antergos,,(?i:^Antergos),"[0m[36m[1m              `​.-/::/-`​`​
             .-/osssssssso/.
            :osyysssssssyyys+-
         `​.+yyyysssssssssyyyyy+.
@@ -341,7 +341,7 @@ dmmmdddddddhhhyso[0m[34m[1m++++++[0m[36m[1mshhhhhddddddmmmmh
 .smmmmddddddddhhhhhhhhhdddddddddmmmms.
    `​+ydmmmdddddddddddddddddddmmmmdy/.
       `​.:+ooyyddddddddddddyyso+:.`​[0m",0
-antiX,,^antiX,"                    \
+antiX,,(?i:^antiX),"                    \
          , - ~ ^ ~ - \        /
      , '              \ ' ,  /
    ,                   \   '/
@@ -353,7 +353,7 @@ antiX,,^antiX,"                    \
    ,                  /     ,\
      ,               /  , '   \
       ' - , _ _ _ ,  '[0m",0
-Afterglow,,^Afterglow,"[0m[31m[1m                          .
+Afterglow,,(?i:^Afterglow),"[0m[31m[1m                          .
                  [0m[35m[1m.      [0m[31m[1m.{!
                [0m[35m[1m.L!     [0m[31m[1mJ@||*
              [0m[35m[1mgJJJJL`​ [0m[31m[1mg@FFS""
@@ -368,7 +368,7 @@ Afterglow,,^Afterglow,"[0m[31m[1m                          .
          [0m[33m[1m_@FFFFF   [0m[34m[1mVLLLP`​
        [0m[33m[1mJ@@LL@""      [0m[34m[1m`​""
         [0m[33m[1mV@@""[0m",0
-AOSC OS,,^AOSC\ OS,"[0m[30m[1m                  __
+AOSC OS,,(?i:^AOSC\ OS),"[0m[30m[1m                  __
                [0m[30m[1mgpBBBBBBBBBP
            [0m[30m[1m_gBBBBBBBBBRP
          [0m[30m[1m4BBBBBBBBRP  [0m[33m[1m,_____
@@ -385,7 +385,7 @@ AOSC OS,,^AOSC\ OS,"[0m[30m[1m                  __
    [0m[31m[1m_wNNNNNNNNNNNNNNNNNNNM^
    [0m[31m[1m""""Y^^MNNNNNNNNNNNNP`​
            [0m[31m[1m`​""""""""""""""[0m",0
-Apricity,,^Apricity,"[0m[37m[1m                                    ./o-
+Apricity,,(?i:^Apricity),"[0m[37m[1m                                    ./o-
           `​`​...`​`​              `​:. -/:
      `​-+ymNMMMMMNmho-`​      :sdNNm/
    `​+dMMMMMMMMMMMMMMMmo`​ sh:.:::-
@@ -403,7 +403,7 @@ MMMMMMNmNNMMMMMMMMmo.
 MMMMMMMMMMMMMMMms:`​
 MMMMMMMMMMNds/.
 dhhyys+/-`​[0m",0
-archcraft_ascii,,^archcraft_ascii,"[0m[36m[1m                   -o\
+archcraft_ascii,,(?i:^archcraft_ascii),"[0m[36m[1m                   -o\
                   :ooo:
                  .ooooo.
                  ooooooo.
@@ -423,7 +423,7 @@ archcraft_ascii,,^archcraft_ascii,"[0m[36m[1m                   -o\
   .+osossos+-`​              `​-+osososs+.
  :sss+=-:`​                     `​:-=+ssss:
 :=-:`​                                `​-=+:[0m",0
-archcraft_minimal,,^archcraft_minimal,"[0m[36m[1m                   ⢰⡆
+archcraft_minimal,,(?i:^archcraft_minimal),"[0m[36m[1m                   ⢰⡆
                   ⢠⣿⣿⡄
                  ⢀⣾⣿⣿⣿⡀
                  ⣼⣿⣿⣿⣿⣷⡀
@@ -443,7 +443,7 @@ archcraft_minimal,,^archcraft_minimal,"[0m[36m[1m                   ⢰⡆
   ⢠⣿⣿⣿⣿⣿⣿⣿⡿⠟⠋⠁             ⠙⠻⣿⣿⣿⣿⣿⣿⣿⣿⡄
  ⣠⣿⣿⣿⣿⠿⠛⠋⠁                    ⠉⠙⠻⢿⣿⣿⣿⣿⣆
 ⡰⠟⠛⠉⠁                              ⠉⠙⠛⠿⢆[0m",0
-Archcraft,,^Archcraft,"[0m[36m[1m⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄[0m[36m[1m⢰⡆[0m[36m[1m⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄
+Archcraft,,(?i:^Archcraft),"[0m[36m[1m⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄[0m[36m[1m⢰⡆[0m[36m[1m⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄
 [0m[31m[1m⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄[0m[36m[1m⢠⣿⣿⡄[0m[31m[1m⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄
 [0m[32m[1m⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄[0m[36m[1m⢀⣾⣿⣿⣿⡀[0m[32m[1m⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄
 [0m[33m[1m⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄[0m[36m[1m⣼⣿⣿⣿⣿⣷⡀[0m[33m[1m⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄
@@ -463,7 +463,7 @@ Archcraft,,^Archcraft,"[0m[36m[1m⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄�
 [0m[35m[1m⠄⠄[0m[36m[1m⢠⣿⣿⣿⣿⣿⣿⣿⡿⠟⠋⠁[0m[35m[1m⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄[0m[36m[1m⠙⠻⣿⣿⣿⣿⣿⣿⣿⣿⡄[0m[35m[1m⠄⠄
 [0m[36m[1m⠄[0m[36m[1m⣠⣿⣿⣿⣿⠿⠛⠋⠁[0m[36m[1m⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄[0m[36m[1m⠉⠙⠻⢿⣿⣿⣿⣿⣆[0m[36m[1m⠄
 [0m[36m[1m⡰⠟⠛⠉⠁[0m[31m[1m⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄[0m[36m[1m⠉⠙⠛⠿⢆[0m",0
-ArcoLinux,_small,^arcolinux_small,"[0m[34m[1m          A
+ArcoLinux,_small,(?i:^arcolinux_small),"[0m[34m[1m          A
          ooo
         ooooo
        ooooooo
@@ -474,7 +474,7 @@ ArcoLinux,_small,^arcolinux_small,"[0m[34m[1m          A
   ooooo  [0m[37m[1m<oooooooo>[0m[34m[1m
  ooooo      [0m[37m[1m<oooooo>[0m[34m[1m
 ooooo          [0m[37m[1m<oooo>[0m[34m[1m[0m",1
-ArcoLinux,,^ArcoLinux,"[0m[34m[1m                    /-
+ArcoLinux,,(?i:^ArcoLinux),"[0m[34m[1m                    /-
                    ooo:
                   yoooo/
                  yooooooo
@@ -494,14 +494,14 @@ ArcoLinux,,^ArcoLinux,"[0m[34m[1m                    /-
   ooooooooo-             [0m[37m[1m-ooooooooooooo.[0m[34m[1m
  ooooooooo-                 [0m[37m[1m.-oooooooooo.[0m[34m[1m
 ooooooooo.                     [0m[37m[1m-ooooooooo[0m[34m[1m[0m",0
-Arch,_small,^arch_small$,"[0m[36m[1m      /\
+Arch,_small,(?i:^arch_small$),"[0m[36m[1m      /\
      /  \
     /\   \
 [0m[37m[1m   /      \
   /   ,,   \
  /   |  |  -\
 /_-''    ''-_\[0m",1
-Arch,_old,^arch_old$,"[0m[36m[1m             __
+Arch,_old,(?i:^arch_old$),"[0m[36m[1m             __
          _=(SDGJT=_
        _GTDJHGGFCVS)
       ,GTDJGGDTDFBGX0
@@ -517,7 +517,7 @@ Arch,_old,^arch_old$,"[0m[36m[1m             __
 [0m[36m[1m?KGHE [0m[37m[1m\_-#DASDFLSV='[0m[36m[1m    'EF
 'EHTI                    !H
  `​0F'                    '![0m",0
-ArchBox,,^ArchBox,"[0m[32m[1m              ...:+oh/:::..
+ArchBox,,(?i:^ArchBox),"[0m[32m[1m              ...:+oh/:::..
          ..-/oshhhhhh`​   `​::::-.
      .:/ohhhhhhhhhhhh`​        `​-::::.
  .+shhhhhhhhhhhhhhhhh`​             `​.::-.
@@ -536,7 +536,7 @@ ArchBox,,^ArchBox,"[0m[32m[1m              ...:+oh/:::..
     `​--/:`​   /:     `​hhhhhhhhhhhho/-
              -/:.   `​hhhhhhs+:-`​
                 ::::/ho/-`​[0m",0
-ARCHlabs,,^ARCHlabs,"[0m[36m[1m                     'c'
+ARCHlabs,,(?i:^ARCHlabs),"[0m[36m[1m                     'c'
                     'kKk,
                    .dKKKx.
                   .oKXKXKd.
@@ -557,7 +557,7 @@ ARCHlabs,,^ARCHlabs,"[0m[36m[1m                     'c'
    'xKK0koc,..         [0m[31m[1m'c, [0m[36m[1m    ..,cok0KKk,
   ,xko:'.             [0m[31m[1m.. [0m[36m[1m           .':okx;
  .,'.                                   .',.[0m",0
-ArchStrike,,^ArchStrike,"[30m[1m                   *
+ArchStrike,,(?i:^ArchStrike),"[30m[1m                   *
                   **.
                  ****
                 ******
@@ -574,7 +574,7 @@ ArchStrike,,^ArchStrike,"[30m[1m                   *
      ******[0m[36m[1m/[30m[1m***  [0m[36m[1m////   [30m[1m**[0m[36m[1m/[30m[1m******
     ********[0m[36m[1m/[30m[1m* [0m[36m[1m///      [30m[1m*[0m[36m[1m/[30m[1m********
   ,******     [0m[36m[1m// ______ /    [30m[1m******,[0m",0
-astOS,,^astOS,"[30m[1m                oQA#$%UMn
+astOS,,(?i:^astOS),"[30m[1m                oQA#$%UMn
                 H       9
                 G       #
                 6       %
@@ -597,7 +597,7 @@ uURF$##Bv       nKWB$%ABc       aM@3R@D@b
 %       &       G       U       @       @
 &       @       #       %       %       #
 !HGN@MNCf       t&$9#%HQr       ?@G#6S@QP[0m",0
-XFerience,,XFerience,"[0m[36m[1m           `​`​--:::::::-.`​
+XFerience,,(?i:XFerience),"[0m[36m[1m           `​`​--:::::::-.`​
         .-/+++ooooooooo+++:-`​
      `​-/+oooooooooooooooooo++:.
     -/+oooooo/+ooooooooo+/ooo++:`​
@@ -616,7 +616,7 @@ XFerience,,XFerience,"[0m[36m[1m           `​`​--:::::::-.`​
        `​:/++ooooooooooooo++/-`​
           `​.-//++++++//:-.`​
                `​`​`​`​`​`​[0m",0
-Stock Linux,,^Stock\ Linux,"              #G5J5G#
+Stock Linux,,(?i:^Stock\ Linux),"              #G5J5G#
           &BPYJJJJJJJYPB&
       &#G5JJJJJJY5YJJJJJJ5G#&
    #G5YJJJJJY5G#& &#G5YJJJJJY5G#
@@ -635,7 +635,7 @@ BPYJJJJJJYPB&         &B5JJJJJJJYPB
       &#G5JJJJJJY5YJJJJJJ5G#&
           &BPYJJJJJJJYPB&
               #G5J5G#[0m",0
-ArchMerge,,^ArchMerge,"[0m[36m[1m                    y:
+ArchMerge,,(?i:^ArchMerge),"[0m[36m[1m                    y:
                   sMN-
                  +MMMm`​
                 /MMMMMd`​
@@ -655,7 +655,7 @@ ArchMerge,,^ArchMerge,"[0m[36m[1m                    y:
   /NMMMNds+:.`​             `​-/oymMMMm.
  +Mmy/.                          `​:smN:
 /+.                                  -o.[0m",0
-aerOS,,^aerOS,"                   ooo OOO OOO ooo
+aerOS,,(?i:^aerOS),"                   ooo OOO OOO ooo
                oOO                 OOo
            oOO                         OOo
         oOO                               OOo
@@ -676,7 +676,7 @@ aerOS,,^aerOS,"                   ooo OOO OOO ooo
            oOO                         OOo
                oOO                 OOo
                    ooo OOO OOO ooo[0m",0
-Arch,,^Arch,"[0m[36m[1m                   -`​
+Arch,,(?i:^Arch),"[0m[36m[1m                   -`​
                   .o+`​
                  `​ooo/
                 `​+oooo:
@@ -695,7 +695,7 @@ Arch,,^Arch,"[0m[36m[1m                   -`​
   `​+sso+:-`​                 `​.-/+oso:
  `​++:.                           `​-/+/
  .`​                                 `​/[0m",0
-unicodearch,,^unicodearch,"[0m[36m[1m                   ▄
+unicodearch,,(?i:^unicodearch),"[0m[36m[1m                   ▄
                   ▟█▙
                  ▟███▙
                 ▟█████▙
@@ -714,7 +714,7 @@ unicodearch,,^unicodearch,"[0m[36m[1m                   ▄
    ▟██████▀▀▀              ▀▀██████▙
   ▟███▀▘                       ▝▀███▙
  ▟▛▀                               ▀▜▙[0m",0
-Artix,_small,^artix_small,"[0m[36m[1m            '
+Artix,_small,(?i:^artix_small),"[0m[36m[1m            '
            'A'
           'ooo'
          'ookxo'
@@ -727,7 +727,7 @@ Artix,_small,^artix_small,"[0m[36m[1m            '
   'ooxoo'`​     .:ooxxo'
  'io'`​             `​'oo'
 '`​                     `​'[0m",1
-Artix,,^Artix,"[0m[36m[1m                   '
+Artix,,(?i:^Artix),"[0m[36m[1m                   '
                   'o'
                  'ooo'
                 'ooxoo'
@@ -747,7 +747,7 @@ Artix,,^Artix,"[0m[36m[1m                   '
   'ooooi:'`​                `​'';ioxxo'
  'i:'`​                          '':io'
 '`​                                   `​'[0m",0
-Cobalt,,^Cobalt,"[30m[1m                          ///
+Cobalt,,(?i:^Cobalt),"[30m[1m                          ///
 [30m[1m                  ,//////////////
 [30m[1m    ///////////////////////////////
 [30m[1m    ///////////////[30m[1m***********[30m[1m//////
@@ -763,7 +763,7 @@ Cobalt,,^Cobalt,"[30m[1m                          ///
       ******[30m[1m....[30m[1m***********************
         ****************************
          *****[0m",0
-Arya,,^Arya,"[0m[32m[1m                `​oyyy/[0m[31m[1m-yyyyyy+
+Arya,,(?i:^Arya),"[0m[32m[1m                `​oyyy/[0m[31m[1m-yyyyyy+
 [0m[32m[1m               -syyyy/[0m[31m[1m-yyyyyy+
 [0m[32m[1m              .syyyyy/[0m[31m[1m-yyyyyy+
 [0m[32m[1m              :yyyyyy/[0m[31m[1m-yyyyyy+
@@ -778,7 +778,7 @@ Arya,,^Arya,"[0m[32m[1m                `​oyyy/[0m[31m[1m-yyyyyy+
 [0m[32m[1m  .syyyyyy+`​  :yyyyyy/[0m[31m[1m-yyyyy+-+syyyyyyyy
 [0m[32m[1m -syyyyyy/    :yyyyyy/[0m[31m[1m-yyys:.syyyyyyyyyy
 [0m[32m[1m:syyyyyy/     :yyyyyy/[0m[31m[1m-yyo.:syyyyyyyyyyy[0m",0
-AsteroidOS,,^AsteroidOS,"[30m[1m                    ***
+AsteroidOS,,(?i:^AsteroidOS),"[30m[1m                    ***
 [30m[1m                   *****
 [30m[1m                **********
 [30m[1m              ***************
@@ -795,7 +795,7 @@ AsteroidOS,,^AsteroidOS,"[30m[1m                    ***
 [30m[1m                (#%%%%%%%#
 [30m[1m                   %%%%%
 [30m[1m                    %%%[0m",0
-Athena,,^Athena,"[0m[37m[1m    .          ..
+Athena,,(?i:^Athena),"[0m[37m[1m    .          ..
 [0m[37m[1m   :####:     ####.
 [0m[37m[1m  .################
 [0m[37m[1m :##################
@@ -819,7 +819,7 @@ Athena,,^Athena,"[0m[37m[1m    .          ..
 [0m[37m[1m                     [0m[33m[1m######[0m[37m[1m
 [0m[37m[1m                        [0m[33m[1m####[0m[37m[1m
 [0m[37m[1m                          [0m[33m[1m##[0m[37m[1m[0m",1
-azos,,^azos,"[0m[36m[1m   ////.                     [0m[31m[1m                      (((((  
+azos,,(?i:^azos),"[0m[36m[1m   ////.                     [0m[31m[1m                      (((((  
 [0m[36m[1m ////////                    [0m[31m[1m                    @(((((((( 
 [0m[36m[1m ////////                    [0m[31m[1m                    @(((((((( 
 [0m[36m[1m ////////  ///////           [0m[31m[1m           (((((((  @(((((((( 
@@ -836,7 +836,7 @@ azos,,^azos,"[0m[36m[1m   ////.                     [0m[31m[1m            
 [0m[36m[1m ////////                    [0m[31m[1m                    @(((((((( 
 [0m[36m[1m ////////                    [0m[31m[1m                    @(((((((( 
 [0m[36m[1m  /////                      [0m[31m[1m                      ((((([0m",0
-Bedrock,,^Bedrock,"[30m[1m--------------------------------------
+Bedrock,,(?i:^Bedrock),"[30m[1m--------------------------------------
 --------------------------------------
 --------------------------------------
 ---[0m[37m[1m\\\\\\\\\\\\[30m[1m-----------------------
@@ -853,7 +853,7 @@ Bedrock,,^Bedrock,"[30m[1m--------------------------------------
 --------------------------------------
 --------------------------------------
 --------------------------------------[0m",0
-BigLinux,,^BigLinux,"[0m[36m[1m                                 ...
+BigLinux,,(?i:^BigLinux),"[0m[36m[1m                                 ...
                               :OWMMMNd.
                             :NMMMMMMMMWc
                   okkl.    kMMMMMW0xdOWMl
@@ -872,7 +872,7 @@ cMMN:;xMMMMk::MMO oMMMMX .XMM. .KMMMWOOMMMd
    kMMMMMMMMMMX.
     :XMMMMMMK:
       ':MM:""      Made in Brazil[0m",0
-Bitrig,,^Bitrig,"[0m[32m[1m   `​hMMMMN+
+Bitrig,,(?i:^Bitrig),"[0m[32m[1m   `​hMMMMN+
    -MMo-dMd`​
    oMN- oMN`​
    yMd  /NM:
@@ -889,7 +889,7 @@ Bitrig,,^Bitrig,"[0m[32m[1m   `​hMMMMN+
 /MN/-------oNN:
 hMd.       .dMh
 sm/         /ms[0m",1
-BlackArch,,^BlackArch,"[0m[30m[1m                   00
+BlackArch,,(?i:^BlackArch),"[0m[30m[1m                   00
                    11
                   ====[0m[31m[1m
                   .[0m[30m[1m//[0m[31m[1m
@@ -910,7 +910,7 @@ BlackArch,,^BlackArch,"[0m[30m[1m                   00
   `​+sso+:-`​        [0m[30m[1m//[0m[31m[1m       `​.-/+oso:
  `​++:.             [0m[30m[1m//[0m[31m[1m            `​-/+/
  .`​                [0m[30m[1m/[0m[31m[1m                `​/[0m",0
-blackPanther,,^blackPanther|^blackpanther,"[34m[1m                         ........
+blackPanther,,(?i:^blackPanther|^blackpanther),"[34m[1m                         ........
                   .,»╔╗╗╬▄▄╫█▀▓▄▄╬╗╗g≈,.
                ,j╗╬╣▓▓███████▌;»╙▀▀▀▀█▄▄╗j,
             .≈╗╬▓██▀▀▀▀▀╠╙░░»»;:`​[33m[1m`​`​>[0m[31m[1m▄ [34m[1m▐ ▓╫╗⌂,
@@ -933,7 +933,7 @@ blackPanther,,^blackPanther|^blackpanther,"[34m[1m                         ...
              `​""╨▀█▄▄▄░`​▐█████▄,       ,▄▄▀▀░`​
                 `​""╙╩▀▀▀▀████████▓▌▌▌▀▀▀╨""`​`​
                     `​`​""""░╚╨╝╝╝╝╨╨░""""`​`​[0m",0
-MatuusOS,,^MatuusOS,"░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+MatuusOS,,(?i:^MatuusOS),"░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 ░░░░░░░░░░░░░░░░▒▓▓████▓▒▒░░░░░░░░░░░░░░░░
@@ -953,7 +953,7 @@ MatuusOS,,^MatuusOS,"░░░░░░░░░░░░░░░░░░░�
 ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░[0m",0
-BLAG,,^BLAG,"[0m[35m[1m             d
+BLAG,,(?i:^BLAG),"[0m[35m[1m             d
             ,MK:
             xMMMX:
            .NMMMMMX;
@@ -970,7 +970,7 @@ BLAG,,^BLAG,"[0m[35m[1m             d
            OMMMK:
            oWk,
            ;:[0m",0
-BlankOn,,^BlankOn,"[0m[37m[1m        `​./ohdNMMMMNmho+.`​ [0m[31m[1m       .+oo:`​
+BlankOn,,(?i:^BlankOn),"[0m[37m[1m        `​./ohdNMMMMNmho+.`​ [0m[31m[1m       .+oo:`​
 [0m[37m[1m      -smMMMMMMMMMMMMMMMMmy-`​    [0m[31m[1m`​yyyyy+
 [0m[37m[1m   `​:dMMMMMMMMMMMMMMMMMMMMMMd/`​  [0m[31m[1m`​yyyyys
 [0m[37m[1m  .hMMMMMMMNmhso/++symNMMMMMMMh- [0m[31m[1m`​yyyyys
@@ -987,7 +987,7 @@ BlankOn,,^BlankOn,"[0m[37m[1m        `​./ohdNMMMMNmho+.`​ [0m[31m[1m  
 [0m[37m[1m     :yNMMMMMMMMMMMMMMMMMMNy:`​   [0m[31m[1m`​yyyyys
 [0m[37m[1m       .:sdNMMMMMMMMMMNds/.      [0m[31m[1m`​yyyyyo
 [0m[37m[1m           `​.:/++++/:.`​           [0m[31m[1m:oys+.[0m",0
-BlueLight,,^BlueLight,"[0m[37m[1m              oMMNMMMMMMMMMMMMMMMMMMMMMM
+BlueLight,,(?i:^BlueLight),"[0m[37m[1m              oMMNMMMMMMMMMMMMMMMMMMMMMM
               oMMMMMMMMMMMMMMMMMMMMMMMMM
               oMMMMMMMMMMMMMMMMMMMMMMMMM
               oMMMMMMMMMMMMMMMMMMMMMMMMM
@@ -1006,7 +1006,7 @@ BlueLight,,^BlueLight,"[0m[37m[1m              oMMNMMMMMMMMMMMMMMMMMMMMMM
               omdyyyyyyo....[0m[37m[1m+mMMMMMMMMMM[0m[34m[1m
               [0m[37m[1moMMM[0m[34m[1mmdhyyo..[0m[37m[1m+mMMMMMMMMMMMM
               oNNNNNNm[0m[34m[1mdso[0m[37m[1mmMMMMMMMMMMMMMM[0m",0
-Bodhi,,^Bodhi,"[0m[37m[1m|           [33m[1m,,mmKKKKKKKKWm,,
+Bodhi,,(?i:^Bodhi),"[0m[37m[1m|           [33m[1m,,mmKKKKKKKKWm,,
  [0m[37m[1m'      [33m[1m,aKKP[0m[37m[1mLL**********|L*[33m[1mTKp,
    [0m[37m[1mt  [33m[1maKP[0m[37m[1mL**`​`​`​          `​`​`​**L[33m[1m*Kp
     IX[0m[37m[1mEL[0m[32m[1mL,wwww,              [0m[37m[1m`​`​*||[33m[1mKp
@@ -1024,7 +1024,7 @@ TH[0m[37m[1mL*     [0m[32m[1mTKKKKKK##KKKN@KKKK^         [0m[37m[1m|I[
      `​Tp[0m[37m[1mpLL,                ,|||[33m[1mp'L
         ""Kpp[0m[37m[1mLL++,.,    ,,|||$[33m[1m#K*   [0m[37m[1m'.
            [33m[1m`​""MKWpppppppp#KM""`​        [0m[37m[1m`​h,[0m",0
-bonsai,,^bonsai,"[0m[32m[1m   ,####,
+bonsai,,(?i:^bonsai),"[0m[32m[1m   ,####,
    [0m[32m[1m#######,  [0m[32m[1m,#####,
    [0m[32m[1m#####',#  [0m[32m[1m'######
     [0m[32m[1m''###'[0m[33m[1m';,,,'[0m[32m[1m###'
@@ -1040,7 +1040,7 @@ bonsai,,^bonsai,"[0m[32m[1m   ,####,
  ##, ,##,',##, ,##  ,#,   ,
  # # #  # #''# #,,  # #   #
  '#' '##' #  #  ,,# '##;, #[0m",1
-BSD,,^BSD$,"[0m[31m[1m             ,        ,
+BSD,,(?i:^BSD$),"[0m[31m[1m             ,        ,
             /(        )`​
             \ \___   / |
             /- _  `​-/  '
@@ -1059,7 +1059,7 @@ BSD,,^BSD$,"[0m[31m[1m             ,        ,
          [0m[36m[1m______[0m[31m[1m( (_  / \______/
        [0m[36m[1m,'  ,-----'   |
        `​--{__________)[0m",0
-BunsenLabs,,^BunsenLabs,"[0m[1m        `​++
+BunsenLabs,,(?i:^BunsenLabs),"[0m[1m        `​++
       -yMMs
     `​yMMMMN`​
    -NMMMMMMm.
@@ -1079,7 +1079,7 @@ BunsenLabs,,^BunsenLabs,"[0m[1m        `​++
           +MN:
           mh.
          -/[0m",1
-CachyOS,,^CachyOS,"[0m[36m[1m           [30m[1m.[0m[36m[1m-------------------------:
+CachyOS,,(?i:^CachyOS),"[0m[36m[1m           [30m[1m.[0m[36m[1m-------------------------:
 [0m[36m[1m          .[0m[32m[1m+=[0m[36m[1m========================.
 [0m[36m[1m         :[0m[32m[1m++[0m[36m[1m===[0m[32m[1m++===[0m[36m[1m===============-       :[0m[32m[1m++[0m[36m[1m-
 [0m[36m[1m        :[0m[32m[1m*++[0m[36m[1m====[0m[32m[1m+++++==[0m[36m[1m===========-        .==:
@@ -1101,7 +1101,7 @@ CachyOS,,^CachyOS,"[0m[36m[1m           [30m[1m.[0m[36m[1m--------------
 [0m[36m[1m          .===[0m[32m[1m+[0m[36m[1m==================[0m[32m[1m+++++++:
 [0m[36m[1m           .-=======================[0m[32m[1m+++:
 [0m[36m[1m             [30m[1m..........................[0m",0
-Calculate,,^Calculate,"[0m[37m[1m                              ......
+Calculate,,(?i:^Calculate),"[0m[37m[1m                              ......
                            ,,+++++++,.
                          .,,,....,,,[0m[33m[1m+**+,,.[0m[37m[1m
                        ............,[0m[33m[1m++++,,,[0m[37m[1m
@@ -1121,7 +1121,7 @@ Calculate,,^Calculate,"[0m[37m[1m                              ......
      [0m[33m[1m.,++*****+++[0m[37m[1m*****************[0m[33m[1m+++++,.[0m[37m[1m
       [0m[33m[1m,++++++**+++++[0m[37m[1m***********[0m[33m[1m+++++++++,[0m[37m[1m
      [0m[33m[1m.,,,,++++,..  .,,,,,.....,+++,.,,[0m[37m[1m[0m",0
-Carbs,,^Carbs,"[0m[35m[1m             ..........
+Carbs,,(?i:^Carbs),"[0m[35m[1m             ..........
           ..,;:ccccccc:;'..
        ..,clllc:;;;;;:cllc,.
       .,cllc,...     ..';;'.
@@ -1139,7 +1139,7 @@ Carbs,,^Carbs,"[0m[35m[1m             ..........
         ..;cllllccccclllc;'.
           ...',;;;;;;,,...
                 .....[0m",1
-CalinixOS,,^CalinixOS$,"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⠤⠔⠒⠒⠋⠉⠉⠉⠉⠓⠒⠒⠦⠤⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+CalinixOS,,(?i:^CalinixOS$),"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⠤⠔⠒⠒⠋⠉⠉⠉⠉⠓⠒⠒⠦⠤⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⠤⠒⠉⣁⣠⣤⣶⣶⣿⣿⣿⣿⣿⣿⣿⣿⣶⣶⣤⣄⣈⠙⠲⢤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⠴⠋⢁⣤⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣤⡈⠑⢦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⣠⠞⢁⣠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡄⠈⠢⡀⠀⠀⠀⠀⠀⠀⠀
@@ -1164,7 +1164,7 @@ CalinixOS,,^CalinixOS$,"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠�
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠓⢤⡈⠛⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⣁⠴⠊⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠑⠢⢄⣉⠙⠛⠿⠿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠿⠛⠋⣉⡤⠖⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠓⠒⠢⠤⠤⠤⠤⠤⠤⠤⠤⠖⠒⠋⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀[0m",0
-CalinixOS,_small,^CalinixOS_small,"⠀⠀⠀⠀⠀⠀⠀⠀⣀⠤⠐⣂⣈⣩⣭⣭⣍⣀⣐⠀⠄⡀⠀⠀⠀⠀⠀⠀⠀⠀
+CalinixOS,_small,(?i:^CalinixOS_small),"⠀⠀⠀⠀⠀⠀⠀⠀⣀⠤⠐⣂⣈⣩⣭⣭⣍⣀⣐⠀⠄⡀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⡀⠔⣨⣴⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣦⣅⠢⡀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠠⢊⣴⣾⣿⣿⣿⣿⠿⠟⠛⠛⠛⠛⠻⠿⣿⣿⣿⣿⠃⠀⠠⡀⠀⠀⠀
 ⠀⠀⡐⢡⣾⣿⣿⣿⠟⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠁⠀⠀⠀⠈⢆⠀⠀
@@ -1179,7 +1179,7 @@ CalinixOS,_small,^CalinixOS_small,"⠀⠀⠀⠀⠀⠀⠀⠀⣀⠤⠐⣂⣈⣩⣭
 ⠀⠀⠀⠈⠊⡻⢿⣿⣿⣿⣿⣶⣤⣤⣤⣤⣤⣤⣶⣿⣿⣿⣿⡿⢟⠕⠁⠀⠀⠀
 ⠀⠀⠀⠀⠀⠈⠢⢙⠻⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⡩⠐⠁⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠈⠐⠂⠭⠉⠙⣛⣛⠋⠉⠭⠐⠂⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀[0m",0
-CBL-Mariner,,^CBL\-Mariner,"[0m[36m[1m                    .
+CBL-Mariner,,(?i:^CBL\-Mariner),"[0m[36m[1m                    .
                   :-  .
                 :==. .=:
               :===:  -==:
@@ -1197,7 +1197,7 @@ CBL-Mariner,,^CBL\-Mariner,"[0m[36m[1m                    .
 :--------.                :========-
                     ..:::--=========-
             ..::---================-=-[0m",0
-CelOS,,^CelOS,"[0m[35m[1m                     .,cmmmmmmmmmmmc,.
+CelOS,,(?i:^CelOS),"[0m[35m[1m                     .,cmmmmmmmmmmmc,.
                 .,cmMMMMMMMMMMMMMMMMMMMMmc.
              .cMMMMMMMMMMMMMMMMMMMMMMMMMMMmc.
            .cMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMc.
@@ -1216,14 +1216,14 @@ CelOS,,^CelOS,"[0m[35m[1m                     .,cmmmmmmmmmmmc,.
              `​"":MMMMMMMMMMMMMMMMMMMMMMMMM;'
                 `​"":MMMMMMMMMMMMMMMMMMM:""
                      ""************""[0m",0
-CentOS,_small,^centos_small,"[0m[32m[1m ____[0m[33m[1m^[0m[35m[1m____
+CentOS,_small,(?i:^centos_small),"[0m[32m[1m ____[0m[33m[1m^[0m[35m[1m____
 [0m[32m[1m |\  [0m[33m[1m|[0m[35m[1m  /|
 [0m[32m[1m | \ [0m[33m[1m|[0m[35m[1m / |
 [0m[35m[1m<---- [0m[34m[1m---->
 [0m[34m[1m | / [0m[32m[1m|[0m[33m[1m \ |
 [0m[34m[1m |/__[0m[32m[1m|[0m[33m[1m__\|
 [0m[32m[1m     v[0m",1
-CentOS,,^CentOS,"[0m[33m[1m                 ..
+CentOS,,(?i:^CentOS),"[0m[33m[1m                 ..
                .PLTJ.
               <><><><>
      [0m[32m[1mKKSSV' 4KKK [0m[33m[1mLJ[0m[35m[1m KKKL.'VSSKK
@@ -1242,7 +1242,7 @@ CentOS,,^CentOS,"[0m[33m[1m                 ..
 [0m[32m[1m              <><><><>
                'MKKM'
                  ''[0m",0
-Center,,^Center,"[0m[37m[1m                .
+Center,,(?i:^Center),"[0m[37m[1m                .
                 o,
         .       d,       .
         ';'   ..d;..  .cl'
@@ -1255,7 +1255,7 @@ Center,,^Center,"[0m[37m[1m                .
         ;l,    .l;     ';'
                .o;
                 l,[0m",0
-Chakra,,^Chakra,"[0m[34m[1m     _ _ _        ""kkkkkkkk.
+Chakra,,(?i:^Chakra),"[0m[34m[1m     _ _ _        ""kkkkkkkk.
    ,kkkkkkkk.,    'kkkkkkkkk,
    ,kkkkkkkkkkkk., 'kkkkkkkkk.
   ,kkkkkkkkkkkkkkkk,'kkkkkkkk,
@@ -1273,7 +1273,7 @@ Chakra,,^Chakra,"[0m[34m[1m     _ _ _        ""kkkkkkkk.
              ';kkkkkkkkkk'
                ';kkkkkk'
                   ""''""[0m",0
-ChaletOS,,^ChaletOS,"[0m[34m[1m             `​.//+osso+/:`​`​
+ChaletOS,,(?i:^ChaletOS),"[0m[34m[1m             `​.//+osso+/:`​`​
          `​/sdNNmhyssssydmNNdo:`​
        :hNmy+-`​          .-+hNNs-
      /mMh/`​       `​+:`​       `​+dMd:
@@ -1293,7 +1293,7 @@ ChaletOS,,^ChaletOS,"[0m[34m[1m             `​.//+osso+/:`​`​
       .+mMdo:`​            `​:smMd/`​
          -ohNNmhsoo++osshmNNh+.
             `​./+syyhhyys+:`​`​[0m",0
-Chapeau,,^Chapeau,"[0m[32m[1m               .-/-.
+Chapeau,,(?i:^Chapeau),"[0m[32m[1m               .-/-.
             ////////.
           ////////[0m[37m[1my+[0m[32m[1m//.
         ////////[0m[37m[1mmMN[0m[32m[1m/////.
@@ -1311,7 +1311,7 @@ Chapeau,,^Chapeau,"[0m[32m[1m               .-/-.
     `​//////////[0m[37m[1m++[0m[32m[1m//////////
        `​////////////////.
            -////////-[0m",0
-Chimera,,^Chimera,"[0m[32m[1m                    c.'
+Chimera,,(?i:^Chimera),"[0m[32m[1m                    c.'
                  ,xNMM.
                .OMMMMo
                lMMM""
@@ -1328,7 +1328,7 @@ Chimera,,^Chimera,"[0m[32m[1m                    c.'
     [0m[34m[1mkMMMMMMMMMMMMMMMMMMMMMMd
      ;KMMMMMMMWXXWMMMMMMMk.
        ""cooc*""    ""*coo'""[0m",0
-ChonkySealOS,,^ChonkySealOS,"[0m[37m[1m                  .-/-.
+ChonkySealOS,,(?i:^ChonkySealOS),"[0m[37m[1m                  .-/-.
             .:-=++****++=-:.
         .:=+*##%%%%%%%%%%##*+=:.
       :=*#%%%%%%%%%%%%%%%%%%%%#*=:
@@ -1349,7 +1349,7 @@ ChonkySealOS,,^ChonkySealOS,"[0m[37m[1m                  .-/-.
       :=*##%%%%%%%%%%%%%%%%%%##*=:
         .:=+*##%%%%%%%%%%##*+=:.
             .:-=++****++=-:.[0m",0
-Chrom,,^Chrom,"[0m[31m[1m            .,:loool:,.
+Chrom,,(?i:^Chrom),"[0m[31m[1m            .,:loool:,.
         .,coooooooooooooc,.
      .,lllllllllllllllllllll,.
     ;ccccccccccccccccccccccccc;
@@ -1367,14 +1367,14 @@ Chrom,,^Chrom,"[0m[31m[1m            .,:loool:,.
 [0m[32m[1m      '::ccccccccc[0m[33m[1mdOOOOOOOkx:.
 [0m[32m[1m        ..,::cccc[0m[33m[1mxOOOkkko;.
 [0m[32m[1m            ..,:[0m[33m[1mdOkxl:.[0m",0
-Cleanjaro,_small,^cleanjaro_small,"[0m[37m[1m█████ ██████████
+Cleanjaro,_small,(?i:^cleanjaro_small),"[0m[37m[1m█████ ██████████
 █████ ██████████
 █████
 █████
 █████
 ████████████████
 ████████████████[0m",1
-Cleanjaro,,^Cleanjaro,"[0m[37m[1m███████▌ ████████████████
+Cleanjaro,,(?i:^Cleanjaro),"[0m[37m[1m███████▌ ████████████████
 ███████▌ ████████████████
 ███████▌ ████████████████
 ███████▌
@@ -1386,7 +1386,7 @@ Cleanjaro,,^Cleanjaro,"[0m[37m[1m███████▌ ██████�
 █████████████████████████
 █████████████████████████
 ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀[0m",1
-ClearOS,,^ClearOS,"[0m[32m[1m             `​.--::::::--.`​
+ClearOS,,(?i:^ClearOS),"[0m[32m[1m             `​.--::::::--.`​
          .-:////////////////:-.
       `​-////////////////////////-`​
      -////////////////////////////-
@@ -1406,7 +1406,7 @@ ClearOS,,^ClearOS,"[0m[32m[1m             `​.--::::::--.`​
        .::   `​///:    :///`​   -:.
              `​///:    :///`​
               `​...    ...`​[0m",0
-Clear Linux OS,,^Clear\ Linux\ OS|^Clear_Linux,"[0m[34m[1m          BBB
+Clear Linux OS,,(?i:^Clear\ Linux\ OS|^Clear_Linux),"[0m[34m[1m          BBB
        BBBBBBBBB
      BBBBBBBBBBBBBBB
    BBBBBBBBBBBBBBBBBBBB
@@ -1426,7 +1426,7 @@ Clear Linux OS,,^Clear\ Linux\ OS|^Clear_Linux,"[0m[34m[1m          BBB
  WWWWWWWWWWWWWWWW
       WWWWWWWWWW
           WWW[0m",1
-Clover,,^Clover,"[0m[32m[1m               `​omo`​`​omo`​
+Clover,,(?i:^Clover),"[0m[32m[1m               `​omo`​`​omo`​
              `​oNMMMNNMMMNo`​
            `​oNMMMMMMMMMMMMNo`​
           oNMMMMMMMMMMMMMMMMNo
@@ -1446,7 +1446,7 @@ oNMMMMMMMMMMMNs`​  `​sy`​  `​oNMMMMMMMMMMMNo
            `​oNMMMMMMMMMMMMNo`​
              `​oNMMMNNMMMNs`​
                `​omo`​`​oNs`​[0m",0
-Condres,,^Condres,"[0m[32m[1msyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy+[0m[36m[1m.+.
+Condres,,(?i:^Condres),"[0m[32m[1msyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy+[0m[36m[1m.+.
 [0m[32m[1m`​oyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy+[0m[36m[1m:++.
 [0m[33m[1m/o[0m[32m[1m+oyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy/[0m[36m[1moo++.
 [0m[33m[1m/y+[0m[32m[1msyyyyyyyyyyyyyyyyyyyyyyyyyyyyy[0m[36m[1m+ooo++.
@@ -1463,7 +1463,7 @@ Condres,,^Condres,"[0m[32m[1msyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy+[0m[36m[
 [0m[33m[1m/hhhhhdddddhhy[0m[32m[1m./yo:[0m[36m[1m+oooooo+++++++++++++/
 [0m[33m[1m/hhhhhhhhhhhhhy[0m[32m[1m:-.[0m[36m[1m+sooooo+++++++++++///:
 [0m[33m[1m:sssssssssssso++[0m[32m[1m[0m[36m[1m`​:/:--------.`​`​`​`​`​`​`​`​[0m",0
-Container Linux by CoreOS,,^Container\ Linux\ by\ CoreOS|^Container_Linux|^Fedora\ CoreOS$|^CoreOS,"[0m[34m[1m                .....
+Container Linux by CoreOS,,(?i:^Container\ Linux\ by\ CoreOS|^Container_Linux|^Fedora\ CoreOS$|^CoreOS),"[0m[34m[1m                .....
           .';:cccccccc:;'.
         ':ccccclc[0m[31m[1mlllllllll[0m[34m[1mcc:.
      .;cccccccc[0m[31m[1mlllllllllllllll[0m[34m[1mc,
@@ -1483,14 +1483,14 @@ Container Linux by CoreOS,,^Container\ Linux\ by\ CoreOS|^Container_Linux|^Fedor
        .;cccclccccccllllllccc,.
           .';ccccclllccc:;..
                 .....[0m",0
-CRUX,_small,^crux_small$|^KISS,"[0m[34m[1m    ___
+CRUX,_small,(?i:^crux_small$|^KISS),"[0m[34m[1m    ___
    ([0m[37m[1m.· [0m[34m[1m|
    ([0m[35m[1m<> [0m[34m[1m|
   / [0m[37m[1m__  [0m[34m[1m\
  ( [0m[37m[1m/  \ [0m[34m[1m/|
 [0m[35m[1m_[0m[34m[1m/\ [0m[37m[1m__)[0m[34m[1m/[0m[35m[1m_[0m[34m[1m)
 [0m[35m[1m\/[0m[34m[1m-____[0m[35m[1m\/[0m",1
-CRUX,,^CRUX,"[0m[34m[1m         odddd
+CRUX,,(?i:^CRUX),"[0m[34m[1m         odddd
       oddxkkkxxdoo
      ddcoddxxxdoool
      xdclodod  olol
@@ -1508,7 +1508,7 @@ xx[0m[35m[1mdx[0m[34m[1mkxxOKN[0m[37m[1mWMMWN[0m[34m[1m0xdoxo::c
 [0m[35m[1mdkkkxkkk[0m[37m[1mOKX[0m[35m[1mNNNX0Oxx[0m[34m[1mxc:cd
 [0m[35m[1m odxxdx[0m[37m[1mxllod[0m[35m[1mddooxx[0m[34m[1mdc:ldo
 [0m[35m[1m   lodd[0m[34m[1mdolccc[0m[35m[1mccox[0m[34m[1mxoloo[0m",1
-Crystal Linux,,Crystal\ Linux,"[35m[1m                        mysssym
+Crystal Linux,,(?i:Crystal\ Linux),"[35m[1m                        mysssym
 [35m[1m                      mysssym
 [35m[1m                    mysssym
 [35m[1m                  mysssym
@@ -1528,7 +1528,7 @@ Crystal Linux,,Crystal\ Linux,"[35m[1m                        mysssym
 [35m[1m             dysssym
 [35m[1m           dysssym
 [35m[1m         dysssym[0m",0
-Cucumber,,Cucumber,"[0m[32m[1m           `​.-://++++++//:-.`​
+Cucumber,,(?i:Cucumber),"[0m[32m[1m           `​.-://++++++//:-.`​
         `​:/+//[0m[33m[1m::--------[0m[32m[1m:://+/:`​
       -++/:[0m[33m[1m----..........----[0m[32m[1m:/++-
     .++:[0m[33m[1m---...........-......---[0m[32m[1m:++.
@@ -1548,7 +1548,7 @@ o/[0m[33m[1m--...::-:/::/:-......-::::::-/-...-[0m[32m[1m:/o
       -/+/:[0m[33m[1m----..........----[0m[32m[1m:/+/-
         `​:/+//[0m[33m[1m::--------:::[0m[32m[1m/+/:`​
            `​.-://++++++//:-.`​[0m",0
-CutefishOS,,^CutefishOS,"[0m[36m[1m                     ___ww___
+CutefishOS,,(?i:^CutefishOS),"[0m[36m[1m                     ___ww___
 _              _wwMMM@M^^^^MMMMww_
 M0w_       _wMMM~~             ~~MMm_
   ~MMy _ww0M~                      ~MMy
@@ -1557,7 +1557,7 @@ M0w_       _wMMM~~             ~~MMm_
 wMM~      ~~MMmw__             __w0M~
 ~             ~~MM0MmwwwwwwwwwMMM~
                     ~~~~^^~~~[0m",0
-CuteOS,,^CuteOS,"                       [30m[1m1ua[30m[1m
+CuteOS,,(?i:^CuteOS),"                       [30m[1m1ua[30m[1m
                   [30m[1mMMM1ua[30m[1m
  [30m[1mMM[30m[1mEE        [30m[1m MMMMM1uazE[30m[1m
 [30m[1mMM [30m[1mEEEE     [30m[1mM1MM1uazzEn [30m[1mEEEE  MME
@@ -1571,7 +1571,7 @@ CuteOS,,^CuteOS,"                       [30m[1m1ua[30m[1m
                      MMMMM      
                           MMM     
                               M[0m",0
-CyberOS,,^CyberOS,"[30m[1m             !M$EEEEEEEEEEEP
+CyberOS,,(?i:^CyberOS),"[30m[1m             !M$EEEEEEEEEEEP
             .MMMMM000000Nr.
             [30m[1m&MMMMMM[30m[1mMMMMMMMMMMMMM9
            [30m[1m~MMM[30m[1mMMMM[30m[1mMMMMMMMMMMMMC
@@ -1586,7 +1586,7 @@ CyberOS,,^CyberOS,"[30m[1m             !M$EEEEEEEEEEEP
                         ~MMMMMMM
                           ""RMMMM
                             .PMB[0m",0
-dahlia,,^dahlia,"                  .#.
+dahlia,,(?i:^dahlia),"                  .#.
                 *%@@@%*
         .,,,,,(&@@@@@@@&/,,,,,.
        ,#@@@@@@@@@@@@@@@@@@@@@#.
@@ -1603,13 +1603,13 @@ dahlia,,^dahlia,"                  .#.
         ,*****#&@@@@@@@&(*****,
                ,/%@@@%/.
                   ,#,[0m",0
-Debian,_small,^debian_small$,"[0m[31m[1m  _____
+Debian,_small,(?i:^debian_small$),"[0m[31m[1m  _____
  /  __ \
 |  /    |
 |  \___-
 -_
   --_[0m",1
-Debian,,^Debian,"[0m[37m[1m       _,met$$$$$gg.
+Debian,,(?i:^Debian),"[0m[37m[1m       _,met$$$$$gg.
     ,g$$$$$$$$$$$$$$$P.
   ,g$$P""        """"""Y$$."".
  ,$$P'              `​$$$.
@@ -1626,7 +1626,7 @@ Debian,,^Debian,"[0m[37m[1m       _,met$$$$$gg.
        `​Y$$b.
           `​""Y$b._
               `​""""""[0m",1
-digital UNIX,,^digital\ UNIX,"[0m[31m[1m     +-+-+-+-+-+-+-+
+digital UNIX,,(?i:^digital\ UNIX),"[0m[31m[1m     +-+-+-+-+-+-+-+
      |[0m[37m[1md[0m[31m[1m|[0m[37m[1mi[0m[31m[1m|[0m[37m[1mg[0m[31m[1m|[0m[37m[1mi[0m[31m[1m|[0m[37m[1mt[0m[31m[1m|[0m[37m[1ma[0m[31m[1m|[0m[37m[1ml[0m[31m[1m|
      +-+-+-+-+-+-+-+
 [0m[36m[1m _    _ _   _ _______   __
@@ -1635,7 +1635,7 @@ digital UNIX,,^digital\ UNIX,"[0m[31m[1m     +-+-+-+-+-+-+-+
 | |  | | . `​ | | |   > <
 | |__| | |\  |_| |_ / . \
  \____/|_| \_|_____/_/ \_\[0m",1
-Droidian,,^Droidian,"[32m[1m       _,met$$$$$gg.
+Droidian,,(?i:^Droidian),"[32m[1m       _,met$$$$$gg.
    ,g$$$$$$$$$$$$$$$$P.
  ,$$P'              `​$$$.
 ',$$P       ,ggs.     `​$$b:
@@ -1650,7 +1650,7 @@ Droidian,,^Droidian,"[32m[1m       _,met$$$$$gg.
      `​$$b.
        `​Y$$b.
           `​""Y$b._[0m",1
-Deepin,,^Deepin,"[0m[32m[1m             ............
+Deepin,,(?i:^Deepin),"[0m[32m[1m             ............
          .';;;;;.       .,;,.
       .,;;;;;;;.       ';;;;;;;.
     .;::::::::'     .,::;;,''''',.
@@ -1668,7 +1668,7 @@ Deepin,,^Deepin,"[0m[32m[1m             ............
       ,dkkkkkkkkkkkkko;.    .;o;
         .;okkkkkdl;.    .,cl:.
             .,:cccccccc:,.[0m",0
-openKylin,,^openKylin,"             /KKK]                       
+openKylin,,(?i:^openKylin),"             /KKK]                       
             KKKKKKK`​   ]KKKK\            
            KKKKK/  /KKKKKKKKK\           
           KKKK/ ,KKKKKKKKKKKK^          
@@ -1685,7 +1685,7 @@ openKylin,,^openKylin,"             /KKK]
        \OOOOOOOOOOOOOOOOOOOOO`​           
          [OOOOOOOOOOOOOOOO/`​             
             ,[OOOOOOOOO][0m",0
-DesaOS,,^DesaOS$,"[0m[32m[1m███████████████████████
+DesaOS,,(?i:^DesaOS$),"[0m[32m[1m███████████████████████
 ███████████████████████
 ███████████████████████
 ███████████████████████
@@ -1701,7 +1701,7 @@ DesaOS,,^DesaOS$,"[0m[32m[1m████████████████�
 ████████████████████████
 ████████████████████████
 ████████████████████████[0m",0
-Devuan,,^Devuan,"[0m[35m[1m   ..,,;;;::;,..
+Devuan,,(?i:^Devuan),"[0m[35m[1m   ..,,;;;::;,..
            `​':ddd;:,.
                  `​'dPPd:,.
                      `​:b$$b`​.
@@ -1716,7 +1716,7 @@ Devuan,,^Devuan,"[0m[35m[1m   ..,,;;;::;,..
 :$$$$$$$$$$$$b:'`​
  `​$$$$$bd:''`​
    `​'''`​[0m",0
-DietPi,,^DietPi,"[0m[32m[1m  :=+******+-    -+******+=:
+DietPi,,(?i:^DietPi),"[0m[32m[1m  :=+******+-    -+******+=:
  =#-::-::::-=#:-#=-::::-::-#=
  :%-::--==-::-%%-::-==--::-%:
   +#-:::::=+++[0m[30m[1m@@[0m[32m[1m+++=-::::-#=
@@ -1735,7 +1735,7 @@ DietPi,,^DietPi,"[0m[32m[1m  :=+******+-    -+******+=:
     -#@@@@@@@@@@@@@@@@@@#-
        -*%@@@@@@@@@@%*-
           .+%@@@@%+.[0m",0
-DracOS,,^DracOS,"[0m[31m[1m       `​-:/-
+DracOS,,(?i:^DracOS),"[0m[31m[1m       `​-:/-
           -os:
             -os/`​
               :sy+-`​
@@ -1748,7 +1748,7 @@ DracOS,,^DracOS,"[0m[31m[1m       `​-:/-
         `​:sy:        `​.    `​/yyyyys:
            ./o/.`​           .oyyso+oo:`​
               :+oo+//::::///:-.`​     `​.`​[0m",0
-DarkOs,,^DarkOs$,"[0m[35m[1m⠀⠀⠀⠀  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠢⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+DarkOs,,(?i:^DarkOs$),"[0m[35m[1m⠀⠀⠀⠀  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠢⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 [0m[31m[1m⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣶⠋⡆⢹⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 [0m[32m[1m⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡆⢀⣤⢛⠛⣠⣿⠀⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 [1m⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣶⣿⠟⣡⠊⣠⣾⣿⠃⣠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
@@ -1768,7 +1768,7 @@ DarkOs,,^DarkOs$,"[0m[35m[1m⠀⠀⠀⠀  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀�
 [0m[33m[1m⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢢⣀⣿⡏⠀⣿⡿⠀⠀⠀⠀⠀⠀⠙⣦⠀⢧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 [0m[35m[1m⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠿⣧⣾⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⣮⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 [0m[32m[1m⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠙⠛⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀[0m",0
-Itc,,^Itc,"[0m[31m[1m....................-==============+...
+Itc,,(?i:^Itc),"[0m[31m[1m....................-==============+...
 [0m[31m[1m....................-==============:...
 [0m[31m[1m...:===========-....-==============:...
 [0m[31m[1m...-===========:....-==============-...
@@ -1779,7 +1779,7 @@ Itc,,^Itc,"[0m[31m[1m....................-==============+...
 [0m[31m[1m..+-:+-.+::*:+::+:-++::++-.:-.*.:++:++.
 [0m[31m[1m..:-:-++++:-::--:+::-::.:++-++:++--:-:.    ⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀[0m",0
-DragonFly,_old,^dragonfly_old,"[0m[31m[1m                   .-.
+DragonFly,_old,(?i:^dragonfly_old),"[0m[31m[1m                   .-.
                  [0m[33m[1m ()[0m[31m[1mI[0m[33m[1m()
             [0m[31m[1m ""==.__:-:__.==""
             ""==.__/~|~\__.==""
@@ -1796,14 +1796,14 @@ DragonFly,_old,^dragonfly_old,"[0m[31m[1m                   .-.
                  [0m[31m[1m  /=\
                    \=/
                     ^[0m",0
-DragonFly,_small,^dragonfly_small,"[0m[37m[1m   ,[0m[31m[1m_[0m[37m[1m,
+DragonFly,_small,(?i:^dragonfly_small),"[0m[37m[1m   ,[0m[31m[1m_[0m[37m[1m,
 ('-_[0m[31m[1m|[0m[37m[1m_-')
  >--[0m[31m[1m|[0m[37m[1m--<
 (_-'[0m[31m[1m|[0m[37m[1m'-_)
     [0m[31m[1m|
     |
     |[0m",1
-DragonFly,,^DragonFly,"[0m[37m[1m,--,           [0m[31m[1m|           [0m[37m[1m,--,
+DragonFly,,(?i:^DragonFly),"[0m[37m[1m,--,           [0m[31m[1m|           [0m[37m[1m,--,
 [0m[37m[1m|   `​-,       [0m[31m[1m,^,       [0m[37m[1m,-'   |
 [0m[37m[1m `​,    `​-,   [0m[33m[1m(/ \)   [0m[37m[1m,-'    ,'
 [0m[37m[1m   `​-,    `​-,[0m[31m[1m/   \[0m[37m[1m,-'    ,-'
@@ -1818,7 +1818,7 @@ DragonFly,,^DragonFly,"[0m[37m[1m,--,           [0m[31m[1m|           [0m
               | |
               | |
               `​|'[0m",0
-Drauger,,^Drauger,"[0m[31m[1m                  -`​`​-
+Drauger,,(?i:^Drauger),"[0m[31m[1m                  -`​`​-
                 `​:+`​`​+:`​
                `​/++`​`​++/.
               .++/.  ./++.
@@ -1834,13 +1834,13 @@ Drauger,,^Drauger,"[0m[31m[1m                  -`​`​-
  `​/++-                            -++/`​
 .:-.`​..............................`​.-:.
 `​.-/++++++++++++++++++++++++++++++++/-.`​[0m",0
-Elementary,_small,^elementary_small,"[0m[37m[1m  _______
+Elementary,_small,(?i:^elementary_small),"[0m[37m[1m  _______
  / ____  \
 /  |  /  /\
 |__\ /  / |
 \   /__/  /
  \_______/[0m",1
-Elementary,,^Elementary,"[0m[37m[1m         eeeeeeeeeeeeeeeee
+Elementary,,(?i:^Elementary),"[0m[37m[1m         eeeeeeeeeeeeeeeee
       eeeeeeeeeeeeeeeeeeeeeee
     eeeee  eeeeeeeeeeee   eeeee
   eeee   eeeee       eee     eeee
@@ -1857,7 +1857,7 @@ eee    eeeeeeeeee     eeeeee    eee
     eeeee                 eeeee
       eeeeeee         eeeeeee
          eeeeeeeeeeeeeeeee[0m",0
-Elive,,^Elive,"             *@[0m[36m[1m,,&(%%%..%*.
+Elive,,(?i:^Elive),"             *@[0m[36m[1m,,&(%%%..%*.
          [0m[37m[1m(@[0m[36m[1m&%/##############((/[0m[37m[1m*,
       [0m[36m[1m@[0m[37m[1m@&[0m[36m[1m#########[0m[37m[1m*..../[0m[36m[1m########%[0m[37m[1m*..
     [0m[36m[1m@[0m[37m[1m&[0m[36m[1m#%%%%%.              [0m[36m[1m,.[0m[37m[1m,[0m[36m[1m%%%%%%.
@@ -1874,14 +1874,14 @@ Elive,,^Elive,"             *@[0m[36m[1m,,&(%%%..%*.
      .,,*******,[0m[36m[1m,,../##([0m[36m[1m%&[0m[37m[1m&[0m[36m[1m#******[0m[37m[1m,[0m[36m[1m.
         ,*[0m[37m[1m,[0m[36m[1m,,,,,,,,,,,,,,,,,,,[0m[37m[1m,[0m[36m[1m..
             *//[0m[37m[1m/,,[0m[36m[1m,,,,,,,[0m[37m[1m,..[0m[36m[1m[0m",0
-EndeavourOS,_small,^endeavouros_small,"[0m[31m[1m           /[0m[35m[1mo[0m[34m[1m.
+EndeavourOS,_small,(?i:^endeavouros_small),"[0m[31m[1m           /[0m[35m[1mo[0m[34m[1m.
 [0m[31m[1m         :[0m[35m[1msssso[0m[34m[1m-
 [0m[31m[1m       :[0m[35m[1mossssssso[0m[34m[1m:
 [0m[31m[1m     /[0m[35m[1mssssssssssso[0m[34m[1m+
 [0m[31m[1m  -+[0m[35m[1mssssssssssssssso[0m[34m[1m+
 [0m[31m[1m //[0m[35m[1mosssssssssssssso[0m[34m[1m+-
   `​+++++++++++++++-`​[0m",1
-EndeavourOS,,^EndeavourOS,"[0m[31m[1m                     ./[0m[35m[1mo[0m[34m[1m.
+EndeavourOS,,(?i:^EndeavourOS),"[0m[31m[1m                     ./[0m[35m[1mo[0m[34m[1m.
 [0m[31m[1m                   ./[0m[35m[1msssso[0m[34m[1m-
 [0m[31m[1m                 `​:[0m[35m[1mosssssss+[0m[34m[1m-
 [0m[31m[1m               `​:+[0m[35m[1msssssssssso[0m[34m[1m/.
@@ -1896,7 +1896,7 @@ EndeavourOS,,^EndeavourOS,"[0m[31m[1m                     ./[0m[35m[1mo[0
 [0m[31m[1m `​..-+[0m[35m[1moosssssssssssssssssssssssso[0m[34m[1m+++++/`​
    ./++++++++++++++++++++++++++++++/:.
   `​:::::::::::::::::::::::::------`​`​[0m",0
-EncryptOS,,^EncryptOS,"[0m[35m[1m                  *******
+EncryptOS,,(?i:^EncryptOS),"[0m[35m[1m                  *******
 [0m[35m[1m                ***       **.
 [0m[35m[1m                **         **
 [0m[35m[1m                **         **
@@ -1909,7 +1909,7 @@ EncryptOS,,^EncryptOS,"[0m[35m[1m                  *******
 [0m[35m[1m             ,,,,,,,     ,,,,,,,
 [0m[35m[1m             ,,,,,,,,,,,,,,,,,,,
 [0m[35m[1m                 ,,,,,,,,,,,,.[0m",0
-Endless,,^Endless,"[0m[31m[1m           `​:+yhmNMMMMNmhy+:`​
+Endless,,(?i:^Endless),"[0m[31m[1m           `​:+yhmNMMMMNmhy+:`​
         -odMMNhso//////oshNMMdo-
       /dMMh+.              .+hMMd/
     /mMNo`​                    `​oNMm:
@@ -1929,7 +1929,7 @@ dMm     `​/++/-`​`​/yNNh+/sdNMNddMm-    mMd
       /dMMh+.              .+hMMd/
         -odMMNhso//////oshNMMdo-
            `​:+yhmNMMMMNmhy+:`​[0m",0
-Enso,,^Enso,"                 .:--==--:.
+Enso,,(?i:^Enso),"                 .:--==--:.
             :=*#%%%%%%%#####*+-.
          .+%%%%%%%%%%%%###%%#*##*:
        .*%%%%%%%%%#+==-==++*####*##-
@@ -1948,7 +1948,7 @@ Enso,,^Enso,"                 .:--==--:.
        .+%%%%%%%%%%%%%.       .-==:
          .=#%%%%%%%%%%=   ..:--:.
             .-+#%%%%%+[0m",0
-EuroLinux,,^EuroLinux,"[0m[34m[1m                __
+EuroLinux,,(?i:^EuroLinux),"[0m[34m[1m                __
          -wwwWWWWWWWWWwww-
         -WWWWWWWWWWWWWWWWWWw-
           \WWWWWWWWWWWWWWWWWWW-
@@ -1966,7 +1966,7 @@ wWW[0m[37m[1mN[0m[34m[1mWWWWw
     wWWWWWWWWWWWWWWWw
        WWWWWWWWWWWWWw
            wWWWWWWWw[0m",0
-EvolutionOS,,^EvolutionOS,"[0m[34m[1m[1;32m      dddddddddddddddddddddddd
+EvolutionOS,,(?i:^EvolutionOS),"[0m[34m[1m[1;32m      dddddddddddddddddddddddd
   .dddd''''''''''''''''''''''dddd.
   dd:   dddddddddddddddddddd;   dd:
   dd:   ldl:''''''''''''''''    dd:
@@ -1984,7 +1984,7 @@ EvolutionOS,,^EvolutionOS,"[0m[34m[1m[1;32m      dddddddddddddddddddddddd
   dddd:.'''  '''''''''''''''  dddd:
      dddddddddddddddddddddddddd;;'
       '''''''''''''''''''''''''[0m[0m",0
-eweOS,,^eweOS,"[0m[32m[1m                    c.'
+eweOS,,(?i:^eweOS),"[0m[32m[1m                    c.'
                  ,xNMM.
                .OMMMMo
                lMMM""
@@ -2001,7 +2001,7 @@ eweOS,,^eweOS,"[0m[32m[1m                    c.'
     [0m[34m[1mkMMMMMMMMMMMMMMMMMMMMMMd
      ;KMMMMMMMWXXWMMMMMMMk.
        ""cooc*""    ""*coo'""[0m",0
-Exherbo,,^Exherbo,"[0m[37m[1m ,
+Exherbo,,(?i:^Exherbo),"[0m[37m[1m ,
 OXo.
 NXdX0:    .cok0KXNNXXK0ko:.
 KX  '0XdKMMK;.xMMMk, .0MMMMMXx;  ...
@@ -2023,7 +2023,7 @@ KX  '0XdKMMK;.xMMMk, .0MMMMMXx;  ...
           'dXMMXkl;,.        .,o0MMNo'
              ':d0XWMMMMWNNNNMMMNOl'
                    ':okKXWNKkl'[0m",0
-Fedora,_small,^fedora_small$,"[34m[1m        ,'''''.
+Fedora,_small,(?i:^fedora_small$),"[34m[1m        ,'''''.
        |   ,.  |
        |  |  '_'
   ,....|  |..
@@ -2032,7 +2032,7 @@ Fedora,_small,^fedora_small$,"[34m[1m        ,'''''.
 |  ',_,'  |
  '.     ,'
    '''''[0m",1
-Fedora,_old,^Fedora_old|^RFRemix,"[0m[34m[1m          /:-------------:\
+Fedora,_old,(?i:^Fedora_old|^RFRemix),"[0m[34m[1m          /:-------------:\
        :-------------------::
      :-----------[0m[37m[1m/shhOHbmp[0m[34m[1m---:\
    /-----------[0m[37m[1momMMMNNNMMD  [0m[34m[1m---:
@@ -2049,7 +2049,7 @@ Fedora,_old,^Fedora_old|^RFRemix,"[0m[34m[1m          /:-------------:\
 :---[0m[37m[1m:sdNMMMMNds:[0m[34m[1m------------:
 :------[0m[37m[1m:://:[0m[34m[1m-------------::
 :---------------------://[0m",0
-Fedora,,^Fedora,"[34m[1m             .',;::::;,'.
+Fedora,,(?i:^Fedora),"[34m[1m             .',;::::;,'.
          .';:cccccccccccc:;,.
       .;cccccccccccccccccccccc;.
     .:cccccccccccccccccccccccccc:.
@@ -2068,7 +2068,7 @@ cccccccc;[0m[37m[1m.:odl:.[34m[1m;cccccccccccccc:,.
 :cccccccccccccccccccccccccccc:'.
 .:cccccccccccccccccccccc:;,..
   '::cccccccccccccc::;,.[0m",0
-Feren,,^Feren,"[0m[34m[1m `​----------`​
+Feren,,(?i:^Feren),"[0m[34m[1m `​----------`​
  :+ooooooooo+.
 -o+oooooooooo+-
 ..`​/+++++++++++/...`​`​`​`​`​`​`​`​`​`​`​`​`​`​`​`​`​
@@ -2084,7 +2084,7 @@ Feren,,^Feren,"[0m[34m[1m `​----------`​
              `​-++++++---:::://///.
            `​.:///+++.             `​
           `​.........[0m",0
-FemboyOS,,^FemboyOS,"[0m[34m[1mMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+FemboyOS,,(?i:^FemboyOS),"[0m[34m[1mMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMWKkxkKWMMMMMMMMMMMMMMMMMMMMWKkxkKWMM
 MMMMXo. .;xKWMMMMMMMMMMMMMMMMMMXo. .oXMM
 MMWXx,..'..oXMMMMMMMMMMMMMMMMWKx,  .lXMM
@@ -2104,7 +2104,7 @@ MMMMMMMMMMNx,. .;dk:.   .;kNMMMMMMMMMMMM
 MMMMMMMMMMMN0ocxXWNkl:,:xXWMMMMMMMMMMMMM
 MMMMMMMMMMMMMWNWMMMWWNNNWMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM[0m",0
-Finnix,,^Finnix,"[0m[34m[1m            ,,:;;;;:,,
+Finnix,,(?i:^Finnix),"[0m[34m[1m            ,,:;;;;:,,
         ,;*%S########S%*;,
       ;?#################S?:
     :%######################?:
@@ -2121,7 +2121,7 @@ Finnix,,^Finnix,"[0m[34m[1m            ,,:;;;;:,,
      ,+%##################%;
         :+?S##########S?+:
             ,:;++++;:,[0m",0
-Furreto,,^Furreto,"[0m[32m[1m                    c.'
+Furreto,,(?i:^Furreto),"[0m[32m[1m                    c.'
                  ,xNMM.
                .OMMMMo
                lMMM""
@@ -2138,13 +2138,13 @@ Furreto,,^Furreto,"[0m[32m[1m                    c.'
     [0m[34m[1mkMMMMMMMMMMMMMMMMMMMMMMd
      ;KMMMMMMMWXXWMMMMMMMk.
        ""cooc*""    ""*coo'""[0m",0
-FreeBSD,_small,^freebsd_small$,"[0m[31m[1m/\,-'''''-,/\
+FreeBSD,_small,(?i:^freebsd_small$),"[0m[31m[1m/\,-'''''-,/\
 \_)       (_/
 |           |
 |           |
  ;         ;
   '-_____-'[0m",1
-FreeBSD,,^FreeBSD|^HardenedBSD,"[0m[37m[1m`​`​`​                        [0m[31m[1m`​
+FreeBSD,,(?i:^FreeBSD|^HardenedBSD),"[0m[37m[1m`​`​`​                        [0m[31m[1m`​
   [0m[37m[1m`​ `​.....---...[0m[31m[1m....--.`​`​`​   -/
   [0m[37m[1m+o   .--`​         [0m[31m[1m/y:`​      +.
   [0m[37m[1m yo`​:.            [0m[31m[1m:o      `​+-
@@ -2159,7 +2159,7 @@ FreeBSD,,^FreeBSD|^HardenedBSD,"[0m[37m[1m`​`​`​                       
      [0m[37m[1m`​:`​                  [0m[31m[1m`​:`​
        .--             `​--.
           .---.....----.[0m",0
-FreeMiNT,,^FreeMiNT,"[0m[37m[1m          ##
+FreeMiNT,,(?i:^FreeMiNT),"[0m[37m[1m          ##
           ##         #########
                     ####      ##
             ####  ####        ##
@@ -2174,7 +2174,7 @@ FreeMiNT,,^FreeMiNT,"[0m[37m[1m          ##
     ##      ##    ####  ####
     ##    ##  ##    ##  ##  ####
       ####  ##          ##  ##[0m",0
-Frugalware,,^Frugalware,"[0m[34m[1m          `​++/::-.`​
+Frugalware,,(?i:^Frugalware),"[0m[34m[1m          `​++/::-.`​
          /o+++++++++/::-.`​
         `​o+++++++++++++++o++/::-.`​
         /+++++++++++++++++++++++oo++/:-.`​`​
@@ -2197,7 +2197,7 @@ Frugalware,,^Frugalware,"[0m[34m[1m          `​++/::-.`​
                `​`​.:/+osyysssssssssssssh.
                         `​-:/+osyyssssyo
                                 .-:+++`​[0m",0
-Funtoo,,^Funtoo,"[0m[35m[1m   .dKXXd                         .
+Funtoo,,(?i:^Funtoo),"[0m[35m[1m   .dKXXd                         .
   :XXl;:.                      .OXo
 .'OXO''  .''''''''''''''''''''':XNd..'oco.lco,
 xXXXXXX, cXXXNNNXXXXNNXXXXXXXXNNNNKOOK; d0O .k
@@ -2207,7 +2207,7 @@ xXXXXXX, cXXXNNNXXXXNNXXXXXXXXNNNNKOOK; d0O .k
   kXX  xN0:.       KNN' oNNNX' ,XNk
   kXX  xNNXNNNNNNNNXNNNNNNNNXNNOxXNX0Xl
   ...  ......................... .;cc;.[0m",0
-GalliumOS,,^GalliumOS,"[0m[34m[1msooooooooooooooooooooooooooooooooooooo+:
+GalliumOS,,(?i:^GalliumOS),"[0m[34m[1msooooooooooooooooooooooooooooooooooooo+:
 yyooooooooooooooooooooooooooooooooo+/:::
 yyysoooooooooooooooooooooooooooo+/::::::
 yyyyyoooooooooooooooooooooooo+/:::::::::
@@ -2226,12 +2226,12 @@ yyyyyyyyyo+:-.....................-//:::
 yyyyyyo+:-..........................://:
 yyyo+:-..............................-//
 o/:-...................................:[0m",0
-Garuda,_small,^garuda_small$,"[0m[33m[1m     .----.
+Garuda,_small,(?i:^garuda_small$),"[0m[33m[1m     .----.
    .'   [0m[34m[1m,[0m[33m[1m  '.
 [0m[37m[1m .'    [0m[34m[1m'[0m[33m[1m-----|
 '[0m[32m[1m.   -----,
   '.____.'[0m",1
-Garuda,,^Garuda,"                     .%;888:8898898:
+Garuda,,(?i:^Garuda),"                     .%;888:8898898:
                    x;XxXB%89b8:b8%b88:
                 .8Xxd                8X:.
               .8Xx;                    8x:.
@@ -2248,14 +2248,14 @@ Garuda,,^Garuda,"                     .%;888:8898898:
         dx88                   .t@x.
           d:SS@8ba89aa67a853Sxxad.
             .d988999889889899dd.[0m",0
-Gentoo,_small,^gentoo_small$,"[0m[35m[1m _-----_
+Gentoo,_small,(?i:^gentoo_small$),"[0m[35m[1m _-----_
 (       \
 \    0   \
 [0m[37m[1m \        )
  /      _/
 (     _-
 \____-[0m",1
-Gentoo,,^Gentoo,"[0m[35m[1m         -/oyddmdhs+:.
+Gentoo,,(?i:^Gentoo),"[0m[35m[1m         -/oyddmdhs+:.
      -o[0m[37m[1mdNMMMMMMMMNNmhy+[0m[35m[1m-`​
    -y[0m[37m[1mNMMMMMMMMMMMNNNmmdhy[0m[35m[1m+-
  `​o[0m[37m[1mmMMMMMMMMMMMMNmdmmmmddhhy[0m[35m[1m/`​
@@ -2273,7 +2273,7 @@ yM[0m[37m[1mMNNNNNNNmmmmmNNMmhs+/[0m[35m[1m-`​
 /h[0m[37m[1mMMNNNNNNNNMNdhs++/[0m[35m[1m-`​
 `​/[0m[37m[1mohdmmddhys+++/:[0m[35m[1m.`​
   `​-//////:--.[0m",0
-Pentoo,,^Pentoo,"[0m[37m[1m           `​:oydNNMMMMNNdyo:`​
+Pentoo,,(?i:^Pentoo),"[0m[37m[1m           `​:oydNNMMMMNNdyo:`​
         :yNMMMMMMMMMMMMMMMMNy:
       :dMMMMMMMMMMMMMMMMMMMMMMd:
      oMMMMMMMho/-....-/ohMMMMMMMo
@@ -2293,7 +2293,7 @@ MMMMMMMMMMN[0m[35m[1ms:..-/[0m[37m[1mohNMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
  MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM[0m",0
-glaucus,,^glaucus,"[0m[35m[1m             ,,        ,d88P
+glaucus,,(?i:^glaucus),"[0m[35m[1m             ,,        ,d88P
            ,d8P    ,ad8888*
          ,888P    d88888*     ,,ad8888P*
     d   d888P   a88888P*  ,ad8888888*
@@ -2305,7 +2305,7 @@ glaucus,,^glaucus,"[0m[35m[1m             ,,        ,d88P
  *8888888888888888888888888888888*
   Y888888888P* `​*`​`​*888888888888*
    *^888^*            *Y888P**[0m",0
-gNewSense,,^gNewSense,"[0m[34m[1m                     ..,,,,..
+gNewSense,,(?i:^gNewSense),"[0m[34m[1m                     ..,,,,..
                .oocchhhhhhhhhhccoo.
         .ochhlllllllc hhhhhh ollllllhhco.
     ochlllllllllll hhhllllllhhh lllllllllllhco
@@ -2317,7 +2317,7 @@ ollllllh          +llllllllllll+          hllllllo
     ochllc.            ++++            .cllhco
        `​+occooo+.                .+ooocco+'
               `​+oo++++      ++++oo+'[0m",0
-GNOME,,^GNOME,"[0m[34m[1m                               ,@@@@@@@@,
+GNOME,,(?i:^GNOME),"[0m[34m[1m                               ,@@@@@@@@,
                  @@@@@@      @@@@@@@@@@@@
         ,@@.    @@@@@@@    *@@@@@@@@@@@@
        @@@@@%   @@@@@@(    @@@@@@@@@@@&
@@ -2338,7 +2338,7 @@ GNOME,,^GNOME,"[0m[34m[1m                               ,@@@@@@@@,
           ,@@@@@@@@@@@@@@@@@@@@&
               &@@@@@@@@@@@@@@
                      ...[0m",0
-GNU,,^GNU$,"[0m[1m    _-`​`​`​`​`​-,           ,- '- .
+GNU,,(?i:^GNU$),"[0m[1m    _-`​`​`​`​`​-,           ,- '- .
   .'   .- - |          | - -.  `​.
  /.'  /                     `​.   \
 :/   :      _...   ..._      `​`​   :
@@ -2356,13 +2356,13 @@ GNU,,^GNU$,"[0m[1m    _-`​`​`​`​`​-,           ,- '- .
                ''/''/''
                  '/'/'
                   `​;[0m",0
-GoboLinux,,^GoboLinux,"[0m[35m[1m  _____       _
+GoboLinux,,(?i:^GoboLinux),"[0m[35m[1m  _____       _
  / ____|     | |
 | |  __  ___ | |__   ___
 | | |_ |/ _ \| '_ \ / _ \
 | |__| | (_) | |_) | (_) |
  \_____|\___/|_.__/ \___/[0m",1
-GrapheneOS,,^GrapheneOS,"[0m[37m[1m                        B?
+GrapheneOS,,(?i:^GrapheneOS),"[0m[37m[1m                        B?
                         G~
                         G~&
                       G!^:^?#
@@ -2385,7 +2385,7 @@ GrapheneOS,,^GrapheneOS,"[0m[37m[1m                        B?
                         B~
                         G!
                         #[0m",0
-Grombyang,,^Grombyang,"[0m[34m[1m            eeeeeeeeeeee
+Grombyang,,(?i:^Grombyang),"[0m[34m[1m            eeeeeeeeeeee
          eeeeeeeeeeeeeeeee
       eeeeeeeeeeeeeeeeeeeeeee
     eeeee       [0m[32m[1m.o+       [0m[34m[1meeee
@@ -2403,14 +2403,14 @@ eee        [0m[32m[1m//  \ooo/  \\        [0m[34m[1meee
     eeeee   [0m[31m[1mGrombyang OS [0m[34m[1m  eeee
       eeeeeeeeeeeeeeeeeeeeeee
          eeeeeeeeeeeeeeeee[0m",0
-Guix,_small,^guix_small,"[0m[33m[1m|.__          __.|
+Guix,_small,(?i:^guix_small),"[0m[33m[1m|.__          __.|
 |__ \        / __|
    \ \      / /
     \ \    / /
      \ \  / /
       \ \/ /
        \__/[0m",1
-Guix,,^Guix,"[0m[33m[1m ..                             `​.
+Guix,,(?i:^Guix),"[0m[33m[1m ..                             `​.
  `​--..`​`​`​..`​           `​..`​`​`​..--`​
    .-:///-:::.       `​-:::///:-.
       `​`​`​`​.:::`​     `​:::.`​`​`​`​
@@ -2420,7 +2420,7 @@ Guix,,^Guix,"[0m[33m[1m ..                             `​.
              -+++-:::.
               :+/:::-
               `​-....`​[0m",0
-Haiku,_small,^haiku_small,"[0m[32m[1m       ,^,
+Haiku,_small,(?i:^haiku_small),"[0m[32m[1m       ,^,
       /   \
 *--_ ;     ; _--*
 \   '""     ""'   /
@@ -2428,7 +2428,7 @@ Haiku,_small,^haiku_small,"[0m[32m[1m       ,^,
 .-'""         ""'-.
  '-.__.   .__.-'
        |_|[0m",1
-Haiku,,^Haiku,"           MMMM              MMMM
+Haiku,,(?i:^Haiku),"           MMMM              MMMM
            MMMM              MMMM
            MMMM              MMMM
            MMMM              MMMM
@@ -2440,7 +2440,7 @@ Haiku,,^Haiku,"           MMMM              MMMM
            MMMM              MMMM
            MMMM              MMMM
            """"""""              """"""""[0m",0
-HamoniKR,,^HamoniKR,"                     cO0Ox.
+HamoniKR,,(?i:^HamoniKR),"                     cO0Ox.
                   .ldddddddo.
                 .lddddddddddo
               'lddddddddddddc
@@ -2463,7 +2463,7 @@ HamoniKR,,^HamoniKR,"                     cO0Ox.
                   .cooooooooooop.
                   .cooooooooop.
                    .cooooop'[0m",0
-Huayra,,^Huayra,"[0m[37m[1m                     `​
+Huayra,,(?i:^Huayra),"[0m[37m[1m                     `​
             .       .       `​
        `​`​    -      .      .
         `​.`​   -`​ `​. -  `​`​ .`​
@@ -2480,7 +2480,7 @@ Huayra,,^Huayra,"[0m[37m[1m                     `​
 ::`​                    `​::`​..`​
                           .`​ `​..
                                 `​`​[0m",0
-HydroOS,,^HydroOS,"  _    _           _            ____   _____
+HydroOS,,(?i:^HydroOS),"  _    _           _            ____   _____
  | |  | |         | |          / __ \ / ____|
  | |__| |_   _  __| |_ __ ___ | |  | | (___
  |  __  | | | |/ _`​ | '__/ _ \| |  | |\___ \
@@ -2488,14 +2488,14 @@ HydroOS,,^HydroOS,"  _    _           _            ____   _____
  |_|  |_|\__, |\__,_|_|  \___/ \____/|_____/
           __/ |
          |___/[0m",0
-Hyperbola,_small,^hyperbola_small,"[30m[1m    |`​__.`​/
+Hyperbola,_small,(?i:^hyperbola_small),"[30m[1m    |`​__.`​/
     \____/
     .--.
    /    \
   /  ___ \
  / .`​   `​.\
 /.`​      `​.\[0m",1
-Hyperbola,,^Hyperbola,"[30m[1m                     WW
+Hyperbola,,(?i:^Hyperbola),"[30m[1m                     WW
                      KX              W
                     WO0W          NX0O
                     NOO0NW  WNXK0OOKW
@@ -2511,7 +2511,7 @@ Hyperbola,,^Hyperbola,"[30m[1m                     WW
    N00KNW                   KOW
  NKXN                       W0W
 WW                           W[0m",0
-Hybrid,,^Hybrid,"[0m[34m[1m   /                          [34m[1m#
+Hybrid,,(?i:^Hybrid),"[0m[34m[1m   /                          [34m[1m#
    [0m[34m[1m////&                      [34m[1m#####
    [0m[34m[1m/////                      [34m[1m######
    [0m[34m[1m/////      //////////      [34m[1m######
@@ -2527,7 +2527,7 @@ Hybrid,,^Hybrid,"[0m[34m[1m   /                          [34m[1m#
    [0m[34m[1m/////                      [34m[1m######
    [0m[34m[1m/////                      [34m[1m#########
    [0m[34m[1m////&                       [34m[1m########[0m",0
-iglunix,,^iglunix|^iglu,"[30m[1m     |
+iglunix,,(?i:^iglunix|^iglu),"[30m[1m     |
      |        |
               |
 |    ________
@@ -2539,7 +2539,7 @@ iglunix,,^iglunix|^iglu,"[30m[1m     |
  \    /        /
   \  /        /
    \/________/[0m",1
-Interix,,^Interix,"[0m[31m[1m                   .[0m[34m[1m.
+Interix,,(?i:^Interix),"[0m[31m[1m                   .[0m[34m[1m.
 [0m[31m[1m                  75[0m[34m[1mG!
 [0m[31m[1m                ^?PG[0m[34m[1m&&J.
 [0m[31m[1m              :!5GPP[0m[34m[1m&&&B!
@@ -2556,7 +2556,7 @@ Interix,,^Interix,"[0m[31m[1m                   .[0m[34m[1m.
 [0m[37m[1m~!!7JY5PGGBBBBBBBBGGGGGGGBGGGGGP5YJ?7~~~
        .::^~7?JYPGBB#BGPYJ?7!7^:.
                  ..:^...[0m",0
-Ironclad,,^Ironclad,"[0m[32m[1m                    c.'
+Ironclad,,(?i:^Ironclad),"[0m[32m[1m                    c.'
                  ,xNMM.
                .OMMMMo
                lMMM""
@@ -2573,7 +2573,7 @@ Ironclad,,^Ironclad,"[0m[32m[1m                    c.'
     [0m[34m[1mkMMMMMMMMMMMMMMMMMMMMMMd
      ;KMMMMMMMWXXWMMMMMMMk.
        ""cooc*""    ""*coo'""[0m",0
-januslinux,,^januslinux|^janus|^Ataraxia\ Linux|^Ataraxia,"[0m[34m[1m               'l:
+januslinux,,(?i:^januslinux|^janus|^Ataraxia\ Linux|^Ataraxia),"[0m[34m[1m               'l:
         loooooo
           loooo coooool
  looooooooooooooooooool
@@ -2597,7 +2597,7 @@ looooooooooooo      ;loooooo [0m[35m[1mlooooooc
                        :oooool,    coool:, looool:,
                        looool:      ooooooooooooooo:
                        cooolc        .ooooooooooool[0m",0
-Kaisen,,^Kaisen,"[0m[31m[1m                          `​
+Kaisen,,(?i:^Kaisen),"[0m[31m[1m                          `​
                   `​:+oyyho.
              `​+:`​sdddddd/
         `​+`​ :ho oyo++ohds-`​
@@ -2615,7 +2615,7 @@ odhdddddddo- `​ddddh+-`​`​....-+hdddddds.
       :sydds           -hddddddd`​    /
        .+shd-      `​:ohddddddddd`​
                 `​:+ooooooooooooo:[0m",0
-Kali,_small,^kali_small$|^kalilinux_small$|^kali_linux_small$,"[0m[34m[1m     -#. #
+Kali,_small,(?i:^kali_small$|^kalilinux_small$|^kali_linux_small$),"[0m[34m[1m     -#. #
       @###
   -######
  @#########
@@ -2631,7 +2631,7 @@ Kali,_small,^kali_small$|^kalilinux_small$|^kali_linux_small$,"[0m[34m[1m    
        -#
         @
         :[0m",1
-Kali,,^Kali,"[0m[34m[1m..............
+Kali,,(?i:^Kali),"[0m[34m[1m..............
             ..,;:ccc,.
           ......''';lxO.
 .....''''..........,:ld;
@@ -2652,7 +2652,7 @@ Kali,,^Kali,"[0m[34m[1m..............
                                             c
                                             .'
                                              .[0m",0
-KaOS,,^KaOS,"[0m[34m[1m                     ..
+KaOS,,(?i:^KaOS),"[0m[34m[1m                     ..
   .....         ..OSSAAAAAAA..
  .KKKKSS.     .SSAAAAAAAAAAA.
 .KKKKKSO.    .SAAAAAAAAAA...
@@ -2668,7 +2668,7 @@ KKKKKKS. .SSAA..
        .K      ..SSSASSSS.. ..SSA.
                  .SSS.AAKAKSSKA.
                     .SSS....S..[0m",0
-KDE,,^KDE,"[0m[32m[1m             `​..---+/---..`​
+KDE,,(?i:^KDE),"[0m[32m[1m             `​..---+/---..`​
          `​---.`​`​   `​`​   `​.---.`​
       .--.`​        `​`​        `​-:-.
     `​:/:     `​.----//----.`​     :/-
@@ -2687,7 +2687,7 @@ KDE,,^KDE,"[0m[32m[1m             `​..---+/---..`​
       .-:.`​        `​`​        `​-:-.
          `​---.`​`​   `​`​   `​.---.`​
              `​..---+/---..`​[0m",0
-Kibojoe,,^Kibojoe,"[0m[34m[1m           ./+oooooo+/.
+Kibojoe,,(?i:^Kibojoe),"[0m[34m[1m           ./+oooooo+/.
            -/+ooooo+/:.`​
           [0m[32m[1m`​[0m[34m[1myyyo[0m[37m[1m+++/++[0m[34m[1mosss[0m[32m[1m.
          [0m[32m[1m+NMN[0m[34m[1myssssssssssss[0m[32m[1m.
@@ -2700,7 +2700,7 @@ Kibojoe,,^Kibojoe,"[0m[34m[1m           ./+oooooo+/.
 `​NMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMd.
 ods+/:-----://+oyydmNMMMMMMMMMMMMMMMMMN-
 `​                     .-:+osyhhdmmNNNmdo[0m",0
-Kogaion,,^Kogaion,"[0m[34m[1m            ;;      ,;
+Kogaion,,(?i:^Kogaion),"[0m[34m[1m            ;;      ,;
            ;;;     ,;;
          ,;;;;     ;;;;
       ,;;;;;;;;    ;;;;
@@ -2720,7 +2720,7 @@ Kogaion,,^Kogaion,"[0m[34m[1m            ;;      ,;
         ';;;;;;;; ;;;;;;
            ';;;;; ;;;;
              ';;; ;;[0m",1
-Korora,,^Korora,"[0m[37m[1m                ____________
+Korora,,(?i:^Korora),"[0m[37m[1m                ____________
              _add55555555554[0m[34m[1m:
            _w?'[0m[34m[1m`​`​`​`​`​`​`​`​`​`​'[0m[37m[1m)k[0m[34m[1m:
           _Z'[0m[34m[1m`​[0m[37m[1m            ]k[0m[34m[1m:
@@ -2736,7 +2736,7 @@ Korora,,^Korora,"[0m[37m[1m                ____________
 :m,________.aa7^[0m[34m[1m`​
 :#baaaaaaas!J'[0m[34m[1m`​
  `​`​`​`​`​`​`​`​`​`​`​[0m",1
-KSLinux,,^KSLinux,"[0m[34m[1m K   K U   U RRRR   ooo
+KSLinux,,(?i:^KSLinux),"[0m[34m[1m K   K U   U RRRR   ooo
  K  K  U   U R   R o   o
  KKK   U   U RRRR  o   o
  K  K  U   U R  R  o   o
@@ -2747,7 +2747,7 @@ KSLinux,,^KSLinux,"[0m[34m[1m K   K U   U RRRR   ooo
   SSS  AAAAA W W W AAAAA
      S A   A WW WW A   A
   SSS  A   A W   W A   A[0m",1
-Kubuntu,,^Kubuntu,"[0m[34m[1m           `​.:/ossyyyysso/:.
+Kubuntu,,(?i:^Kubuntu),"[0m[34m[1m           `​.:/ossyyyysso/:.
         .:oyyyyyyyyyyyyyyyyyyo:`​
       -oyyyyyyyo[0m[37m[1mdMMy[0m[34m[1myyyyyyysyyyyo-
     -syyyyyyyyyy[0m[37m[1mdMMy[0m[34m[1moyyyy[0m[37m[1mdmMMy[0m[34m[1myyyys-
@@ -2767,7 +2767,7 @@ oyyyyysos[0m[37m[1mdy[0m[34m[1myyyyyyyyyyyyyyyyyy[0m[37m[1mdMMMMy[0m[
       -oyyyyyyy[0m[37m[1mdMMy[0m[34m[1myyyyyysosyyyyo-
         ./oyyyyyyyyyyyyyyyyyyo/.
            `​.:/oosyyyysso/:.`​[0m",0
-LainOS,,^LainOS,"[36m[1m                    /==\
+LainOS,,(?i:^LainOS),"[36m[1m                    /==\
                     \==/
 [0m[34m[1m               · · · · · · ·
             · · · · · · · · · ·
@@ -2787,7 +2787,7 @@ LainOS,,^LainOS,"[36m[1m                    /==\
          .===.   .===  ===.   .===.
            .========    ========.
              '''''        '''''[0m",0
-LEDE,,^LEDE,"[0m[34m[1m     _________
+LEDE,,(?i:^LEDE),"[0m[34m[1m     _________
     /        /\
    /  LE    /  \
   /    DE  /    \
@@ -2796,7 +2796,7 @@ LEDE,,^LEDE,"[0m[34m[1m     _________
   \    LE  \    /
    \  DE    \  /
     \________\/[0m",1
-LangitKetujuh,_old,^LangitKetujuh_old$,"   L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L
+LangitKetujuh,_old,(?i:^LangitKetujuh_old$),"   L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L
       'L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L
    L7L.   'L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L
    L7L7L7L                             L7L7L7L
@@ -2809,7 +2809,7 @@ LangitKetujuh,_old,^LangitKetujuh_old$,"   L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L
    L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L.   'L7L
    L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L.
    L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L7L",0
-LangitKetujuh,,^LangitKetujuh,". 'MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMML7
+LangitKetujuh,,(?i:^LangitKetujuh),". 'MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMML7
 MM.   'MMMMMMMMMMMMMMMMMMMMMMMMMMML7L7
 MMMMMM     MMMMMMML7L7L7L7L7L7L7L7L7L7
 L7MMMM                          L7L7L7
@@ -2820,7 +2820,7 @@ L7L7L7                   'L7L7L7::::::
 ::L7L7L7L7L7L7L7L7L7L::::::.    ::::::
 :::::7L7L7L7L7L7:::::::::::::::.   '::
 :::::::::::::::::::::::::::::::::::. '",0
-LaxerOS,,^LaxerOS,"                    /.
+LaxerOS,,(?i:^LaxerOS),"                    /.
                  `​://:-
                 `​//////:
                .////////:`​
@@ -2840,7 +2840,7 @@ LaxerOS,,^LaxerOS,"                    /.
 .:://////////////////////////////////::.
 ////////////////////////////////////////
 .:////////////////////////////////////:.[0m",0
-LibreELEC,,^LibreELEC,"[0m[32m[1m          :+ooo/.      [0m[33m[1m./ooo+:
+LibreELEC,,(?i:^LibreELEC),"[0m[32m[1m          :+ooo/.      [0m[33m[1m./ooo+:
 [0m[32m[1m        :+ooooooo/.  [0m[33m[1m./ooooooo+:
 [0m[32m[1m      :+ooooooooooo:[0m[33m[1m:ooooooooooo+:
 [0m[32m[1m    :+ooooooooooo+-  [0m[33m[1m-+ooooooooooo+:
@@ -2860,7 +2860,7 @@ LibreELEC,,^LibreELEC,"[0m[32m[1m          :+ooo/.      [0m[33m[1m./ooo+:
 [36m[1m        -+oooooo+:    [35m[1m:+oooooo+-
 [36m[1m          -+oo+:        [35m[1m:+oo+-
 [36m[1m            ..            [35m[1m..[0m",0
-Linux,,^Linux$,"[30m[1m        #####
+Linux,,(?i:^Linux$),"[30m[1m        #####
 [30m[1m       #######
 [30m[1m       ##[0m[1mO[30m[1m#[0m[1mO[30m[1m##
 [30m[1m       #[0m[33m[1m#####[30m[1m#
@@ -2872,14 +2872,14 @@ Linux,,^Linux$,"[30m[1m        #####
 [0m[33m[1m######[30m[1m#[0m[1m#######[30m[1m#[0m[33m[1m######
 [0m[33m[1m#######[30m[1m#[0m[1m#####[30m[1m#[0m[33m[1m#######
 [0m[33m[1m  #####[30m[1m#######[0m[33m[1m#####[0m",1
-Linux,_small,^Linux_small$,"[30m[1m    ___
+Linux,_small,(?i:^Linux_small$),"[30m[1m    ___
 [30m[1m   ([0m[1m.. [30m[1m|
 [30m[1m   ([0m[33m[1m<> [30m[1m|
 [30m[1m  / [0m[1m__  [30m[1m\
 [30m[1m ( [0m[1m/  \ [30m[1m/|
 [0m[33m[1m_[30m[1m/\ [0m[1m__)[30m[1m/[0m[33m[1m_[30m[1m)
 [0m[33m[1m\/[30m[1m-____[0m[33m[1m\/[0m",1
-Linux Lite,,^Linux\ Lite|^Linux_Lite,"[0m[33m[1m          ,xXc
+Linux Lite,,(?i:^Linux\ Lite|^Linux_Lite),"[0m[33m[1m          ,xXc
       .l0MMMMMO
    .kNMMMMMWMMMN,
    KMMMMMMKMMMMMMo
@@ -2899,7 +2899,7 @@ Linux Lite,,^Linux\ Lite|^Linux_Lite,"[0m[33m[1m          ,xXc
      ':. .: .'
               ..
                 .[0m",1
-LMDE,,^LMDE,"[0m[37m[1m          `​.-::---..
+LMDE,,(?i:^LMDE),"[0m[37m[1m          `​.-::---..
 [0m[32m[1m      .:++++ooooosssoo:.
     .+o++::.      `​.:oos+.
 [0m[32m[1m   :oo:.`​             -+oo[0m[37m[1m:
@@ -2916,7 +2916,7 @@ LMDE,,^LMDE,"[0m[37m[1m          `​.-::---..
 [0m[32m[1m     [0m[37m[1m.[0m[32m[1m+/.
 [0m[32m[1m       [0m[37m[1m.[0m[32m[1m:+-.
           `​--.`​`​[0m",1
-Lubuntu,,^Lubuntu,"[0m[34m[1m           `​.:/ossyyyysso/:.
+Lubuntu,,(?i:^Lubuntu),"[0m[34m[1m           `​.:/ossyyyysso/:.
         `​.:yyyyyyyyyyyyyyyyyy:.`​
       .:yyyyyyyyyyyyyyyyyyyyyyyy:.
     .:yyyyyyyyyyyyyyyyyyyyyyyyyyyy:.
@@ -2936,7 +2936,7 @@ Lubuntu,,^Lubuntu,"[0m[34m[1m           `​.:/ossyyyysso/:.
       .:yyyyyyy[0m[37m[1mmy[0m[34m[1myyyyyyyyyyyyyyy:.
         `​.:yyyy[0m[37m[1ms[0m[34m[1myyyyyyyyyyyyy:.`​
            `​.:/oosyyyysso/:.`​[0m",0
-Lunar,,^Lunar,"[0m[34m[1m`​-.                                 `​-.
+Lunar,,(?i:^Lunar),"[0m[34m[1m`​-.                                 `​-.
   -ohys/-`​                    `​:+shy/`​
      -omNNdyo/`​          :+shmNNy/`​
              [0m[33m[1m      -
@@ -2949,7 +2949,7 @@ Lunar,,^Lunar,"[0m[34m[1m`​-.                                 `​-.
          |  |   _ _ ___ ___ ___
          |  |__| | |   | .'|  _|
          |_____|___|_|_|__,|_|[0m",0
-mac,,^mac|^Darwin$,"[0m[32m[1m                    c.'
+mac,,(?i:^mac|^Darwin$),"[0m[32m[1m                    c.'
                  ,xNMM.
                .OMMMMo
                lMM""
@@ -2966,14 +2966,14 @@ mac,,^mac|^Darwin$,"[0m[32m[1m                    c.'
     [0m[34m[1mkMMMMMMMMMMMMMMMMMMMMMMd
      ;KMMMMMMMWXXWMMMMMMMk.
        ""cooc*""    ""*coo'""[0m",0
-Mageia,_small,^mageia_small,"[0m[36m[1m   *
+Mageia,_small,(?i:^mageia_small),"[0m[36m[1m   *
     *
    **
 [0m[37m[1m /\__/\
 /      \
 \      /
  \____/[0m",1
-Mageia,,^Mageia,"[0m[36m[1m        .°°.
+Mageia,,(?i:^Mageia),"[0m[36m[1m        .°°.
          °°   .°°.
          .°°°. °°
          .   .
@@ -2992,7 +2992,7 @@ lOO.                .OO:
   .lO0Kc;,,,,,,;c0KOc.
      ;d00KKKKKK00d;
         .,KKKK,.[0m",1
-MagpieOS,,^MagpieOS,"[0m[32m[1m        ;00000     :000Ol
+MagpieOS,,(?i:^MagpieOS),"[0m[32m[1m        ;00000     :000Ol
      .x00kk00:    O0kk00k;
     l00:   :00.  o0k   :O0k.
   .k0k.     x[0m[31m[1md$dddd[0m[32m[1mk'    .d00;
@@ -3012,14 +3012,14 @@ o00.              k0O[0m[31m[1mdddddd[0m[32m[1mocc
        ..          [0m[35m[1mdxl     .xx;
                     :xxolldxd'
                       ;oxdl.[0m",0
-MainsailOS,_small,^MainsailOS_small,"[0m[31m[1m          -:
+MainsailOS,_small,(?i:^MainsailOS_small),"[0m[31m[1m          -:
          +%*
        .#%%+
       -%%%: +=
      +%%#..#%%-
    .#%%+ -%%%- +=
   -%%%- +%%#..#%%+[0m",1
-MainsailOS,,^MainsailOS,"[0m[31m[1m                           -
+MainsailOS,,(?i:^MainsailOS),"[0m[31m[1m                           -
                           *%:
                         :%%%#
                        =%%%%%-
@@ -3037,7 +3037,7 @@ MainsailOS,,^MainsailOS,"[0m[31m[1m                           -
        :%%%%%%%%*    :#%%%%%%%#.   .*%%%%%%%*
       +%%%%%%%%=    -%%%%%%%%+    :%%%%%%%%*
     .#%%%%%%%%:    *%%%%%%%%-    =%%%%%%%%=[0m",0
-Mandriva,,^Mandriva|^Mandrake,"[0m[33m[1m                        `​`​
+Mandriva,,(?i:^Mandriva|^Mandrake),"[0m[33m[1m                        `​`​
                        `​-.
 [0m[34m[1m      `​               [0m[33m[1m.---
 [0m[34m[1m    -/               [0m[33m[1m-::--`​
@@ -3052,14 +3052,14 @@ Mandriva,,^Mandriva|^Mandrake,"[0m[33m[1m                        `​`​
 [0m[34m[1m /sss+.    [0m[33m[1m..`​[0m[34m[1m  `​--`​    [0m[33m[1m.:::
 [0m[34m[1m  -ossso+/:://+/-`​        [0m[33m[1m.:`​
 [0m[34m[1m    -/+ooo+/-.              [0m[33m[1m`​[0m",0
-Manjaro,_small,^manjaro_small,"[0m[32m[1m||||||||| ||||
+Manjaro,_small,(?i:^manjaro_small),"[0m[32m[1m||||||||| ||||
 ||||||||| ||||
 ||||      ||||
 |||| |||| ||||
 |||| |||| ||||
 |||| |||| ||||
 |||| |||| ||||[0m",1
-Manjaro,,^Manjaro,"[0m[32m[1m██████████████████  ████████
+Manjaro,,(?i:^Manjaro),"[0m[32m[1m██████████████████  ████████
 ██████████████████  ████████
 ██████████████████  ████████
 ██████████████████  ████████
@@ -3073,7 +3073,7 @@ Manjaro,,^Manjaro,"[0m[32m[1m████████████████
 ████████  ████████  ████████
 ████████  ████████  ████████
 ████████  ████████  ████████[0m",1
-MassOS,,^MassOS,"[0m[37m[1m -+++/+++osyyhdmNNMMMMNdy/
+MassOS,,(?i:^MassOS),"[0m[37m[1m -+++/+++osyyhdmNNMMMMNdy/
  /MMMMMMMMMMMMMMMMMMMMMMMMm.
  /MMMMMMMMMMMMMMMMMMMMMMMMMm
  /MMMMMMMMMMMMMMMMMMMMMMMMMM:
@@ -3091,7 +3091,7 @@ MassOS,,^MassOS,"[0m[37m[1m -+++/+++osyyhdmNNMMMMNdy/
   dMMMMMMN:MMMMMMMM-MMMMMMMMs
   `​yNMMMMN:MMMMMMMM-MMMMMMMMs
     `​:+oss.ssssssss.ssssssss/[0m",1
-TeArch,,^TeArch,"[30m[1m          @@@@@@@@@@@@@@
+TeArch,,(?i:^TeArch),"[30m[1m          @@@@@@@@@@@@@@
       @@@@@@@@@              @@@@@@
      @@@@@                     @@@@@
      @@                           @@
@@ -3112,7 +3112,7 @@ TeArch,,^TeArch,"[30m[1m          @@@@@@@@@@@@@@
    @@@@@@@&@@@@@@@#  #@@@@@@@@@@@@@@@@
       @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
           @@@@@@@@@@@@@@@@@@@@@[0m",0
-Maui,,^Maui,"[0m[36m[1m             `​.-://////:--`​
+Maui,,(?i:^Maui),"[0m[36m[1m             `​.-://////:--`​
          .:/oooooooooooooooo+:.
       `​:+ooooooooooooooooooooooo:`​
     `​:oooooooooooooooooooooooooooo/`​
@@ -3132,7 +3132,7 @@ Maui,,^Maui,"[0m[36m[1m             `​.-://////:--`​
       `​:+oooooooooooooooooooooo+:`​
          .:+oooooooooooooooo+:.
              `​.-://////:-.`​[0m",0
-Meowix,,^Meowix,"[0m[31m[1m         #[0m[33m[1m%            [0m[33m[1m&[0m[34m[1m*
+Meowix,,(?i:^Meowix),"[0m[31m[1m         #[0m[33m[1m%            [0m[33m[1m&[0m[34m[1m*
 [0m[31m[1m        ##[0m[33m[1m%%          [0m[33m[1m&&[0m[34m[1m**
 [0m[31m[1m       ##  [0m[33m[1m%%        [0m[33m[1m&&  [0m[34m[1m**
 [0m[31m[1m      ##    [0m[33m[1m%%      [0m[33m[1m&&    [0m[34m[1m**
@@ -3142,7 +3142,7 @@ Meowix,,^Meowix,"[0m[31m[1m         #[0m[33m[1m%            [0m[33m[1m&
 [0m[31m[1m  ##            [0m[33m[1m%%            [0m[34m[1m**
 [0m[31m[1m ##                            [0m[34m[1m**
 [0m[31m[1m##                              [0m[34m[1m**[0m",0
-Mer,,^Mer,"[0m[34m[1m                         dMs
+Mer,,(?i:^Mer),"[0m[34m[1m                         dMs
                          .-`​
                        `​y`​-o+`​
                         `​`​NMMy
@@ -3169,7 +3169,7 @@ NNd   sNN-  -NNs  -mMNs-.--..:dMMh`​  dNN
                      `​hmm/
                          .:`​
                          dMs[0m",0
-Minix,,^Minix,"[0m[37m[1m   -sdhyo+:-`​                -/syymm:
+Minix,,(?i:^Minix),"[0m[37m[1m   -sdhyo+:-`​                -/syymm:
    sdyooymmNNy.     `​`​    .smNmmdysNd
    odyoso+syNNmysoyhhdhsoomNmm+/osdm/
     :hhy+-/syNNmddhddddddmNMNo:sdNd:
@@ -3186,7 +3186,7 @@ Minix,,^Minix,"[0m[37m[1m   -sdhyo+:-`​                -/syymm:
        ../-yNMMy--/::/-.sMMmos+.`​
            -+oyhNsooo+omy/`​`​`​
               `​::ohdmds-`​[0m",0
-MIRACLE LINUX,,^MIRACLE\ LINUX|^MIRACLE_LINUX,"[30m[1m            ,A
+MIRACLE LINUX,,(?i:^MIRACLE\ LINUX|^MIRACLE_LINUX),"[30m[1m            ,A
           .###
      .#' .####   .#.
    r##:  :####   ####.
@@ -3202,7 +3202,7 @@ MIRACLE LINUX,,^MIRACLE\ LINUX|^MIRACLE_LINUX,"[30m[1m            ,A
          `​:### '
            '##
             ';[0m",0
-Linspire,,^Linspire|^Freespire|^Lindows,"[0m[32m[1m                                                   __^
+Linspire,,(?i:^Linspire|^Freespire|^Lindows),"[0m[32m[1m                                                   __^
 [0m[32m[1m                                                __/    \
 [0m[32m[1m   MMy        dMy                            __/        \
 [0m[32m[1m  dMMy        MMy                            [0m[34m[1mMM[0m[32m[1m          \
@@ -3214,7 +3214,7 @@ Linspire,,^Linspire|^Freespire|^Lindows,"[0m[32m[1m                          
 [0m[32m[1mdMMy       dMM dMM  dMM [0m[34m[1mdMM  MMy dMMMMMy dMM  dMM     MMy   MM
 [0m[32m[1mMMMMMMMMMM MMy MMy  MMy [0m[34m[1mdMMMyyy MMy     MMy  MMy      dMMMMMMy
 [0m[32m[1m                                [0m[34m[1mdy[0m",0
-Linux Mint Old,,^Linux\ Mint\ Old|^LinuxMintOld|^mint_old,"[0m[32m[1mMMMMMMMMMMMMMMMMMMMMMMMMMmds+.
+Linux Mint Old,,(?i:^Linux\ Mint\ Old|^LinuxMintOld|^mint_old),"[0m[32m[1mMMMMMMMMMMMMMMMMMMMMMMMMMmds+.
 MMm----::-://////////////oymNMd+`​
 MMd      [0m[37m[1m/++                [0m[32m[1m-sNMd:
 MMNso/`​  [0m[37m[1mdMM    `​.::-. .-::.`​ [0m[32m[1m.hMN:
@@ -3230,7 +3230,7 @@ ddddMMh  [0m[37m[1mdMM   :hNMNMNhNMNMNh: [0m[32m[1m`​NMm
       `​/dMNmy+/:-------------:/yMMM
          ./ydNMMMMMMMMMMMMMMMMMMMMM
             .MMMMMMMMMMMMMMMMMMM[0m",0
-Linux Mint,,^Linux\ Mint|^LinuxMint|^mint,"[0m[37m[1m             ...-:::::-...
+Linux Mint,,(?i:^Linux\ Mint|^LinuxMint|^mint),"[0m[37m[1m             ...-:::::-...
 [0m[37m[1m          .-MMMMMMMMMMMMMMM-.
       .-MMMM[0m[32m[1m`​..-:::::::-..`​[0m[37m[1mMMMM-.
     .:MMMM[0m[32m[1m.:MMMMMMMMMMMMMMM:.[0m[37m[1mMMMM:.
@@ -3249,7 +3249,7 @@ Linux Mint,,^Linux\ Mint|^LinuxMint|^mint,"[0m[37m[1m             ...-:::::-.
        '.-MMMM[0m[32m[1m`​`​--:::::--`​`​[0m[37m[1mMMMM-.'
 [0m[37m[1m            '-MMMMMMMMMMMMM-'
 [0m[37m[1m               `​`​-:::::-`​`​[0m",0
-Live Raizo,,^Live\ Raizo|^Live_Raizo,"[0m[33m[1m             `​......`​
+Live Raizo,,(?i:^Live\ Raizo|^Live_Raizo),"[0m[33m[1m             `​......`​
         -+shmNMMMMMMNmhs/.
      :smMMMMMmmhyyhmmMMMMMmo-
    -hMMMMd+:. `​----`​ .:odMMMMh-
@@ -3269,14 +3269,14 @@ mMMMs  dMMMo sMMMMMMd yMMMd  sMMMm
       :yddh+`​hMMMMMMN :yddy/`​
              .hMMMMd:
                `​..`​[0m",0
-MX,_small,^mx_small,"[0m[37m[1m    \\  /
+MX,_small,(?i:^mx_small),"[0m[37m[1m    \\  /
      \\/
       \\
    /\/ \\
   /  \  /\
  /    \/  \
 /__________\[0m",1
-MX,,^MX,"[0m[37m[1mMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMM
+MX,,(?i:^MX),"[0m[37m[1mMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMM
 MMMMMMMMMMNs..yMMMMMMMMMMMMMm: +NMMMMMMM
 MMMMMMMMMN+    :mMMMMMMMMMNo`​ -dMMMMMMMM
 MMMMMMMMMMMs.   `​oNMMMMMMh- `​sNMMMMMMMMM
@@ -3293,7 +3293,7 @@ MMMMm/                -hMd-      `​sNMMMM
 MMNs`​                   -          :dMMM
 Mm:                                 `​oMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM[0m",0
-Namib,,^Namib,"[0m[31m[1m          .:+shysyhhhhysyhs+:.
+Namib,,(?i:^Namib),"[0m[31m[1m          .:+shysyhhhhysyhs+:.
        -/yyys              syyy/-
      -shy                      yhs-
    -yhs                          shy-
@@ -3313,7 +3313,7 @@ sd yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy ds
      -shy                      yhs-
        -/yyys              syyy/-
           .:+shysyhyhhysyhs+:.[0m",0
-NekOS,,^NekOS,"                        @@@@@
+NekOS,,(?i:^NekOS),"                        @@@@@
                      @@@@@@@@@.
                   @@@@@@@@    @@@
                @@@@@@@@@@@     @@.
@@ -3336,7 +3336,7 @@ NekOS,,^NekOS,"                        @@@@@
    @@@        @@@@@@@@@@@@@@@
    @@@@      @@@@@@@@@@@@@@@@@
       @@@@@@@@@@@@@@@@@@@@@@@@[0m",0
-Neptune,,^Neptune,"[0m[37m[1m            ./+sydddddddys/-.
+Neptune,,(?i:^Neptune),"[0m[37m[1m            ./+sydddddddys/-.
         .+ymNNdyooo/:+oooymNNmy/`​
      `​/hNNh/.`​             `​-+dNNy:`​
     /mMd/.          .++.:oy/   .+mMd-
@@ -3353,14 +3353,14 @@ Neptune,,^Neptune,"[0m[37m[1m            ./+sydddddddys/-.
       .odNNy+-`​           .:ohNNd/.
          -+ymNNmdyyyyyyydmNNmy+.
              `​-//sssssss//.[0m",0
-NetBSD,_small,^netbsd_small,"[0m[37m[1m\\[0m[35m[1m\`​-______,----__
+NetBSD,_small,(?i:^netbsd_small),"[0m[37m[1m\\[0m[35m[1m\`​-______,----__
 [0m[37m[1m \\        [0m[35m[1m__,---\`​_
 [0m[37m[1m  \\       [0m[35m[1m\`​.____
 [0m[37m[1m   \\[0m[35m[1m-______,----\`​-
 [0m[37m[1m    \\
      \\
       \\[0m",1
-NetBSD,,^NetBSD,"[0m[35m[1m                     `​-/oshdmNMNdhyo+:-`​
+NetBSD,,(?i:^NetBSD),"[0m[35m[1m                     `​-/oshdmNMNdhyo+:-`​
 [0m[37m[1my[0m[35m[1m/s+:-`​`​    `​.-:+oydNMMMMNhs/-`​`​
 [0m[37m[1m-m+[0m[35m[1mNMMMMMMMMMMMMMMMMMMMNdhmNMMMmdhs+/-`​
  [0m[37m[1m-m+[0m[35m[1mNMMMMMMMMMMMMMMMMMMMMmy+:`​
@@ -3377,7 +3377,7 @@ NetBSD,,^NetBSD,"[0m[35m[1m                     `​-/oshdmNMNdhyo+:-`​
             :Ms
              :Ms
               :Ms[0m",0
-Netrunner,,^Netrunner,"[0m[34m[1m           .:oydmMMMMMMmdyo:`​
+Netrunner,,(?i:^Netrunner),"[0m[34m[1m           .:oydmMMMMMMmdyo:`​
         -smMMMMMMMMMMMMMMMMMMds-
       +mMMMMMMMMMMMMMMMMMMMMMMMMd+
     /mMMMMMMMMMMMMMMMMMMMMMMMMMMMMm/
@@ -3397,7 +3397,7 @@ mMMMMMMMMMMMMMMMMMs    -NMMMMMMMMMMMMMMd
       +dMMMMMMMMMMMMMMMMMMMMMMMMd/
         -odMMMMMMMMMMMMMMMMMMdo-
            `​:+ydmNMMMMNmhy+-`​[0m",0
-Nitrux,,^Nitrux,"[0m[34m[1m`​:/.
+Nitrux,,(?i:^Nitrux),"[0m[34m[1m`​:/.
 `​/yo
 `​/yo
 `​/yo      .+:.
@@ -3415,14 +3415,14 @@ Nitrux,,^Nitrux,"[0m[34m[1m`​:/.
 `​//+sssssso:.
 `​+syyyy+:`​
 :+s+-[0m",0
-NixOS,_small,^nixos_small$,"[0m[34m[1m  \\  \\ //
+NixOS,_small,(?i:^nixos_small$),"[0m[34m[1m  \\  \\ //
  ==\\__\\/ //
    //   \\//
 ==//     //==
  //\\___//
 // /\\  \\==
   // \\  \\[0m",1
-NixOS,_old,^nixos_old,"[0m[34m[1m              ____       [0m[36m[1m_______        ____
+NixOS,_old,(?i:^nixos_old),"[0m[34m[1m              ____       [0m[36m[1m_______        ____
 [0m[34m[1m             /####\      [0m[36m[1m\######\      /####\
 [0m[34m[1m             ######\      [0m[36m[1m\######\    /#####/
 [0m[34m[1m             \######\      [0m[36m[1m\######\  /#####/
@@ -3450,7 +3450,7 @@ NixOS,_old,^nixos_old,"[0m[34m[1m              ____       [0m[36m[1m______
 [0m[34m[1m              [0m[34m[1m/#####/    \######\[0m[36m[1m      \######
 [0m[34m[1m              [0m[34m[1m\####/      \######\[0m[36m[1m      \####/
 [0m[34m[1m               [0m[34m[1m¯¯¯¯        ¯¯¯¯¯¯¯[0m[36m[1m       ¯¯¯¯[0m",0
-NixOS,,^NixOS,"[0m[34m[1m          ▗▄▄▄       [0m[36m[1m▗▄▄▄▄    ▄▄▄▖
+NixOS,,(?i:^NixOS),"[0m[34m[1m          ▗▄▄▄       [0m[36m[1m▗▄▄▄▄    ▄▄▄▖
 [0m[34m[1m          ▜███▙       [0m[36m[1m▜███▙  ▟███▛
 [0m[34m[1m           ▜███▙       [0m[36m[1m▜███▙▟███▛
 [0m[34m[1m            ▜███▙       [0m[36m[1m▜██████▛
@@ -3470,7 +3470,7 @@ NixOS,,^NixOS,"[0m[34m[1m          ▗▄▄▄       [0m[36m[1m▗▄▄�
 [0m[34m[1m          ▟███▛▜███▙       [0m[36m[1m▜███▙
 [0m[34m[1m         ▟███▛  ▜███▙       [0m[36m[1m▜███▙
 [0m[34m[1m         ▝▀▀▀    ▀▀▀▀▘       [0m[36m[1m▀▀▀▘[0m",0
-Nobara,,^Nobara,"[36m[1m      ⢀⣤⣴⣶⣶⣶⣦⣤⡀⠀⣀⣠⣤⣴⣶⣶⣶⣶⣶⣶⣶⣶⣤⣤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+Nobara,,(?i:^Nobara),"[36m[1m      ⢀⣤⣴⣶⣶⣶⣦⣤⡀⠀⣀⣠⣤⣴⣶⣶⣶⣶⣶⣶⣶⣶⣤⣤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
     ⠀⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀
     ⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣄⠀⠀⠀⠀⠀⠀
     ⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣄⠀⠀⠀⠀
@@ -3487,7 +3487,7 @@ Nobara,,^Nobara,"[36m[1m      ⢀⣤⣴⣶⣶⣶⣦⣤⡀⠀⣀⣠⣤⣴⣶⣶
     [31m[1m ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠛⠉⠉⠛⠛⢿⣿⣿⠀⠀⠀⠀⠀⠸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠀
     [31m[1m ⠘⢿⣿⣿⣿⣿⣿⣿⣿⡿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⠀⠀⠀⠀⠀⠀⠙⢿⣿⣿⣿⣿⣿⣿⣿⠟⠁⠀
       [31m[1m ⠈⠙⠛⠛⠛⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠛⠛⠛⠉⠁[0m",0
-NomadBSD,,^NomadBSD,"[0m[34m[1m         _======__
+NomadBSD,,(?i:^NomadBSD),"[0m[34m[1m         _======__
      (===============\
    (===================\
    _              _---__
@@ -3500,7 +3500,7 @@ NomadBSD,,^NomadBSD,"[0m[34m[1m         _======__
    (==\ \=====/ /==/   /===--
 /================/  /===-
 \===========/[0m",0
-GhostBSD,,^GhostBSD,"[0m[34m[1m           ,gggggg.
+GhostBSD,,(?i:^GhostBSD),"[0m[34m[1m           ,gggggg.
         ,agg9*   .g)
       .agg* ._.,gg*
     ,gga*  (ggg*'
@@ -3513,7 +3513,7 @@ GhostBSD,,^GhostBSD,"[0m[34m[1m           ,gggggg.
     .gga*
   .gga*
  (ga*[0m",1
-Nurunner,,^Nurunner,"[0m[34m[1m                  ,xc
+Nurunner,,(?i:^Nurunner),"[0m[34m[1m                  ,xc
                 ;00cxXl
               ;K0,   .xNo.
             :KO'       .lXx.
@@ -3532,7 +3532,7 @@ Nurunner,,^Nurunner,"[0m[34m[1m                  ,xc
               cKk'    cXk.
                 ;00:lXx.
                   ,kd.[0m",0
-NuTyX,,^NuTyX,"[0m[34m[1m                                      .
+NuTyX,,(?i:^NuTyX),"[0m[34m[1m                                      .
                                     .
                                  ...
                                ...
@@ -3555,7 +3555,7 @@ NuTyX,,^NuTyX,"[0m[34m[1m                                      .
   .  .+. ..
       -  .
       .[0m",0
-OBRevenge,,^OBRevenge,"[0m[31m[1m   __   __
+OBRevenge,,(?i:^OBRevenge),"[0m[31m[1m   __   __
      _@@@@   @@@g_
    _@@@@@@   @@@@@@
   _@@@@@@M   W@@@@@@_
@@ -3573,7 +3573,7 @@ Q@@@@@ggg@@f@   @@@@@@L
    @@@@@@@@@@@@@@@@l
     ^W@@@@@@@@@@@P
        ^TMMMMTll[0m",1
-OmniOS,,^OmniOS,"    ____   __  __  _   _  _
+OmniOS,,(?i:^OmniOS),"    ____   __  __  _   _  _
    / __ \ |  \/  || \ | || |
   | |  | ||      ||  \| || |
   | |__| || |\/| || , `​[0m[33m[1m_[37m[1m||[0m[33m[1m_[37m[1m|  [0m[33m[1m____[37m[1m
@@ -3581,14 +3581,14 @@ OmniOS,,^OmniOS,"    ____   __  __  _   _  _
                      | |  | ||(__
          [30m[1mcommunity[0m[33m[1m   | |__| | ___)|
               [30m[1medition[0m[33m[1m \____/ |____/[0m",0
-OpenBSD,_small,^openbsd_small$,"[0m[33m[1m      _____
+OpenBSD,_small,(?i:^openbsd_small$),"[0m[33m[1m      _____
     \-     -/
  \_/         \
  |        [0m[37m[1mO O[0m[33m[1m |
  |_  <   )  3 )
  / \         /
     /-_____-\[0m",1
-OpenBSD,,^OpenBSD,"[0m[36m[1m                                     _
+OpenBSD,,(?i:^OpenBSD),"[0m[36m[1m                                     _
                                     (_)
 [0m[33m[1m              |    .
 [0m[33m[1m          .   |L  /|   .         [0m[36m[1m _
@@ -3611,7 +3611,7 @@ __J  _   _.     >-'  [0m[33m[1m)[0m[31m[1m._.   [0m[33m[1m|-'
       / .-.\
       \ (  `​\
        `​.\[0m",0
-openEuler,,^openEuler,"[0m[34m[1m                 `​.cc.`​
+openEuler,,(?i:^openEuler),"[0m[34m[1m                 `​.cc.`​
              `​`​.cccccccc..`​
           `​.cccccccccccccccc.`​
       `​`​.cccccccccccccccccccccc.`​`​
@@ -3634,7 +3634,7 @@ openEuler,,^openEuler,"[0m[34m[1m                 `​.cc.`​
           `​`​.cccccccccccccc.`​`​
               `​.cccccccc.`​
                  `​....`​[0m",0
-OpenIndiana,,^OpenIndiana,"[0m[37m[1m                         .sy/
+OpenIndiana,,(?i:^OpenIndiana),"[0m[37m[1m                         .sy/
                          .yh+
 
            [0m[34m[1m-+syyyo+-     [0m[37m[1m /+.
@@ -3650,7 +3650,7 @@ OpenIndiana,,^OpenIndiana,"[0m[37m[1m                         .sy/
 +-               `​./oyys/.
 h+`​      `​.-:+oyyyo/-`​
 `​/ossssysso+/-.`​[0m",0
-openmamba,,^openmamba,"[0m[37m[1m                 `​`​`​`​`​
+openmamba,,(?i:^openmamba),"[0m[37m[1m                 `​`​`​`​`​
            .-/+ooooooooo+/:-`​
         ./ooooooooooooooooooo+:.
       -+oooooooooooooooooooooooo+-
@@ -3671,7 +3671,7 @@ openmamba,,^openmamba,"[0m[37m[1m                 `​`​`​`​`​
         .:ooooooooooooooooooo+:.
            `​-:/ooooooooo+/:.`​
                  `​`​`​`​`​`​[0m",0
-OpenMandriva,,^OpenMandriva,"[0m[34m[1m                  `​`​`​`​`​`​
+OpenMandriva,,(?i:^OpenMandriva),"[0m[34m[1m                  `​`​`​`​`​`​
             `​-:/+++++++//:-.`​
          .:+++oooo+/:.`​`​   `​`​
       `​:+ooooooo+:.  `​-:/++++++/:.`​
@@ -3693,7 +3693,7 @@ OpenMandriva,,^OpenMandriva,"[0m[34m[1m                  `​`​`​`​`​
         `​:oyhhhhhhhhhhhhhhhhhhyo:`​
             .:+syhhhhhhhhys+:-`​
                  `​`​....`​`​[0m",0
-OpenStage,,^OpenStage,"[0m[32m[1m                 /(/
+OpenStage,,(?i:^OpenStage),"[0m[32m[1m                 /(/
               .(((((((,
              /(((((((((/
            .(((((/,/(((((,
@@ -3710,7 +3710,7 @@ OpenStage,,^OpenStage,"[0m[32m[1m                 /(/
  /(((((((((((((((((((/.  /(((((((((/
  /(((((((((((((((((,   /(((((((((((/
      */(((((//*.      */((/(/(/*[0m",0
-Wrt,,Wrt,"[0m[34m[1m _______
+Wrt,,(?i:Wrt),"[0m[34m[1m _______
 |       |.-----.-----.-----.
 |   -   ||  _  |  -__|     |
 |_______||   __|_____|__|__|
@@ -3719,7 +3719,7 @@ Wrt,,Wrt,"[0m[34m[1m _______
 |  |  |  |.----.|  |_
 |  |  |  ||   _||   _|
 |________||__|  |____|[0m",1
-Open Source Media Center,,^Open\ Source\ Media\ Center|^osmc$,"[0m[34m[1m            -+shdmNNNNmdhs+-
+Open Source Media Center,,(?i:^Open\ Source\ Media\ Center|^osmc$),"[0m[34m[1m            -+shdmNNNNmdhs+-
         .+hMNho/:..`​`​..:/ohNMh+.
       :hMdo.                .odMh:
     -dMy-                      -yMd-
@@ -3739,7 +3739,7 @@ yM+         dM/+NNo`​     :Md         +My
       :hMdo.                .odMh:
         .+hMNho/:..`​`​..:/ohNMh+.
             -+shdmNNNNmdhs+-[0m",0
-OPNsense,,^OPNsense,"[0m[37m[1m    .'''''''''''''''''''''''''''''''''''
+OPNsense,,(?i:^OPNsense),"[0m[37m[1m    .'''''''''''''''''''''''''''''''''''
   oocc:::::::::::::::::::::::::::::::cox
  ;00;                                o0O
  .,:'  .;;;;;;;;;;;;;;;;;;;;;;;;;;   ;:,
@@ -3759,7 +3759,7 @@ OPNsense,,^OPNsense,"[0m[37m[1m    .'''''''''''''''''''''''''''''''''''
  .:l'  ...........................   ;:;
  lOk'                                cdd
  ;lccccccccccccccccccccccccccccccccccc:.[0m",0
-Oracle,,^Oracle,"      `​-/+++++++++++++++++/-.`​
+Oracle,,(?i:^Oracle),"      `​-/+++++++++++++++++/-.`​
    `​/syyyyyyyyyyyyyyyyyyyyyyys/.
   :yyyyo/-...............-/oyyyy/
  /yyys-                     .oyyy+
@@ -3770,7 +3770,7 @@ Oracle,,^Oracle,"      `​-/+++++++++++++++++/-.`​
   /yyyyo:-...............-:oyyyy/`​
    `​/syyyyyyyyyyyyyyyyyyyyyyys+.
      `​.:/+ooooooooooooooo+/:.`​[0m",0
-orchid,_small,^orchid_small,"[30m[1m                       :##:
+orchid,_small,(?i:^orchid_small),"[30m[1m                       :##:
                      -#[37m[1m@@@@[30m[1m#-
                     #[37m[1m@@[30m[1m=..=[37m[1m@@[30m[1m#
                     +[37m[1m@@[30m[1m-  -[37m[1m@@[30m[1m+
@@ -3783,7 +3783,7 @@ orchid,_small,^orchid_small,"[30m[1m                       :##:
                     #[37m[1m@@[30m[1m=..=[37m[1m@@[30m[1m#
                      -#[37m[1m@@@@[30m[1m#-
                        :##:[0m",0
-orchid,,^orchid,"[30m[1m                  .==.
+orchid,,(?i:^orchid),"[30m[1m                  .==.
                 .-[30m[1m#[37m[1m@@[30m[1m#[30m[1m-.
               .-[30m[1m##[37m[1m@@@@[30m[1m##[30m[1m-.
             .-[30m[1m##[37m[1m@@@@@@@@[30m[1m##[30m[1m-.
@@ -3803,7 +3803,7 @@ orchid,,^orchid,"[30m[1m                  .==.
               .-[30m[1m##[37m[1m@@@@[30m[1m##[30m[1m-.
                 .-[30m[1m#[37m[1m@@[30m[1m#[30m[1m-.
                   .==.[0m",0
-OS Elbrus,,^OS\ Elbrus,"[0m[34m[1m   ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+OS Elbrus,,(?i:^OS\ Elbrus),"[0m[34m[1m   ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
    ██▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██
    ██                       ██
    ██   ███████   ███████   ██
@@ -3817,7 +3817,7 @@ OS Elbrus,,^OS\ Elbrus,"[0m[34m[1m   ▄▄▄▄▄▄▄▄▄▄▄▄▄�
    ██   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██
    ██                       ██
    ███████████████████████████[0m",0
-PacBSD,,^PacBSD,"[0m[31m[1m      :+sMs.
+PacBSD,,(?i:^PacBSD),"[0m[31m[1m      :+sMs.
   `​:ddNMd-                         -o--`​
  -sMMMMh:                          `​+N+`​`​
  yMMMMMs`​     .....-/-...           `​mNh/
@@ -3841,7 +3841,7 @@ PacBSD,,^PacBSD,"[0m[31m[1m      :+sMs.
       `​/hMMMMMMMMMMMNo-`​`​    `​.+yy+-`​
         `​-/hmNMNMMMMMMmmddddhhy/-`​
             `​-+oooyMMMdsoo+/:.[0m",0
-Panwah,,^Panwah,"          HHH
+Panwah,,(?i:^Panwah),"          HHH
          HAAAH                             HHH
          HAAAAH                           HAAAH
         HAAAAAAH                         HAAAAH
@@ -3862,13 +3862,13 @@ Panwah,,^Panwah,"          HHH
            [0m[37m[1mOOOO[0m[30m[1mGGGGGGG[0m[37m[1mOOOO[0m[31m[1mWWWWWWWWWW[0m[37m[1mAAA[0m[31m[1mWWWW
             [0m[37m[1mOOO[0m[30m[1mGGGGGGG[0m[37m[1mOOO[0m[31m[1mWWWWWWWWWWWW[0m[37m[1mAAA[0m[31m[1mW
               [0m[37m[1mOOOOOOOOO[0m",0
-Parabola,_small,^parabola_small,"[0m[35m[1m  __ __ __  _
+Parabola,_small,(?i:^parabola_small),"[0m[35m[1m  __ __ __  _
 .`​_//_//_/ / `​.
           /  .`​
          / .`​
         /.`​
        /`​[0m",1
-Parabola,,^Parabola,"[0m[35m[1m                          `​.-.    `​.
+Parabola,,(?i:^Parabola),"[0m[35m[1m                          `​.-.    `​.
                    `​.`​  `​:++.   `​-+o+.
              `​`​ `​:+/. `​:+/.   `​-+oooo+
         `​`​-::-.:+/. `​:+/.   `​-+oooooo+
@@ -3884,7 +3884,7 @@ Parabola,,^Parabola,"[0m[35m[1m                          `​.-.    `​.
                         /+-
                        //`​
                       -.[0m",0
-Pardus,,^Pardus,"[0m[33m[1m .smNdy+-    `​.:/osyyso+:.`​    -+ydmNs.
+Pardus,,(?i:^Pardus),"[0m[33m[1m .smNdy+-    `​.:/osyyso+:.`​    -+ydmNs.
 /Md- -/ymMdmNNdhso/::/oshdNNmdMmy/. :dM/
 mN.     oMdyy- -y          `​-dMo     .Nm
 .mN+`​  sMy hN+ -:             yMs  `​+Nm.
@@ -3902,7 +3902,7 @@ mN.     oMdyy- -y          `​-dMo     .Nm
     ./`​ .s/`​s+sMdd+`​`​+ddMs+s`​/s. `​/.
         : -y.  -hNmddmNy.  .y- :
          -+       `​..`​       +-[0m",0
-Parrot,,^Parrot,"[0m[36m[1m  `​:oho/-`​
+Parrot,,(?i:^Parrot),"[0m[36m[1m  `​:oho/-`​
 `​mMMMMMMMMMMMNmmdhy-
  dMMMMMMMMMMMMMMMMMMs`​
  +MMsohNMMMMMMMMMMMMMm/
@@ -3926,7 +3926,7 @@ Parrot,,^Parrot,"[0m[36m[1m  `​:oho/-`​
                            d:
                            -+
                             -[0m",0
-Parsix,,^Parsix,"[0m[31m[1m-/+/:.
+Parsix,,(?i:^Parsix),"[0m[31m[1m-/+/:.
                [0m[31m[1m.syssssys.
        [0m[33m[1m.--.    [0m[31m[1mssssssssso[0m[33m[1m   ..--.
      :++++++:  [0m[31m[1m+ssssssss+[0m[33m[1m ./++/+++:
@@ -3947,7 +3947,7 @@ Parsix,,^Parsix,"[0m[31m[1m-/+/:.
        [0m[33m[1m`​--`​    [0m[31m[1m+sssssssso    [0m[33m[1m`​--`​
                 [0m[31m[1m+sssssy+`​
                  [0m[31m[1m`​.::-`​[0m",0
-PCBSD,,^PCBSD|^TrueOS,"[0m[31m[1m                       ..
+PCBSD,,(?i:^PCBSD|^TrueOS),"[0m[31m[1m                       ..
                         s.
                         +y
                         yN
@@ -3974,7 +3974,7 @@ h-  `​+ymMMMMMMMM--M+hMMN/    +MMMMy   -h
       /s+`​.omy      /NMMMMMNh/.+s:
         .+oo:-.     /mdhs+::oo+.
             -/o+++++++++++/-[0m",0
-PCLinuxOS,,^PCLinuxOS,"[0m[34m[1m            mhhhyyyyhhhdN
+PCLinuxOS,,(?i:^PCLinuxOS),"[0m[34m[1m            mhhhyyyyhhhdN
         dyssyhhhhhhhhhhhssyhN
      Nysyhhyo/:-.....-/oyhhhssd
    Nsshhy+.              `​/shhysm
@@ -3993,7 +3993,7 @@ yyhh-   [0m[37m[1mymm-       /dmdyosyd`​  [0m[34m[1m`​yhh+
       dysyhhhso///://+syhhhssh
          dhyssyhhhhhhyssyyhN
               mddhdhdmN[0m",0
-pearOS,,^pearOS,"[0;32m                  .+yh
+pearOS,,(?i:^pearOS),"[0;32m                  .+yh
                  sMMMo
                 sMMN+
                 +o:    [0m
@@ -4014,7 +4014,7 @@ pearOS,,^pearOS,"[0;32m                  .+yh
     `​oNMMMMMMMMMMMMMMMMMMd-
       `​+hMMMMMMMMMMMMMms-
           -/osyhhyso:. [0m[0m",1
-Pengwin,,^Pengwin,"[35m[1m                     ...`​
+Pengwin,,(?i:^Pengwin),"[35m[1m                     ...`​
 [35m[1m                     `​-///:-`​
 [35m[1m                       .+[0m[35m[1mssys[35m[1m/
 [35m[1m                        +[0m[35m[1myyyyy[35m[1mo    [0m[35m[1m
@@ -4029,7 +4029,7 @@ Pengwin,,^Pengwin,"[35m[1m                     ...`​
 [35m[1m        :[0m[35m[1myyyyy[35m[1mo
 [35m[1m         .+[0m[35m[1mooo[35m[1m+
 [35m[1m           `​.::/:.[0m",0
-Peppermint,,^Peppermint,"[0m[31m[1m               PPPPPPPPPPPPPP
+Peppermint,,(?i:^Peppermint),"[0m[31m[1m               PPPPPPPPPPPPPP
 [0m[31m[1m           PPPP[37m[1mMMMMMMM[0m[31m[1mPPPPPPPPPPP
 [0m[31m[1m         PPPP[37m[1mMMMMMMMMMM[0m[31m[1mPPPPPPPP[37m[1mMM[0m[31m[1mPP
 [0m[31m[1m       PPPPPPPP[37m[1mMMMMMMM[0m[31m[1mPPPPPPPP[37m[1mMMMMM[0m[31m[1mPP
@@ -4050,7 +4050,7 @@ Peppermint,,^Peppermint,"[0m[31m[1m               PPPPPPPPPPPPPP
 [0m[31m[1m         PP[37m[1mMM[0m[31m[1mPPPPPPPP[37m[1mMMMMMMMMMM[0m[31m[1mPPPP
 [0m[31m[1m           PPPPPPPPPP[37m[1mMMMMMMMM[0m[31m[1mPPPP
 [0m[31m[1m               PPPPPPPPPPPPPP[0m",0
-Pisi,,^Pisi,"[34m[1m   \Fv/!-                      `​:?lzC
+Pisi,,(?i:^Pisi),"[34m[1m   \Fv/!-                      `​:?lzC
 [34m[1m   Q!::=zFx!  [0m[37m[1m`​;v6WBCicl;`​  [34m[1m,vCC\!::#.
 [34m[1m  ,%:::,'`​ [0m[37m[1m+#%@@FQ@@.   ,cF%i[34m[1m`​`​-',::a?
 [34m[1m  +m:,'`​`​`​[0m[37m[1m}3,/@@Q\@@       ""af-[34m[1m `​-'""7f
@@ -4069,7 +4069,7 @@ Pisi,,^Pisi,"[34m[1m   \Fv/!-                      `​:?lzC
        'xopE|      [0m[37m[1m`​'[34m[1m     `​ledoz-
     `​;=>>+`​[0m[37m[1m`​^llci/|==|/iclc;`​[34m[1m'>>>>:
    `​^`​+~          [0m[37m[1m`​`​`​`​[34m[1m          !!-^[0m",0
-PikaOS,,^PikaOS,"[33m[1m /🐦🐦🐦$ /🐦/🐦                /🐦🐦🐦  /🐦🐦🐦 
+PikaOS,,(?i:^PikaOS),"[33m[1m /🐦🐦🐦$ /🐦/🐦                /🐦🐦🐦  /🐦🐦🐦 
 | 🐦__  $|__| 🐦               /🐦__  🐦/🐦__  🐦
 | 🐦  \ 🐦/$| 🐦   /🐦 /🐦🐦🐦| 🐦  \ $| 🐦  \__/
 | 🐦🐦🐦$| $| 🐦  /🐦/|____  $| 🐦  | $|  🐦🐦🐦 
@@ -4077,7 +4077,7 @@ PikaOS,,^PikaOS,"[33m[1m /🐦🐦🐦$ /🐦/🐦                /🐦🐦�
 | 🐦     | $| 🐦_  🐦 /🐦__  $| 🐦  | 🐦/🐦  \ 🐦 
 | 🐦     | $| 🐦 \  $|  🐦🐦🐦|  🐦🐦🐦|  🐦🐦🐦/
 |__/     |__|__/  \__/\_______/\______/ \______/       .[0m",0
-phyOS,,^phyOS,"[30m[1m.^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^.^^^^^.
+phyOS,,(?i:^phyOS),"[30m[1m.^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^.^^^^^.
  :777777777777777777777777777777^~7777:
   .~~~~~~~~~~~~~~~~~~~~~^~7777!:!777!.
     ~7!!!!!!!!!!!!!!!!!^:!777~^!777~
@@ -4094,7 +4094,7 @@ phyOS,,^phyOS,"[30m[1m.^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^.^^^^^.
                  ^7777.
                   :77:
                    ..[0m",0
-PNM Linux,,^PNM\ Linux|^WHPNM\ Linux,"               `​`​.---..`​ `​--`​
+PNM Linux,,(?i:^PNM\ Linux|^WHPNM\ Linux),"               `​`​.---..`​ `​--`​
             `​`​.---........-:.[31m[1m-::`​[30m[1m
            [31m[1m./::-[30m[1m........[31m[1m--::.`​`​`​`​[30m[1m
           [31m[1m.:://:::[30m[1m----[31m[1m::::-..[30m[1m
@@ -4113,7 +4113,7 @@ PNM Linux,,^PNM\ Linux|^WHPNM\ Linux,"               `​`​.---..`​ `​--`�
      [30m[1m.:+o+/:-[30m[1m:+oo+///++o+/:-[30m[1m:/+ooo/:.
        [30m[1m+oo/:o-            +oooooso.`​
        [30m[1m.`​   `​             `​/  .-//-[0m",0
-Pop!_OS,,^Pop!_OS|^popos|^pop_os,"[0m[36m[1m             /////////////
+Pop!_OS,,(?i:^Pop!_OS|^popos|^pop_os),"[0m[36m[1m             /////////////
          /////////////////////
       ///////[0m[37m[1m*767[0m[36m[1m////////////////
     //////[0m[37m[1m7676767676*[0m[36m[1m//////////////
@@ -4133,7 +4133,7 @@ Pop!_OS,,^Pop!_OS|^popos|^pop_os,"[0m[36m[1m             /////////////
       ///////////////////////////
          /////////////////////
              /////////////[0m",0
-Porteus,,^Porteus,"[0m[36m[1m             `​.-:::-.`​
+Porteus,,(?i:^Porteus),"[0m[36m[1m             `​.-:::-.`​
          -+ydmNNNNNNNmdy+-
       .+dNmdhs+//////+shdmdo.
     .smmy+-`​             ./sdy:
@@ -4156,7 +4156,7 @@ s:  yNm+`​   .smNd+.
            .sy`​
              .+:
                 `​[0m",0
-PostMarketOS,_small,^postmarketos_small$,"[0m[32m[1m        /\
+PostMarketOS,_small,(?i:^postmarketos_small$),"[0m[32m[1m        /\
        /  \
       /    \
       \__   \
@@ -4165,7 +4165,7 @@ PostMarketOS,_small,^postmarketos_small$,"[0m[32m[1m        /\
   /   / ____/  \
  /    \ \       \
 /_____/ /________\[0m",1
-PostMarketOS,,^PostMarketOS,"[0m[32m[1m                 /\
+PostMarketOS,,(?i:^PostMarketOS),"[0m[32m[1m                 /\
                 /  \
                /    \
               /      \
@@ -4183,7 +4183,7 @@ PostMarketOS,,^PostMarketOS,"[0m[32m[1m                 /\
   /          \ \                 \
  /           / /                  \
 /___________/ /____________________\[0m",0
-PuffOS,,^PuffOS,"              _,..._,m,
+PuffOS,,(?i:^PuffOS),"              _,..._,m,
             ,/'      '"""";
            /             "".
          ,'mmmMMMMmm.      \
@@ -4195,7 +4195,7 @@ PuffOS,,^PuffOS,"              _,..._,m,
  _; (#\""//     \""/#)  ;  ,/
 @##\ \##/   =   `​""="" ,;mm/
 `​\##>.____,...,____,<####@[0m",0
-Proxmox,,^Proxmox,"[0m[37m[1m         .://:`​              `​://:.
+Proxmox,,(?i:^Proxmox),"[0m[37m[1m         .://:`​              `​://:.
        `​hMMMMMMd/          /dMMMMMMh`​
         `​sMMMMMMMd:      :mMMMMMMMs`​
 [30m[1m`​-/+oo+/:[0m[37m[1m`​.yMMMMMMMh-  -hMMMMMMMy.`​[30m[1m:/+oo+/-`​
@@ -4215,7 +4215,7 @@ Proxmox,,^Proxmox,"[0m[37m[1m         .://:`​              `​://:.
 [0m[37m[1m        `​sMMMMMMMm:      :dMMMMMMMs`​
        `​hMMMMMMd/          /dMMMMMMh`​
          `​://:`​              `​://:`​[0m",0
-Puppy,,^Puppy|^Quirky\ Werewolf|^Precise\ Puppy,"[0m[34m[1m           `​-/osyyyysosyhhhhhyys+-
+Puppy,,(?i:^Puppy|^Quirky\ Werewolf|^Precise\ Puppy),"[0m[34m[1m           `​-/osyyyysosyhhhhhyys+-
   -ohmNNmh+/hMMMMMMMMNNNNd+dMMMMNM+
  yMMMMNNmmddo/NMMMNNNNNNNNNo+NNNNNy
 .NNNNNNmmmddds:MMNNNNNNNNNNNh:mNNN/
@@ -4233,13 +4233,13 @@ Puppy,,^Puppy|^Quirky\ Werewolf|^Precise\ Puppy,"[0m[34m[1m           `​-/o
       /dMMMMMMMMMMMMMMMMMMNdy/`​
         .+hNMMMMMMMMMNmdhs/.
             .:/+ooo+/:-.[0m",0
-PureOS,_small,^pureos_small,"[0m[32m[1m _____________
+PureOS,_small,(?i:^pureos_small),"[0m[32m[1m _____________
 |  _________  |
 | |         | |
 | |         | |
 | |_________| |
 |_____________|[0m",1
-PureOS,,^PureOS,"[0m[32m[1mdmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmd
+PureOS,,(?i:^PureOS),"[0m[32m[1mdmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmd
 dNm//////////////////////////////////mNd
 dNd                                  dNd
 dNd                                  dNd
@@ -4251,12 +4251,12 @@ dNd                                  dNd
 dNd                                  dNd
 dNm//////////////////////////////////mNd
 dmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmd[0m",0
-Peropesis,,^Peropesis,"[0m[34m[1m####  #### ####   ###   ####  ####  #### #  ####
+Peropesis,,(?i:^Peropesis),"[0m[34m[1m####  #### ####   ###   ####  ####  #### #  ####
 #   # #    #   # #   #  #   # #     #    #  #
 ####  ###  #### #     # ####  ###     #  #    #
 #     #    #  #  #   #  #     #        # #     #
 #     #### #   #  ###   #     #### ####  # ####[0m",0
-Q4OS,,^Q4OS,"[0m[34m[1m           .:*****  :=====.
+Q4OS,,(?i:^Q4OS),"[0m[34m[1m           .:*****  :=====.
         [0m[34m[1m.:********  :========.
      [0m[34m[1m .***********  :===========.
     [0m[34m[1m.:************  :============-
@@ -4275,7 +4275,7 @@ Q4OS,,^Q4OS,"[0m[34m[1m           .:*****  :=====.
       [0m[34m[1m:###########         [0m[31m[1m.=====:
         [0m[34m[1m.#########           [0m[31m[1m.=:
             [0m[34m[1m.#####[0m",0
-Qubes,,^Qubes,"[0m[34m[1m               `​..--..`​
+Qubes,,(?i:^Qubes),"[0m[34m[1m               `​..--..`​
             `​.----------.`​
         `​..----------------..`​
      `​.------------------------.`​`​
@@ -4296,7 +4296,7 @@ Qubes,,^Qubes,"[0m[34m[1m               `​..--..`​
          .-:///////ssssssssssssssssss/`​
             `​.:////ssss+/+ssssssssssss.
                 `​--//-    `​-/osssso/.[0m",0
-Qubyt,,^Qubyt,"[0m[34m[1m    ########################[0m[35m[1m([0m[30m[1mooo
+Qubyt,,(?i:^Qubyt),"[0m[34m[1m    ########################[0m[35m[1m([0m[30m[1mooo
 [0m[34m[1m    ########################[0m[35m[1m([0m[30m[1mooo
 [0m[34m[1m###[0m[35m[1m([0m[30m[1mooo                  [0m[34m[1m###[0m[35m[1m([0m[30m[1mooo
 [0m[34m[1m###[0m[35m[1m([0m[30m[1mooo                  [0m[34m[1m###[0m[35m[1m([0m[30m[1mooo
@@ -4311,7 +4311,7 @@ Qubyt,,^Qubyt,"[0m[34m[1m    ########################[0m[35m[1m([0m[30m
 [0m[34m[1m################[0m[35m[1m([0m[30m[1moo    oo[0m[35m[1m(((([0m[30m[1mo
 [0m[35m[1m((((((((((((((((([0m[30m[1mooo     ooooo
   oooooooooooooooooo        o[0m",0
-Quibian,,^Quibian,"[0m[33m[1m            `​.--::::::::--.`​
+Quibian,,(?i:^Quibian),"[0m[33m[1m            `​.--::::::::--.`​
         `​.-:::-..`​`​   `​`​..-::-.`​
       .::::-`​   .[0m[37m[1m+[0m[33m[1m:`​`​       `​.-::.`​
     .::::.`​    -::::::-`​       `​.::.
@@ -4329,7 +4329,7 @@ Quibian,,^Quibian,"[0m[33m[1m            `​.--::::::::--.`​
   `​::::::::::::::-                `​.`​
     .::::::::::::-               `​`​
       `​.--:::::-.[0m",0
-Radix,,^Radix,"[0m[32m[1m                .:oyhdmNo
+Radix,,(?i:^Radix),"[0m[32m[1m                .:oyhdmNo
              `​/yhyoosdms`​
             -o+/ohmmho-
            ..`​.:/:-`​
@@ -4347,7 +4347,7 @@ yMMMMMMMMMMMMMMMMNNh.
     `​+mMMMMMMMy.
       .yNMMMm+`​
        `​:yd+.[0m",1
-Raspbian,_small,^Raspbian_small,"[0m[32m[1m   ..    ,.
+Raspbian,_small,(?i:^Raspbian_small),"[0m[32m[1m   ..    ,.
   :oo: .:oo:
   'o\o o/o:
 [0m[31m[1m :: . :: . ::
@@ -4356,7 +4356,7 @@ Raspbian,_small,^Raspbian_small,"[0m[32m[1m   ..    ,.
  ::: :::: :::
  ':,  ''  ,:'
    ' ~::~ '[0m",1
-Raspbian,,^Raspbian,"[0m[32m[1m  `​.::///+:/-.        --///+//-:`​`​
+Raspbian,,(?i:^Raspbian),"[0m[32m[1m  `​.::///+:/-.        --///+//-:`​`​
  `​+oooooooooooo:   `​+oooooooooooo:
   /oooo++//ooooo:  ooooo+//+ooooo.
   `​+ooooooo:-:oo-  +o+::/ooooooo:
@@ -4379,7 +4379,7 @@ Raspbian,,^Raspbian,"[0m[32m[1m  `​.::///+:/-.        --///+//-:`​`​
       `​...`​  `​...--..`​  `​...`​
             .::::::::::
              `​.-::::-`​[0m",0
-ravynOS,,^ravynOS$,"[37m[1m                ..oooo..
+ravynOS,,(?i:^ravynOS$),"[37m[1m                ..oooo..
            .o$$$$$$$$$$$$$$o.
         od$$$$$$$$$$$$$$$$$$$$$o
       o$$$$$$$$$$$$$$$$$$$$$$$$$$o
@@ -4399,7 +4399,7 @@ ravynOS,,^ravynOS$,"[37m[1m                ..oooo..
                        $$$$$$$*°
                       d$$$$*°
                        °[0m",0
-Reborn OS,,^Reborn\ OS|^Reborn,"[0m[30m[1m          .======================.          
+Reborn OS,,(?i:^Reborn\ OS|^Reborn),"[0m[30m[1m          .======================.          
          [0m[30m[1m.#[0m[34m[1m#*********[0m[30m[1m%%[0m[34m[1m*********#[0m[30m[1m%:         
         [0m[30m[1m:%[0m[34m[1m#**********[0m[30m[1m%%[0m[34m[1m**********#[0m[30m[1m%-        
        [0m[30m[1m-%[0m[34m[1m************[0m[30m[1m%%[0m[34m[1m************[0m[30m[1m%=       
@@ -4419,7 +4419,7 @@ Reborn OS,,^Reborn\ OS|^Reborn,"[0m[30m[1m          .======================.
         [0m[30m[1m:%[0m[34m[1m#**********[0m[30m[1m%%[0m[34m[1m**********#[0m[30m[1m%-        
          [0m[30m[1m:%[0m[34m[1m#*********[0m[30m[1m%%[0m[34m[1m*********#[0m[30m[1m%:         
           [0m[30m[1m.======================.[0m",0
-Red Star,,^Red\ Star|^Redstar,"[0m[31m[1m                    ..
+Red Star,,(?i:^Red\ Star|^Redstar),"[0m[31m[1m                    ..
                   .oK0l
                  :0KKKKd.
                .xKO0KKKKd
@@ -4437,7 +4437,7 @@ Red Star,,^Red\ Star|^Redstar,"[0m[31m[1m                    ..
        :cccc::::;...';;;;;,,,,,,.
        ,::::::;;;,'.  ..',,,,'''.
         ........          ......[0m",0
-Redcore,,^Redcore,"[0m[31m[1m                 RRRRRRRRR
+Redcore,,(?i:^Redcore),"[0m[31m[1m                 RRRRRRRRR
                RRRRRRRRRRRRR
         RRRRRRRRRR      RRRRR
    RRRRRRRRRRRRRRRRRRRRRRRRRRR
@@ -4453,7 +4453,7 @@ RRRR     RRRRRRRRRRRRRRRRRRR  R   RRRR
      RR   RRRRRRRRRRRRRRRRR    RRR
        RR   RRRRRRRRRRRRRR   RR
          R       RRRR      RR[0m",0
-Redhat,_old,^redhat_old$|^rhel_old,"[0m[31m[1m             `​.-..........`​
+Redhat,_old,(?i:^redhat_old$|^rhel_old),"[0m[31m[1m             `​.-..........`​
             `​////////::.`​-/.
             -: ....-////////.
             //:-::///////////`​
@@ -4469,7 +4469,7 @@ MMM    MMMMMMMMMMMMMMyyddMMM+
  MMMM   MMMMMMMMMMMMMNdyNMMh`​     hyhMMM
   MMMMMMMMMMMMMMMMyoNNNMMM+.   MMMMMMMM
    MMNMMMNNMMMMMNM+ mhsMNyyyyMNMMMMsMM[0m",0
-Redhat,,^Redhat|^Red\ Hat|^rhel,"[0m[31m[1m           .MMM..:MMMMMMM
+Redhat,,(?i:^Redhat|^Red\ Hat|^rhel),"[0m[31m[1m           .MMM..:MMMMMMM
           MMMMMMMMMMMMMMMMMM
           MMMMMMMMMMMMMMMMMMMM.
          MMMMMMMMMMMMMMMMMMMMMM
@@ -4487,7 +4487,7 @@ MMMMMMMMMMM.                     MMMM
          MMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
             `​MMMMMMMMMMMMMMMMMMMMMMMM:
                 `​`​MMMMMMMMMMMMMMMMM'[0m",0
-Refracted Devuan,,^Refracted\ Devuan|^Refracted_Devuan,"[0m[37m[1m                             A
+Refracted Devuan,,(?i:^Refracted\ Devuan|^Refracted_Devuan),"[0m[37m[1m                             A
                             VW
                            VVW\
                          .yWWW\
@@ -4505,7 +4505,7 @@ Refracted Devuan,,^Refracted\ Devuan|^Refracted_Devuan,"[0m[37m[1m           
             VWW
             Wh.
             V/[0m",0
-Regata,,^Regata,"[0m[37m[1m            ddhso+++++osydd
+Regata,,(?i:^Regata),"[0m[37m[1m            ddhso+++++osydd
         dho/.`​hh[0m[31m[1m.:/+/:.[0m[37m[1mhhh`​:+yd
       do-hhhhhh[0m[31m[1m/sssssss+`​[0m[37m[1mhhhhh./yd
     h/`​hhhhhhh[0m[31m[1m-sssssssss:[0m[37m[1mhhhhhhhh-yd
@@ -4525,7 +4525,7 @@ d/hhhhhhhhhhhh[0m[34m[1m`​-/osyso+-`​[0m[37m[1mhhhhhhhhhhhh.h
       h+.hhhhhh[0m[32m[1m+sssssss+[0m[37m[1mhhhhhh`​/yd
         dho:.hhh[0m[32m[1m.:+++/.[0m[37m[1mhhh`​-+yd
             ddhso+++++osyhd[0m",0
-Regolith,,^Regolith,"                 `​`​....`​`​`​
+Regolith,,(?i:^Regolith),"                 `​`​....`​`​`​
             `​.:/++++++/::-.`​
           -/+++++++:.`​
         -++++++++:`​
@@ -4543,7 +4543,7 @@ Regolith,,^Regolith,"                 `​`​....`​`​`​
          -/+++++++++++++++++++++/.
            .:/+++++++++++++++/-`​
               `​.-:://////:-.[0m",0
-RhaymOS,,^RhaymOS,"                    ###                 
+RhaymOS,,(?i:^RhaymOS),"                    ###                 
                    #####                       
                                         
               #######        /######## 
@@ -4557,7 +4557,7 @@ RhaymOS,,^RhaymOS,"                    ###
   ###################################  
  ##################################### 
 #######################################[0m",0
-rocky,_small,^rocky_small,"[0m[32m[1m    `​-/+++++++++/-.`​
+rocky,_small,(?i:^rocky_small),"[0m[32m[1m    `​-/+++++++++/-.`​
  `​-+++++++++++++++++-`​
 .+++++++++++++++++++++.
 -+++++++++++++++++++++++.
@@ -4569,7 +4569,7 @@ rocky,_small,^rocky_small,"[0m[32m[1m    `​-/+++++++++/-.`​
  .+++-`​   ./+++++++++:`​
   `​-`​   ./+++++++++++-
        -+++++++++:-.`​[0m",1
-rocky,,^rocky,"[30m[1m          __wgliliiligw_,
+rocky,,(?i:^rocky),"[30m[1m          __wgliliiligw_,
        _williiiiiiliilililw,
      _%iiiiiilililiiiiiiiiiii_
    .Qliiiililiiiiiiililililiilm.
@@ -4588,7 +4588,7 @@ iiiiiliiliiiiii~             ""4lili
             _gllilililiililii~
            giliiiiiiiiiiiiT`​
           -^~$ililili@~~'[0m",0
-Rosa,,^Rosa,"[0m[34m[1m           ROSAROSAROSAROSAR
+Rosa,,(?i:^Rosa),"[0m[34m[1m           ROSAROSAROSAROSAR
         ROSA               AROS
       ROS   SAROSAROSAROSAR   AROS
     RO   ROSAROSAROSAROSAROSAR   RO
@@ -4608,7 +4608,7 @@ RO  ROSA  ROS     ROSAROSAR  ROSARO  RO
      AROS   AROSAROSAROSARO   AROS
         ROSA               SARO
            ROSAROSAROSAROSAR[0m",0
-Astra Linux,,^Astra\ Linux,"[30m[1m                   AA
+Astra Linux,,(?i:^Astra\ Linux),"[30m[1m                   AA
 [30m[1m                  AaaA
 [30m[1m                 Aa[30m[1m/\[30m[1maA
 [30m[1m                Aa[30m[1m/[30m[1maa[30m[1m\[30m[1maA
@@ -4630,7 +4630,7 @@ Astra Linux,,^Astra\ Linux,"[30m[1m                   AA
 [30m[1m       aA[30m[1m/\[30m[1mA[30m[1m\/[30m[1mAa        aA[30m[1m\\[30m[1mA[30m[1m\\[30m[1mAa
 [30m[1m       A[30m[1m|/[30m[1maaAa            aAaa[30m[1m\|[30m[1mA
 [30m[1m      aAaa                    aaAa[0m",0
-sabotage,,^sabotage,"[0m[37m[1m .|'''.|      |     '||''|.    ..|''||
+sabotage,,(?i:^sabotage),"[0m[37m[1m .|'''.|      |     '||''|.    ..|''||
  ||..  '     |||     ||   ||  .|'    ||
   ''|||.    |  ||    ||'''|.  ||      ||
 .     '||  .''''|.   ||    || '|.     ||
@@ -4641,7 +4641,7 @@ sabotage,,^sabotage,"[0m[37m[1m .|'''.|      |     '||''|.    ..|''||
    ||      |  ||   ||    ....  ||''|
    ||     .''''|.  '|.    ||   ||
   .||.   .|.  .||.  ''|...'|  .||.....|[0m",0
-Sabayon,,^Sabayon,"[0m[34m[1m            ...........
+Sabayon,,(?i:^Sabayon),"[0m[34m[1m            ...........
          ..             ..
       ..                   ..
     ..           [0m[37m[1mo           [0m[34m[1m..
@@ -4659,7 +4659,7 @@ Sabayon,,^Sabayon,"[0m[34m[1m            ...........
      ..                     ..
         ..               ..
           ...............[0m",0
-Sailfish,,^Sailfish,"[0m[34m[1m                 _a@b
+Sailfish,,(?i:^Sailfish),"[0m[34m[1m                 _a@b
               _#b (b
             _@@   @_         _,
           _#^@ _#*^^*gg,aa@^^
@@ -4672,7 +4672,7 @@ Sailfish,,^Sailfish,"[0m[34m[1m                 _a@b
           _@_#@^
        _a@a*^
    ,a@*^[0m",0
-SalentOS,,^SalentOS,"[0m[32m[1m                 `​`​..`​`​
+SalentOS,,(?i:^SalentOS),"[0m[32m[1m                 `​`​..`​`​
         .-:+oshdNMMMMMMNdhyo+:-.`​
   -oydmMMMMMMMMMMMMMMMMMMMMMMMMMMNdhs/
 [0m[37m[1m +hdddm[0m[32m[1mNMMMMMMMMMMMMMMMMMMMMMMMMN[0m[37m[1mmdddh+`​
@@ -4692,7 +4692,7 @@ SalentOS,,^SalentOS,"[0m[32m[1m                 `​`​..`​`​
 [0m[31m[1m          .+hMMMMMM[0m[37m[1mhh[0m[33m[1mMMMMMMdo:
 [0m[31m[1m             `​:smMM[0m[37m[1myy[0m[33m[1mMMNy/`​
                  [0m[31m[1m.- [0m[37m[1m`​[0m[33m[1m:.[0m",0
-ShastraOS,,^ShastraOS,"[0m[36m[1m                          ..,;;,'.
+ShastraOS,,(?i:^ShastraOS),"[0m[36m[1m                          ..,;;,'.
                        ':oo.     ;o:
                      :o,           ol
                    .oo        ..';co:
@@ -4711,7 +4711,7 @@ ShastraOS,,^ShastraOS,"[0m[36m[1m                          ..,;;,'.
            cd.           'xo
            :o,         'ld
             .oc'...';lo[0m",0
-Sasanqua,,^Sasanqua,"                     __,_
+Sasanqua,,(?i:^Sasanqua),"                     __,_
              _╕⌐≡µ,√*    º≡,
             ñ     ""'       ░
            ╞)         _,   ▒     __
@@ -4729,7 +4729,7 @@ Sasanqua,,^Sasanqua,"                     __,_
        Ü         ╙L     ¿¿∩ª     ╓P
         ª≡,__      *ⁿ┤ⁿÑⁿ^µ     √ª
               ⁿ≡,,__√╝*    ""ⁿⁿ*""[0m",0
-Salient OS,,^Salient\ OS|^SalientOS|^salientos,"[0m[36m[1m              00xxxx0
+Salient OS,,(?i:^Salient\ OS|^SalientOS|^salientos),"[0m[36m[1m              00xxxx0
           00xxxxxx0
        0xxxxxxxxx         000000
      0xxxxxxxxxx        xxxxxxxxxx0
@@ -4749,7 +4749,7 @@ xxxxxxxxxxxxxxxxxx0       xxxxxxxxxxxxxx
         0xxxxxxx0         xxxxxx0
                         0xxx00
                       x00[0m",0
-Salix,,^Salix,"[0m[32m[1m              __s_aaaaaaaaauuoXSSSSSSSS:
+Salix,,(?i:^Salix),"[0m[32m[1m              __s_aaaaaaaaauuoXSSSSSSSS:
           ._xSSSSSSSSSSSSSSSSSSSSSSSSSS:
         _aSSSSSSSSSSSSSSSSSSSSSSSSSSSSS:
       _xSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS:
@@ -4769,7 +4769,7 @@ Salix,,^Salix,"[0m[32m[1m              __s_aaaaaaaaauuoXSSSSSSSS:
  XSSSSSSSSSSSSSSSSSSSSSSSSSSSS""`​
  SSSSSSSSSSSSSSSSSSSSSSSSS!""`​
 -""""""""""""""""""""""""""""""""""""""""""""`​[0m",0
-Scientific,,^Scientific,"[0m[34m[1m                 =/;;/-
+Scientific,,(?i:^Scientific),"[0m[34m[1m                 =/;;/-
                 +:    //
                /;      /;
               -X        H.
@@ -4789,7 +4789,7 @@ M-       ,=;;;#:,      ,:#;;:=,       ,@
                ;/      #=
                 //    +;
                  '////'[0m",0
-Septor,,^Septor,"[0m[34m[1mssssssssssssssssssssssssssssssssssssssss
+Septor,,(?i:^Septor),"[0m[34m[1mssssssssssssssssssssssssssssssssssssssss
 ssssssssssssssssssssssssssssssssssssssss
 ssssssssssssssssssssssssssssssssssssssss
 ssssssssssssssssssssssssssssssssssssssss
@@ -4809,7 +4809,7 @@ yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
 yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
 yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
 yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy[0m",0
-Serene,,^Serene,"[0m[36m[1m              __---''''''---__
+Serene,,(?i:^Serene),"[0m[36m[1m              __---''''''---__
           .                      .
         :                          :
       -                       _______----_-
@@ -4829,7 +4829,7 @@ Serene,,^Serene,"[0m[36m[1m              __---''''''---__
         :_..--''                   :
           .                     _ .
             `​''---______---''-`​`​[0m",0
-SharkLinux,,^SharkLinux,"[0m[34m[1m                              `​:shd/
+SharkLinux,,(?i:^SharkLinux),"[0m[34m[1m                              `​:shd/
                           `​:yNMMMMs
                        `​-smMMMMMMN.
                      .+dNMMMMMMMMs
@@ -4844,7 +4844,7 @@ SharkLinux,,^SharkLinux,"[0m[34m[1m                              `​:shd/
       .hNMMNNNNMMMMMMMMMMMMMMMd
     .oNNNNNNNNNNMMMMMMMMMMMMMMMo
  `​:+syyssoo++++ooooossssssssssso:[0m",0
-Siduction,,^Siduction,"[0m[34m[1m                _aass,
+Siduction,,(?i:^Siduction),"[0m[34m[1m                _aass,
                jQh: =$w
                QWmwawQW
                )$QQQQ@(   ..
@@ -4864,7 +4864,7 @@ _Qh;.nm       .QWc. {QL      ]QQp;..vmQ/
                mQms_vmQ.
                ]WQQQQQP
                 -?T??""[0m",0
-Slackel,,^Slackel,"[0m[33m[1m              _aawmmmmmwwaaaaas,,,_.
+Slackel,,(?i:^Slackel),"[0m[33m[1m              _aawmmmmmwwaaaaas,,,_.
            .ammmmm###mmmmmmm###BQmm##mws
          .am###mmBmBmBmBmBmBmmmmm#mmmm#2
         <q###mmBmBmBmBmBmBmBmBmBmBmmBmZ`​
@@ -4886,14 +4886,14 @@ XBmBmBmBmm6s_aum##mmBmBm&^
  )ZmBmBmmmBmBmmBmB##!`​
   -4U#mBmWmBmBm##2""
     -!!XU##US*?""-[0m",0
-Slackware,_small,^slackware_small,"[0m[34m[1m   ________
+Slackware,_small,(?i:^slackware_small),"[0m[34m[1m   ________
   /  ______|
   | |______
   \______  \
    ______| |
 | |________/
 |____________[0m",1
-Slackware,,^Slackware,"[0m[34m[1m                  :::::::
+Slackware,,(?i:^Slackware),"[0m[34m[1m                  :::::::
             :::::::::::::::::::
          :::::::::::::::::::::::::
        ::::::::[0m[37m[1mcllcccccllllllll[0m[34m[1m::::::
@@ -4914,7 +4914,7 @@ Slackware,,^Slackware,"[0m[34m[1m                  :::::::
         ::::::::::::::::::::::::::::
            ::::::::::::::::::::::
                 ::::::::::::[0m",0
-SliTaz,,^SliTaz,"[0m[33m[1m        @    @(               @
+SliTaz,,(?i:^SliTaz),"[0m[33m[1m        @    @(               @
       @@   @@                  @    @/
      @@   @@                   @@   @@
     @@  %@@                     @@   @@
@@ -4931,7 +4931,7 @@ SliTaz,,^SliTaz,"[0m[33m[1m        @    @(               @
 @    @@     @@@@@@@@@@@@      @@   @
       @      @@@@@@@@@.     #@
        @      ,@@@@@       @[0m",0
-SmartOS,,^SmartOS,"[0m[36m[1myyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
+SmartOS,,(?i:^SmartOS),"[0m[36m[1myyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
 yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
 yyyys             oyyyyyyyyyyyyyyyy
 yyyys  yyyyyyyyy  oyyyyyyyyyyyyyyyy
@@ -4948,7 +4948,7 @@ yyyyyyyyyyyyyyyy  syyyyyyyyy  syyyy
 yyyyyyyyyyyyyyyy              yyyyy
 yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
 yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy[0m",0
-SkiffOS,,^SkiffOS,"             ,@@@@@@@@@@@w,_
+SkiffOS,,(?i:^SkiffOS),"             ,@@@@@@@@@@@w,_
   [0m[37m[1m====~~~,,.[0m[37m[1mA@@@@@@@@@@@@@@@@@W,_
   [0m[34m[1m`​||||||||||||||L{[0m[37m[1m""@$@@@@@@@@B""
    [0m[34m[1m`​|||||||||||||||||||||L{[0m[37m[1m""$D
@@ -4957,7 +4957,7 @@ SkiffOS,,^SkiffOS,"             ,@@@@@@@@@@@w,_
         [0m[34m[1m`​'||LLL{{""""[0m[37m[1m@$B@@@@@@@@@@@@@@@p[0m[34m[1m||
             [0m[34m[1m`​~=|||||||||||L""[0m[37m[1m$@@@@@@@@@@@
                    [0m[34m[1m`​`​`​`​'""""""""""""""[0m[37m[1m'""""""""""""""""[0m",0
-Solus,,^Solus,"[0m[37m[1m            -`​`​`​`​`​`​`​`​`​`​`​
+Solus,,(?i:^Solus),"[0m[37m[1m            -`​`​`​`​`​`​`​`​`​`​`​
           `​-+/------------.`​
        .---:mNo---------------.
      .-----yMMMy:---------------.
@@ -4977,7 +4977,7 @@ Solus,,^Solus,"[0m[37m[1m            -`​`​`​`​`​`​`​`​`​`�
       `​:+ssssssssssssssssssss+-
          `​-/+ssssssssssso+/-`​
               `​.-----..`​[0m",0
-Sulin,,^Sulin,"                         /\          /\
+Sulin,,(?i:^Sulin),"                         /\          /\
                         ( \\        // )
                          \ \\      // /
                           \_\\||||//_/
@@ -4997,7 +4997,7 @@ Sulin,,^Sulin,"                         /\          /\
      | |  | |        | ||
      |_|  |_|        |_||
      \_\  \_\        \_\[0m",0
-Source Mage,,^Source\ Mage|^Source_Mage,"[0m[37m[1m       :ymNMNho.
+Source Mage,,(?i:^Source\ Mage|^Source_Mage),"[0m[37m[1m       :ymNMNho.
 .+sdmNMMMMMMMMMMy`​
 .-::/yMMMMMMMMMMMm-
       sMMMMMMMMMMMm/
@@ -5018,7 +5018,7 @@ Source Mage,,^Source\ Mage|^Source_Mage,"[0m[37m[1m       :ymNMNho.
                  `​NMMMMMMMMMd:
                   -dMMMMMMMMMo
                     -shmNMMms.[0m",0
-Sparky,,^Sparky,"           .            `​-:-`​
+Sparky,,(?i:^Sparky),"           .            `​-:-`​
           .o`​       .-///-`​
          `​oo`​    .:/++:.
          os+`​  -/+++:`​ `​`​.........`​`​`​
@@ -5038,7 +5038,7 @@ Sparky,,^Sparky,"           .            `​-:-`​
                      ./+/-`​        `​
                    `​-:-.
                    `​`​[0m",0
-Star,,^Star,"[0m[37m[1m                   ./
+Star,,(?i:^Star),"[0m[37m[1m                   ./
                   `​yy-
                  `​y.`​y`​
     `​`​           s-  .y            `​
@@ -5057,7 +5057,7 @@ Star,,^Star,"[0m[37m[1m                   ./
            h  -o/`​   `​/o:  s:
           -s/o:`​       `​:o/+/
           /s-             -yo[0m",0
-SteamOS,,^SteamOS,"[0m[35m[1m              .,,,,.
+SteamOS,,(?i:^SteamOS),"[0m[35m[1m              .,,,,.
         .,'onNMMMMMNNnn',.
      .'oNMANKMMMMMMMMMMMNNn'.
    .'ANMMMMMMMXKNNWWWPFFWNNMNn.
@@ -5075,12 +5075,12 @@ SteamOS,,^SteamOS,"[0m[35m[1m              .,,,,.
       '*##################*'
          ''*##########*''
               ''''''[0m",0
-SunOS,_small,^sunos_small$|^solaris_small$,"[0m[33m[1m       .   .;   .
+SunOS,_small,(?i:^sunos_small$|^solaris_small$),"[0m[33m[1m       .   .;   .
    .   :;  ::  ;:   .
    .;. ..      .. .;.
 ..  ..             ..  ..
  .;,                 ,;.[0m",1
-SunOS,,^SunOS$|^Solaris$,"[0m[33m[1m                 `​-     `​
+SunOS,,(?i:^SunOS$|^Solaris$),"[0m[33m[1m                 `​-     `​
           `​--    `​+-    .:
            .+:  `​++:  -/+-     .
     `​.::`​  -++/`​`​:::`​./+/  `​.-/.
@@ -5088,7 +5088,7 @@ SunOS,,^SunOS$|^Solaris$,"[0m[33m[1m                 `​-     `​
   `​`​   ./:`​                .: `​..`​.-
 `​`​./+/:-                     -+++:-
     -/+`​                      :.[0m",0
-openSUSE Leap,,^openSUSE\ Leap|^openSUSE_Leap,"[0m[37m[1m                 `​-++:`​
+openSUSE Leap,,(?i:^openSUSE\ Leap|^openSUSE_Leap),"[0m[37m[1m                 `​-++:`​
                ./oooooo/-
             `​:oooooooooooo:.
           -+oooooooooooooooo+-`​
@@ -5104,13 +5104,13 @@ openSUSE Leap,,^openSUSE\ Leap|^openSUSE_Leap,"[0m[37m[1m                 `�
              ./oooooooooo/.
                 -/oooo+:`​
                   `​:/.[0m",0
-t2,,^t2,"TTTTTTTTTT
+t2,,(?i:^t2),"TTTTTTTTTT
     tt   [0m[37m[1m222[0m[34m[1m
     tt  [0m[37m[1m2   2[0m[34m[1m
     tt     [0m[37m[1m2[0m[34m[1m
     tt    [0m[37m[1m2[0m[34m[1m
     tt  [0m[37m[1m22222[0m[34m[1m[0m",1
-openSUSE Tumbleweed,,^openSUSE\ Tumbleweed|^openSUSE_Tumbleweed,"[0m[37m[1m                                     ......
+openSUSE Tumbleweed,,(?i:^openSUSE\ Tumbleweed|^openSUSE_Tumbleweed),"[0m[37m[1m                                     ......
      .,cdxxxoc,.               .:kKMMMNWMMMNk:.
     cKMMN0OOOKWMMXo. A        ;0MWk:'      ':OMMk.
   ;WMK;'       'lKMMNM,     :NMK'             'OMW;
@@ -5123,14 +5123,14 @@ openSUSE Tumbleweed,,^openSUSE\ Tumbleweed|^openSUSE_Tumbleweed,"[0m[37m[1m  
    *WMO:.    .;xNMMk'       NNNMKl.          .xWMx
      ^ONMMNXMMMKx;          V  'xNMWKkxllox0NMWk'
          '''''                    ':dOOXXKOxl'[0m",0
-openSUSE,_small,^opensuse_small$|^suse_small,"[0m[32m[1m  _______
+openSUSE,_small,(?i:^opensuse_small$|^suse_small),"[0m[32m[1m  _______
 __|   __ \
      / .\ \
      \__/ |
    _______|
    \_______
 __________/[0m",1
-openSUSE,,^openSUSE|^open\ SUSE|^SUSE,"[0m[37m[1m           .;ldkO0000Okdl;.
+openSUSE,,(?i:^openSUSE|^open\ SUSE|^SUSE),"[0m[37m[1m           .;ldkO0000Okdl;.
        .;d00xl:^''''''^:ok00d;.
      .d00l'                'o00d.
    .d0Kd'[0m[32m[1m  Okxol:;,.          [0m[37m[1m:O0d.
@@ -5148,7 +5148,7 @@ dKK[0m[32m[1mKKKKKKKKKK;.;oOKx,..[0m[37m[1m^[0m[32m[1m..;kKKK0.[0m[37
      'l0Kk:.              .;xK0l'
         'lkK0xl:;,,,,;:ldO0kl'
             '^:ldxkkkkxdl:^'[0m",0
-parch,,^parch|^Parch|^PARCH,"[0m[34m[1m                       ,:lodddd.
+parch,,(?i:^parch|^Parch|^PARCH),"[0m[34m[1m                       ,:lodddd.
                    .:clooood.
                  ;clllooooc
                ;cclllllloo
@@ -5173,7 +5173,7 @@ parch,,^parch|^Parch|^PARCH,"[0m[34m[1m                       ,:lodddd.
                  ;ddooooolllllcc.
                     :ooollllc.
                         c'[0m",0
-SwagArch,,^SwagArch,"[0m[37m[1m        .;ldkOKXXNNNNXXK0Oxoc,.
+SwagArch,,(?i:^SwagArch),"[0m[37m[1m        .;ldkOKXXNNNNXXK0Oxoc,.
    ,lkXMMNK0OkkxkkOKWMMMMMMMMMM;
  'K0xo  ..,;:c:.     `​'lKMMMMM0
      .lONMMMMMM'         `​lNMk'
@@ -5188,7 +5188,7 @@ SwagArch,,^SwagArch,"[0m[37m[1m        .;ldkOKXXNNNNXXK0Oxoc,.
 [0m[37m[1m `​':ldxO0KXXXXXK0Okdo[0m[34m[1mcccc.     :cccccccc.
                     :ccc:'     `​cccccccc:,
                                    ''[0m",0
-Tails,,^Tails,"[0m[35m[1m      `​`​
+Tails,,(?i:^Tails),"[0m[35m[1m      `​`​
   ./yhNh
 syy/Nshh         `​:o/
 N:dsNshh  █   `​ohNMMd
@@ -5207,7 +5207,7 @@ Nsyh+-..+y+-   yMMMMd   :mMM+
          -oNMMMMMMMMMMmy+.`​
            `​:yNMMMds/.`​
               .//`​[0m",1
-TorizonCore,,^TorizonCore,"[0m[33m[1m                          `​.::-.
+TorizonCore,,(?i:^TorizonCore),"[0m[33m[1m                          `​.::-.
                        `​-://////:-.
                      `​:////////////:.
                 `​.-.`​  `​-:///////-.     `​
@@ -5236,7 +5236,7 @@ TorizonCore,,^TorizonCore,"[0m[33m[1m                          `​.::-.
                     `​-:///:.`​`​`​`​.:///:-`​
                        `​-:////////:-`​
                           `​-::::-`​[0m",0
-Trisquel,,^Trisquel,"[0m[34m[1m                         ,o$$$o.
+Trisquel,,(?i:^Trisquel),"[0m[34m[1m                         ,o$$$o.
                       ,o$$Y""""""Y$$b
     ,o$$$$$$o.       ,$$'   ,   Y$$b
  ,o$$$$$$$$$$$$o.    :$      b   Y$$.
@@ -5253,7 +5253,7 @@ $$'  q'    'b  '$$$$$o._   _.o$$$$'
               '$$$.       .$$'
                'a$$$o._.o$$a'
                   'a$$$$a'[0m",0
-Twister,,^Twister,"[0m[34m[1m.......................[0m[35m[1m.......[0m[37m[1m.,:ccllllcc:.[0m[35m[1m...
+Twister,,(?i:^Twister),"[0m[34m[1m.......................[0m[35m[1m.......[0m[37m[1m.,:ccllllcc:.[0m[35m[1m...
 [0m[34m[1m.......................[0m[37m[1m.,;cldxkO0KXNNNWNNNX0x:
 [0m[34m[1m.................[0m[37m[1m.,:ldkOOKK0OkkkkkOKWMMMMMMMNo
 [0m[34m[1m.............[0m[37m[1m,;coxO0Oxo::'[0m[35m[1m.........[0m[37m[1m,oXMMMMMM0'
@@ -5276,7 +5276,7 @@ Twister,,^Twister,"[0m[34m[1m.......................[0m[35m[1m.......[0m
 [0m[34m[1m................[0m[37m[1m;lco;::::::'[0m[35m[1m..................
 [0m[34m[1m..............[0m[37m[1m.';ggggol'`​[0m[35m[1m.....................
 [0m[34m[1m.............[0m[37m[1m':oo:''[0m[34m[1m...[0m[35m[1m.......................[0m",0
-Ubuntu Cinnamon,,^Ubuntu\ Cinnamon|^Ubuntu\-Cinnamon,"[0m[31m[1m            .-/+oooooooo+/-.
+Ubuntu Cinnamon,,(?i:^Ubuntu\ Cinnamon|^Ubuntu\-Cinnamon),"[0m[31m[1m            .-/+oooooooo+/-.
         `​:+oooooooooooooooooo+:`​
       -+oooooooooooooooooooooooo+-
     .ooooooooooooooooooo[0m[37m[1m:ohNd[0m[31m[1moooooo.
@@ -5296,7 +5296,7 @@ oooo[0m[37m[1m+ymdosMo[0m[31m[1mooo[0m[37m[1m+mMm[0m[31m[1m+/[0m[3
       -+oooooooooooooooooooooooo+-
         `​:+oooooooooooooooooo+:`​
             .-/+oooooooo+/-.[0m",0
-Ubuntu Budgie,,^Ubuntu\ Budgie|^Ubuntu\-Budgie,"[0m[37m[1m           ./oydmMMMMMMmdyo/.
+Ubuntu Budgie,,(?i:^Ubuntu\ Budgie|^Ubuntu\-Budgie),"[0m[37m[1m           ./oydmMMMMMMmdyo/.
         :smMMMMMMMMMMMhs+:++yhs:
      `​omMMMMMMMMMMMN+`​        `​odo`​
     /NMMMMMMMMMMMMN-            `​sN/
@@ -5316,7 +5316,7 @@ oMm/        .dMMMMMMMMh:      :dMMMMMMMo
      `​omMMMMMMMMy.            :dmo`​
         :smMMMMMMMh+-`​   `​.:ohs:
            ./oydmMMMMMMdhyo/.[0m",0
-Ubuntu-GNOME,,^Ubuntu\-GNOME,"[0m[37m[1m          ./o.
+Ubuntu-GNOME,,(?i:^Ubuntu\-GNOME),"[0m[37m[1m          ./o.
         .oooooooo
       .oooo`​`​`​soooo
     .oooo`​     `​soooo
@@ -5332,7 +5332,7 @@ Ubuntu-GNOME,,^Ubuntu\-GNOME,"[0m[37m[1m          ./o.
 [0m[36m[1m       `​soooo.     .oooo`​
          `​\/oooooooooo`​
             `​`​\/oo`​`​[0m",0
-Ubuntu Kylin,,^Ubuntu\ Kylin|^Ubuntu\-Kylin,"[0m[31m[1m            .__=liiiiiii=__,
+Ubuntu Kylin,,(?i:^Ubuntu\ Kylin|^Ubuntu\-Kylin),"[0m[31m[1m            .__=liiiiiii=__,
         ._=liiliii|i|i|iiilii=_.
       _=iiiii|ii|i|ii|i|inwwwzii=,
     .=liiii|ii|ii|wwww|i[0m[37m[1m3QWWWW[0m[31m[1mziii=,
@@ -5352,14 +5352,14 @@ iiI[0m[37m[1mQWQWWtyQQ[0m[31m[1m|i|[0m[37m[1m$WWWWWQWk[0m[31m[1m||i|
       -<|i|ii|i|ii|i|i|ii3[0m[37m[1mTTT[0m[31m[1mt|i>`​
          ~<|ii|ii|iiiii|i|||i>~
             -~~<|ii|i||i>~~`​[0m",0
-Ubuntu Touch,,^Ubuntu\ Touch,"     ###############
+Ubuntu Touch,,(?i:^Ubuntu\ Touch),"     ###############
    ##               ##
   ##  [0m[37m[1m##[0m[33m[1m         [0m[37m[1m##[0m[33m[1m  ##
   ##  [0m[37m[1m##[0m[33m[1m  [0m[37m[1m#[0m[33m[1m   [0m[37m[1m#[0m[33m[1m  [0m[37m[1m##[0m[33m[1m  ##
   ##       [0m[37m[1m###[0m[33m[1m       ##
    ##               ##
      ###############[0m",1
-Ubuntu MATE,,^Ubuntu\ MATE|^Ubuntu\-MATE,"[0m[32m[1m            .:/+oossssoo+/:.`​
+Ubuntu MATE,,(?i:^Ubuntu\ MATE|^Ubuntu\-MATE),"[0m[32m[1m            .:/+oossssoo+/:.`​
         `​:+ssssssssssssssssss+:`​
       -+sssssssssssssss[0m[37m[1my[0m[32m[1mssssssss+-
     .osssssssssssss[0m[37m[1myy[0m[32m[1mss[0m[37m[1mmMmh[0m[32m[1mssssssso.
@@ -5379,7 +5379,7 @@ sssss[0m[37m[1myMMMMMmhy[0m[32m[1mssssssssssss[0m[37m[1mNM[0m[32m[1m
       -+sssssssssssssss[0m[37m[1my[0m[32m[1mssssssss+-
         `​:+ssssssssssssssssss+:`​
             .:/+oossssoo+/:.[0m",0
-ubuntu_old02,,^ubuntu_old02$,"[0m[31m[1m                         ./+o+-
+ubuntu_old02,,(?i:^ubuntu_old02$),"[0m[31m[1m                         ./+o+-
 [0m[37m[1m                 yyyyy- [0m[31m[1m-yyyyyy+
 [0m[37m[1m              [0m[37m[1m://+//////[0m[31m[1m-yyyyyyo
 [0m[33m[1m          .++ [0m[37m[1m.:/++++++/-[0m[31m[1m.+sss/`​
@@ -5397,7 +5397,7 @@ ubuntu_old02,,^ubuntu_old02$,"[0m[31m[1m                         ./+o+-
 [0m[31m[1m              /osyyyyyyo[0m[33m[1m++ooo+++/
 [0m[31m[1m                  `​`​`​`​`​ [0m[33m[1m+oo+++o:
 [0m[33m[1m                         `​oo++.[0m",0
-Ubuntu Studio,,^Ubuntu\ Studio|^Ubuntu\-Studio$,"[0m[36m[1m              ..-::::::-.`​
+Ubuntu Studio,,(?i:^Ubuntu\ Studio|^Ubuntu\-Studio$),"[0m[36m[1m              ..-::::::-.`​
          `​.:+++++++++++[0m[37m[1mooo[0m[36m[1m++:.`​
        ./+++++++++++++[0m[37m[1msMMMNdyo[0m[36m[1m+/.
      .++++++++++++++++[0m[37m[1moyhmMMMMms[0m[36m[1m++.
@@ -5417,7 +5417,7 @@ Ubuntu Studio,,^Ubuntu\ Studio|^Ubuntu\-Studio$,"[0m[36m[1m              ..-:
        ./+++++++++++++[0m[37m[1mhMMMNdyo[0m[36m[1m+/.
          `​.:+++++++++++[0m[37m[1msso[0m[36m[1m++:.
               ..-::::::-..[0m",0
-Ubuntu Sway,,^Ubuntu\ Sway|^Ubuntu\-Sway$,"[0m[36m[1m            .-/+oossssoo+\-.
+Ubuntu Sway,,(?i:^Ubuntu\ Sway|^Ubuntu\-Sway$),"[0m[36m[1m            .-/+oossssoo+\-.
         ´:+ssssssssssssssssss+:`​
       -+ssssssssssssssssss[0m[37m[1myy[0m[36m[1mssss+-
     .ossssssssssssssssss[0m[37m[1mdMMMNyy[0m[36m[1mssso.
@@ -5437,7 +5437,7 @@ ossy[0m[37m[1mNMMMNy[0m[36m[1mMM[0m[37m[1mh[0m[36m[1mssssssssssssssh
       -+sssssssssssssssss[0m[37m[1myy[0m[36m[1msss+-
         `​:+ssssssssssssssssss+:`​
             .-\+oossssoo+/-.[0m",0
-Ubuntu,_small,^ubuntu_small$,"[0m[31m[1m       ..;,; .,;,.
+Ubuntu,_small,(?i:^ubuntu_small$),"[0m[31m[1m       ..;,; .,;,.
     .,lool: .ooooo,
    ;oo;:    .coool.
  ....         ''' ,l;
@@ -5448,7 +5448,7 @@ looooc            :oo'
     lo:;.   :oooo; .
      ':ooo; cooooc
         '''  ''''[0m",1
-ubuntu_old02,_small,^Ubuntu_old|^i3buntu,"[0m[31m[1m            .-/+oossssoo+\-.
+ubuntu_old02,_small,(?i:^Ubuntu_old|^i3buntu),"[0m[31m[1m            .-/+oossssoo+\-.
         ´:+ssssssssssssssssss+:`​
       -+ssssssssssssssssssyyssss+-
     .ossssssssssssssssss[0m[37m[1mdMMMNy[0m[31m[1msssso.
@@ -5468,7 +5468,7 @@ oss[0m[37m[1myNMMMNyMMh[0m[31m[1msssssssssssssshmmmh[0m[31m[1mssssssso
       -+sssssssssssssssss[0m[37m[1myyy[0m[31m[1mssss+-
         `​:+ssssssssssssssssss+:`​
             .-\+oossssoo+/-.[0m",0
-Floflis,,^Floflis,"[36m              ,▄▄▄▌▓▓███▓▓▌▄▄▄,             
+Floflis,,(?i:^Floflis),"[36m              ,▄▄▄▌▓▓███▓▓▌▄▄▄,             
          ,▄▒▓███████████████████▓▄▄         
        ▄▓███████████████████████████▌       
       ▓███████████████████████████████      
@@ -5487,7 +5487,7 @@ Floflis,,^Floflis,"[36m              ,▄▄▄▌▓▓███▓▓▌▄�
           ,▄████████████████████▌,          
           ╝▀████████████████████▓▀'         
              `​╙▀▀▓▓███████▓▀▀╩'[0m",0
-Ubuntu,,^Ubuntu,"[0m[31m[1m                             ....
+Ubuntu,,(?i:^Ubuntu),"[0m[31m[1m                             ....
               .',:clooo:  .:looooo:.
            .;looooooooc  .oooooooooo'
         .;looooool:,''.  :ooooooooooc
@@ -5508,7 +5508,7 @@ Ubuntu,,^Ubuntu,"[0m[31m[1m                             ....
            .':loooooo;  ,oooooooooc
                ..';::c'  .;loooo:'
                              .[0m",0
-Ultramarine Linux,,^Ultramarine\ Linux|^ultramarine,"[0m[34m[1m            .cd0NNNNNNNXOdc.
+Ultramarine Linux,,(?i:^Ultramarine\ Linux|^ultramarine),"[0m[34m[1m            .cd0NNNNNNNXOdc.
         .:xKNNNNNNNNNNNNNNNNKd;.
       ,dXNNNNNNNNNNNNNNNNNNNNNNNd,
     'ONNNNNNNNNNNNNNNNNNNNNNNNNNNNO'
@@ -5528,7 +5528,7 @@ oNWWWW[0m[37m[1mMMMMMMMMMMMMMMMMMMMMMMMMMMMM[0m[34m[1mWWWNNo
       .cKW[0m[37m[1mMMMMMMMMMMMMMMMMMMMM[0m[34m[1mWKc.
          'oOXWWW[0m[37m[1mMMMMMMMM[0m[34m[1mWWWXOl.
              ;lkXNNNNNNXkl'[0m",0
-Univalent,,^Univalent,"   UUUUUUU                   UUUUUUU
+Univalent,,(?i:^Univalent),"   UUUUUUU                   UUUUUUU
    UUUUUUU                   UUUUUUU
    UUUUUUU         A         UUUUUUU
    UUUUUUU        A|A        UUUUUUU
@@ -5546,7 +5546,7 @@ Univalent,,^Univalent,"   UUUUUUU                   UUUUUUU
        UUUUUUUAAAAAAAAAAAUUUUUUU
           UUUUUUUUUUUUUUUUUUU
              UUUUUUUUUUUUU[0m",0
-Uos,,^Uos,"                        .......
+Uos,,(?i:^Uos),"                        .......
                     ..............
                 ......................
              .............................
@@ -5566,7 +5566,7 @@ Uos,,^Uos,"                        .......
                 .....................
                     .............
                         ......[0m",0
-Univention,,^Univention,"[0m[31m[1m         ./osssssssssssssssssssssso+-
+Univention,,(?i:^Univention),"[0m[31m[1m         ./osssssssssssssssssssssso+-
        `​ohhhhhhhhhhhhhhhhhhhhhhhhhhhhy:
        shhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh-
    `​-//[0m[37m[1msssss[0m[31m[1m/hhhhhhhhhhhhhh+[0m[37m[1ms[0m[31m[1m.hhhhhhhhh+
@@ -5586,7 +5586,7 @@ Univention,,^Univention,"[0m[31m[1m         ./osssssssssssssssssssssso+-
 -hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhho
  :yhhhhhhhhhhhhhhhhhhhhhhhhhhhh+`​
    -+ossssssssssssssssssssss+:`​[0m",0
-uwuntu,,^uwuntu,"[30m[1m                                  &&
+uwuntu,,(?i:^uwuntu),"[30m[1m                                  &&
                                &&&&&&&&
    ,                  *&&&&&&  &&&&&&&&(
     &%%%%&&&&     &&&&&&&&&&&&  ,&&&&&
@@ -5606,7 +5606,7 @@ uwuntu,,^uwuntu,"[30m[1m                                  &&
  [30m[1m%%%%%     %%[30m[1m                     #&&&&&(
 [30m[1m&%.      %%%[30m[1m
   [30m[1m%%%%%%%[0m",0
-UrukOS,,^UrukOS,"[0m[37m[1m          :[34m[1m::::::::::::::    [0m[34m[1m.
+UrukOS,,(?i:^UrukOS),"[0m[37m[1m          :[34m[1m::::::::::::::    [0m[34m[1m.
          [0m[37m[1m=#[34m[1m*============.   [0m[34m[1m:#:         
         [0m[37m[1m=##%[34m[1m+----------.   [0m[34m[1m.###:        
        [0m[37m[1m=####.              [0m[34m[1m.####:       
@@ -5626,7 +5626,7 @@ UrukOS,,^UrukOS,"[0m[37m[1m          :[34m[1m::::::::::::::    [0m[34m[1
         [0m[37m[1m=###+[34m[1m--------------[0m[34m[1m####:        
          [0m[37m[1m=#+[34m[1m=================-[0m[34m[1m:         
           [0m[37m[1m:[34m[1m::::::::::::::::::.[0m",0
-Venom,_small,^venom_small,"[30m[1m ++**
+Venom,_small,(?i:^venom_small),"[30m[1m ++**
   *===**====+*
    *====*   +===+
  *==*+===*    *===*
@@ -5637,7 +5637,7 @@ Venom,_small,^venom_small,"[30m[1m ++**
    +===+   *===+=*
       *+====**===*
                **++[0m",1
-Venom,,^Venom,"   `​-`​                                
+Venom,,(?i:^Venom),"   `​-`​                                
     -yys+/-`​                          
      `​oyyyyy: /osyyyyso+:.            
        /yyyyy+`​+yyyyyyyyyys/.         
@@ -5656,14 +5656,14 @@ Venom,,^Venom,"   `​-`​
             -/+osyyyyso.`​+yyyyy/      
                           .-/+syo`​    
                                 `​.[0m",0
-Void,_small,^void_small$,"[0m[32m[1m    _______
+Void,_small,(?i:^void_small$),"[0m[32m[1m    _______
  _ \______ -
 | \  ___  \ |
 | | /   \ | |
 | | \___/ | |
 | \______ \_|
  -_______\[0m",1
-Void,,^Void,"[30m[1m                        ..........
+Void,,(?i:^Void),"[30m[1m                        ..........
                    .::::::::::::::::::..
                ..:::::::::::::::::::::::::.
                 '::::::::::::::::::::::::::::.
@@ -5688,7 +5688,7 @@ Void,,^Void,"[30m[1m                        ..........
 [0m[37m[1m                ':|||||||||||||||||||||||''
 [0m[37m[1m                   '':||||||||||||||:''
 [0m[37m[1m                          ''''''[0m",0
-VNux,,^VNux,"[33m[1m              `​
+VNux,,(?i:^VNux),"[33m[1m              `​
            ^[XOx~.
         ^_nwdbbkp0ti'
         <vJCZw0LQ0Uj>
@@ -5708,7 +5708,7 @@ VNux,,^VNux,"[33m[1m              `​
 ?QOZmqqqpb[30m[1mt[run/?![33m[1m0pwqqQj-,
  ^:l<{nUUv>      ^x00J(""
                    ^""[0m",1
-VzLinux,,^VzLinux,"[0m[37m[1m                 [0m[31m[1m.::::::::.[0m[37m[1m
+VzLinux,,(?i:^VzLinux),"[0m[37m[1m                 [0m[31m[1m.::::::::.[0m[37m[1m
     `​/////`​      [0m[31m[1m:zzzzzzzz[0m[37m[1m        ://///-
      VVVVVu`​         [0m[31m[1m-zzz`​[0m[37m[1m       /VVVVV.
      `​dVVVVV        [0m[31m[1m.zzz`​[0m[37m[1m       :VVVVV:
@@ -5728,7 +5728,7 @@ VzLinux,,^VzLinux,"[0m[37m[1m                 [0m[31m[1m.::::::::.[0m[37
                   oVVVVVVd`​
                    sVVVVV.
                     ----.[0m",0
-yiffOS,,^yiffOS,"[30m[1m            NK
+yiffOS,,(?i:^yiffOS),"[30m[1m            NK
              NxKXW
              WOlcoXW
              0olccloxNW
@@ -5747,7 +5747,7 @@ yiffOS,,^yiffOS,"[30m[1m            NK
                           WXOxdddddddd
                                 NX0ddd
                                   WN0d[0m",0
-semc,,^semc,"[0m[32m[1m            /\
+semc,,(?i:^semc),"[0m[32m[1m            /\
      ______/  \
     /      |()| [30m[1mE M C
 [0m[32m[1m   |   (-- |  |
@@ -5756,7 +5756,7 @@ semc,,^semc,"[0m[32m[1m            /\
 |_______/ / [0m[31m[1m""[0m[32m[1m  \
               [0m[31m[1m""
             ""[0m",1
-Vanilla,,^Vanilla,"                  .OO.
+Vanilla,,(?i:^Vanilla),"                  .OO.
                  .OOOO.
                 .OO[37m[1mII[33m[1mOO.
                IOOO[37m[1mII[33m[1mOOOI
@@ -5774,7 +5774,7 @@ Vanilla,,^Vanilla,"                  .OO.
      OOOO[37m[1mII[33m[1mOOOOOOOI   IOOOOOO[37m[1mII[33m[1mOOOO
     IOO[37m[1mII[33m[1mOOOOOOOO:     :OOOOOOOO[37m[1mII[33m[1mOOI
    IOOOOOOOOOOII         IIOOOOOOOOOOI[0m",0
-Obarun,,^Obarun,"[0m[36m[1m                    ,;::::;
+Obarun,,(?i:^Obarun),"[0m[36m[1m                    ,;::::;
                 ;cooolc;,
              ,coool;
            ,loool,
@@ -5793,7 +5793,7 @@ Obarun,,^Obarun,"[0m[36m[1m                    ,;::::;
     cooooooooooooloooooc
      ;ooooooooooooool;
        ;looooooolc;[0m",0
-wii-linux-ngx,,wii\-linux\-ngx|whiite\-linux|gc\-linux,"[0m[36m[1m'''''''            `​~;:`​            -''''''   ~kQ@@g\      ,EQ@@g/
+wii-linux-ngx,,(?i:wii\-linux\-ngx|whiite\-linux|gc\-linux),"[0m[36m[1m'''''''            `​~;:`​            -''''''   ~kQ@@g\      ,EQ@@g/
 h@@@@@@'          o@@@@@9`​         `​@@@@@@D  `​@@@@@@@=     @@@@@@@?
 '@@@@@@X         o@@@@@@@D         v@@@@@@:   R@@@@@@,     D@@@@@@_
  t@@@@@@'       _@@@@@@@@@;       `​Q@@@@@U     ;fmo/-       ;fmo/-
@@ -5809,7 +5809,7 @@ h@@@@@@'          o@@@@@9`​         `​@@@@@@D  `​@@@@@@@=     @@@@@@@?
       `​Q@@@@@@@@@'       `​Q@@@@@@@@@-         z@@@@@Q      v@@@@@Q
        :@@@@@@@@|         ;@@@@@@@@=          z@@@@@Q      v@@@@@Q
         '2#@@Q6:           ,eQ@@QZ~           /QQQQQg      \QQQQQN[0m",0
-Windows 11,,\[Windows\ 11\]|on\ Windows\ 11|^Windows\ 11|^windows11$,"################  ################
+Windows 11,,(?i:\[Windows\ 11\]|on\ Windows\ 11|^Windows\ 11|^windows11$),"################  ################
 ################  ################
 ################  ################
 ################  ################
@@ -5824,7 +5824,7 @@ Windows 11,,\[Windows\ 11\]|on\ Windows\ 11|^Windows\ 11|^windows11$,"##########
 ################  ################
 ################  ################
 ################  ################[0m",0
-Windows 10,,\[Windows\ 10\]|on\ Windows\ 10|^Windows\ 8|^Windows\ 10|^windows10$|^windows8$,"[0m[36m[1m                                ..,
+Windows 10,,(?i:\[Windows\ 10\]|on\ Windows\ 10|^Windows\ 8|^Windows\ 10|^windows10$|^windows8$),"[0m[36m[1m                                ..,
                     ....,,:;+ccllll
       ...,,+:;  cllllllllllllllllll
 ,cclllllllllll  lllllllllllllllllll
@@ -5843,7 +5843,7 @@ llllllllllllll  lllllllllllllllllll
        `​' \*::  :ccllllllllllllllll
                        `​`​`​`​''*::cll
                                  `​`​[0m",0
-Windows95,,^Windows95$,"[0m[30m[1m                           ___
+Windows95,,(?i:^Windows95$),"[0m[30m[1m                           ___
                       .--=+++++=-:.
    .              _ *%@@@@@@@@@@@@@@*
     *:+:.__ :+* @@@ @""[0m[31m[1m_*&%[0m[30m[1m@@[0m[32m[1m%&&&*[0m[30m[1m""@@@
@@ -5861,7 +5861,7 @@ Windows95,,^Windows95$,"[0m[30m[1m                           ___
     *:+:.__ :+# @@@ @%#=+""""""""""""+==%#@
      ""+.-#+ +%* %+"" ""             "":@
           "" ""[0m",0
-Windows95,_small,^Windows,"[0m[31m[1m        ,.=:!!t3Z3z.,
+Windows95,_small,(?i:^Windows),"[0m[31m[1m        ,.=:!!t3Z3z.,
        :tt:::tt333EE3
 [0m[31m[1m       Et:::ztt33EEEL[0m[32m[1m @Ee.,      ..,
 [0m[31m[1m      ;tt:::tt333EE7[0m[32m[1m ;EEEEEEttttt33#
@@ -5877,7 +5877,7 @@ Windows95,_small,^Windows,"[0m[31m[1m        ,.=:!!t3Z3z.,
 [0m[34m[1m{3=*^`​`​`​""*4E3)[0m[33m[1m ;EEEtttt:::::tZ`​
 [0m[34m[1m             `​[0m[33m[1m :EEEEtttt::::z7
                  ""VEzjt:;;z>*`​[0m",0
-Xray_OS,,^Xray_OS,"[37m[1m               [37m[1mrrrrrraaaaaaaaaaaayyyy
+Xray_OS,,(?i:^Xray_OS),"[37m[1m               [37m[1mrrrrrraaaaaaaaaaaayyyy
            [37m[1mxxrrrrrrrraaaaaaaaaaaayyyyyyyyy
         [37m[1mxxxxxrrrrrrrraaaaaaaaaaaayyyyyyy[30m[1myyyyy[36m[1myyyyyyyyyy
       [37m[1mxxxxxxxrrrrrrrraaaaa [36m[1maaaaayyyyyyyyyyyyyyyyyyy
@@ -5898,7 +5898,7 @@ Xray_OS,,^Xray_OS,"[37m[1m               [37m[1mrrrrrraaaaaaaaaaaayyyy
           [37m[1mxxxrrrrrr [36m[1mraaa  [37m[1maaaaaaayyyyyyyyy
               [37m[1mrrrr [36m[1mrr  [37m[1maaaaaaaaaayyyyyy
                  [36m[1mr   [37m[1maaaaaaaaaa[0m",0
-Xubuntu,,^Xubuntu,"[0m[34m[1m           `​.:/ossyyyysso/:.
+Xubuntu,,(?i:^Xubuntu),"[0m[34m[1m           `​.:/ossyyyysso/:.
         `​.yyyyyyyyyyyyyyyyyyyy.`​
       `​yyyyyyyyyyyyyyyyyyyyyyyyyy`​
     `​yyyyyyyyyyyyyyyyyyyy[0m[37m[1m::[0m[34m[1myyyyyyyy`​
@@ -5918,7 +5918,7 @@ yyyyyyy[0m[37m[1m+MMMMMMMMMMMMMMMMMMMMMMMM/[0m[34m[1myyyyyyy
       `​yyyyyyyyyyyyyyyyyyyyyyyyyy`​
         `​.yyyyyyyyyyyyyyyyyyyy.`​
            `​.:/oosyyyysso/:.`​[0m",0
-Soda,,^Soda,"[0m[37m[1m                 @&&&&[0m[31m[1m        *'*,
+Soda,,(?i:^Soda),"[0m[37m[1m                 @&&&&[0m[31m[1m        *'*,
                [0m[37m[1m@@@@@@@&&&[0m[31m[1m  **     '*,
               [0m[37m[1m@@@@@@@@@@@&&&&
             @&@@@@@@@@@@@@@@@&&&
@@ -5933,7 +5933,7 @@ Soda,,^Soda,"[0m[37m[1m                 @&&&&[0m[31m[1m        *'*,
     [0m[37m[1m@@@@@@@@@@@@@@@@@@
         @@@@@@@@@@@@
            @@@@@@@[0m",0
-KrassOS,,^KrassOS|^Krass,"[0m[34m[1m                  [0m[37m[1m**@@@@@@@@@@@*
+KrassOS,,(?i:^KrassOS|^Krass),"[0m[34m[1m                  [0m[37m[1m**@@@@@@@@@@@*
              [0m[37m[1m,@@@@%[0m[34m[1m((((((((((((([0m[37m[1m%@@@@,
           [0m[37m[1m#@@&[0m[34m[1m((((((((((((((((((((((([0m[37m[1m&@@%
         [0m[37m[1m@@&[0m[34m[1m((((((((((((((((((((((((((((([0m[37m[1m@@@
@@ -5952,7 +5952,7 @@ KrassOS,,^KrassOS|^Krass,"[0m[34m[1m                  [0m[37m[1m**@@@@@@@@
            [0m[37m[1m@@@&[0m[34m[1m********************[0m[37m[1m/@@@@
                [0m[37m[1m&@@@@&[0m[34m[1m(//***//([0m[37m[1m&@@@@&
 [0m[34m[1m                  [0m[37m[1m**@@@@@@@@@@@*[0m",0
-IRIX,,^IRIX,"[0m[34m[1m           ./ohmNd/  +dNmho/-
+IRIX,,(?i:^IRIX),"[0m[34m[1m           ./ohmNd/  +dNmho/-
      `​:+ydNMMMMMMMM.-MMMMMMMMMdyo:.
    `​hMMMMMMNhs/sMMM-:MMM+/shNMMMMMMh`​
    -NMMMMMmo-`​ /MMM-/MMM- `​-omMMMMMN.
@@ -5971,7 +5971,7 @@ oMMMMmMMMMNds:.+MMMmmMMN/.-odNMMMMmMMMM+
         .omMMMMMMMM-`​NMMMMMMMmo.
           `​:hMMMMMM. NMMMMMh/`​
              .odNm+  /dNms.[0m",0
-Xenia2,,^Xenia2,"[1m      ,c.                       .c;
+Xenia2,,(?i:^Xenia2),"[1m      ,c.                       .c;
 [1m    .[1mKMMMk[1m....             ....[1mkMMMK[1m.
 [1m   .[1mWMMMMMX[1m.....         .....[1mKMMMMMW.
 [1m   XMMMMMMM0[1m.....        ....[1mOMMMMMMMN
@@ -5992,7 +5992,7 @@ Xenia2,,^Xenia2,"[1m      ,c.                       .c;
 [1m         .MMMMMMMMl[1m...[1mlNMMMMMMM.
 [1m            KMMMMMMX[1ml[1mKMMMMMMX
 [1m               .MMMMMMMMM.[0m",0
-Xenia,,^Xenia,"[37m[1m       ![37m[1m`​[37m[1m              @
+Xenia,,(?i:^Xenia),"[37m[1m       ![37m[1m`​[37m[1m              @
 [37m[1m      @[37m[1m`​`​`​[37m[1mb        @@@@@
 [37m[1m     @[37m[1m`​`​`​`​`​[37m[1m@     @/[37m[1m@@@@
 [37m[1m    @@[37m[1m`​`​'))))))))))C@@
@@ -6019,7 +6019,7 @@ Xenia,,^Xenia,"[37m[1m       ![37m[1m`​[37m[1m              @
                     [1m11 +[1m][37m[1m[[[[
                     [1m1   [1m][37m[1m[[
                        `​[0m",0
-Zorin,,^Zorin,"[0m[34m[1m        `​osssssssssssssssssssso`​
+Zorin,,(?i:^Zorin),"[0m[34m[1m        `​osssssssssssssssssssso`​
        .osssssssssssssssssssssso.
       .+oooooooooooooooooooooooo+.
 
@@ -6036,7 +6036,7 @@ ssssssssssssso/-`​      `​-/osssssssssssss
       .+oooooooooooooooooooooooo+.
        -osssssssssssssssssssssso-
         `​osssssssssssssssssssso`​[0m",0
-GNU,_small,^GNU,"[0m[32m[1m                    c.'
+GNU,_small,(?i:^GNU),"[0m[32m[1m                    c.'
                  ,xNMM.
                .OMMMMo
                lMMM""
@@ -6053,7 +6053,7 @@ GNU,_small,^GNU,"[0m[32m[1m                    c.'
     [0m[34m[1mkMMMMMMMMMMMMMMMMMMMMMMd
      ;KMMMMMMMWXXWMMMMMMMk.
        ""cooc*""    ""*coo'""[0m",0
-Profelis SambaBOX,,^Profelis\ SambaBOX|^SambaBOX,"[0m[32m[1m                    c.'
+Profelis SambaBOX,,(?i:^Profelis\ SambaBOX|^SambaBOX),"[0m[32m[1m                    c.'
                  ,xNMM.
                .OMMMMo
                lMMM""

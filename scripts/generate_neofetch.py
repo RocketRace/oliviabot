@@ -55,7 +55,7 @@ for distro in distros:
     for suffix in suffixes:
         for i, pattern in enumerate(raw_patterns):
             if pattern.match(f"{distro}{suffix}"):
-                maybe_with_distros[i] = (distro, suffix, pattern.pattern)
+                maybe_with_distros[i] = (distro, suffix, f"(?i:{pattern.pattern})")
                 # find only the first pattern that matches our input
                 break
 # there may be orphan patterns
