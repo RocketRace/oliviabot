@@ -10,6 +10,11 @@ use poise::{
 };
 use serde::{de::Error as _, Deserialize, Deserializer};
 use state::Data;
+use tokio::{
+    select,
+    signal::unix::{signal, SignalKind},
+    sync::watch,
+};
 use tracing::info;
 
 // Common types
@@ -40,6 +45,19 @@ fn hex_color<'de, D: Deserializer<'de>>(d: D) -> std::result::Result<serenity::C
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    let (stop_tx, mut stop_rx) = watch::channel(());
+    tokio::spawn(async move {
+        let mut sigterm = signal(SignalKind::terminate()).unwrap();
+        let mut sigint = signal(SignalKind::interrupt()).unwrap();
+        loop {
+            select! {
+                _ = sigterm.recv() => info!("Recieved SIGTERM"),
+                _ = sigint.recv() => info!("Recieved SIGINT"),
+            };
+            stop_tx.send(()).unwrap();
+        }
+    });
+
     let dev = std::env::var("DEV").is_ok();
     if dev {
         dotenvy::from_filename("dev.env")?;
@@ -82,10 +100,9 @@ async fn main() -> Result<()> {
 
     let shard_manager = client.shard_manager.clone();
     tokio::spawn(async move {
-        tokio::signal::ctrl_c()
-            .await
-            .expect("Failed to register ctrl-c handler");
-
+        if let Err(e) = stop_rx.changed().await {
+            println!("Error receiving shutdown signal: {e}")
+        };
         shard_manager.shutdown_all().await;
     });
 
