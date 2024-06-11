@@ -62,7 +62,7 @@ for distro in distros:
 with_distros: list[tuple[str, str, str]] = [row for row in maybe_with_distros if row]
 
 # === append ascii logos & mobile width to each pattern ===
-maybe_with_logos: list[tuple[str, str, str, str, int] | None] = [None]* len(raw_patterns)
+maybe_with_logos: list[tuple[str, str, str, str, int] | None] = [None] * len(raw_patterns)
 procs: list[tuple[int, subprocess.Popen[str]]] = []
 for i, (distro, suffix, _) in enumerate(with_distros):
     proc = subprocess.Popen(["neowofetch", "--logo", "--stdout=off", "--ascii_distro", distro + suffix], text=True, stdout=subprocess.PIPE)
