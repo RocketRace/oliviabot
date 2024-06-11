@@ -8,7 +8,7 @@ use r2d2::Pool;
 use r2d2_sqlite::SqliteConnectionManager;
 use tracing::{info, warn};
 
-use crate::{migrations, Config, Result};
+use crate::{database, Config, Result};
 
 pub struct Repo {
     pub handle: Arc<Mutex<git2::Repository>>,
@@ -46,8 +46,8 @@ impl Data {
         let manager = r2d2_sqlite::SqliteConnectionManager::file(&config.database_url);
         let pool = Pool::new(manager)?;
 
-        info!("Running migrations");
-        migrations::run_migrations(pool.clone())?;
+        info!("Initializing database modules and running migrations");
+        database::init_db(pool.clone())?;
 
         let updated_unix = std::fs::read_to_string("data/neofetch_updated")?
             .trim()

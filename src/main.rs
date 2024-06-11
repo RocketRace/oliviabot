@@ -1,5 +1,5 @@
 mod cogs;
-mod migrations;
+mod database;
 mod state;
 mod util;
 

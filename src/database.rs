@@ -6,7 +6,7 @@ use r2d2_sqlite::SqliteConnectionManager;
 use regex::Regex;
 use rusqlite::{functions::FunctionFlags, vtab::csvtab, Transaction};
 
-pub fn run_migrations(pool: Pool<SqliteConnectionManager>) -> Result<()> {
+pub fn init_db(pool: Pool<SqliteConnectionManager>) -> Result<()> {
     let mut conn = pool.get()?;
     // initialize CSV virtual table module
     csvtab::load_module(&conn)?;
@@ -33,12 +33,11 @@ pub fn run_migrations(pool: Pool<SqliteConnectionManager>) -> Result<()> {
             Ok(is_match)
         },
     )?;
-
+    // run migrations
     let tx = conn.transaction()?;
-
     init_neofetch(&tx)?;
-
     tx.commit()?;
+
     Ok(())
 }
 
