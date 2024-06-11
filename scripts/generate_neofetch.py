@@ -7,6 +7,7 @@ import requests
 import datetime
 import colour
 import math
+import csv
 
 # === scrape distro list (and hardcode a few) ===
 print("generating neofetch logos...")
@@ -167,9 +168,8 @@ for i, (distro, suffix, pattern, logo, mobile_width) in enumerate(with_logos):
     with_logos[i] = distro, suffix, pattern, re.sub(ansi_pattern, subber, logo).replace('`', "`\u200b"), mobile_width
 
 # === append most frequent color (aside from None) to row ===
-with_colors: list[tuple[str, str, str, str, int, int, str]] = []
-for row in with_logos:
-    logo = row[3]
+with_colors: list[tuple[str, str, str, int, int, str, str]] = []
+for distro, suffix, pattern, logo, mobile_width in with_logos:
     pat = re.compile(r"\x1b\[(\d+)m")
     escape_spans: list[tuple[int, int]] = []
     color_changes: list[tuple[int, int | None]] = []
@@ -214,12 +214,13 @@ for row in with_logos:
         case _: pass
     if len(top) == 2 and top[0][0] == 30: 
         top = top[1:]
+    
     if top:
         index = top[0][0]
         rgb = bytes(discord_colors[index]).hex()
-        with_colors.append(row + (index, rgb))
+        with_colors.append((distro, suffix, pattern, mobile_width, index, rgb, logo))
     else:
-        with_colors.append(row + (37, "ffffff"))
+        with_colors.append((distro, suffix, pattern, mobile_width, 37, "ffffff", logo))
 
 # === push changes to data/ directory ===
 with open("data/neofetch_updated", "w") as f:
@@ -227,5 +228,6 @@ with open("data/neofetch_updated", "w") as f:
     f.write(f"{now}\n")
 
 with open("data/neofetch.csv", "w") as f:
-    import csv
-    csv.writer(f).writerows(with_colors)
+    writer = csv.writer(f)
+    writer.writerow(["distro", "suffix", "pattern", "mobile_width", "color_index", "color_rgb", "logo"])
+    writer.writerows(with_colors)

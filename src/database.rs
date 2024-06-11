@@ -47,14 +47,15 @@ fn init_neofetch(tx: &Transaction) -> Result<()> {
         CREATE VIRTUAL TABLE temp.neofetch
         USING csv(
             filename='data/neofetch.csv',
+            header=1,
             schema='CREATE TABLE x(
                 distro TEXT NOT NULL,
                 variant TEXT NOT NULL,
                 pattern TEXT NOT NULL,
-                logo TEXT NOT NULL,
                 mobile_width TEXT NOT NULL,
                 color_index TEXT NOT NULL,
-                color_rgb TEXT NOT NULL
+                color_rgb TEXT NOT NULL,
+                logo TEXT NOT NULL
             )'
         )
         ",
