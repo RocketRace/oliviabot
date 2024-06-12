@@ -1,3 +1,4 @@
+use anyhow::anyhow;
 use anyhow::Context as _;
 use poise::serenity_prelude as serenity;
 use poise::CreateReply;
@@ -42,7 +43,8 @@ async fn neofetch(
         let mut stmt = conn
             .prepare(
                 "SELECT distro, logo, color_index, color_rgb FROM neofetch
-                WHERE (?1 IS NULL OR ?1 REGEXP pattern) AND (?2 IS NULL OR mobile_width = ?2)",
+                WHERE (?1 IS NULL OR ?1 REGEXP pattern)
+                AND (?2 IS NULL OR mobile_width = ?2)",
             )
             .context("Failed to prepare SQL statement")?;
 
@@ -53,7 +55,7 @@ async fn neofetch(
             .query_map(params, |row| {
                 Ok((row.get(0)?, row.get(1)?, row.get(2)?, row.get(3)?))
             })
-            .context("Failed to execute SQL")?;
+            .context("Failed to execute SQL query")?;
 
         let mut choices: Vec<(String, String, String, String)> = vec![];
         for row in rows {
@@ -65,7 +67,20 @@ async fn neofetch(
     let neofetch_updated = ctx.data().neofetch_updated;
 
     let Some((distro, logo, color_index, color_rgb)) = choices.choose(&mut thread_rng()) else {
-        return Err("No such distro found")?;
+        match distro {
+            Some(query) => {
+                if mobile {
+                    return Err(anyhow!(
+                        "No mobile-width distro icons found matching query '{query}'"
+                    ))?;
+                } else {
+                    return Err(anyhow!("No distros found matching query '{query}'"))?;
+                }
+            }
+            None => {
+                return Err(anyhow!("No distros found."))?;
+            }
+        }
     };
 
     let r = u8::from_str_radix(&color_rgb[0..2], 16)?;
