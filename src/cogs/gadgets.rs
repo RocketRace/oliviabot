@@ -64,22 +64,15 @@ async fn neofetch(
         choices
     };
 
-    let neofetch_updated = ctx.data().neofetch_updated;
-
     let Some((distro, logo, color_index, color_rgb)) = choices.choose(&mut thread_rng()) else {
         match distro {
-            Some(query) => {
-                if mobile {
-                    return Err(anyhow!(
-                        "No mobile-width distro icons found matching query '{query}'"
-                    ))?;
-                } else {
-                    return Err(anyhow!("No distros found matching query '{query}'"))?;
-                }
+            Some(query) if mobile => {
+                return Err(anyhow!(
+                    "No mobile-width distro icons found matching query '{query}'"
+                ))?
             }
-            None => {
-                return Err(anyhow!("No distros found."))?;
-            }
+            Some(query) => return Err(anyhow!("No distros found matching query '{query}'"))?,
+            None => return Err(anyhow!("No distros found."))?,
         }
     };
 
@@ -106,7 +99,7 @@ async fn neofetch(
         .footer(serenity::CreateEmbedFooter::new(
             "Neofetch data last updated:",
         ))
-        .timestamp(neofetch_updated)
+        .timestamp(ctx.data().neofetch_updated)
         .color(serenity::Colour::from_rgb(r, g, b));
 
     ctx.send(CreateReply::default().embed(embed)).await?;
