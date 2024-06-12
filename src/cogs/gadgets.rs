@@ -65,15 +65,13 @@ async fn neofetch(
     };
 
     let Some((distro, logo, color_index, color_rgb)) = choices.choose(&mut thread_rng()) else {
-        match distro {
+        return Err(match distro {
             Some(query) if mobile => {
-                return Err(anyhow!(
-                    "No mobile-width distro icons found matching query '{query}'"
-                ))?
+                anyhow!("No mobile-width distro icons found matching query '{query}'")
             }
-            Some(query) => return Err(anyhow!("No distros found matching query '{query}'"))?,
-            None => return Err(anyhow!("No distros found."))?,
-        }
+            Some(query) => anyhow!("No distros found matching query '{query}'"),
+            None => anyhow!("No distros found."),
+        })?;
     };
 
     let r = u8::from_str_radix(&color_rgb[0..2], 16)?;
