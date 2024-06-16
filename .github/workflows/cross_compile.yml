@@ -28,6 +28,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: ./target/release/oliviabot
+          tag_name: v0.0.0
       - name: Connect to server and receive binaries
         uses: appleboy/ssh-action@master
         with:
@@ -39,5 +40,5 @@ jobs:
             git pull
             cargo clean
             mkdir -p target/release
-            wget https://github.com/$GITHUB_REPOSITORY/releases/latest/download/olivabot
+            wget -O target/release/oliviabot https://github.com/$GITHUB_REPOSITORY/releases/latest/download/olivabot
             chmod +x target/release/oliviabot
