@@ -11,4 +11,3 @@ jobs:
         with:
           target: aarch64-unknown-linux-gnu
           args: "--locked --release"
-          strip: true

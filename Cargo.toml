@@ -19,3 +19,6 @@ rusqlite = { version = "0.31.0", features = ["bundled", "csvtab", "functions"] }
 r2d2_sqlite = "0.24.0"
 r2d2 = "0.8.10"
 anyhow = "1.0.86"
+
+# for cross compilation
+openssl = { version = "*", features = ["vendored"] }
