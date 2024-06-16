@@ -3,11 +3,23 @@ on: [push]
 
 jobs:
   build:
-    name: Build binaries
+    name: Build and deploy binaries
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: houseabsolute/actions-rust-cross@v0
+      - run: rustup toolchain install stable --profile minimal --no-self-update
+      - name: Set up caching
+        uses: Swatinem/rust-cache@v2
+      - name: Cross compile
+        uses: houseabsolute/actions-rust-cross@v0
         with:
           target: aarch64-unknown-linux-gnu
           args: "--locked --release"
+      - name: Connect to Tailscale
+        uses: tailscale/github-action@v2
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          tags: tag:ci
+      - name: Connect to server
+        run: ping sparrow -c 10
