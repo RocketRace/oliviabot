@@ -18,7 +18,7 @@ jobs:
         with:
           target: aarch64-unknown-linux-gnu
           args: --locked --release
-      - run: ls target
+      - run: ls target/aarch64-unknown-linux-gnu
       - name: Connect to Tailscale
         uses: tailscale/github-action@v2
         with:
@@ -28,7 +28,7 @@ jobs:
       - name: Create github release
         uses: softprops/action-gh-release@v2
         with:
-          files: ./target/release/oliviabot
+          files: ./target/aarch64-unknown-linux-gnu/release/oliviabot
           tag_name: v0.0.0
       - name: Connect to server and receive binaries
         uses: appleboy/ssh-action@master
