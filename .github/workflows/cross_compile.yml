@@ -1,5 +1,8 @@
 name: Build and deploy
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
@@ -21,8 +24,10 @@ jobs:
           oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
           oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
           tags: tag:ci
-      - name: Taildrop binaries
-        run: "tailscale file cp ./target sparrow:"
+      - name: Create github release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ./target/release/oliviabot
       - name: Connect to server and receive binaries
         uses: appleboy/ssh-action@master
         with:
@@ -33,4 +38,6 @@ jobs:
             cd ${{ secrets.PROJECT_PATH }}
             git pull
             cargo clean
-            tailscale file get .
+            mkdir -p target/release
+            wget https://github.com/$GITHUB_REPOSITORY/releases/latest/download/olivabot
+            chmod +x target/release/oliviabot
