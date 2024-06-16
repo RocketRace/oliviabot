@@ -42,7 +42,7 @@ jobs:
           script: |
             cd ${{ secrets.PROJECT_PATH }}
             git pull
-            cargo clean
+            rm -rf target
             mkdir -p target/release
-            wget -O target/release/oliviabot https://github.com/$GITHUB_REPOSITORY/releases/latest/download/olivabot
+            wget -O target/release/oliviabot https://github.com/RocketRace/oliviabot/releases/latest/download/olivabot
             chmod +x target/release/oliviabot
