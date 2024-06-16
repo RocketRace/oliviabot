@@ -21,5 +21,16 @@ jobs:
           oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
           oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
           tags: tag:ci
-      - name: Connect to server
-        run: ping sparrow -c 10
+      - name: Taildrop binaries
+        run: tailscale file cp ./target sparrow
+      - name: Connect to server and receive binaries
+        uses: appleboy/ssh-action@master
+        with:
+          host: sparrow
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            cd ${{ secrets.PROJECT_PATH }}
+            git pull
+            cargo clean
+            tailscale file get .
