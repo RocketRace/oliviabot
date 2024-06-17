@@ -1,11 +1,12 @@
-use crate::{Context, Result};
+use crate::{Context, Result, Spanned};
 use chrono::{DateTime, FixedOffset, Offset, Utc};
 use poise::{samples::HelpConfiguration, serenity_prelude as serenity, CreateReply};
+use span_derive::inject_span;
 
 use super::Cog;
 
 pub fn cog() -> Cog {
-    Cog::new(vec![help(), debug()], "Meta".to_string())
+    Cog::new(vec![help(), debug(), source()], "Meta".to_string())
 }
 
 fn format_duration(start: serenity::Timestamp, end: serenity::Timestamp) -> Result<String> {
@@ -34,6 +35,7 @@ const SHORT_SHA_LENGTH: usize = 6;
 const MAX_COMMIT_MESSAGE_LENGTH: usize = 50;
 
 /// Shows debug information about the bot.
+#[inject_span]
 #[poise::command(prefix_command)]
 async fn debug(ctx: Context<'_>) -> Result<()> {
     let received = ctx.created_at();
@@ -120,6 +122,7 @@ async fn debug(ctx: Context<'_>) -> Result<()> {
 }
 
 /// Get help on the bot or a command
+#[inject_span]
 #[poise::command(prefix_command, slash_command)]
 async fn help(
     ctx: Context<'_>,
@@ -127,5 +130,31 @@ async fn help(
 ) -> Result<()> {
     let config = HelpConfiguration::default();
     poise::builtins::help(ctx, command.as_deref(), config).await?;
+    Ok(())
+}
+
+/// Get help on the bot or a command
+#[inject_span]
+#[poise::command(prefix_command, slash_command)]
+async fn source(
+    ctx: Context<'_>,
+    #[description = "Command to show the source of"] command: String,
+) -> Result<()> {
+    if let Some(span) = ctx
+        .framework()
+        .options()
+        .commands
+        .iter()
+        .find(|cmd| cmd.name == command || cmd.aliases.contains(&command))
+        .and_then(|resolved| resolved.custom_data.downcast_ref::<Spanned>())
+    {
+        ctx.say(format!(
+            "Command `{command}` is defined in [`{}`, line {}](<https://github.com/RocketRace/oliviabot/blob/main/{}#L{}>)",
+            span.file, span.line, span.file, span.line
+        ))
+        .await?;
+    } else {
+        ctx.say(format!("Command `{command}` not found")).await?;
+    }
     Ok(())
 }

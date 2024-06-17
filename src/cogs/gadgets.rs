@@ -5,8 +5,9 @@ use poise::CreateReply;
 use rand::seq::SliceRandom;
 use rand::thread_rng;
 use rusqlite::params;
+use span_derive::inject_span;
 
-use crate::{Context, Result};
+use crate::{Context, Result, Spanned};
 
 use super::Cog;
 
@@ -14,6 +15,8 @@ pub fn cog() -> Cog {
     Cog::new(vec![neofetch()], "Gadgets".to_string())
 }
 
+/// Generate a neofetch command output
+#[inject_span]
 #[poise::command(prefix_command, slash_command)]
 async fn neofetch(
     ctx: Context<'_>,

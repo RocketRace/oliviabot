@@ -3,6 +3,8 @@ mod database;
 mod state;
 mod util;
 
+use std::any::Any;
+
 use poise::{builtins, serenity_prelude as serenity, Framework, FrameworkError, FrameworkOptions};
 use serde::{de::Error as _, Deserialize, Deserializer};
 use state::Data;
@@ -31,6 +33,12 @@ pub struct Config {
 #[derive(Deserialize, Debug, Clone)]
 pub struct Secrets {
     pub bot_token: String,
+}
+
+pub struct Spanned {
+    pub file: &'static str,
+    pub line: u32,
+    pub inner: Box<dyn Any + Send + Sync + 'static>,
 }
 
 fn hex_color<'de, D: Deserializer<'de>>(d: D) -> std::result::Result<serenity::Color, D::Error> {

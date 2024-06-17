@@ -1029,6 +1029,7 @@ dependencies = [
  "regex",
  "rusqlite",
  "serde",
+ "span-derive",
  "tokio",
  "tracing",
  "tracing-subscriber",
@@ -1663,6 +1664,15 @@ checksum = "ce305eb0b4296696835b71df73eb912e0f1ffd2556a501fcede6e0c50349191c"
 dependencies = [
  "libc",
  "windows-sys 0.52.0",
+]
+
+[[package]]
+name = "span-derive"
+version = "0.1.0"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 2.0.66",
 ]
 
 [[package]]
