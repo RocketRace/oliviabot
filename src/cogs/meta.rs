@@ -133,7 +133,7 @@ async fn help(
     Ok(())
 }
 
-/// Get help on the bot or a command
+/// Fetch the source code of a command
 #[inject_span]
 #[poise::command(prefix_command, slash_command)]
 async fn source(
