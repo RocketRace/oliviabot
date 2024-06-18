@@ -46,10 +46,10 @@ jobs:
             mkdir -p target/release
             wget -O target/release/oliviabot https://github.com/RocketRace/oliviabot/releases/latest/download/oliviabot
             chmod +x target/release/oliviabot
-        - name: Notify of updates
-          uses: tsickert/discord-webhook@v6
-          with:
-            webhook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
-            content: 'Updated oliviabot to [`${{ github.hash }}`](https://github.com/RocketRace/oliviabot/commit/${{ github.hash }})'
-            wait: true
+      - name: Notify of updates
+        uses: tsickert/discord-webhook@v6
+        with:
+          webhook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          content: 'Updated oliviabot to [`${{ github.hash }}`](https://github.com/RocketRace/oliviabot/commit/${{ github.hash }})'
+          wait: true
             
