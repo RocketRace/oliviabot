@@ -46,3 +46,4 @@ jobs:
             mkdir -p target/release
             wget -O target/release/oliviabot https://github.com/RocketRace/oliviabot/releases/latest/download/oliviabot
             chmod +x target/release/oliviabot
+            tmux kill-session -t 0
