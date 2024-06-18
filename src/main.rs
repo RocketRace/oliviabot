@@ -56,6 +56,8 @@ async fn global_error_handler(e: FrameworkError<'_, Data, Error>) {
             framework.shard_manager().shutdown_all().await;
         }
         _ => {
+            let msg = format!("{e:?}");
+            eprintln!("{msg}");
             if let Err(e) = builtins::on_error(e).await {
                 error!("Error from the error handler: {e}");
             }

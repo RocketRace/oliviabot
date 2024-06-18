@@ -22,8 +22,8 @@ async fn autocomplete_neofetch(ctx: Context<'_>, partial: &str) -> Vec<String> {
         let conn = ctx.data().db.get()?;
         let mut stmt = conn
             .prepare(
-                "SELECT distro FROM neofetch
-                WHERE instr(lower(distro), lower(?1)) > 0
+                "SELECT DISTINCT distro FROM neofetch
+                WHERE instr(lower(distro), lower(?1))
                 ORDER BY distro
                 LIMIT 25",
             )
@@ -32,7 +32,7 @@ async fn autocomplete_neofetch(ctx: Context<'_>, partial: &str) -> Vec<String> {
         for row in stmt.query_map([partial], |row| row.get(0))? {
             output.push(row?);
         }
-        Ok(vec![])
+        Ok(output)
     };
     inner().unwrap_or_else(|e| {
         warn!("Error in autocomplete: {e:?}");
@@ -54,19 +54,24 @@ async fn neofetch(
     let conn = ctx.data().db.get()?;
 
     let choices = {
-        let mut stmt = conn
-            .prepare(
+        let mut stmt = if mobile {
+            conn.prepare(
                 "SELECT distro, logo, color_index, color_rgb FROM neofetch
-                WHERE (?1 IS NULL OR ?1 REGEXP pattern)
-                AND (?2 IS NULL OR mobile_width = ?2)",
+                WHERE mobile_width IS TRUE 
+                AND (?1 IS NULL OR lower(?1) REGEXP pattern OR concat(lower(?1), suffix) REGEXP pattern)
+                ",
             )
-            .context("Failed to prepare SQL statement")?;
-
-        // the internal csv table represents true/false as strings
-        let params = params![distro, mobile.then_some("1")];
+            .context("Failed to prepare SQL statement")?
+        } else {
+            conn.prepare(
+                "SELECT distro, logo, color_index, color_rgb FROM neofetch
+                WHERE ?1 IS NULL OR lower(?1) REGEXP pattern",
+            )
+            .context("Failed to prepare SQL statement")?
+        };
 
         let rows = stmt
-            .query_map(params, |row| {
+            .query_map(params![distro], |row| {
                 Ok((row.get(0)?, row.get(1)?, row.get(2)?, row.get(3)?))
             })
             .context("Failed to execute SQL query")?;

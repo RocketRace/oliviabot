@@ -65,4 +65,3 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
             cd ${{ secrets.PROJECT_PATH }}
-            tmux kill-session -t oliviabot-sesh

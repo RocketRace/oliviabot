@@ -50,10 +50,10 @@ fn init_neofetch(tx: &Transaction) -> Result<()> {
             header=1,
             schema='CREATE TABLE x(
                 distro TEXT NOT NULL,
-                variant TEXT NOT NULL,
+                suffix TEXT NOT NULL,
                 pattern TEXT NOT NULL,
-                mobile_width TEXT NOT NULL,
-                color_index TEXT NOT NULL,
+                mobile_width INTEGER NOT NULL,
+                color_index INTEGER NOT NULL,
                 color_rgb TEXT NOT NULL,
                 logo TEXT NOT NULL
             )'
