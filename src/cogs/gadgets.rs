@@ -7,6 +7,7 @@ use rand::thread_rng;
 use rusqlite::params;
 use span_derive::inject_span;
 
+use crate::util::author_is_mobile;
 use crate::{Context, Result, Spanned};
 
 use super::Cog;
@@ -23,23 +24,7 @@ async fn neofetch(
     #[flag] mobile: bool,
     #[rest] distro: Option<String>,
 ) -> Result<()> {
-    let mobile = mobile
-        || if let Some(serenity::Presence {
-            client_status:
-                Some(serenity::ClientStatus {
-                    mobile: Some(mobile_status),
-                    ..
-                }),
-            status,
-            ..
-        }) = ctx
-            .guild()
-            .and_then(|guild| guild.presences.get(&ctx.author().id).cloned())
-        {
-            status == mobile_status
-        } else {
-            false
-        };
+    let mobile = mobile || author_is_mobile(ctx);
     let conn = ctx.data().db.get()?;
 
     let choices = {
