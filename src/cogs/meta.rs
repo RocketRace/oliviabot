@@ -1,6 +1,9 @@
 use crate::{Context, Result, Spanned};
 use chrono::{DateTime, FixedOffset, Offset, Utc};
-use poise::{samples::HelpConfiguration, serenity_prelude as serenity, CreateReply};
+use poise::{
+    builtins::autocomplete_command, samples::HelpConfiguration, serenity_prelude as serenity,
+    CreateReply,
+};
 use span_derive::inject_span;
 
 use super::Cog;
@@ -126,7 +129,9 @@ async fn debug(ctx: Context<'_>) -> Result<()> {
 #[poise::command(prefix_command, slash_command)]
 async fn help(
     ctx: Context<'_>,
-    #[description = "Command to show help about"] command: Option<String>,
+    #[description = "Command to show help about"]
+    #[autocomplete = "autocomplete_command"]
+    command: Option<String>,
 ) -> Result<()> {
     let config = HelpConfiguration::default();
     poise::builtins::help(ctx, command.as_deref(), config).await?;
@@ -139,7 +144,7 @@ async fn help(
 async fn source(
     ctx: Context<'_>,
     #[description = "Command to show the source of"]
-    #[autocomplete = "poise::builtins::autocomplete_command"]
+    #[autocomplete = "autocomplete_command"]
     command: String,
 ) -> Result<()> {
     if let Some(span) = ctx
