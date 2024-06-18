@@ -56,7 +56,7 @@ fn init_neofetch(tx: &Transaction) -> Result<()> {
                 color_index INTEGER NOT NULL,
                 color_rgb TEXT NOT NULL,
                 logo TEXT NOT NULL
-            )'
+            ) STRICT'
         )
         ",
     )?;
