@@ -138,7 +138,9 @@ async fn help(
 #[poise::command(prefix_command, slash_command)]
 async fn source(
     ctx: Context<'_>,
-    #[description = "Command to show the source of"] command: String,
+    #[description = "Command to show the source of"]
+    #[autocomplete = "poise::builtins::autocomplete_command"]
+    command: String,
 ) -> Result<()> {
     if let Some(span) = ctx
         .framework()

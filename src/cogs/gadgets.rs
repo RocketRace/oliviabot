@@ -6,6 +6,7 @@ use rand::seq::SliceRandom;
 use rand::thread_rng;
 use rusqlite::params;
 use span_derive::inject_span;
+use tracing::warn;
 
 use crate::util::author_is_mobile;
 use crate::{Context, Result, Spanned};
@@ -16,13 +17,38 @@ pub fn cog() -> Cog {
     Cog::new(vec![neofetch()], "Gadgets".to_string())
 }
 
+async fn autocomplete_neofetch(ctx: Context<'_>, partial: &str) -> Vec<String> {
+    let inner = || -> Result<Vec<String>> {
+        let conn = ctx.data().db.get()?;
+        let mut stmt = conn
+            .prepare(
+                "SELECT distro FROM neofetch
+                WHERE instr(lower(distro), lower(?1)) > 0
+                ORDER BY distro
+                LIMIT 25",
+            )
+            .context("Failed to prepare SQL statement")?;
+        let mut output: Vec<String> = vec![];
+        for row in stmt.query_map([partial], |row| row.get(0))? {
+            output.push(row?);
+        }
+        Ok(vec![])
+    };
+    inner().unwrap_or_else(|e| {
+        warn!("Error in autocomplete: {e:?}");
+        vec![]
+    })
+}
+
 /// Generate a neofetch command output
 #[inject_span]
 #[poise::command(prefix_command, slash_command)]
 async fn neofetch(
     ctx: Context<'_>,
     #[flag] mobile: bool,
-    #[rest] distro: Option<String>,
+    #[autocomplete = "autocomplete_neofetch"]
+    #[rest]
+    distro: Option<String>,
 ) -> Result<()> {
     let mobile = mobile || author_is_mobile(ctx);
     let conn = ctx.data().db.get()?;
