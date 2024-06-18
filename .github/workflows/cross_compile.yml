@@ -50,6 +50,6 @@ jobs:
         uses: tsickert/discord-webhook@v6.0.0
         with:
           webhook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          content: 'Updated oliviabot to [`${{ github.hash }}`](https://github.com/RocketRace/oliviabot/commit/${{ github.hash }})'
+          content: 'Updated oliviabot to [`${{ github.sha }}`](https://github.com/RocketRace/oliviabot/commit/${{ github.sha }})'
           wait: true
             
