@@ -35,6 +35,7 @@ pub struct Config {
 #[derive(Deserialize, Debug, Clone)]
 pub struct Secrets {
     pub bot_token: String,
+    pub webhook_url: String,
 }
 
 pub struct Spanned {
