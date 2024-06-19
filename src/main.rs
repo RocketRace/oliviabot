@@ -1,11 +1,13 @@
 mod cogs;
 mod database;
+mod errors;
 mod state;
 mod util;
 
 use std::any::Any;
 
-use poise::{builtins, serenity_prelude as serenity, Framework, FrameworkError, FrameworkOptions};
+use errors::global_error_handler;
+use poise::{builtins, serenity_prelude as serenity, Framework, FrameworkOptions};
 use serde::{de::Error as _, Deserialize, Deserializer};
 use state::Data;
 use tokio::{
@@ -47,27 +49,11 @@ fn hex_color<'de, D: Deserializer<'de>>(d: D) -> std::result::Result<serenity::C
     Ok(serenity::Colour(result))
 }
 
-async fn global_error_handler(e: FrameworkError<'_, Data, Error>) {
-    match e {
-        FrameworkError::Setup {
-            error, framework, ..
-        } => {
-            error!("Bot encountered error during READY payload: {error}");
-            framework.shard_manager().shutdown_all().await;
-        }
-        _ => {
-            if let Err(e) = builtins::on_error(e).await {
-                error!("Error from the error handler: {e}");
-            }
-        }
-    }
-}
-
 #[tokio::main]
 async fn main() -> Result<()> {
     let dev = std::env::var("DEV").is_ok();
     if dev {
-        dotenvy::from_filename("dev.env")?;
+        dotenvy::from_filename(".dev.env")?;
     } else {
         dotenvy::dotenv()?;
     }
