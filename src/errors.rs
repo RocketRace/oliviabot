@@ -23,10 +23,10 @@ async fn webhook_alert(ctx: Context<'_>, e: &FrameworkError<'_, Data, Error>) ->
 pub async fn global_error_handler(e: FrameworkError<'_, Data, Error>) {
     if let Some(ctx) = e.ctx() {
         if let Err(failure) = webhook_alert(ctx, &e).await {
-            error!("Bot could not report errors to discord: {e}, {failure:?}")
+            error!("Bot could not report errors to discord: {e:?}, {failure:?}")
         }
     } else {
-        error!("Bot could not report errors to discord: {e}")
+        error!("Bot could not report errors to discord: {e:?}")
     }
 
     match e {

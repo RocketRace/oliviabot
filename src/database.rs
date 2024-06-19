@@ -3,7 +3,7 @@ use std::sync::Arc;
 use crate::{Error, Result};
 use r2d2::Pool;
 use r2d2_sqlite::SqliteConnectionManager;
-use regex::Regex;
+use regex::{Regex, RegexBuilder};
 use rusqlite::{functions::FunctionFlags, vtab::csvtab, Transaction};
 
 pub fn init_db(pool: Pool<SqliteConnectionManager>) -> Result<()> {
@@ -18,7 +18,9 @@ pub fn init_db(pool: Pool<SqliteConnectionManager>) -> Result<()> {
         move |ctx| {
             assert_eq!(ctx.len(), 2, "called with unexpected number of arguments");
             let regexp: Arc<Regex> = ctx.get_or_create_aux(0, |vr| -> Result<_, Error> {
-                Ok(Regex::new(vr.as_str()?)?)
+                Ok(RegexBuilder::new(vr.as_str()?)
+                    .case_insensitive(true)
+                    .build()?)
             })?;
 
             let is_match = {
