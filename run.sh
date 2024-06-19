@@ -1,1 +1,1 @@
-cargo watch --ignore-nothing --watch target/release/oliviabot --shell ./target/release/oliviabot
+cargo watch --ignore-nothing --watch .watch-trigger --delay --shell ./target/release/oliviabot
