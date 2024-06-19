@@ -99,7 +99,7 @@ async fn main() -> Result<()> {
                     .execute(
                         ctx.http(),
                         true,
-                        ExecuteWebhook::new().content("Updated to the latest version!"),
+                        ExecuteWebhook::new().content(format!("Logged in as {}!", ready.user.name)),
                     )
                     .await?;
 
