@@ -7,7 +7,11 @@ mod util;
 use std::any::Any;
 
 use errors::global_error_handler;
-use poise::{builtins, serenity_prelude as serenity, Framework, FrameworkOptions};
+use poise::{
+    builtins,
+    serenity_prelude::{self as serenity, CacheHttp, ExecuteWebhook},
+    Framework, FrameworkOptions,
+};
 use serde::{de::Error as _, Deserialize, Deserializer};
 use state::Data;
 use tokio::{
@@ -84,7 +88,22 @@ async fn main() -> Result<()> {
             info!("Logged in as {} (ID: {})", ready.user.name, ready.user.id);
             Box::pin(async move {
                 builtins::register_globally(ctx, &framework.options().commands).await?;
-                Data::from_config(&config).await
+                let data = Data::from_config(&config).await;
+
+                let webhook = ctx
+                    .http()
+                    .get_webhook_from_url(&config.secrets.webhook_url)
+                    .await?;
+
+                webhook
+                    .execute(
+                        ctx.http(),
+                        true,
+                        ExecuteWebhook::new().content("Updated to the latest version!"),
+                    )
+                    .await?;
+
+                data
             })
         })
         .build();
