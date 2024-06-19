@@ -27,6 +27,7 @@ pub async fn global_error_handler(e: FrameworkError<'_, Data, Error>) {
         }
     }
 
+    dbg!(&e);
     match e {
         FrameworkError::Setup { framework, .. } => {
             framework.shard_manager().shutdown_all().await;
