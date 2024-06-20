@@ -9,7 +9,7 @@ use span_derive::inject_span;
 use tracing::warn;
 
 use crate::util::author_is_mobile;
-use crate::{Context, Result, Spanned};
+use crate::{Context, Spanned};
 
 use super::Cog;
 
@@ -18,7 +18,7 @@ pub fn cog() -> Cog {
 }
 
 async fn autocomplete_neofetch(ctx: Context<'_>, partial: &str) -> Vec<String> {
-    let inner = || -> Result<Vec<String>> {
+    let inner = || -> anyhow::Result<Vec<String>> {
         let conn = ctx.data().db.get()?;
         let mut stmt = conn
             .prepare(
@@ -49,7 +49,7 @@ async fn neofetch(
     #[autocomplete = "autocomplete_neofetch"]
     #[rest]
     distro: Option<String>,
-) -> Result<()> {
+) -> anyhow::Result<()> {
     let mobile = mobile || author_is_mobile(ctx);
     let conn = ctx.data().db.get()?;
 

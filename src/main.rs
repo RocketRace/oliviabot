@@ -6,6 +6,7 @@ mod util;
 
 use std::any::Any;
 
+use anyhow::Context as _;
 use errors::global_error_handler;
 use poise::{
     builtins,
@@ -22,10 +23,8 @@ use tokio::{
 use tracing::{error, info};
 
 // Common types
-pub type Error = Box<dyn std::error::Error + Send + Sync>;
-pub type Context<'a> = poise::Context<'a, Data, Error>;
-pub type Result<T, E = Error> = std::result::Result<T, E>;
-pub type Commands = Vec<poise::Command<Data, Error>>;
+pub type Context<'a> = poise::Context<'a, Data, anyhow::Error>;
+pub type Commands = Vec<poise::Command<Data, anyhow::Error>>;
 
 #[derive(Deserialize, Debug, Clone)]
 pub struct Config {
@@ -55,7 +54,7 @@ fn hex_color<'de, D: Deserializer<'de>>(d: D) -> std::result::Result<serenity::C
 }
 
 #[tokio::main]
-async fn main() -> Result<()> {
+async fn main() -> anyhow::Result<()> {
     let dev = std::env::var("DEV").is_ok();
     if dev {
         dotenvy::from_filename(".dev.env")?;
@@ -111,7 +110,7 @@ async fn main() -> Result<()> {
     let mut client = serenity::ClientBuilder::new(token, intents)
         .framework(framework)
         .await
-        .map_err(|e| format!("Failed to create client: {e}"))?;
+        .context("Failed to create client")?;
 
     let shard_manager = client.shard_manager.clone();
 

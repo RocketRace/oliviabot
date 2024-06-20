@@ -1,4 +1,4 @@
-use crate::{Context, Result, Spanned};
+use crate::{Context, Spanned};
 use chrono::{DateTime, FixedOffset, Offset, Utc};
 use poise::{
     builtins::autocomplete_command, samples::HelpConfiguration, serenity_prelude as serenity,
@@ -12,7 +12,7 @@ pub fn cog() -> Cog {
     Cog::new(vec![help(), debug(), source()], "Meta".to_string())
 }
 
-fn format_duration(start: serenity::Timestamp, end: serenity::Timestamp) -> Result<String> {
+fn format_duration(start: serenity::Timestamp, end: serenity::Timestamp) -> anyhow::Result<String> {
     Ok(format!("{:?}", end.signed_duration_since(*start).to_std()?))
 }
 
@@ -21,7 +21,7 @@ fn format_ping(
     now: serenity::Timestamp,
     sent: Option<serenity::Timestamp>,
     gateway: std::time::Duration,
-) -> Result<String> {
+) -> anyhow::Result<String> {
     Ok(format!(
         "Discord -> Bot: {}\nBot -> Discord: {}\nGateway: {:?}",
         format_duration(received, now)?,
@@ -40,7 +40,7 @@ const MAX_COMMIT_MESSAGE_LENGTH: usize = 50;
 /// Shows debug information about the bot.
 #[inject_span]
 #[poise::command(prefix_command)]
-async fn debug(ctx: Context<'_>) -> Result<()> {
+async fn debug(ctx: Context<'_>) -> anyhow::Result<()> {
     let received = ctx.created_at();
     let now = serenity::Timestamp::now();
 
@@ -49,41 +49,42 @@ async fn debug(ctx: Context<'_>) -> Result<()> {
         let mut walk = handle.revwalk()?;
         walk.push_head()?;
         walk.set_sorting(git2::Sort::TOPOLOGICAL)?;
-        let tmp =
-            walk.take(MAX_COMMITS_SHOWN)
-                .try_fold(String::new(), |acc, rev| -> Result<String> {
-                    let oid = rev?;
-                    let commit = handle.find_commit(oid)?;
-                    let msg = commit.message().unwrap_or("<invalid UTF-8>");
+        let tmp = walk.take(MAX_COMMITS_SHOWN).try_fold(
+            String::new(),
+            |acc, rev| -> anyhow::Result<String> {
+                let oid = rev?;
+                let commit = handle.find_commit(oid)?;
+                let msg = commit.message().unwrap_or("<invalid UTF-8>");
 
-                    let seconds = commit.time().seconds();
-                    let offset_minutes = commit.time().offset_minutes();
+                let seconds = commit.time().seconds();
+                let offset_minutes = commit.time().offset_minutes();
 
-                    let dt = DateTime::from_timestamp(seconds, 0)
-                        .unwrap_or_default()
-                        .with_timezone(
-                            &FixedOffset::east_opt(offset_minutes * 60).unwrap_or(Utc.fix()),
-                        );
-
-                    let timestamp = serenity::utils::FormattedTimestamp::new(
-                        serenity::Timestamp::from(dt),
-                        Some(serenity::FormattedTimestampStyle::RelativeTime),
+                let dt = DateTime::from_timestamp(seconds, 0)
+                    .unwrap_or_default()
+                    .with_timezone(
+                        &FixedOffset::east_opt(offset_minutes * 60).unwrap_or(Utc.fix()),
                     );
 
-                    let line = format!(
-                        "\n[`{}`]({}/commit/{}) {}: {}",
-                        &oid.to_string()[..SHORT_SHA_LENGTH],
-                        repo.url,
-                        &oid.to_string(),
-                        timestamp,
-                        msg.trim()
-                            .chars()
-                            .take(MAX_COMMIT_MESSAGE_LENGTH)
-                            .collect::<String>()
-                    );
+                let timestamp = serenity::utils::FormattedTimestamp::new(
+                    serenity::Timestamp::from(dt),
+                    Some(serenity::FormattedTimestampStyle::RelativeTime),
+                );
 
-                    Ok(acc + &line)
-                })?;
+                let line = format!(
+                    "\n[`{}`]({}/commit/{}) {}: {}",
+                    &oid.to_string()[..SHORT_SHA_LENGTH],
+                    repo.url,
+                    &oid.to_string(),
+                    timestamp,
+                    msg.trim()
+                        .chars()
+                        .take(MAX_COMMIT_MESSAGE_LENGTH)
+                        .collect::<String>()
+                );
+
+                Ok(acc + &line)
+            },
+        )?;
         #[allow(clippy::let_and_return)]
         // https://github.com/rust-lang/rust-clippy/issues/12831
         tmp
@@ -132,7 +133,7 @@ async fn help(
     #[description = "Command to show help about"]
     #[autocomplete = "autocomplete_command"]
     command: Option<String>,
-) -> Result<()> {
+) -> anyhow::Result<()> {
     let config = HelpConfiguration::default();
     poise::builtins::help(ctx, command.as_deref(), config).await?;
     Ok(())
@@ -146,7 +147,7 @@ async fn source(
     #[description = "Command to show the source of"]
     #[autocomplete = "autocomplete_command"]
     command: String,
-) -> Result<()> {
+) -> anyhow::Result<()> {
     if let Some(span) = ctx
         .framework()
         .options()

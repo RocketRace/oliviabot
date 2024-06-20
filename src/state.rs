@@ -3,12 +3,13 @@ use std::{
     sync::{Arc, Mutex},
 };
 
+use anyhow::Context;
 use poise::serenity_prelude as serenity;
 use r2d2::Pool;
 use r2d2_sqlite::SqliteConnectionManager;
 use tracing::{info, warn};
 
-use crate::{database, Config, Result};
+use crate::{database, Config};
 
 pub struct Repo {
     pub handle: Arc<Mutex<git2::Repository>>,
@@ -41,7 +42,7 @@ impl Debug for Data {
 }
 
 impl Data {
-    pub async fn from_config(config: &Config) -> Result<Self> {
+    pub async fn from_config(config: &Config) -> anyhow::Result<Self> {
         info!("Connecting to the database");
         let manager = r2d2_sqlite::SqliteConnectionManager::file(&config.database_url);
         let pool = Pool::new(manager)?;
@@ -67,7 +68,7 @@ impl Data {
                 let url = repo
                     .find_remote("origin")?
                     .url()
-                    .ok_or("Repository remote URL is invalid UTF-8")?
+                    .context("Repository remote URL is invalid UTF-8")?
                     .trim_end_matches(".git")
                     .to_string();
 

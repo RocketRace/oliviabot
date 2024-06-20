@@ -5,9 +5,12 @@ use poise::{
 };
 use tracing::error;
 
-use crate::{state::Data, Context, Error, Result};
+use crate::{state::Data, Context};
 
-async fn webhook_alert(ctx: Context<'_>, e: &FrameworkError<'_, Data, Error>) -> Result<()> {
+async fn webhook_alert(
+    ctx: Context<'_>,
+    e: &FrameworkError<'_, Data, anyhow::Error>,
+) -> anyhow::Result<()> {
     let url = &ctx.data().config.secrets.webhook_url;
     let webhook = ctx.http().get_webhook_from_url(url).await?;
 
@@ -20,7 +23,7 @@ async fn webhook_alert(ctx: Context<'_>, e: &FrameworkError<'_, Data, Error>) ->
     Ok(())
 }
 
-pub async fn global_error_handler(e: FrameworkError<'_, Data, Error>) {
+pub async fn global_error_handler(e: FrameworkError<'_, Data, anyhow::Error>) {
     if let Some(ctx) = e.ctx() {
         if let Err(failure) = webhook_alert(ctx, &e).await {
             error!("Bot could not report errors to discord: {e:?}, {failure:?}")
