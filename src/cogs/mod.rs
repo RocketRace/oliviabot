@@ -1,7 +1,7 @@
-use crate::Commands;
-
 mod gadgets;
 mod meta;
+
+use crate::Commands;
 
 pub struct Cog {
     pub commands: Commands,

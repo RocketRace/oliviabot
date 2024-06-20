@@ -1,4 +1,3 @@
-use crate::{Context, Spanned};
 use chrono::{DateTime, FixedOffset, Offset, Utc};
 use poise::{
     builtins::autocomplete_command, samples::HelpConfiguration, serenity_prelude as serenity,
@@ -6,7 +5,8 @@ use poise::{
 };
 use span_derive::inject_span;
 
-use super::Cog;
+use crate::cogs::Cog;
+use crate::{Context, Spanned};
 
 pub fn cog() -> Cog {
     Cog::new(vec![help(), debug(), source()], "Meta".to_string())

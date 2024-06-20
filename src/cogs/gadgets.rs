@@ -8,10 +8,9 @@ use rusqlite::params;
 use span_derive::inject_span;
 use tracing::warn;
 
+use crate::cogs::Cog;
 use crate::util::author_is_mobile;
 use crate::{Context, Spanned};
-
-use super::Cog;
 
 pub fn cog() -> Cog {
     Cog::new(vec![neofetch()], "Gadgets".to_string())

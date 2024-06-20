@@ -7,20 +7,21 @@ mod util;
 use std::any::Any;
 
 use anyhow::Context as _;
-use errors::global_error_handler;
 use poise::{
     builtins,
     serenity_prelude::{self as serenity, CacheHttp, ExecuteWebhook},
     Framework, FrameworkOptions,
 };
 use serde::{de::Error as _, Deserialize, Deserializer};
-use state::Data;
 use tokio::{
     select,
     signal::unix::{signal, SignalKind},
     sync::watch,
 };
 use tracing::{error, info};
+
+use crate::errors::global_error_handler;
+use crate::state::Data;
 
 // Common types
 pub type Context<'a> = poise::Context<'a, Data, anyhow::Error>;
