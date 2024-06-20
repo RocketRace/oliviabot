@@ -39,7 +39,7 @@ const MAX_COMMIT_MESSAGE_LENGTH: usize = 50;
 
 /// Shows debug information about the bot.
 #[inject_span]
-#[poise::command(prefix_command)]
+#[poise::command(prefix_command, slash_command)]
 async fn debug(ctx: Context<'_>) -> anyhow::Result<()> {
     let received = ctx.created_at();
     let now = serenity::Timestamp::now();
