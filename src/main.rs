@@ -1,5 +1,3 @@
-#![feature(lazy_cell)]
-
 mod cogs;
 mod config;
 mod database;
