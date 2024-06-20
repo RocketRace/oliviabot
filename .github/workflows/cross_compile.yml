@@ -51,11 +51,13 @@ jobs:
             touch .watch-trigger
             [ -f .build-success ] && rm .build-success || true
             timeout=120
+            echo "Waiting $timeout seconds until the bot is launched"
             while [ ! -f .build-success ]; do
               if [ "$timeout" == 0 ]; then
                 echo "Bot failed to launch!"
                 exit 1
               fi
+              echo "..."
               sleep 1
               ((timeout--))
             done
