@@ -49,7 +49,7 @@ jobs:
             wget -O target/release/oliviabot https://github.com/RocketRace/oliviabot/releases/latest/download/oliviabot
             chmod +x target/release/oliviabot
             touch .watch-trigger
-            rm .build-success
+            [ -f .build-success ] && rm .build-success || true
             timeout=120
             while [ ! -f .build-success ]; do
               if [ "$timeout" == 0 ]; then
