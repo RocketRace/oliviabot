@@ -64,6 +64,8 @@ async fn main() -> anyhow::Result<()> {
                 builtins::register_globally(ctx, &framework.options().commands).await?;
                 let data = Data::from_config(&CONFIG).await;
 
+                std::fs::write(".build-success", "")?;
+
                 let webhook = ctx
                     .http()
                     .get_webhook_from_url(&CONFIG.secrets.webhook_url)
