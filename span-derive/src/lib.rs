@@ -1,6 +1,6 @@
 use proc_macro::TokenStream;
-use quote::quote;
-use syn::{parse_macro_input, ItemFn};
+use quote::quote_spanned;
+use syn::{parse_macro_input, spanned::Spanned, ItemFn};
 
 /// Injects span information to the `custom_data` field of the `poise::command` output.
 #[proc_macro_attribute]
@@ -9,7 +9,9 @@ pub fn inject_span(_args: TokenStream, item: TokenStream) -> TokenStream {
 
     let fn_name = input.sig.ident.clone();
 
-    let output: proc_macro2::TokenStream = quote! {
+    let span = input.span();
+
+    let output: proc_macro2::TokenStream = quote_spanned! { span =>
         fn #fn_name() -> ::poise::Command<
             <Context<'static> as poise::_GetGenerics>::U,
             <Context<'static> as poise::_GetGenerics>::E,
