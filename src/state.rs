@@ -9,7 +9,7 @@ use r2d2::Pool;
 use r2d2_sqlite::SqliteConnectionManager;
 use tracing::{info, warn};
 
-use crate::{database, Config};
+use crate::{config::Config, database};
 
 pub struct Repo {
     pub handle: Arc<Mutex<git2::Repository>>,
@@ -26,7 +26,6 @@ impl Repo {
 pub struct Data {
     pub repo: Option<Repo>,
     pub db: Pool<SqliteConnectionManager>,
-    pub config: Config,
     pub neofetch_updated: serenity::Timestamp,
 }
 
@@ -35,7 +34,6 @@ impl Debug for Data {
         f.debug_struct("Data")
             .field("repo", &"<repository handle>" as &dyn Debug)
             .field("db", &self.db)
-            .field("config", &self.config)
             .field("neofetch_updated", &self.neofetch_updated)
             .finish()
     }
@@ -57,7 +55,6 @@ impl Data {
 
         let mut data = Data {
             repo: None,
-            config: config.clone(),
             db: pool,
             neofetch_updated,
         };

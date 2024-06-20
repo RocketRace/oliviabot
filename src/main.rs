@@ -1,4 +1,7 @@
+#![feature(lazy_cell)]
+
 mod cogs;
+mod config;
 mod database;
 mod errors;
 mod state;
@@ -12,7 +15,6 @@ use poise::{
     serenity_prelude::{self as serenity, CacheHttp, ExecuteWebhook},
     Framework, FrameworkOptions,
 };
-use serde::{de::Error as _, Deserialize, Deserializer};
 use tokio::{
     select,
     signal::unix::{signal, SignalKind},
@@ -20,6 +22,7 @@ use tokio::{
 };
 use tracing::{error, info};
 
+use crate::config::CONFIG;
 use crate::errors::global_error_handler;
 use crate::state::Data;
 
@@ -27,48 +30,19 @@ use crate::state::Data;
 pub type Context<'a> = poise::Context<'a, Data, anyhow::Error>;
 pub type Commands = Vec<poise::Command<Data, anyhow::Error>>;
 
-#[derive(Deserialize, Debug, Clone)]
-pub struct Config {
-    #[serde(flatten)]
-    pub secrets: Secrets,
-    pub database_url: String,
-    #[serde(deserialize_with = "hex_color")]
-    pub default_embed_color: serenity::Color,
-}
-
-#[derive(Deserialize, Debug, Clone)]
-pub struct Secrets {
-    pub bot_token: String,
-    pub webhook_url: String,
-}
-
 pub struct Spanned {
     pub file: &'static str,
     pub line: u32,
     pub inner: Box<dyn Any + Send + Sync + 'static>,
 }
 
-fn hex_color<'de, D: Deserializer<'de>>(d: D) -> std::result::Result<serenity::Color, D::Error> {
-    let s: String = Deserialize::deserialize(d)?;
-    let result = u32::from_str_radix(&s, 16).map_err(D::Error::custom)?;
-    Ok(serenity::Colour(result))
-}
-
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
-    let dev = std::env::var("DEV").is_ok();
-    if dev {
-        dotenvy::from_filename(".dev.env")?;
-    } else {
-        dotenvy::dotenv()?;
-    }
-
-    let config = envy::from_env::<Config>()?;
-    let token = config.secrets.bot_token.clone();
+    let token = CONFIG.secrets.bot_token.clone();
 
     tracing_subscriber::fmt().compact().init();
 
-    if dev {
+    if CONFIG.dev {
         info!("Starting bot in development configuration")
     } else {
         info!("Starting bot using main configuration")
@@ -88,11 +62,11 @@ async fn main() -> anyhow::Result<()> {
             info!("Logged in as {} (ID: {})", ready.user.name, ready.user.id);
             Box::pin(async move {
                 builtins::register_globally(ctx, &framework.options().commands).await?;
-                let data = Data::from_config(&config).await;
+                let data = Data::from_config(&CONFIG).await;
 
                 let webhook = ctx
                     .http()
-                    .get_webhook_from_url(&config.secrets.webhook_url)
+                    .get_webhook_from_url(&CONFIG.secrets.webhook_url)
                     .await?;
 
                 webhook

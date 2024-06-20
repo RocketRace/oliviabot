@@ -9,10 +9,10 @@ use poise::{
 use tap::Pipe;
 use tracing::error;
 
-use crate::{state::Data, Context};
+use crate::{config::CONFIG, state::Data, Context};
 
 async fn get_webhook(ctx: &Context<'_>) -> anyhow::Result<Webhook> {
-    let url = &ctx.data().config.secrets.webhook_url;
+    let url = &CONFIG.secrets.webhook_url;
     Ok(ctx.http().get_webhook_from_url(url).await?)
 }
 

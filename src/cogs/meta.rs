@@ -6,6 +6,7 @@ use poise::{
 use span_derive::inject_span;
 
 use crate::cogs::Cog;
+use crate::config::CONFIG;
 use crate::{Context, Spanned};
 
 pub fn cog() -> Cog {
@@ -93,7 +94,7 @@ async fn debug(ctx: Context<'_>) -> anyhow::Result<()> {
     };
 
     let base_embed = serenity::CreateEmbed::new()
-        .color(ctx.data().config.default_embed_color)
+        .color(CONFIG.default_embed_color)
         .title("Recent commits")
         .description(commits)
         .field(
