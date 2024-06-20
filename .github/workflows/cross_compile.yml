@@ -22,6 +22,7 @@ jobs:
         with:
           target: aarch64-unknown-linux-gnu
           args: --locked --release
+          toolchain: nightly
       - name: Connect to Tailscale
         uses: tailscale/github-action@v2
         with:
