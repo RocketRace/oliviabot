@@ -40,7 +40,7 @@ async fn main() -> anyhow::Result<()> {
 
     tracing_subscriber::fmt().compact().init();
 
-    if CONFIG.dev {
+    if CONFIG.is_dev() {
         info!("Starting bot in development configuration")
     } else {
         info!("Starting bot using main configuration")

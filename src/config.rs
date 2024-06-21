@@ -6,12 +6,18 @@ use serde::{de::Error, Deserialize, Deserializer};
 
 #[derive(Deserialize, Debug, Clone)]
 pub struct Config {
-    pub dev: bool,
+    dev: Option<bool>,
     #[serde(flatten)]
     pub secrets: Secrets,
     pub database_url: String,
     #[serde(deserialize_with = "hex_color")]
     pub default_embed_color: serenity::Color,
+}
+
+impl Config {
+    pub fn is_dev(&self) -> bool {
+        self.dev.is_some_and(|b| b)
+    }
 }
 
 #[derive(Deserialize, Debug, Clone)]
