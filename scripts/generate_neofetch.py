@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-# requirements: requests, hyfetch, rust, colour-science, matplotlib (optional)
 from collections import Counter
 import re
 import subprocess

@@ -1,0 +1,19 @@
+[tool.poetry]
+package-mode = false
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = ">=3.12,<3.13"
+"discord.py" = "^2.4.0"
+aiosqlite = "^0.20.0"
+jishaku = "^2.5.2"
+
+[tool.poetry.group.dev.dependencies]
+requests = "^2.32.3"
+HyFetch = "^1.4.11"
+colour-science = "^0.4.4"
+matplotlib = "^3.9.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

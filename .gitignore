@@ -7,5 +7,7 @@ __pycache__
 *.db
 *.db-shm
 *.db-wal
+*.db-journal
 .watch-trigger
 .build-success
+config.py
