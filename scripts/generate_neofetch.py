@@ -163,7 +163,12 @@ discorder = {escape: unescaper(escaper(escape)) for escape in escapes if escaper
 for i, (distro, suffix, pattern, logo, mobile_width) in enumerate(with_logos):
     def subber(match: re.Match[str]):
         return discorder.get(match.group(0), "")
-    with_logos[i] = distro, suffix, pattern, re.sub(ansi_pattern, subber, logo).replace('`', "`\u200b"), mobile_width
+    with_logos[i] = (
+        distro, suffix, pattern,
+        re.sub(ansi_pattern, subber, logo).replace('`', "`\u200b")
+            .replace("///////", "\u200b///////\u200b"), # don't ask, blame discord
+        mobile_width
+    )
 
 # === append most frequent color (aside from None) to row ===
 with_colors: list[tuple[str, str, str, int, int, str, str]] = []
