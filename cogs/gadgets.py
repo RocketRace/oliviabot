@@ -19,38 +19,20 @@ class Gadgets(commands.Cog):
     async def cog_load(self):
         await self.init_neofetch()
 
-    class NeofetchFlags(commands.FlagConverter):
-        mobile: bool | None
-
-    class NeofetchEntry(TypedDict):
-        distro: str
-        suffix: str
-        pattern: str
-        mobile_width: bool
-        color_index: int
-        color_rgb: str
-        logo: str
-
-    def typed_neofetch_row(self, row: dict[str, str]) -> NeofetchEntry:
-        return {
-            "distro": row["distro"],
-            "suffix": row["suffix"],
-            "pattern": row["pattern"],
-            "mobile_width": row["mobile_width"] == "1",
-            "color_index": int(row["color_index"]),
-            "color_rgb": row["color_rgb"],
-            "logo": row["logo"],
-        }
-
     class DistroNotFound(Exception):
         """Valid neofetch distro not found"""
 
-        def __init__(self, mobile: bool, *args: object) -> None:
+        def __init__(self, query: str, mobile: bool, *args: object) -> None:
             super().__init__(*args)
             self.mobile = mobile
+            self.query = query
+
+    class NeofetchFlags(commands.FlagConverter):
+        mobile: bool | None
+        distro: str | None = commands.flag(positional=True)
 
     @commands.hybrid_command()
-    async def neofetch(self, ctx: Context, distro: str | None, *, flags: NeofetchFlags):
+    async def neofetch(self, ctx: Context, *, flags: NeofetchFlags):
         if isinstance(ctx.author, discord.Member) and flags.mobile is None:
             mobile = ctx.author.mobile_status != discord.Status.offline
         else:
@@ -64,25 +46,25 @@ class Gadgets(commands.Cog):
                         :distro IS NULL OR lower(:distro) REGEXP lower(pattern) OR (lower(:distro) || suffix) REGEXP lower(pattern)
                     );
                     """,
-                    {"distro": distro},
+                    {"distro": flags.distro},
                 )
             else:
                 await cur.execute(
                     """SELECT distro, color_index, color_rgb, logo FROM neofetch
                     WHERE :distro IS NULL OR lower(:distro) REGEXP lower(pattern);
                     """,
-                    {"distro": distro},
+                    {"distro": flags.distro},
                 )
 
             results = list(await cur.fetchall())
             if not results:
-                raise self.DistroNotFound(mobile)
+                raise self.DistroNotFound(flags.distro or "<none>", mobile)
 
-            distro_name: str
+            distro: str
             color_index: int
             color_rgb: str
             logo: str
-            distro_name, color_index, color_rgb, logo = random.choice(results)
+            distro, color_index, color_rgb, logo = random.choice(results)
 
             r, g, b = bytes.fromhex(color_rgb)
             embed_color = discord.Color.from_rgb(r, g, b)
@@ -104,7 +86,7 @@ class Gadgets(commands.Cog):
                 ```
                 ```ansi
                 {accent(f"{ctx.author}@{hostname}")}
-                {accent("OS:")} {distro_name}
+                {accent("OS:")} {distro}
                 {accent("Host:")} Discord
                 {accent("Terminal:")} {terminal}
                 ```
@@ -117,11 +99,19 @@ class Gadgets(commands.Cog):
                 timestamp=self.neofetch_updated,
             ).set_footer(text="Neofetch data last updated")
 
-            await ctx.reply(embed=embed)
+            if len(description) > 2000:
+                await ctx.reply(
+                    embed=embed, mention_author=False, view=self.DisabledFixer()
+                )
+            else:
+                view = self.NeofetchFixer(description, embed)
+                view.message = await ctx.reply(
+                    embed=embed, mention_author=False, view=view
+                )
 
     @neofetch.autocomplete("distro")
     async def distro_autocomplete(
-        self, _interaction: discord.Interaction, query: str
+        self, interaction: discord.Interaction, query: str
     ) -> list[discord.app_commands.Choice]:
         async with self.bot.db.cursor() as cur:
             await cur.execute(
@@ -137,6 +127,84 @@ class Gadgets(commands.Cog):
                 discord.app_commands.Choice(name=row[0], value=row[0])
                 for row in await cur.fetchall()
             ]
+
+    @neofetch.error
+    async def neofetch_error(self, ctx: Context, error: commands.CommandError):
+        match error:
+            case commands.CommandInvokeError(
+                original=self.DistroNotFound(query=query, mobile=mobile)
+            ):
+                msg = f"I couldn't find a distro for the query '{query}'"
+                if mobile:
+                    msg += (
+                        " that's narrow enough to see on mobile! "
+                        "Put `mobile: false` at the end of your command to search all distros."
+                    )
+                else:
+                    msg += "!"
+                await ctx.send(msg)
+                ctx.error_handled = True
+
+    class DisabledFixer(discord.ui.View):
+        @discord.ui.button(
+            label="Embed only (>2000 characters)",
+            style=discord.ButtonStyle.secondary,
+            disabled=True,
+        )
+        async def noop(
+            self, interaction: discord.Interaction, button: discord.ui.Button
+        ):
+            pass
+
+    class NeofetchFixer(discord.ui.View):
+        message: discord.Message
+
+        def __init__(self, content: str, embed: discord.Embed):
+            super().__init__()
+            self.embed_mode = True
+            self.content = content
+            self.embed = embed
+
+        @discord.ui.button(label="Without embed", style=discord.ButtonStyle.secondary)
+        async def fixup(
+            self, interaction: discord.Interaction, button: discord.ui.Button
+        ):
+            if self.embed_mode:
+                button.label = "With embed"
+                await interaction.response.edit_message(
+                    content=self.content, embeds=[], view=self
+                )
+                self.embed_mode = False
+            else:
+                button.label = "Without embed"
+                await interaction.response.edit_message(
+                    content=None, embed=self.embed, view=self
+                )
+                self.embed_mode = True
+
+        async def on_timeout(self) -> None:
+            self.clear_items()
+            await self.message.edit(view=self)
+
+    class NeofetchEntry(TypedDict):
+        distro: str
+        suffix: str
+        pattern: str
+        mobile_width: bool
+        color_index: int
+        color_rgb: str
+        logo: str
+
+    def typed_neofetch_row(self, row: dict[str, str]) -> NeofetchEntry:
+        return {
+            "distro": row["distro"],
+            "suffix": row["suffix"],
+            "pattern": row["pattern"],
+            "mobile_width": row["mobile_width"] == "1",
+            "color_index": int(row["color_index"]),
+            "color_rgb": row["color_rgb"],
+            "logo": row["logo"],
+        }
 
     async def init_neofetch(self):
         async with self.bot.db.cursor() as cur:

@@ -1,10 +1,20 @@
 import logging
 import re
-from typing import Any
+from typing import Any, Dict, List
 
 import aiosqlite
 import discord
 from discord.ext import commands
+from discord.ext.commands.view import StringView
+
+# resolve dependency cycle without strings
+type OliviaBotAlias = OliviaBot
+
+
+class Context(commands.Context[OliviaBotAlias]):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.error_handled = False
 
 
 class OliviaBot(commands.Bot):
@@ -50,5 +60,7 @@ class OliviaBot(commands.Bot):
         self.tree.copy_global_to(guild=guild)
         await self.tree.sync(guild=guild)
 
-
-Context = commands.Context[OliviaBot]
+    async def get_context(  # pyright: ignore[reportIncompatibleMethodOverride]
+        self, message, *, cls=Context
+    ):
+        return await super().get_context(message, cls=cls)
