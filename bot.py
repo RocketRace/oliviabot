@@ -18,6 +18,8 @@ class Context(commands.Context[OliviaBotAlias]):
 
 
 class OliviaBot(commands.Bot):
+    owner_id: int
+
     def __init__(
         self,
         startup_extensions: list[str],
@@ -47,6 +49,9 @@ class OliviaBot(commands.Bot):
 
     async def setup_hook(self) -> None:
         self.webhook = discord.Webhook.from_url(self.webhook_url, client=self)
+
+        owner_id = (await self.application_info()).owner.id
+        self.owner_id = owner_id  # type: ignore
 
         def regexp(pattern: str, string: str) -> bool:
             return re.match(pattern, string) is not None

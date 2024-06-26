@@ -9,7 +9,7 @@ import bot
 
 
 async def main():
-    startup_extensions = ["jishaku", "cogs.gadgets"]
+    startup_extensions = ["jishaku", "cogs.testing", "cogs.gadgets"]
     discord.utils.setup_logging(level=logging.INFO)
 
     async with aiosqlite.connect(

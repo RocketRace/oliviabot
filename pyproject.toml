@@ -7,6 +7,7 @@ python = ">=3.12,<3.13"
 "discord.py" = "^2.4.0"
 aiosqlite = "^0.20.0"
 jishaku = "^2.5.2"
+aioconsole = "^0.7.1"
 
 [tool.poetry.group.dev.dependencies]
 requests = "^2.32.3"
