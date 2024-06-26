@@ -18,7 +18,10 @@ async def main():
         db=db,
         startup_extensions=startup_extensions,
         testing_guild_id=config.testing_guild_id,
+        testing_channel_id=config.testing_channel_id,
         webhook_url=config.webhook_url,
+        tester_bot_id=config.tester_bot_id,
+        tester_bot_token=config.tester_bot_token,
     ) as oliviabot:
         try:
             await oliviabot.start(config.bot_token)
