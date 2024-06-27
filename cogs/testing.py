@@ -13,8 +13,9 @@ class Testing(commands.Cog):
     async def test_loop(self) -> None:
         while True:
             line = await aioconsole.ainput("> ", loop=self.bot.loop)
+            # Note: uses undocumented APIs, because we don't need gateway events for the tester
             await self.tester.http.send_message(
-                12345,
+                self.bot.testing_channel_id,
                 params=discord.http.MultipartParameters({"content": line}, None, None),
             )
 
