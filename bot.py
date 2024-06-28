@@ -1,5 +1,4 @@
 import logging
-import re
 from typing import Any
 
 import aiosqlite
@@ -55,10 +54,6 @@ class OliviaBot(commands.Bot):
         self.tester_bot_id = tester_bot_id
         self.tester_bot_token = tester_bot_token
 
-    async def on_ready(self) -> None:
-        assert self.user
-        logging.info(f"Logged in as {self.user} (ID: {self.user.id})")
-
     async def process_commands(self, message: discord.Message) -> None:
         if message.author.id == self.tester_bot_id:
             ctx = await self.get_context(message, cls=TestContext)
@@ -70,16 +65,20 @@ class OliviaBot(commands.Bot):
             ctx = await self.get_context(message)
             await self.invoke(ctx)
 
+    async def get_context(  # pyright: ignore[reportIncompatibleMethodOverride]
+        self, message, *, cls=Context
+    ):
+        return await super().get_context(message, cls=cls)
+
+    async def on_ready(self) -> None:
+        assert self.user
+        logging.info(f"Logged in as {self.user} (ID: {self.user.id})")
+
     async def setup_hook(self) -> None:
         self.webhook = discord.Webhook.from_url(self.webhook_url, client=self)
 
         owner_id = (await self.application_info()).owner.id
         self.owner_id = owner_id  # type: ignore
-
-        def regexp(pattern: str, string: str) -> bool:
-            return re.match(pattern, string) is not None
-
-        await self.db.create_function("regexp", 2, regexp, deterministic=True)
 
         for extension in self.initial_extensions:
             await self.load_extension(extension)
@@ -87,8 +86,3 @@ class OliviaBot(commands.Bot):
         guild = discord.Object(self.testing_guild_id)
         self.tree.copy_global_to(guild=guild)
         await self.tree.sync(guild=guild)
-
-    async def get_context(  # pyright: ignore[reportIncompatibleMethodOverride]
-        self, message, *, cls=Context
-    ):
-        return await super().get_context(message, cls=cls)

@@ -2,12 +2,41 @@ import csv
 import datetime
 import logging
 import random
-from utils import dedent
+import re
 from typing import TypedDict
 import discord
 from discord.ext import commands
 
 from bot import OliviaBot, Context
+
+
+def dedent(s: str) -> str:
+    """textwrap.dedent behaves unexpectedly"""
+
+    tucked = False
+    if s.startswith("\n"):
+        s = s[1:]
+        tucked = True
+
+    lines = s.splitlines()
+
+    if not lines:
+        return ""
+
+    def width(line: str) -> int:
+        width = 0
+        while line[width:].startswith(" "):
+            width += 1
+        return width
+
+    widths = [width(line) for line in lines]
+
+    if widths[0] == 0 and not tucked:
+        common_width = min(widths[1:])
+        return "\n".join([lines[0], *[line[common_width:] for line in lines[1:]]])
+    else:
+        common_width = min(widths)
+        return "\n".join(line[common_width:] for line in lines)
 
 
 class Gadgets(commands.Cog):
@@ -17,6 +46,10 @@ class Gadgets(commands.Cog):
         self.bot = bot
 
     async def cog_load(self):
+        def regexp(pattern: str, string: str) -> bool:
+            return re.match(pattern, string) is not None
+
+        await self.bot.db.create_function("regexp", 2, regexp, deterministic=True)
         await self.init_neofetch()
 
     class DistroNotFound(Exception):
