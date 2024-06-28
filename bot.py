@@ -5,9 +5,11 @@ import aiosqlite
 import discord
 from discord.ext import commands
 
+from config import tester_bot_id
+
 
 class OliviaBot(commands.Bot):
-    owner_id: int
+    owner_ids: set[int]
     ctx_class: type[commands.Context]
 
     def __init__(
@@ -53,7 +55,7 @@ class OliviaBot(commands.Bot):
         self.webhook = discord.Webhook.from_url(self.webhook_url, client=self)
 
         owner_id = (await self.application_info()).owner.id
-        self.owner_id = owner_id  # type: ignore
+        self.owner_ids = {owner_id, tester_bot_id}  # type: ignore
 
         for extension in self.initial_extensions:
             await self.load_extension(extension)
