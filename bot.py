@@ -5,29 +5,14 @@ import aiosqlite
 import discord
 from discord.ext import commands
 
-# resolve dependency cycle without strings
-type OliviaBotAlias = OliviaBot
-
-
-class Context(commands.Context[OliviaBotAlias]):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.error_handled = False
-
-
-class TestContext(Context):
-    async def send(self, content: str | None = None, **kwargs):
-        if content:
-            print("->", content)
-        return await super().send(content, **kwargs)
-
 
 class OliviaBot(commands.Bot):
     owner_id: int
+    ctx_class: type[commands.Context]
 
     def __init__(
         self,
-        startup_extensions: list[str],
+        initial_extensions: list[str],
         db: aiosqlite.Connection,
         testing_guild_id: int,
         testing_channel_id: int,
@@ -46,28 +31,18 @@ class OliviaBot(commands.Bot):
             **kwargs,
         )
 
-        self.initial_extensions = startup_extensions
+        self.initial_extensions = initial_extensions
         self.db = db
         self.testing_guild_id = testing_guild_id
         self.testing_channel_id = testing_channel_id
         self.webhook_url = webhook_url
         self.tester_bot_id = tester_bot_id
         self.tester_bot_token = tester_bot_token
+        self.ctx_class = commands.Context
 
-    async def process_commands(self, message: discord.Message) -> None:
-        if message.author.id == self.tester_bot_id:
-            ctx = await self.get_context(message, cls=TestContext)
-            await self.invoke(ctx)
-        else:
-            if message.author.bot:
-                return
-
-            ctx = await self.get_context(message)
-            await self.invoke(ctx)
-
-    async def get_context(  # pyright: ignore[reportIncompatibleMethodOverride]
-        self, message, *, cls=Context
-    ):
+    async def get_context(self, message, *, cls: type[commands.Context] | None = None):
+        if cls is None:
+            cls = self.ctx_class
         return await super().get_context(message, cls=cls)
 
     async def on_ready(self) -> None:

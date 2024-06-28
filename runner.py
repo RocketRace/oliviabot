@@ -9,14 +9,14 @@ import bot
 
 
 async def main():
-    startup_extensions = ["jishaku", "cogs.testing", "cogs.gadgets"]
+    initial_extensions = ["jishaku", "cogs.testing", "cogs.gadgets", "cogs.meta"]
     discord.utils.setup_logging(level=logging.INFO)
 
     async with aiosqlite.connect(
         config.database_path, autocommit=True
     ) as db, bot.OliviaBot(
         db=db,
-        startup_extensions=startup_extensions,
+        initial_extensions=initial_extensions,
         testing_guild_id=config.testing_guild_id,
         testing_channel_id=config.testing_channel_id,
         webhook_url=config.webhook_url,
