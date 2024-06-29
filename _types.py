@@ -1,2 +1,5 @@
+from typing import TYPE_CHECKING
+
+
 from bot import OliviaBot as OliviaBot
-from cogs.context import Context as Context
+from context import Context as Context

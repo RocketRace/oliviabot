@@ -11,3 +11,4 @@ __pycache__
 .watch-trigger
 .build-success
 config.py
+*.log

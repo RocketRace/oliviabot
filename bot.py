@@ -11,6 +11,7 @@ from config import tester_bot_id
 class OliviaBot(commands.Bot):
     owner_ids: set[int]
     ctx_class: type[commands.Context]
+    terminal_cog_interrupted: bool
 
     def __init__(
         self,
@@ -41,6 +42,7 @@ class OliviaBot(commands.Bot):
         self.tester_bot_id = tester_bot_id
         self.tester_bot_token = tester_bot_token
         self.ctx_class = commands.Context
+        self.terminal_cog_interrupted = False
 
     async def get_context(self, message, *, cls: type[commands.Context] | None = None):
         if cls is None:
@@ -55,7 +57,10 @@ class OliviaBot(commands.Bot):
         self.webhook = discord.Webhook.from_url(self.webhook_url, client=self)
 
         owner_id = (await self.application_info()).owner.id
-        self.owner_ids = {owner_id, tester_bot_id}  # type: ignore
+        self.owner_ids = {  # pyright: ignore[reportIncompatibleVariableOverride]
+            owner_id,
+            tester_bot_id,
+        }
 
         for extension in self.initial_extensions:
             await self.load_extension(extension)

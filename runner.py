@@ -9,8 +9,18 @@ import bot
 
 
 async def main():
-    initial_extensions = ["jishaku", "cogs.testing", "cogs.gadgets", "cogs.meta"]
-    discord.utils.setup_logging(level=logging.INFO)
+    initial_extensions = [
+        # external libraries
+        "jishaku",
+        # plain extensions
+        "context",
+        # cogs
+        "cogs.terminal",
+        "cogs.gadgets",
+        "cogs.meta",
+    ]
+    handler = logging.FileHandler("discord.log", encoding="utf-8")
+    discord.utils.setup_logging(handler=handler, level=logging.INFO)
 
     async with aiosqlite.connect(
         config.database_path, autocommit=True
