@@ -84,7 +84,7 @@ class Terminal(commands.Cog):
         while True:
             attempted = False
             try:
-                line = await aioconsole.ainput("In: ", loop=self.bot.loop)
+                line = await aioconsole.ainput("In: ")
                 # Note: uses undocumented APIs, because we don't really want gateway events for the tester
                 request = self.tester.http.send_message(
                     self.bot.testing_channel_id,
