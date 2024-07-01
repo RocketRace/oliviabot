@@ -1,5 +1,4 @@
 import asyncio
-from dataclasses import dataclass
 import logging
 from typing import Any
 from discord.ext import commands

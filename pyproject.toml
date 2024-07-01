@@ -8,6 +8,8 @@ python = ">=3.12,<3.13"
 aiosqlite = "^0.20.0"
 jishaku = "^2.5.2"
 aioconsole = "^0.7.1"
+parse-discord = { git = "https://github.com/LyricLy/parse-discord", rev = "c7537a5" }
+# requires ICU to be installed, might need to explicitly set $ICU_ROOT too
 
 [tool.poetry.group.dev.dependencies]
 HyFetch = "^1.4.11"
