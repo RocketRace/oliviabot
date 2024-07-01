@@ -5,14 +5,135 @@ from discord.ext import commands
 import discord
 import aioconsole
 import discord.http
+import parse_discord
+import parse_discord.formatting
 
 from _types import Context, OliviaBot
 
 
+def sgr(*ns: int) -> str:
+    return f"\x1b[{';'.join(str(n) for n in ns)}m"
+
+
+def colored(inner: str, *colors: int) -> str:
+    return f"{sgr(*colors)}{inner}{sgr(39, 49)}"
+
+
+def mention(inner: str) -> str:
+    return colored(inner, 44, 96)
+
+
 class TestContext(Context):
+    def format_markup(self, markup: parse_discord.Markup) -> str:
+        formatted = ""
+        for node in markup.nodes:
+            match node:
+                case parse_discord.Text():
+                    formatted += node.text
+                case parse_discord.Bold():
+                    formatted += sgr(1) + self.format_markup(node.inner) + sgr(22)
+                case parse_discord.Italic():
+                    formatted += sgr(3) + self.format_markup(node.inner) + sgr(23)
+                case parse_discord.Underline():
+                    formatted += sgr(4) + self.format_markup(node.inner) + sgr(24)
+                case parse_discord.Strikethrough():
+                    formatted += sgr(9) + self.format_markup(node.inner) + sgr(29)
+                case parse_discord.Spoiler():
+                    formatted += colored(self.format_markup(node.inner), 37, 48, 5, 243)
+                case parse_discord.Quote():
+                    formatted += indent(
+                        self.format_markup(node.inner), colored("> ", 37)
+                    )
+                case parse_discord.Header():
+                    formatted += indent(
+                        self.format_markup(node.inner),
+                        colored("#" * node.level + " ", 37),
+                    )
+                case parse_discord.List():
+                    out = []
+                    if node.start:
+                        for i, item in enumerate(node.items):
+                            bullet = f"{node.start + i}. "
+                            out.append(
+                                indent(
+                                    f"{bullet}{self.format_markup(item)}",
+                                    " " * len(bullet),
+                                )
+                            )
+                    else:
+                        for item in node.items:
+                            out.append(
+                                indent(
+                                    f"- {self.format_markup( item)}",
+                                    "  ",
+                                )
+                            )
+
+                    formatted += "\n".join(out)
+                case parse_discord.Link():
+                    text = node.title if node.title else node.display_target
+                    # hyperlink, limited terminal support
+                    formatted += f"\x1b[]8;;{node.target}\x1b\\{text}\x1b[]8;;\x1b\\"
+                case parse_discord.InlineCode():
+                    formatted += colored(node.content, 48, 5, 243)
+                case parse_discord.Codeblock():
+                    # TODO
+                    if node.language:
+                        formatted += colored(
+                            f"```{node.language}\n{node.content}```", 48, 5, 243
+                        )
+                    else:
+                        formatted += colored(f"```\n{node.content}```", 48, 5, 243)
+                case parse_discord.UserMention():
+                    if self.guild:
+                        member = self.guild.get_member(node.id)
+                        if member:
+                            formatted += mention(f"@{member.nick}")
+                    user = self.bot.get_user(node.id)
+                    if user:
+                        formatted += mention(f"@{user.name}")
+                    formatted += mention(f"<@{node.id}>")
+                case parse_discord.ChannelMention():
+                    channel = self.bot.get_channel(node.id)
+                    if channel and isinstance(
+                        channel, (discord.abc.GuildChannel, discord.Thread)
+                    ):
+                        formatted += mention(f"#{channel.name}")
+                    formatted += mention(f"<#{node.id}>")
+                case parse_discord.RoleMention():
+                    if self.guild:
+                        role = self.guild.get_role(node.id)
+                        if role:
+                            name = role.name
+                            r, g, b = role.color.to_rgb()
+                            formatted += colored(f"@{name}", 38, 2, r, g, b)
+                    formatted += mention(f"<@&{node.id}>")
+                case parse_discord.Everyone():
+                    formatted += mention("@everyone")
+                case parse_discord.Here():
+                    formatted += mention("@here")
+                case parse_discord.CustomEmoji():
+                    formatted += f":{node.name}:"
+                case parse_discord.UnicodeEmoji():
+                    formatted += node.char
+                case parse_discord.Timestamp():
+                    try:
+                        datetime = node.as_datetime()
+                        formatted += mention(datetime.strftime("%Y-%m-%d $H:$M:%S"))
+                    except OverflowError:
+                        pass
+                    if node.format:
+                        formatted += mention(f"<t:{node.timestamp}:{node.format}>")
+                    else:
+                        formatted += mention(f"<t:{node.timestamp}>")
+
+        return formatted
+
     async def send(self, content: str | None = None, **kwargs):
         if content:
-            print("Out:", content)
+            markup = parse_discord.parse(content)
+            formatted = self.format_markup(markup)
+            print("Out:", formatted)
         return await super().send(content, **kwargs)
 
 
@@ -26,6 +147,10 @@ class LogSuppressor:
 
     def __exit__(self, et, ev, tb):
         self.logger.setLevel(self.old_level)
+
+
+def indent(content: str, prefix: str) -> str:
+    return "".join(f"{prefix}{line}\n" for line in content.split("\n"))
 
 
 class Terminal(commands.Cog):
