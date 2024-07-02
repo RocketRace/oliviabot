@@ -37,7 +37,7 @@ class OliviaBot(commands.Bot):
             ),
             **kwargs,
         )
-        self.initial_extensions = [
+        self.activated_extensions = [
             # external libraries
             "jishaku",
             # cogs
@@ -47,7 +47,7 @@ class OliviaBot(commands.Bot):
         ]
         if not prod:
             # development cogs
-            self.initial_extensions.append("cogs.terminal")
+            self.activated_extensions.append("cogs.terminal")
 
         self.db = db
         self.testing_guild_id = testing_guild_id
@@ -70,13 +70,14 @@ class OliviaBot(commands.Bot):
     async def on_extension_update(
         self, extension: str, kind: Literal["load", "unload", "reload"]
     ):
-        match kind:
-            case "load":
-                await self.load_extension(extension)
-            case "reload":
-                await self.reload_extension(extension)
-            case "unload":
-                await self.unload_extension(extension)
+        if extension in self.activated_extensions:
+            match kind:
+                case "load":
+                    await self.load_extension(extension)
+                case "reload":
+                    await self.reload_extension(extension)
+                case "unload":
+                    await self.unload_extension(extension)
         logging.info(f"Extension {extension} {kind}ed")
 
     async def setup_hook(self) -> None:
@@ -88,7 +89,7 @@ class OliviaBot(commands.Bot):
             tester_bot_id,
         }
 
-        for extension in self.initial_extensions:
+        for extension in self.activated_extensions:
             await self.load_extension(extension)
 
         guild = discord.Object(self.testing_guild_id)
