@@ -31,7 +31,6 @@ jobs:
               cd ${{ secrets.PROJECT_PATH }}
               touch .updating
               git pull --ff-only
-              pipx install poetry
-              poetry shell
-              poetry install --only main
+              /bin/env poetry shell
+              /bin/env poetry install --only main
               rm .updating
