@@ -32,6 +32,6 @@ jobs:
               touch .updating
               git pull --ff-only
               pipx install poetry
-              ~/.local/bin/poetry shell
+              ~/.local/bin/poetry env use 3.12
               ~/.local/bin/poetry install --only main
               rm .updating
