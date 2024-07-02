@@ -1,7 +1,7 @@
 import asyncio
 import contextlib
 import logging
-from typing import Any
+from typing import Any, Literal
 
 import aiosqlite
 import discord
@@ -67,6 +67,18 @@ class OliviaBot(commands.Bot):
         assert self.user
         logging.info(f"Logged in as {self.user} (ID: {self.user.id})")
 
+    async def on_extension_update(
+        self, extension: str, kind: Literal["load", "unload", "reload"]
+    ):
+        match kind:
+            case "load":
+                await self.load_extension(extension)
+            case "reload":
+                await self.reload_extension(extension)
+            case "unload":
+                await self.unload_extension(extension)
+        logging.info(f"Extension {extension} {kind}ed")
+
     async def setup_hook(self) -> None:
         self.webhook = discord.Webhook.from_url(self.webhook_url, client=self)
 
@@ -86,8 +98,11 @@ class OliviaBot(commands.Bot):
 
 @contextlib.asynccontextmanager
 async def init(*, prod: bool):
-    handler = logging.FileHandler("discord.log", encoding="utf-8")
-    discord.utils.setup_logging(handler=handler, level=logging.INFO)
+    if prod:
+        handler = logging.FileHandler("discord.log", encoding="utf-8")
+        discord.utils.setup_logging(handler=handler, level=logging.INFO)
+    else:
+        discord.utils.setup_logging(level=logging.INFO)
 
     stack = contextlib.AsyncExitStack()
 

@@ -29,4 +29,8 @@ jobs:
             script: |
               set -e
               cd ${{ secrets.PROJECT_PATH }}
+              touch .updating
               git pull --ff-only
+              poetry shell
+              poetry install --only main
+              rm .updating
