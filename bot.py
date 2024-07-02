@@ -1,3 +1,5 @@
+import asyncio
+import contextlib
 import logging
 from typing import Any
 
@@ -6,6 +8,7 @@ import discord
 from discord.ext import commands
 
 from config import tester_bot_id
+import config
 
 
 class OliviaBot(commands.Bot):
@@ -15,7 +18,8 @@ class OliviaBot(commands.Bot):
 
     def __init__(
         self,
-        initial_extensions: list[str],
+        *,
+        prod: bool,
         db: aiosqlite.Connection,
         testing_guild_id: int,
         testing_channel_id: int,
@@ -33,8 +37,18 @@ class OliviaBot(commands.Bot):
             ),
             **kwargs,
         )
+        self.initial_extensions = [
+            # external libraries
+            "jishaku",
+            # cogs
+            "cogs.context",
+            "cogs.gadgets",
+            "cogs.meta",
+        ]
+        if not prod:
+            # development cogs
+            self.initial_extensions.append("cogs.terminal")
 
-        self.initial_extensions = initial_extensions
         self.db = db
         self.testing_guild_id = testing_guild_id
         self.testing_channel_id = testing_channel_id
@@ -68,3 +82,32 @@ class OliviaBot(commands.Bot):
         guild = discord.Object(self.testing_guild_id)
         self.tree.copy_global_to(guild=guild)
         await self.tree.sync(guild=guild)
+
+
+@contextlib.asynccontextmanager
+async def init(*, prod: bool):
+    handler = logging.FileHandler("discord.log", encoding="utf-8")
+    discord.utils.setup_logging(handler=handler, level=logging.INFO)
+
+    stack = contextlib.AsyncExitStack()
+
+    db = await stack.enter_async_context(
+        aiosqlite.connect(config.database_path, autocommit=True)
+    )
+
+    bot = await stack.enter_async_context(
+        OliviaBot(
+            prod=prod,
+            db=db,
+            testing_guild_id=config.testing_guild_id,
+            testing_channel_id=config.testing_channel_id,
+            webhook_url=config.webhook_url,
+            tester_bot_id=config.tester_bot_id,
+            tester_bot_token=config.tester_bot_token,
+        )
+    )
+
+    try:
+        yield bot
+    finally:
+        await stack.aclose()

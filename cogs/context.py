@@ -1,3 +1,4 @@
+# technically not a cog but a standard extension
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
