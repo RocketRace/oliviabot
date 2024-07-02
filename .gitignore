@@ -1,14 +1,10 @@
-/target
 .DS_Store
 .vscode
-*.env
 .venv
 __pycache__
 *.db
 *.db-shm
 *.db-wal
 *.db-journal
-.watch-trigger
-.build-success
 config.py
 *.log
