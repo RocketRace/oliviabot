@@ -23,7 +23,7 @@ class CogReloader(PatternMatchingEventHandler):
         path = pathlib.Path(path_str).relative_to(pathlib.Path.cwd() / "cogs")
         cog = f"cogs.{path.stem}"
         while pathlib.Path(".updating").exists():
-            sleep(1)
+            sleep(0.5)
         if cog in self.bot.activated_extensions:
             match action:
                 case "load":
@@ -64,7 +64,7 @@ class ReloadReporter(PatternMatchingEventHandler):
 
     def handle_change(self):
         logging.info("Restarting bot")
-        open(".reload-trigger", "w").write("")
+        open(".reload-trigger", "w")
 
 
 match sys.argv:
