@@ -135,6 +135,7 @@ async def launch():
         observer.schedule(cog_watcher, path="cogs", recursive=True)
         observer.schedule(bot_watcher, path=".", recursive=True)
         observer.schedule(root_watcher, path=".", recursive=True)
+
         try:
             observer.start()
             await oliviabot.start()
