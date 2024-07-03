@@ -38,7 +38,7 @@ jobs:
               [ -f .reload-trigger ] && (
                 tmux send -t oliviabot C-c python3 Space bot.py Space prod Enter &&
                 rm .reload-trigger &&
-                echo "Relaunched bot"
-              ) || echo "No relaunch required"
-              sleep 10
-              [ -f .build-success ]
+                sleep 5 &&
+                [ -f .build-success ] && 
+                echo "relaunched bot"
+              )
