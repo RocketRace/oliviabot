@@ -9,4 +9,4 @@ __pycache__
 config.py
 *.log
 .updating
-.root-reload-trigger
+.reload-trigger

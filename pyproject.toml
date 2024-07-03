@@ -8,7 +8,7 @@ python = ">=3.12,<3.13"
 aiosqlite = "^0.20.0"
 jishaku = "^2.5.2"
 aioconsole = "^0.7.1"
-watchdog = { version = "^4.0.1", extras = ["watchmedo"] }
+watchdog = { version = "^4.0.1" }
 
 [tool.poetry.group.dev.dependencies]
 HyFetch = "^1.4.11"

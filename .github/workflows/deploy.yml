@@ -35,6 +35,7 @@ jobs:
               ~/.local/bin/poetry install --only main
               rm .updating
               sleep 1
-              [ -f .root-reload-trigger ] \
+              [ -f .reload-trigger ] \
                 && tmux send -t oliviabot C-c python3 Space launcher.py Space prod Enter \
-                && rm .root-reload-trigger
+                && rm .reload-trigger
+                || true
