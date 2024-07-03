@@ -1,13 +1,11 @@
-import asyncio
 import contextlib
 import logging
-from typing import Any, Literal
+from typing import Any, Coroutine, Literal
 
 import aiosqlite
 import discord
 from discord.ext import commands
 
-from config import tester_bot_id
 import config
 
 
@@ -57,6 +55,10 @@ class OliviaBot(commands.Bot):
         self.tester_bot_token = tester_bot_token
         self.ctx_class = commands.Context
         self.terminal_cog_interrupted = False
+        self.restart_triggered = False
+
+    def start(self, *args, **kwargs) -> Coroutine[Any, Any, None]:
+        return super().start(config.bot_token, *args, **kwargs)
 
     async def get_context(self, message, *, cls: type[commands.Context] | None = None):
         if cls is None:
@@ -86,7 +88,7 @@ class OliviaBot(commands.Bot):
         owner_id = (await self.application_info()).owner.id
         self.owner_ids = {  # pyright: ignore[reportIncompatibleVariableOverride]
             owner_id,
-            tester_bot_id,
+            config.tester_bot_id,
         }
 
         for extension in self.activated_extensions:
@@ -123,7 +125,14 @@ async def init(*, prod: bool):
         )
     )
 
+    @bot.listen("on_restart_needed")
+    async def on_restart_needed():
+        bot.restart_triggered = True
+        await bot.close()
+
     try:
         yield bot
     finally:
         await stack.aclose()
+        logging.root.handlers.clear()
+        logging.getLogger("discord").handlers.clear()

@@ -34,3 +34,7 @@ jobs:
               ~/.local/bin/poetry env use 3.12
               ~/.local/bin/poetry install --only main
               rm .updating
+              sleep 1
+              [ -f .root-reload-trigger ] \
+                && tmux send -t oliviabot C-c python3 Space launcher.py Space prod Enter \
+                && rm .root-reload-trigger
