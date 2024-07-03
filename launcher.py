@@ -154,4 +154,4 @@ async def main():
         pass
 
 
-asyncio.run(main(), debug=True)
+asyncio.run(main())
