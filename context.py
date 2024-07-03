@@ -86,4 +86,7 @@ class OliviaBot(commands.Bot):
         await self.tree.sync(guild=guild)
 
 
-from cogs.context import Context as Context
+class Context(commands.Context[OliviaBot]):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.error_handled = False

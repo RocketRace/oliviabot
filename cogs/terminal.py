@@ -8,7 +8,7 @@ import discord.http
 import parse_discord
 import parse_discord.formatting
 
-from _types import Context, OliviaBot
+from context import Context, OliviaBot
 
 
 def sgr(*ns: int) -> str:

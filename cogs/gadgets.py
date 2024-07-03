@@ -7,7 +7,7 @@ from typing import TypedDict
 import discord
 from discord.ext import commands
 
-from _types import OliviaBot, Context
+from context import OliviaBot, Context
 
 
 def dedent(s: str) -> str:

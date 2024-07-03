@@ -11,7 +11,7 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEvent, PatternMatchingEventHandler
 
 import config
-from _types import OliviaBot
+from context import OliviaBot
 
 
 class CogReloader(PatternMatchingEventHandler):

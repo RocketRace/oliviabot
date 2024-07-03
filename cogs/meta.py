@@ -1,6 +1,6 @@
 from discord.ext import commands
 
-from _types import OliviaBot, Context
+from context import OliviaBot, Context
 
 
 class Meta(commands.Cog):
