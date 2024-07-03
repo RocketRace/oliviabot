@@ -40,7 +40,6 @@ class OliviaBot(commands.Bot):
             # external libraries
             "jishaku",
             # cogs
-            "cogs.context",
             "cogs.gadgets",
             "cogs.meta",
         ]
