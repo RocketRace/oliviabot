@@ -37,5 +37,5 @@ jobs:
               sleep 1
               [ -f .reload-trigger ] \
                 && tmux send -t oliviabot C-c python3 Space launcher.py Space prod Enter \
-                && rm .reload-trigger
+                && rm .reload-trigger \
                 || true
