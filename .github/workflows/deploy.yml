@@ -35,10 +35,8 @@ jobs:
               ~/.local/bin/poetry install --only main
               rm .updating
               sleep 1
-              [ -f .reload-trigger ] && (
-                tmux send -t oliviabot C-c python3 Space bot.py Space prod Enter &&
-                rm .reload-trigger &&
-                sleep 5 &&
-                [ -f .build-success ] && 
-                echo "relaunched bot"
-              )
+              if [ -f .reload-trigger ]; then
+                echo "Relaunching bot"
+                tmux send -t oliviabot C-c python3 Space bot.py Space prod Enter
+                rm .reload-trigger
+              fi
