@@ -119,13 +119,12 @@ class TestContext(Context):
                 case parse_discord.Timestamp():
                     try:
                         datetime = node.as_datetime()
-                        formatted += mention(datetime.strftime("%Y-%m-%d $H:$M:%S"))
+                        formatted += mention(datetime.strftime("%Y-%m-%d %H:%M:%S"))
                     except OverflowError:
-                        pass
-                    if node.format:
-                        formatted += mention(f"<t:{node.timestamp}:{node.format}>")
-                    else:
-                        formatted += mention(f"<t:{node.timestamp}>")
+                        if node.format:
+                            formatted += mention(f"<t:{node.timestamp}:{node.format}>")
+                        else:
+                            formatted += mention(f"<t:{node.timestamp}>")
 
         return formatted
 
