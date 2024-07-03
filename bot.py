@@ -64,7 +64,7 @@ class ReloadReporter(PatternMatchingEventHandler):
 
     def handle_change(self):
         logging.info("Restarting bot")
-        open(".reload-trigger", "w")
+        open(".reload-trigger", "w").write("")
 
 
 match sys.argv:
