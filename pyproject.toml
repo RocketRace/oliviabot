@@ -16,6 +16,7 @@ colour-science = "^0.4.4"
 matplotlib = "^3.9.0"
 parse-discord = { git = "https://github.com/LyricLy/parse-discord", rev = "c7537a5" }
 # requires ICU to be installed, might need to explicitly set $ICU_ROOT too
+watchdog = { version = "^4.0.1", extras = ["watchmedo"] }
 
 [build-system]
 requires = ["poetry-core"]

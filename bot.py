@@ -1,119 +1,94 @@
-import contextlib
+import asyncio
 import logging
-from typing import Any, Coroutine, Literal
+import pathlib
+import sys
+from time import sleep
+from typing import Literal
 
 import aiosqlite
 import discord
-from discord.ext import commands
+from watchdog.observers import Observer
+from watchdog.events import FileSystemEvent, PatternMatchingEventHandler
 
 import config
+from _types import OliviaBot
 
 
-class OliviaBot(commands.Bot):
-    owner_ids: set[int]
-    ctx_class: type[commands.Context]
-    terminal_cog_interrupted: bool
+class CogReloader(PatternMatchingEventHandler):
+    def __init__(self, bot: OliviaBot, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.bot = bot
 
-    def __init__(
-        self,
-        *,
-        prod: bool,
-        db: aiosqlite.Connection,
-        testing_guild_id: int,
-        testing_channel_id: int,
-        webhook_url: str,
-        tester_bot_id: int,
-        tester_bot_token: str,
-        **kwargs: Any,
-    ) -> None:
-        super().__init__(
-            commands.when_mentioned_or("+"),
-            intents=discord.Intents.all(),
-            allowed_mentions=discord.AllowedMentions(
-                everyone=False,
-                roles=False,
-            ),
-            **kwargs,
-        )
-        self.activated_extensions = [
-            # external libraries
-            "jishaku",
-            # cogs
-            "cogs.context",
-            "cogs.gadgets",
-            "cogs.meta",
-        ]
-        if not prod:
-            # development cogs
-            self.activated_extensions.append("cogs.terminal")
-
-        self.db = db
-        self.testing_guild_id = testing_guild_id
-        self.testing_channel_id = testing_channel_id
-        self.webhook_url = webhook_url
-        self.tester_bot_id = tester_bot_id
-        self.tester_bot_token = tester_bot_token
-        self.ctx_class = commands.Context
-        self.terminal_cog_interrupted = False
-        self.restart_triggered = False
-
-    def start(self, *args, **kwargs) -> Coroutine[Any, Any, None]:
-        return super().start(config.bot_token, *args, **kwargs)
-
-    async def get_context(self, message, *, cls: type[commands.Context] | None = None):
-        if cls is None:
-            cls = self.ctx_class
-        return await super().get_context(message, cls=cls)
-
-    async def on_ready(self) -> None:
-        assert self.user
-        logging.info(f"Logged in as {self.user} (ID: {self.user.id})")
-
-    async def on_extension_update(
-        self, extension: str, kind: Literal["load", "unload", "reload"]
-    ):
-        if extension in self.activated_extensions:
-            match kind:
+    def handle_change(self, path_str: str, action: Literal["load", "unload", "reload"]):
+        path = pathlib.Path(path_str).relative_to(pathlib.Path.cwd() / "cogs")
+        cog = f"cogs.{path.stem}"
+        while pathlib.Path(".updating").exists():
+            sleep(0.5)
+        if cog in self.bot.activated_extensions:
+            match action:
                 case "load":
-                    await self.load_extension(extension)
+                    coro = self.bot.load_extension(cog)
                 case "reload":
-                    await self.reload_extension(extension)
+                    coro = self.bot.reload_extension(cog)
                 case "unload":
-                    await self.unload_extension(extension)
-        logging.info(f"Extension {extension} {kind}ed")
+                    coro = self.bot.unload_extension(cog)
+            asyncio.run_coroutine_threadsafe(coro, self.bot.loop)
+            logging.info(f"Extension {cog} {action}ed")
 
-    async def setup_hook(self) -> None:
-        self.webhook = discord.Webhook.from_url(self.webhook_url, client=self)
+    def on_created(self, event: FileSystemEvent) -> None:
+        self.handle_change(event.src_path, "load")
 
-        owner_id = (await self.application_info()).owner.id
-        self.owner_ids = {  # pyright: ignore[reportIncompatibleVariableOverride]
-            owner_id,
-            config.tester_bot_id,
-        }
+    def on_modified(self, event: FileSystemEvent) -> None:
+        self.handle_change(event.src_path, "reload")
 
-        for extension in self.activated_extensions:
-            await self.load_extension(extension)
+    def on_deleted(self, event: FileSystemEvent) -> None:
+        self.handle_change(event.src_path, "unload")
 
-        guild = discord.Object(self.testing_guild_id)
-        self.tree.copy_global_to(guild=guild)
-        await self.tree.sync(guild=guild)
+    def on_moved(self, event: FileSystemEvent) -> None:
+        self.handle_change(event.src_path, "unload")
+        self.handle_change(event.dest_path, "load")
 
 
-@contextlib.asynccontextmanager
-async def init(*, prod: bool):
+class ReloadReporter(PatternMatchingEventHandler):
+    def on_created(self, event: FileSystemEvent) -> None:
+        self.handle_change()
+
+    def on_deleted(self, event: FileSystemEvent) -> None:
+        self.handle_change()
+
+    def on_modified(self, event: FileSystemEvent) -> None:
+        self.handle_change()
+
+    def on_moved(self, event: FileSystemEvent) -> None:
+        self.handle_change()
+
+    def handle_change(self):
+        logging.info("Restarting bot")
+        open(".reload-trigger", "w")
+
+
+match sys.argv:
+    case [_, arg] if arg.lower() == "prod":
+        prod = True
+    case [_]:
+        prod = False
+    case _:
+        relative = pathlib.Path(__file__).relative_to(pathlib.Path.cwd())
+        print(f"Usage: python3 {relative} [prod]")
+        exit(1)
+
+
+async def main():
+    print("Running the bot in", "production" if prod else "development", "mode:")
+
     if prod:
         handler = logging.FileHandler("discord.log", encoding="utf-8")
         discord.utils.setup_logging(handler=handler, level=logging.INFO)
     else:
         discord.utils.setup_logging(level=logging.INFO)
 
-    stack = contextlib.AsyncExitStack()
-
-    db = await stack.enter_async_context(
-        aiosqlite.connect(config.database_path, autocommit=True)
-    )
-
-    bot = await stack.enter_async_context(
+    async with (
+        aiosqlite.connect(config.database_path, autocommit=True) as db,
         OliviaBot(
             prod=prod,
             db=db,
@@ -122,17 +97,29 @@ async def init(*, prod: bool):
             webhook_url=config.webhook_url,
             tester_bot_id=config.tester_bot_id,
             tester_bot_token=config.tester_bot_token,
+        ) as oliviabot,
+    ):
+        observer = Observer()
+
+        cog_watcher = CogReloader(oliviabot, patterns=["cogs/*.py"])
+        root_watcher = ReloadReporter(
+            patterns=[
+                line.strip() for line in open(".bot-reload-patterns") if line.strip()
+            ]
         )
-    )
 
-    @bot.listen("on_restart_needed")
-    async def on_restart_needed():
-        bot.restart_triggered = True
-        await bot.close()
+        observer.schedule(cog_watcher, path="cogs")
+        observer.schedule(root_watcher, path=".")
 
-    try:
-        yield bot
-    finally:
-        await stack.aclose()
-        logging.root.handlers.clear()
-        logging.getLogger("discord").handlers.clear()
+        try:
+            observer.start()
+            await oliviabot.start()
+        except asyncio.CancelledError:
+            pass
+        finally:
+            logging.info("Shutting down...")
+            observer.stop()
+            observer.join()
+
+
+asyncio.run(main())

@@ -1,5 +1,0 @@
-.bot-reload-patterns
-.root-reload-patterns
-poetry.lock
-pyproject.toml
-launcher.py

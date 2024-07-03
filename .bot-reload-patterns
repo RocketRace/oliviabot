@@ -1,4 +1,7 @@
+.bot-reload-patterns
 data/*
 scripts/*
 *.py
 *.pyi
+poetry.lock
+pyproject.toml
