@@ -66,6 +66,7 @@ class OliviaBot(commands.Bot):
 
     async def on_ready(self) -> None:
         assert self.user
+        open(".build-success", "w")
         logging.info(f"Logged in as {self.user} (ID: {self.user.id})")
 
     async def setup_hook(self) -> None:

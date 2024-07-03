@@ -40,3 +40,5 @@ jobs:
                 && rm .reload-trigger \
                 && echo "Relaunched bot" \
                 || echo "No relaunch required"
+              sleep 10
+              [ -f .build-success ]

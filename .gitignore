@@ -10,3 +10,4 @@ config.py
 *.log
 .updating
 .reload-trigger
+.build-success
