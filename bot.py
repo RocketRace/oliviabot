@@ -24,6 +24,7 @@ class CogReloader(PatternMatchingEventHandler):
         cog = f"cogs.{path.stem}"
         while pathlib.Path(".updating").exists():
             sleep(0.5)
+        logging.info(f"Extension {action} requested for {cog}")
         if cog in self.bot.activated_extensions:
             match action:
                 case "load":
