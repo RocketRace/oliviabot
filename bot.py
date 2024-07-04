@@ -109,8 +109,8 @@ async def main():
             ]
         )
 
-        observer.schedule(cog_watcher, path="cogs")
-        observer.schedule(root_watcher, path=".")
+        observer.schedule(cog_watcher, path="cogs", recursive=True)
+        observer.schedule(root_watcher, path=".", recursive=True)
 
         try:
             observer.start()

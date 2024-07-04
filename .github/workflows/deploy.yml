@@ -34,6 +34,7 @@ jobs:
               ~/.local/bin/poetry env use 3.12
               ~/.local/bin/poetry install --only main
               rm .updating
+              sleep 10
               if [ -f .reload-trigger ]; then
                 echo "Relaunching bot"
                 tmux send -t oliviabot C-c python3 Space bot.py Space prod Enter
