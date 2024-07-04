@@ -3,8 +3,9 @@ import datetime
 import logging
 import random
 import re
-from typing import TypedDict
+from typing import Annotated, Literal, TypedDict
 import discord
+from discord import app_commands
 from discord.ext import commands
 
 from context import OliviaBot, Context
@@ -39,6 +40,16 @@ def dedent(s: str) -> str:
         return "\n".join(line[common_width:] for line in lines)
 
 
+def louna_converter(n_str: str):
+    try:
+        n = int(n_str)
+        if n <= 0 or n > 500:
+            raise ValueError
+    except ValueError:
+        raise commands.CheckFailure("Number must be an integer between 1 and 500")
+    return n
+
+
 class Gadgets(commands.Cog):
     """Various gadgets and gizmos"""
 
@@ -53,9 +64,27 @@ class Gadgets(commands.Cog):
         await self.init_neofetch()
 
     @commands.hybrid_command()
-    async def louna(self, ctx: Context):
-        """louna"""
-        return await ctx.send("louna")
+    async def louna(self, ctx: Context, n: Annotated[int, louna_converter] = 2):
+        """louna
+
+        Parameters
+        -----------
+        n: int
+            number of creatures
+        """
+        emojies = [
+            "\N{HEDGEHOG}",
+            "\N{COW}",
+        ]
+        choices = "".join(random.choices(emojies, k=n))
+        return await ctx.send(f"louna {choices}")
+
+    @louna.error
+    async def louna_error(self, ctx: Context, error: commands.CommandError):
+        match error:
+            case commands.CheckFailure():
+                await ctx.send(*error.args)
+                ctx.error_handled = True
 
     class DistroNotFound(Exception):
         """Valid neofetch distro not found"""
@@ -65,44 +94,55 @@ class Gadgets(commands.Cog):
             self.mobile = mobile
             self.query = query
 
-    class NeofetchFlags(commands.FlagConverter):
-        mobile: bool | None
-        distro: str | None = commands.flag(positional=True)
-
     @commands.hybrid_command()
-    async def neofetch(self, ctx: Context, *, flags: NeofetchFlags):
-        if isinstance(ctx.author, discord.Member) and flags.mobile is None:
-            mobile = ctx.author.mobile_status != discord.Status.offline
+    async def neofetch(
+        self,
+        ctx: Context,
+        mobile: Literal["mobile"] | None = None,
+        *,
+        distro: str | None = None,
+    ):
+        """Randomly fetch a neofetch icon
+
+        Parameters
+        -----------
+        mobile: Literal["mobile"] | None
+            Only return icons that fit on a mobile screen
+        distro: str | None
+            The distro to query for, if given
+        """
+        if isinstance(ctx.author, discord.Member) and mobile is None:
+            is_mobile = ctx.author.mobile_status != discord.Status.offline
         else:
-            mobile = flags.mobile or False
+            is_mobile = mobile == "mobile" or False
 
         async with self.bot.db.cursor() as cur:
-            if mobile:
+            if is_mobile:
                 await cur.execute(
                     """SELECT distro, color_index, color_rgb, logo FROM neofetch
                     WHERE mobile_width IS TRUE AND (
                         :distro IS NULL OR lower(:distro) REGEXP lower(pattern) OR (lower(:distro) || suffix) REGEXP lower(pattern)
                     );
                     """,
-                    {"distro": flags.distro},
+                    {"distro": distro},
                 )
             else:
                 await cur.execute(
                     """SELECT distro, color_index, color_rgb, logo FROM neofetch
                     WHERE :distro IS NULL OR lower(:distro) REGEXP lower(pattern);
                     """,
-                    {"distro": flags.distro},
+                    {"distro": distro},
                 )
 
             results = list(await cur.fetchall())
             if not results:
-                raise self.DistroNotFound(flags.distro or "<none>", mobile)
+                raise self.DistroNotFound(distro or "<none>", is_mobile)
 
-            distro: str
+            distro_found: str
             color_index: int
             color_rgb: str
             logo: str
-            distro, color_index, color_rgb, logo = random.choice(results)
+            distro_found, color_index, color_rgb, logo = random.choice(results)
 
             r, g, b = bytes.fromhex(color_rgb)
             embed_color = discord.Color.from_rgb(r, g, b)
@@ -124,7 +164,7 @@ class Gadgets(commands.Cog):
                 ```
                 ```ansi
                 {accent(f"{ctx.author}@{hostname}")}
-                {accent("OS:")} {distro}
+                {accent("OS:")} {distro_found}
                 {accent("Host:")} Discord
                 {accent("Terminal:")} {terminal}
                 ```
@@ -168,6 +208,7 @@ class Gadgets(commands.Cog):
 
     @neofetch.error
     async def neofetch_error(self, ctx: Context, error: commands.CommandError):
+        logging.warn(f"Neofetch error: {error}")
         match error:
             case commands.CommandInvokeError(
                 original=self.DistroNotFound(query=query, mobile=mobile)
