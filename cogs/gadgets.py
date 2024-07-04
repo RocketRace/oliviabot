@@ -5,9 +5,10 @@ import datetime
 import logging
 import random
 import re
-from typing import Awaitable, Callable, Literal, TypedDict
+from typing import Any, Awaitable, Callable, Literal, TypedDict
 import discord
 from discord.ext import commands
+from discord.ui.item import Item
 
 from context import OliviaBot, Context
 
@@ -263,7 +264,7 @@ class Gadgets(commands.Cog):
         async def regenerator(is_mobile: bool):
             return await self.generate_neofetch(ctx, None, is_mobile)
 
-        view = self.NeofetchFixer(embed, regenerator)
+        view = self.NeofetchFixer(embed, ctx.author.id, regenerator)
         view.message = await ctx.reply(embed=embed, mention_author=False, view=view)
 
     @neofetch.autocomplete("distro")
@@ -309,12 +310,25 @@ class Gadgets(commands.Cog):
         def __init__(
             self,
             embed: discord.Embed,
+            author_id: int,
             regenerator: Callable[[bool], Awaitable[discord.Embed]],
         ):
             super().__init__()
             self.regenerator = regenerator
             self.embed = embed
+            self.author_id = author_id
             self.embed_mode = True
+
+        async def interaction_check(
+            self, interaction: discord.Interaction[discord.Client]
+        ) -> bool:
+            if interaction.user.id == self.author_id:
+                return True
+            else:
+                await interaction.response.send_message(
+                    "That's not your button to touch", ephemeral=True
+                )
+                return False
 
         def fix_fixer(self):
             fixer = self.children[0]

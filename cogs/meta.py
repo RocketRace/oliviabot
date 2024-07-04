@@ -8,7 +8,13 @@ class Meta(commands.Cog):
 
     @commands.command()
     async def hello(self, ctx: Context):
+        """Hi!"""
         await ctx.send(f"Hello! I'm {ctx.me}!")
+
+    @commands.command()
+    @commands.is_owner()
+    async def nick(self, ctx: Context, nick: str | None):
+        pass
 
     @commands.command()
     @commands.is_owner()
