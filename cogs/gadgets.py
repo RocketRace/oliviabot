@@ -321,7 +321,7 @@ class Gadgets(commands.Cog):
             author_id: int,
             regenerator: Callable[[bool], Awaitable[discord.Embed]],
         ):
-            super().__init__()
+            super().__init__(timeout=120.0)
             self.regenerator = regenerator
             self.embed = embed
             self.author_id = author_id
