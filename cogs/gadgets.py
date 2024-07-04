@@ -52,6 +52,10 @@ class Gadgets(commands.Cog):
         await self.bot.db.create_function("regexp", 2, regexp, deterministic=True)
         await self.init_neofetch()
 
+    @commands.hybrid_command()
+    async def louna(self, ctx: Context):
+        await ctx.send("louna")
+
     class DistroNotFound(Exception):
         """Valid neofetch distro not found"""
 
