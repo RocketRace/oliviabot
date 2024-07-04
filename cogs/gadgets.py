@@ -57,7 +57,7 @@ class Gadgets(commands.Cog):
 
     @commands.hybrid_command()
     async def louna(self, ctx: Context):
-        """louna"""
+        """l\u200bouna"""
         emojies = [
             "✂️",
             "❤️‍🔥",
@@ -85,6 +85,7 @@ class Gadgets(commands.Cog):
             "🐖",
             "🐗",
             "🐛",
+            "🐝",
             "🐩",
             "🐫",
             "🐴",

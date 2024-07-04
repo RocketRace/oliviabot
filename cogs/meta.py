@@ -1,3 +1,4 @@
+import discord
 from discord.ext import commands
 
 from context import OliviaBot, Context
@@ -13,7 +14,8 @@ class Meta(commands.Cog):
 
     @commands.command()
     @commands.is_owner()
-    async def nick(self, ctx: Context, nick: str | None):
+    @commands.guild_only()
+    async def nick(self, ctx: Context):
         pass
 
     @commands.command()
