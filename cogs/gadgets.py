@@ -147,6 +147,14 @@ class Gadgets(commands.Cog):
             "🚀",
             "🚲",
             "🛀",
+            "<:bottomemoji:1163608118375235655>",
+            "<:kaboom:1134083088725573743>",
+            "<:sus:1133050350832721960>",
+            "<:racher3:1229156540477345863>",
+            "<:helloboi:1235910150418731101>",
+            "<:stimmy:1236300904152563743>",
+            "<:t42:1134085866189508608>",
+            "<:sillygroove:1134083563957014528>",
         ]
         k = random.randint(2, 3)
         choices = "".join(random.choices(emojies, k=k))
