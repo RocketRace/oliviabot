@@ -54,7 +54,8 @@ class Gadgets(commands.Cog):
 
     @commands.hybrid_command()
     async def louna(self, ctx: Context):
-        await ctx.send("louna")
+        """louna"""
+        return await ctx.send("louna")
 
     class DistroNotFound(Exception):
         """Valid neofetch distro not found"""
