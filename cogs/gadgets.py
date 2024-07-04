@@ -1,11 +1,12 @@
+from __future__ import annotations
+
 import csv
 import datetime
 import logging
 import random
 import re
-from typing import Annotated, Literal, TypedDict
+from typing import Awaitable, Callable, Literal, TypedDict
 import discord
-from discord import app_commands
 from discord.ext import commands
 
 from context import OliviaBot, Context
@@ -89,28 +90,9 @@ class Gadgets(commands.Cog):
             self.mobile = mobile
             self.query = query
 
-    @commands.hybrid_command()
-    async def neofetch(
-        self,
-        ctx: Context,
-        mobile: Literal["mobile"] | None = None,
-        *,
-        distro: str | None = None,
+    async def generate_neofetch(
+        self, ctx: Context, distro: str | None = None, is_mobile: bool = False
     ):
-        """Randomly fetch a neofetch icon
-
-        Parameters
-        -----------
-        mobile: Literal["mobile"] | None
-            Only return icons that fit on a mobile screen
-        distro: str | None
-            The distro to query for, if given
-        """
-        if isinstance(ctx.author, discord.Member) and mobile is None:
-            is_mobile = ctx.author.mobile_status != discord.Status.offline
-        else:
-            is_mobile = mobile == "mobile" or False
-
         async with self.bot.db.cursor() as cur:
             if is_mobile:
                 await cur.execute(
@@ -133,54 +115,75 @@ class Gadgets(commands.Cog):
             if not results:
                 raise self.DistroNotFound(distro or "<none>", is_mobile)
 
-            distro_found: str
-            color_index: int
-            color_rgb: str
-            logo: str
-            distro_found, color_index, color_rgb, logo = random.choice(results)
+        distro_found: str
+        color_index: int
+        color_rgb: str
+        logo: str
+        distro_found, color_index, color_rgb, logo = random.choice(results)
 
-            r, g, b = bytes.fromhex(color_rgb)
-            embed_color = discord.Color.from_rgb(r, g, b)
-            accent = lambda s: f"\x1b[{color_index}m{s}\x1b[0m"
+        r, g, b = bytes.fromhex(color_rgb)
+        embed_color = discord.Color.from_rgb(r, g, b)
 
-            if ctx.guild:
-                hostname = ctx.guild.name
-            else:
-                hostname = "Direct Messages"
+        accent = lambda s: f"\x1b[{color_index}m{s}\x1b[0m"
 
-            if isinstance(ctx.channel, discord.DMChannel | discord.PartialMessageable):
-                terminal = f"direct message with {ctx.author}"
-            else:
-                terminal = ctx.channel.name
+        if ctx.guild:
+            hostname = ctx.guild.name
+        else:
+            hostname = "Direct Messages"
 
-            description = dedent(
-                f"""```ansi
-                {{}}
-                ```
-                ```ansi
-                {accent(f"{ctx.author}@{hostname}")}
-                {accent("OS:")} {distro_found}
-                {accent("Host:")} Discord
-                {accent("Terminal:")} {terminal}
-                ```
-                """
-            ).format(logo)
+        if isinstance(ctx.channel, discord.DMChannel | discord.PartialMessageable):
+            terminal = f"direct message with {ctx.author}"
+        else:
+            terminal = ctx.channel.name
 
-            embed = discord.Embed(
-                description=description,
-                color=embed_color,
-                timestamp=self.neofetch_updated,
-            ).set_footer(text="Neofetch data last updated")
+        description = dedent(
+            f"""```ansi
+            {{}}
+            ```
+            ```ansi
+            {accent(f"{ctx.author}@{hostname}")}
+            {accent("OS:")} {distro_found}
+            {accent("Host:")} Discord
+            {accent("Terminal:")} {terminal}
+            ```
+            """
+        ).format(logo)
 
-            if len(description) > 2000:
-                await ctx.reply(
-                    embed=embed, mention_author=False, view=self.DisabledFixer()
-                )
-            else:
-                view = self.NeofetchFixer(description, embed)
-                view.message = await ctx.reply(
-                    embed=embed, mention_author=False, view=view
-                )
+        return discord.Embed(
+            description=description,
+            color=embed_color,
+            timestamp=self.neofetch_updated,
+        ).set_footer(text="Neofetch data last updated")
+
+    @commands.hybrid_command()
+    async def neofetch(
+        self,
+        ctx: Context,
+        mobile: Literal["mobile"] | None = None,
+        *,
+        distro: str | None = None,
+    ):
+        """Randomly fetch a neofetch icon
+
+        Parameters
+        -----------
+        mobile: Literal["mobile"] | None
+            Only return icons that fit on a mobile screen
+        distro: str | None
+            The distro to query for, if given
+        """
+        if isinstance(ctx.author, discord.Member) and mobile is None:
+            is_mobile = ctx.author.mobile_status != discord.Status.offline
+        else:
+            is_mobile = mobile == "mobile" or False
+
+        embed = await self.generate_neofetch(ctx, distro, is_mobile)
+
+        async def regenerator(is_mobile: bool):
+            return await self.generate_neofetch(ctx, None, is_mobile)
+
+        view = self.NeofetchFixer(embed, regenerator)
+        view.message = await ctx.reply(embed=embed, mention_author=False, view=view)
 
     @neofetch.autocomplete("distro")
     async def distro_autocomplete(
@@ -219,25 +222,27 @@ class Gadgets(commands.Cog):
                 await ctx.send(msg)
                 ctx.error_handled = True
 
-    class DisabledFixer(discord.ui.View):
-        @discord.ui.button(
-            label="Embed only (>2000 characters)",
-            style=discord.ButtonStyle.secondary,
-            disabled=True,
-        )
-        async def noop(
-            self, interaction: discord.Interaction, button: discord.ui.Button
-        ):
-            pass
-
     class NeofetchFixer(discord.ui.View):
         message: discord.Message
 
-        def __init__(self, content: str, embed: discord.Embed):
+        def __init__(
+            self,
+            embed: discord.Embed,
+            regenerator: Callable[[bool], Awaitable[discord.Embed]],
+        ):
             super().__init__()
-            self.embed_mode = True
-            self.content = content
+            self.regenerator = regenerator
             self.embed = embed
+            self.embed_mode = True
+
+        def fix_fixer(self):
+            fixer = self.children[0]
+            if (
+                isinstance(fixer, discord.ui.Button)
+                and len(self.embed.description or "") > 2000
+            ):
+                fixer.disabled = True
+                fixer.label = "Embed only (>2000 chars)"
 
         @discord.ui.button(label="Without embed", style=discord.ButtonStyle.secondary)
         async def fixup(
@@ -246,7 +251,7 @@ class Gadgets(commands.Cog):
             if self.embed_mode:
                 button.label = "With embed"
                 await interaction.response.edit_message(
-                    content=self.content, embeds=[], view=self
+                    content=self.embed.description or "", embeds=[], view=self
                 )
                 self.embed_mode = False
             else:
@@ -256,9 +261,49 @@ class Gadgets(commands.Cog):
                 )
                 self.embed_mode = True
 
+        async def regenerate_with(
+            self, interaction: discord.Interaction, is_mobile: bool
+        ):
+            self.embed = await self.regenerator(is_mobile)
+            self.fix_fixer()
+            if self.embed_mode:
+                await interaction.response.edit_message(embed=self.embed, view=self)
+            else:
+                await interaction.response.edit_message(
+                    content=self.embed.description or "", embeds=[], view=self
+                )
+
+        @discord.ui.button(
+            label="Regenerate (full width)", style=discord.ButtonStyle.primary
+        )
+        async def regenerate(
+            self, interaction: discord.Interaction, button: discord.ui.Button
+        ):
+            await self.regenerate_with(interaction, False)
+
+        @discord.ui.button(
+            label="Regenerate (mobile-width)", style=discord.ButtonStyle.primary
+        )
+        async def regenerate_mobile(
+            self, interaction: discord.Interaction, button: discord.ui.Button
+        ):
+            await self.regenerate_with(interaction, True)
+
         async def on_timeout(self) -> None:
             self.clear_items()
             await self.message.edit(view=self)
+
+        @discord.ui.button(label="Stop", style=discord.ButtonStyle.red)
+        async def halt(
+            self, interaction: discord.Interaction, button: discord.ui.Button
+        ):
+            self.stop()
+            if self.embed_mode:
+                await interaction.response.edit_message(embed=self.embed, view=None)
+            else:
+                await interaction.response.edit_message(
+                    content=self.embed.description or "", embeds=[], view=None
+                )
 
     class NeofetchEntry(TypedDict):
         distro: str
