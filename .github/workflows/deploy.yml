@@ -30,7 +30,7 @@ jobs:
               set -e
               cd ${{ secrets.PROJECT_PATH }}
               touch .updating
-              git pull --ff-only
+              git pull --rebase
               ~/.local/bin/poetry env use 3.12
               ~/.local/bin/poetry install --only main
               rm .updating
