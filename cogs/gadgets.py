@@ -237,12 +237,14 @@ class Gadgets(commands.Cog):
 
         def fix_fixer(self):
             fixer = self.children[0]
-            if (
-                isinstance(fixer, discord.ui.Button)
-                and len(self.embed.description or "") > 2000
-            ):
-                fixer.disabled = True
-                fixer.label = "Embed only (>2000 chars)"
+            if isinstance(fixer, discord.ui.Button):
+                if len(self.embed.description or "") > 2000:
+                    fixer.disabled = True
+                    self.embed_mode = False
+                    fixer.label = "Embed only (>2000 chars)"
+                else:
+                    fixer.disabled = False
+                    fixer.label = "Without embed" if self.embed_mode else "With embed"
 
         @discord.ui.button(label="Without embed", style=discord.ButtonStyle.secondary)
         async def fixup(
