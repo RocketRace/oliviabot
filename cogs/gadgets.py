@@ -55,20 +55,102 @@ class Gadgets(commands.Cog):
         await self.init_neofetch()
 
     @commands.hybrid_command()
-    async def louna(self, ctx: Context, n: commands.Range[int, 1, 500] = 2):
-        """louna
-
-        Parameters
-        -----------
-        n: commands.Range[int, 1, 500]
-            number of creatures
-        """
+    async def louna(self, ctx: Context):
+        """louna"""
         emojies = [
-            "\N{HEDGEHOG}",
-            "\N{COW}",
+            "✂️",
+            "❤️‍🔥",
+            "❤️‍🩹",
+            "🌍",
+            "🌚",
+            "🌞",
+            "🌸",
+            "🌺",
+            "🍉",
+            "🍙",
+            "🎺",
+            "🏩",
+            "🏳️‍⚧️",
+            "🏳️‍🌈",
+            "🐀",
+            "🐄",
+            "🐇",
+            "🐈",
+            "🐊",
+            "🐌",
+            "🐐",
+            "🐑",
+            "🐕",
+            "🐖",
+            "🐗",
+            "🐛",
+            "🐩",
+            "🐫",
+            "🐴",
+            "🐸",
+            "👄",
+            "👩‍❤️‍💋‍👩",
+            "👩‍💻",
+            "👰‍♀️",
+            "👹",
+            "💅",
+            "💓",
+            "💕",
+            "💖",
+            "💗",
+            "💘",
+            "💝",
+            "💣",
+            "💸",
+            "💹",
+            "📈",
+            "📸",
+            "🔪",
+            "🕊️",
+            "🗿",
+            "🤠",
+            "🤡",
+            "🤩",
+            "🥸",
+            "🥺",
+            "🦊",
+            "🦌",
+            "🦒",
+            "🦔",
+            "🦕",
+            "🦘",
+            "🦙",
+            "🦝",
+            "🦟",
+            "🦡",
+            "🦢",
+            "🦤",
+            "🦥",
+            "🦩",
+            "🦫",
+            "🦮",
+            "🧘‍♀️",
+            "🧚‍♂️",
+            "🧝‍♀️",
+            "🧠",
+            "🧸",
+            "🪿",
+            "🫒",
+            "🫡",
+            "🫣",
+            "🫵",
+            "😇",
+            "😭",
+            "😳",
+            "😼",
+            "🙏",
+            "🚀",
+            "🚲",
+            "🛀",
         ]
-        choices = "".join(random.choices(emojies, k=n))
-        return await ctx.send(f"louna {choices}")
+        k = random.randint(2, 3)
+        choices = "".join(random.choices(emojies, k=k))
+        return await ctx.send(f"l\u200bouna {choices}")
 
     @louna.error
     async def louna_error(self, ctx: Context, error: commands.CommandError):
