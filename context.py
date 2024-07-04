@@ -41,6 +41,7 @@ class OliviaBot(commands.Bot):
             "jishaku",
             # cogs
             "cogs.gadgets",
+            "cogs.errors",
             "cogs.meta",
         ]
         if not prod:

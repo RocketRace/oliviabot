@@ -40,16 +40,6 @@ def dedent(s: str) -> str:
         return "\n".join(line[common_width:] for line in lines)
 
 
-def louna_converter(n_str: str):
-    try:
-        n = int(n_str)
-        if n <= 0 or n > 500:
-            raise ValueError
-    except ValueError:
-        raise commands.CheckFailure("Number must be an integer between 1 and 500")
-    return n
-
-
 class Gadgets(commands.Cog):
     """Various gadgets and gizmos"""
 
@@ -64,12 +54,12 @@ class Gadgets(commands.Cog):
         await self.init_neofetch()
 
     @commands.hybrid_command()
-    async def louna(self, ctx: Context, n: Annotated[int, louna_converter] = 2):
+    async def louna(self, ctx: Context, n: commands.Range[int, 1, 500] = 2):
         """louna
 
         Parameters
         -----------
-        n: int
+        n: commands.Range[int, 1, 500]
             number of creatures
         """
         emojies = [
@@ -82,9 +72,14 @@ class Gadgets(commands.Cog):
     @louna.error
     async def louna_error(self, ctx: Context, error: commands.CommandError):
         match error:
-            case commands.CheckFailure():
-                await ctx.send(*error.args)
+            case commands.RangeError():
                 ctx.error_handled = True
+                await ctx.send(
+                    f"Value must be an integer between {error.minimum} and {error.maximum} (you said {error.value}...)"
+                )
+            case commands.BadArgument():
+                ctx.error_handled = True
+                await ctx.send("Value must be an integer")
 
     class DistroNotFound(Exception):
         """Valid neofetch distro not found"""
