@@ -10,7 +10,7 @@ import discord
 from discord.ext import commands
 from discord.ui.item import Item
 
-from context import OliviaBot, Context
+from bot import OliviaBot, Context
 
 
 def dedent(s: str) -> str:

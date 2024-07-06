@@ -1,7 +1,7 @@
 import logging
 from discord.ext import commands
 
-from context import Context, OliviaBot
+from bot import Context, OliviaBot
 
 
 class ErrorHandler(commands.Cog):

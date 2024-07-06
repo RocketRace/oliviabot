@@ -4,4 +4,4 @@ watchmedo auto-restart \
     --directory . \
     --pattern .reload-trigger \
     --no-restart-on-command-exit \
-    python3 -- bot.py
+    python3 -- run.py

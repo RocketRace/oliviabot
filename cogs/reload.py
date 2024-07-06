@@ -3,7 +3,7 @@ import logging
 from discord.ext import commands
 import aioconsole
 
-from context import OliviaBot
+from bot import OliviaBot
 
 
 class Reloader(commands.Cog):

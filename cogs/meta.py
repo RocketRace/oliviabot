@@ -1,8 +1,8 @@
-import itertools
 import discord
 from discord.ext import commands
+import git
 
-from context import OliviaBot, Context
+from bot import OliviaBot, Context
 
 
 class Meta(commands.Cog):
@@ -49,7 +49,32 @@ class Meta(commands.Cog):
             await self.bot.reload_extension(extension)
         await ctx.send("Loaded all extensions")
 
+    @commands.command()
+    async def about(self, ctx: Context):
+        """About me!"""
+        lines = []
+        for commit in self.repo.iter_commits(max_count=5):
+            url = f"[`{commit.hexsha[:7]}`](https://RocketRace/oliviabot/commit/{commit.hexsha})"
+            dt = discord.utils.format_dt(commit.committed_datetime, "R")
+            full_summary = (
+                bytes(commit.summary).decode("utf-8")
+                if not isinstance(commit.summary, str)
+                else commit.summary
+            )
+            summary = (
+                full_summary[:17] + "..." if len(full_summary) > 20 else full_summary
+            )
+            changes = f"+{commit.stats.total["insertions"]} -{commit.stats.total["deletions"]}"
+            lines.append(f"{url} {dt} {changes} {summary}")
+        embed = discord.Embed(
+            description="Hi! I'm oliviabot, an automated version of Olivia."
+                        "I try my best to provide joy to the world."
+        )
+        embed.add_field(name="Recent commits", value="".join(lines), inline=False)
+        await ctx.send(embed=embed)
+
     def __init__(self, bot: OliviaBot):
+        self.repo = git.Repo(".")
         self.bot = bot
 
 

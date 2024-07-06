@@ -40,7 +40,7 @@ jobs:
                 echo "Restarting bot"
                 tmux send -t oliviabot C-c
                 sleep 1
-                tmux send -t oliviabot python3 Space bot.py Space prod Enter
+                tmux send -t oliviabot python3 Space run.py Space prod Enter
               elif [ $output ]; then
                 echo "Restarting cogs"
                 tmux send -t oliviabot "$output"
