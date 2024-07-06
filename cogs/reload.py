@@ -17,7 +17,7 @@ class Reloader(commands.Cog):
                 logging.info("Stopping reloader loop")
                 return
 
-            for chunk in line.split(";"):
+            for chunk in line.split(","):
                 action, extension = chunk.split(" ")
                 try:
                     if action == "load":
