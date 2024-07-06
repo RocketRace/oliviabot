@@ -70,8 +70,10 @@ class OliviaBot(commands.Bot):
 
     async def on_ready(self) -> None:
         assert self.user
-        open(".build-success", "w")
-        logging.info(f"Logged in as {self.user} (ID: {self.user.id})")
+        webhook = discord.Webhook.from_url(self.webhook_url, client=self)
+        msg = f"Logged in as {self.user} (ID: {self.user.id})"
+        logging.info(msg)
+        await webhook.send(msg)
 
     async def setup_hook(self) -> None:
         self.webhook = discord.Webhook.from_url(self.webhook_url, client=self)
