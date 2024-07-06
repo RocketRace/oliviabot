@@ -28,13 +28,13 @@ for diff in head_commit.diff("HEAD~1"):
             changes.append(Change(a, "unload"))
             changes.append(Change(b, "load"))
 
-is_important = lambda path: (
-    path.startswith("data/")
-    or path.startswith("scripts/")
-    or path.endswith(".py")
-    or path.endswith(".pyi")
-    or path == "poetry.lock"
-    or path == "pypoetry.toml"
+is_important = lambda change: (
+    change.path.startswith("data/")
+    or change.path.startswith("scripts/")
+    or change.path.endswith(".py")
+    or change.path.endswith(".pyi")
+    or change.path == "poetry.lock"
+    or change.path == "pypoetry.toml"
 )
 actionable: list[Change] = list(filter(is_important, changes))
 cog_only = all(change.path.startswith("cogs/") for change in actionable)
