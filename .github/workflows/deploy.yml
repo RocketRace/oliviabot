@@ -34,13 +34,13 @@ jobs:
               ~/.local/bin/poetry install --only main
               py=$(~/.local/bin/poetry env info --executable)
               output=$($py scripts/trigger_updates.py)
-              if [ $output == bot ]; then
+              if [ -z $output ]; then
+                echo "Not restarting anything"
+              elif [ $output == bot ]; then
                 echo "Restarting bot"
                 tmux send -t oliviabot C-c python3 Space bot.py Space prod Enter
               elif [ $output ]; then
                 echo "Restarting cogs"
                 tmux send -t oliviabot "$output"
-              else
-                echo "Not restarting anything"
               fi
 
