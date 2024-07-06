@@ -40,7 +40,7 @@ jobs:
               elif [ $output ]; then
                 echo "Restarting cogs"
                 tmux send -t oliviabot "$output"
-              else;
+              else
                 echo "Not restarting anything"
               fi
 
