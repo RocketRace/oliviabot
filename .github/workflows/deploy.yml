@@ -32,4 +32,14 @@ jobs:
               git pull --rebase
               ~/.local/bin/poetry env use 3.12
               ~/.local/bin/poetry install --only main
-              tmux send -t oliviabot C-c python3 Space bot.py Space prod Enter
+              output=$(python scripts/trigger_updates.py)
+              if [ $output = bot ]; then
+                echo "Restarting bot"
+                tmux send -t oliviabot C-c python3 Space bot.py Space prod Enter
+              elif [ $output ]; then
+                echo "Restarting cogs"
+                tmux send -t oliviabot "$output"
+              else;
+                echo "Not restarting anything"
+              fi
+

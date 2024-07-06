@@ -23,13 +23,4 @@ jobs:
             script: |
               set -e
               cd ${{ secrets.PROJECT_PATH }}
-              output=$(python scripts/trigger_updates.py)
-              if [ $output = bot ]; then
-                echo "Restarting bot"
-                tmux send -t oliviabot C-c python3 Space bot.py Space prod Enter
-              elif [ $output ]; then
-                echo "Restarting cogs"
-                tmux send -t oliviabot "$output"
-              else;
-                echo "Not restarting anything"
-              fi
+              tmux send -t oliviabot C-c python3 Space bot.py Space prod Enter
