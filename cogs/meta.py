@@ -64,13 +64,13 @@ class Meta(commands.Cog):
             summary = (
                 full_summary[:17] + "..." if len(full_summary) > 20 else full_summary
             )
-            changes = f"+{commit.stats.total["insertions"]} -{commit.stats.total["deletions"]}"
+            changes = f"`+{commit.stats.total["insertions"]}, -{commit.stats.total["deletions"]}`"
             lines.append(f"{url} {dt} {changes} {summary}")
         embed = discord.Embed(
             description="Hi! I'm oliviabot, an automated version of Olivia."
                         "I try my best to provide joy to the world."
         )
-        embed.add_field(name="Recent commits", value="".join(lines), inline=False)
+        embed.add_field(name="Recent commits", value="\n".join(lines), inline=False)
         await ctx.send(embed=embed)
 
     def __init__(self, bot: OliviaBot):
