@@ -18,7 +18,7 @@ class Reloader(commands.Cog):
                 return
 
             for chunk in line.split(","):
-                action, extension = chunk.split(" ")
+                action, extension = chunk.split(":")
                 try:
                     if action == "load":
                         await self.bot.load_extension(extension)
