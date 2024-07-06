@@ -46,8 +46,7 @@ class OliviaBot(commands.Bot):
         ]
         if prod:
             # prod cogs
-            pass
-            # self.activated_extensions.append("cogs.reload")
+            self.activated_extensions.append("cogs.reload")
         else:
             # development cogs
             self.activated_extensions.append("cogs.terminal")
