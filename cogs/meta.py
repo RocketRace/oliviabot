@@ -1,3 +1,4 @@
+import itertools
 import discord
 from discord.ext import commands
 
@@ -16,7 +17,30 @@ class Meta(commands.Cog):
     @commands.is_owner()
     @commands.guild_only()
     async def nick(self, ctx: Context):
-        pass
+        automated = [
+            "\N{COMBINING LATIN SMALL LETTER A}",
+            "\N{COMBINING LATIN SMALL LETTER U}",
+            "\N{COMBINING LATIN SMALL LETTER T}",
+            "\N{COMBINING LATIN SMALL LETTER O}",
+            "\N{COMBINING LATIN SMALL LETTER M}",
+            "\N{COMBINING LATIN SMALL LETTER A}",
+            "\N{COMBINING LATIN SMALL LETTER T}",
+            "\N{COMBINING LATIN SMALL LETTER E}",
+            "\N{COMBINING LATIN SMALL LETTER D}",
+        ]
+
+        assert isinstance(ctx.author, discord.Member)
+        assert isinstance(ctx.me, discord.Member)
+        name = ctx.author.display_name
+        if len(name) >= 9:
+            nick = name[:-9] + "".join(a + b for a, b in zip(name[-9:], automated))
+        elif len(name) >= 4:
+            nick = name[:-4] + "".join(a + b for a, b in zip(name[-4:], automated[:4]))
+        else:
+            return await ctx.send("Nickname too short")
+
+        await ctx.me.edit(nick=nick)
+        await ctx.message.add_reaction("\N{WHITE HEAVY CHECK MARK}")
 
     @commands.command()
     @commands.is_owner()
