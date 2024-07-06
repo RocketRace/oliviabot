@@ -32,7 +32,8 @@ jobs:
               git pull --rebase
               ~/.local/bin/poetry env use 3.12
               ~/.local/bin/poetry install --only main
-              output=$(python3 scripts/trigger_updates.py)
+              venv=$(~/.local/bin/poetry env info --path)
+              output=$($venv/bin/python3 scripts/trigger_updates.py)
               if [ $output = bot ]; then
                 echo "Restarting bot"
                 tmux send -t oliviabot C-c python3 Space bot.py Space prod Enter
