@@ -23,4 +23,9 @@ jobs:
             script: |
               set -e
               cd ${{ secrets.PROJECT_PATH }}
-              tmux send -t oliviabot C-c python3 Space bot.py Space prod Enter
+              output=$(python scripts/trigger_updates.py)
+              if [ $output = bot ]; then
+                tmux send -t oliviabot C-c python3 Space bot.py Space prod Enter
+              elif [ $output ]; then
+                tmux send -t oliviabot "$output"
+              fi

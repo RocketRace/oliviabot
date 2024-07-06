@@ -8,6 +8,3 @@ __pycache__
 *.db-journal
 config.py
 *.log
-.updating
-.reload-trigger
-.build-success
