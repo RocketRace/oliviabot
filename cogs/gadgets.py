@@ -200,7 +200,7 @@ class Gadgets(commands.Cog):
                         message_id = msg.id
                         results.append((timestamp, channel_id, message_id))
 
-                        if len(results) % 100 == 0:
+                        if len(results) % 10 == 0:
                             await ctx.send(
                                 f"{len(results)} instances found so far, updating database"
                             )
