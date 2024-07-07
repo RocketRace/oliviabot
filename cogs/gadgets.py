@@ -183,7 +183,9 @@ class Gadgets(commands.Cog):
             if not isinstance(channel, discord.abc.Messageable):
                 continue
             try:
-                async for msg in channel.history(after=after, before=before):
+                async for msg in channel.history(
+                    limit=None, after=after, before=before
+                ):
                     if msg.content in [
                         "!vore 0",
                         "!dayssincevore 0",
