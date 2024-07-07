@@ -26,7 +26,7 @@ class Reloader(commands.Cog):
                         await self.bot.reload_extension(extension)
                     elif action == "unload":
                         await self.bot.unload_extension(extension)
-
+                    logging.info(f"Extension {extension} {action}ed")
                 except commands.ExtensionError as e:
                     logging.error(f"Failed to {action} extension {extension}: {e}")
 
