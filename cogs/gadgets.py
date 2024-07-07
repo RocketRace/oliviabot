@@ -3,13 +3,16 @@ from __future__ import annotations
 import asyncio
 import csv
 import datetime
+import io
+import itertools
 import logging
 import random
 import re
-from typing import Any, Awaitable, Callable, Literal, TypedDict
+from typing import Awaitable, Callable, Literal, TypedDict
 import discord
 from discord.ext import commands
-from discord.ui.item import Item
+import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
 
 from bot import OliviaBot, Context, qwd_only
 
@@ -144,7 +147,35 @@ class Gadgets(commands.Cog):
             )
         if recent is None:
             return await ctx.send("It had never been mentioned before... before you...")
-        return await ctx.send("Yum! " + recent)
+        await ctx.send("Yum! " + recent)
+        await self.update_cached_graph()
+
+    async def update_cached_graph(self):
+        async with self.bot.db.cursor() as cur:
+            await cur.execute("""SELECT timestamp FROM vore;""")
+            dts = [
+                datetime.datetime.fromtimestamp(timestamp, datetime.UTC)
+                for [timestamp] in await cur.fetchall()
+            ]
+        fig, ax = plt.subplots()
+        ax.eventplot(dts, orientation="horizontal")
+        ax.set_title("All events across time")
+        ax.set_yticks([])
+        ax.xaxis.set_major_locator(ticker.LinearLocator(5))
+        file = io.BytesIO()
+        fig.savefig(file)
+        file.seek(0)
+        self.cached_graph = discord.File(
+            file,
+            filename="graph.png",
+            description="Graph of event occurrences across time",
+        )
+
+    @qwd_only()
+    @vore.command()
+    async def graph(self, ctx: Context):
+        """More details"""
+        await ctx.send(file=self.cached_graph)
 
     @vore.command()
     @commands.is_owner()
@@ -225,6 +256,7 @@ class Gadgets(commands.Cog):
                 );
                 """
             )
+        await self.update_cached_graph()
 
     class DistroNotFound(Exception):
         """Valid neofetch distro not found"""
