@@ -59,7 +59,7 @@ class Gadgets(commands.Cog):
     async def louna(self, ctx: Context):
         """l\u200bouna"""
         # fmt: off
-        emojies = [
+        emojis = [
             "✂️", "❤️‍🔥", "❤️‍🩹", "🌍", "🌚", "🌞", "🌸", "🌺",
             "🍉", "🍙", "🎺", "🏩", "🏳️‍⚧️", "🏳️‍🌈", "🐀", "🐄",
             "🐇", "🐈", "🐊", "🐌", "🐐", "🐑", "🐕", "🐖",
@@ -83,7 +83,7 @@ class Gadgets(commands.Cog):
         ]
         # fmt: on
         k = random.randint(2, 3)
-        choices = "".join(random.choices(emojies, k=k))
+        choices = "".join(random.choices(emojis, k=k))
         return await ctx.send(f"l\u200bouna {choices}")
 
     @louna.error
