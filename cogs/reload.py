@@ -19,7 +19,7 @@ class Reloader(commands.Cog):
                     await self.bot.close()
                 else:
                     logging.info("Stopping reloader loop")
-                return
+                raise
 
             for chunk in line.split(","):
                 action, extension = chunk.split(":")
