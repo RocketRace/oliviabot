@@ -14,7 +14,11 @@ class Reloader(commands.Cog):
             try:
                 line: str = await aioconsole.ainput("Cog actions: ")
             except asyncio.CancelledError:
-                logging.info("Stopping reloader loop")
+                if not self.is_reloading:
+                    logging.info("Stopping reloader loop and shutting down")
+                    await self.bot.close()
+                else:
+                    logging.info("Stopping reloader loop")
                 return
 
             for chunk in line.split(","):
@@ -35,9 +39,11 @@ class Reloader(commands.Cog):
         self.task = asyncio.create_task(self.reload_loop())
 
     async def cog_unload(self):
+        self.is_reloading = True
         self.task.cancel()
 
     def __init__(self, bot: OliviaBot):
+        self.is_reloading = False
         self.bot = bot
 
 
