@@ -50,6 +50,15 @@ class Meta(commands.Cog):
         await ctx.send("Loaded all extensions")
 
     @commands.command()
+    @commands.is_owner()
+    async def sql(self, ctx: Context, *, command: str):
+        async with self.bot.db.cursor() as cur:
+            await cur.execute(command)
+            return await ctx.send(
+                "\n".join([str(row) for row in await cur.fetchall()])[:2000]
+            )
+
+    @commands.command()
     async def about(self, ctx: Context):
         """About me!"""
         lines = []
