@@ -1,3 +1,4 @@
+import pathlib
 from typing import Literal, NamedTuple
 import git
 
@@ -43,4 +44,6 @@ if actionable and not cog_only:
     print("bot", end="")
 
 elif actionable and cog_only:
-    print(",".join(f"{change.mode}:{change.path}" for change in actionable))
+    print(
+        ",".join(f"{mode}:cogs.{pathlib.Path(path).stem}" for mode, path in actionable)
+    )
