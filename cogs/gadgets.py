@@ -144,7 +144,7 @@ class Gadgets(commands.Cog):
             )
         if recent is None:
             return await ctx.send("It had never been mentioned before... before you...")
-        return await ctx.send("Updated. " + recent)
+        return await ctx.send("Yum! " + recent)
 
     @vore.command()
     @commands.is_owner()
