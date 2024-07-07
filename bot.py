@@ -10,7 +10,6 @@ import config
 
 class OliviaBot(commands.Bot):
     owner_ids: set[int]
-    ctx_class: type[commands.Context]
     terminal_cog_interrupted: bool
 
     def __init__(
@@ -57,16 +56,13 @@ class OliviaBot(commands.Bot):
         self.webhook_url = webhook_url
         self.tester_bot_id = tester_bot_id
         self.tester_bot_token = tester_bot_token
-        self.ctx_class = commands.Context
         self.terminal_cog_interrupted = False
 
     def start(self, *args, **kwargs) -> Coroutine[Any, Any, None]:
         return super().start(config.bot_token, *args, **kwargs)
 
     async def get_context(self, message, *, cls: type[commands.Context] | None = None):
-        if cls is None:
-            cls = self.ctx_class
-        return await super().get_context(message, cls=cls)
+        return await super().get_context(message, cls=cls or Context)
 
     async def on_ready(self) -> None:
         assert self.user

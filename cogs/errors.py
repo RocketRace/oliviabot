@@ -16,9 +16,12 @@ class ErrorHandler(commands.Cog):
         # 3. Global error handler
         #
         # If any previous steps set `error_handled` to True, bail
-
-        if ctx.error_handled:
-            return
+        try:
+            if ctx.error_handled:
+                return
+        # The context may not be loaded in yet
+        except AttributeError:
+            pass
 
         command_name = ctx.command.name if ctx.command else "<no command>"
 
