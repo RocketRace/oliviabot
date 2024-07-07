@@ -40,10 +40,10 @@ is_important = lambda change: (
 actionable: list[Change] = list(filter(is_important, changes))
 cog_only = all(change.path.startswith("cogs/") for change in actionable)
 
-if actionable and not cog_only:
+if actionable:
     print("bot", end="")
 
-elif actionable and cog_only:
-    print(
-        ",".join(f"{mode}:cogs.{pathlib.Path(path).stem}" for mode, path in actionable)
-    )
+# elif actionable and cog_only:
+#     print(
+#         ",".join(f"{mode}:cogs.{pathlib.Path(path).stem}" for mode, path in actionable)
+#     )
