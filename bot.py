@@ -1,3 +1,4 @@
+from __future__ import annotations
 import logging
 from typing import Any, Coroutine
 
@@ -6,6 +7,17 @@ import discord
 from discord.ext import commands
 
 import config
+
+
+def qwd_only():
+    async def predicate(ctx: Context) -> bool:
+        if ctx.author.id in ctx.bot.owner_ids:
+            return True
+        if ctx.guild and ctx.guild.id == ctx.bot.qwd_id:
+            return True
+        return False
+
+    return commands.check(predicate)
 
 
 class OliviaBot(commands.Bot):
@@ -22,6 +34,7 @@ class OliviaBot(commands.Bot):
         webhook_url: str,
         tester_bot_id: int,
         tester_bot_token: str,
+        qwd_id: int,
         **kwargs: Any,
     ) -> None:
         intents = discord.Intents.default()
@@ -56,6 +69,7 @@ class OliviaBot(commands.Bot):
         self.webhook_url = webhook_url
         self.tester_bot_id = tester_bot_id
         self.tester_bot_token = tester_bot_token
+        self.qwd_id = qwd_id
         self.terminal_cog_interrupted = False
 
     def start(self, *args, **kwargs) -> Coroutine[Any, Any, None]:

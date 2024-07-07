@@ -7,3 +7,4 @@ database_path: str
 testing_guild_id: int
 testing_channel_id: int
 tester_bot_id: int
+qwd_id: int

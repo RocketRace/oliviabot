@@ -40,6 +40,7 @@ async def main():
             webhook_url=config.webhook_url,
             tester_bot_id=config.tester_bot_id,
             tester_bot_token=config.tester_bot_token,
+            qwd_id=config.qwd_id,
         ) as oliviabot,
     ):
 
