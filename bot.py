@@ -80,6 +80,14 @@ class OliviaBot(commands.Bot):
             config.tester_bot_id,
         }
 
+        async with self.db.cursor() as cur:
+            await cur.execute(
+                """CREATE TABLE IF NOT EXISTS params(
+                    last_neofetch_update INTEGER
+                );
+                """
+            )
+
         for extension in self.activated_extensions:
             await self.load_extension(extension)
 

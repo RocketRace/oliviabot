@@ -433,9 +433,8 @@ class Gadgets(commands.Cog):
 
     async def init_neofetch(self):
         async with self.bot.db.cursor() as cur:
-            await self.bot.db.executescript(
-                """DROP TABLE IF EXISTS neofetch;
-                CREATE TABLE neofetch (
+            await cur.executescript(
+                """CREATE TABLE IF NOT EXISTS neofetch(
                     distro TEXT NOT NULL,
                     suffix TEXT NOT NULL,
                     pattern TEXT NOT NULL,
@@ -447,15 +446,34 @@ class Gadgets(commands.Cog):
                 """
             )
 
-            with open("data/neofetch.csv") as f:
-                rows = [self.typed_neofetch_row(row) for row in csv.DictReader(f)]
-                await cur.executemany(
-                    """INSERT INTO neofetch VALUES (
-                        :distro, :suffix, :pattern, :mobile_width, :color_index, :color_rgb, :logo
-                    );
-                    """,
-                    rows,
+            with open("data/neofetch_updated") as f:
+                timestamp = int(f.read())
+                self.neofetch_updated = datetime.datetime.fromtimestamp(
+                    timestamp, datetime.UTC
                 )
+                await cur.execute("""SELECT last_neofetch_update FROM params;""")
+                last_neofetch_update = await cur.fetchone()
+                if last_neofetch_update is None or last_neofetch_update[0] != timestamp:
+                    with open("data/neofetch.csv") as f:
+                        rows = [
+                            self.typed_neofetch_row(row) for row in csv.DictReader(f)
+                        ]
+                        await cur.executemany(
+                            """INSERT INTO neofetch VALUES (
+                                :distro, :suffix, :pattern, :mobile_width, :color_index, :color_rgb, :logo
+                            );
+                            """,
+                            rows,
+                        )
+                if last_neofetch_update is None:
+                    await cur.execute(
+                        """INSERT INTO params(last_neofetch_update) VALUES(?);""",
+                        [timestamp],
+                    )
+                else:
+                    await cur.execute(
+                        """UPDATE params SET last_neofetch_update = ?;""", [timestamp]
+                    )
 
             with open("data/neofetch_updated") as f:
                 self.neofetch_updated = datetime.datetime.fromtimestamp(
