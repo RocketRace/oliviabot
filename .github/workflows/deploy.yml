@@ -39,7 +39,7 @@ jobs:
               elif [ $output == bot ]; then
                 echo "Restarting bot"
                 tmux send -t oliviabot C-c
-                sleep 1
+                sleep 2
                 tmux send -t oliviabot python3 Space run.py Space prod Enter
               elif [ $output ]; then
                 echo "Restarting cogs"
