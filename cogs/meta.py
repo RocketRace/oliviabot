@@ -61,8 +61,11 @@ class Meta(commands.Cog):
                 if not isinstance(commit.summary, str)
                 else commit.summary
             )
+            limit = 40
             summary = (
-                full_summary[:17] + "..." if len(full_summary) > 20 else full_summary
+                full_summary[: limit - 3] + "..."
+                if len(full_summary) > limit
+                else full_summary
             )
             # changes = f"`+{commit.stats.total["insertions"]}, -{commit.stats.total["deletions"]}`"
             lines.append(f"{url} {dt} {summary}")
