@@ -1,27 +1,73 @@
 import logging
+import traceback
+import discord
 from discord.ext import commands
 
 from bot import Context, OliviaBot
 
 
 class ErrorHandler(commands.Cog):
-    def __init__(self, bot):
+    def __init__(self, bot: OliviaBot):
         self.bot = bot
+
+    async def log_error(self, ctx: Context, error: commands.CommandError):
+        tb = "\n".join(
+            traceback.format_exception(type(error), error, error.__traceback__)
+        )
+        embed = discord.Embed(
+            title=error,
+            description=f"```py\n{tb}\n```",
+            color=discord.Color.from_str("#db7420"),
+            timestamp=ctx.message.created_at,
+        )
+
+        author = f"Author: {ctx.author.mention} ({ctx.author}, ID: {ctx.author.id})"
+        channel = (
+            f"Channel: {ctx.channel.mention} ({ctx.channel}, ID: {ctx.channel.id})"
+            if not isinstance(
+                ctx.channel,
+                (discord.DMChannel, discord.GroupChannel, discord.PartialMessageable),
+            )
+            else f"Channel: {ctx.channel} (ID: {ctx.channel.id})"
+        )
+        guild = (
+            f"Guild: {ctx.guild} ({ctx.guild.member_count or "<unknown>"} members, ID: {ctx.guild.id})"
+            if ctx.guild
+            else "Private messages"
+        )
+        context = "\n".join([author, channel, guild])
+        embed.add_field(name="Context", value=context, inline=False)
+
+        content = (
+            f"```\n{ctx.message.content[:1000]}\n```\nJump: {ctx.message.jump_url}"
+        )
+        embed.add_field(
+            name=(
+                "Message (truncated)" if len(ctx.message.content) > 1000 else "Message"
+            ),
+            value=content,
+            inline=False,
+        )
+
+        webhook = discord.Webhook.from_url(self.bot.webhook_url, client=self.bot)
+        await webhook.send(embed=embed)
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx: Context, error: commands.CommandError):
+        # skip errors that we don't want to report in any way
+        if isinstance(error, commands.CommandNotFound):
+            return
+
+        await self.log_error(ctx, error)
+
         # Error handling resolution order:
         # 1. Command-local error handler
         # 2. Cog-local error handler
         # 3. Global error handler
         #
         # If any previous steps set `error_handled` to True, bail
-        try:
-            if ctx.error_handled:
-                return
-        # The context may not be loaded in yet
-        except AttributeError:
-            pass
+        if ctx.error_handled:
+            return
 
         command_name = ctx.command.name if ctx.command else "<no command>"
 
@@ -65,8 +111,6 @@ class ErrorHandler(commands.Cog):
                 await ctx.send(f"Check failure in command {command_name}: {error}")
 
             # Other base errors
-            case commands.CommandNotFound():
-                pass
             case commands.ConversionError():
                 await ctx.send("Something went wrong with the parsing here")
             case commands.CommandInvokeError():
