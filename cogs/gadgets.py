@@ -172,6 +172,7 @@ class Gadgets(commands.Cog):
         )
 
     @qwd_only()
+    @commands.is_owner()
     @vore.command()
     async def graph(self, ctx: Context):
         """More details"""
