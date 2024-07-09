@@ -9,6 +9,18 @@ from bot import OliviaBot
 class Reloader(commands.Cog):
     """Automatic bot reloading, to replace the Terminal cog in prod"""
 
+    def __init__(self, bot: OliviaBot):
+        self.is_reloading = False
+        self.bot = bot
+
+    async def cog_load(self):
+        logging.info("Starting reloader loop")
+        self.task = asyncio.create_task(self.reload_loop())
+
+    async def cog_unload(self):
+        self.is_reloading = True
+        self.task.cancel()
+
     async def reload_loop(self) -> None:
         while True:
             try:
@@ -33,18 +45,6 @@ class Reloader(commands.Cog):
                     logging.info(f"Extension {extension} {action}ed")
                 except commands.ExtensionError as e:
                     logging.error(f"Failed to {action} extension {extension}: {e}")
-
-    async def cog_load(self):
-        logging.info("Starting reloader loop")
-        self.task = asyncio.create_task(self.reload_loop())
-
-    async def cog_unload(self):
-        self.is_reloading = True
-        self.task.cancel()
-
-    def __init__(self, bot: OliviaBot):
-        self.is_reloading = False
-        self.bot = bot
 
 
 async def setup(bot: OliviaBot):
