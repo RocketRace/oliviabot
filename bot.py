@@ -107,7 +107,7 @@ class OliviaBot(commands.Bot):
                     ALTER TABLE params ADD COLUMN louna_emoji_count INTEGER DEFAULT 0;
                     """
                 )
-            except aiosqlite.ProgrammingError:
+            except aiosqlite.OperationalError:
                 pass
 
         for extension in self.activated_extensions:
