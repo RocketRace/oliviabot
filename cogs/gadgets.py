@@ -1,19 +1,15 @@
 from __future__ import annotations
 
-import asyncio
 import csv
 import datetime
-import io
 import logging
 import random
 import re
 from typing import Awaitable, Callable, Literal, TypedDict
 import discord
 from discord.ext import commands
-import matplotlib.pyplot as plt
-import matplotlib.ticker as ticker
 
-from bot import OliviaBot, Context, qwd_only
+from bot import OliviaBot, Context
 
 
 def dedent(s: str) -> str:
