@@ -111,11 +111,11 @@ class Gadgets(commands.Cog):
 
         msg = "\n".join(
             [
-                "Born To Spam",
-                "World Is A Mjau",
+                "BORN TO SPAM",
+                "WORLD IS A MJAU",
                 f"Love Em All {command_count}",
                 "I Am L\u200bouna ^_^",
-                f"{emoji_count} Meaningful Emoticons",
+                f"{emoji_count} MEANINGFUL EMOTICONS",
             ]
         )
         await ctx.send(msg)
