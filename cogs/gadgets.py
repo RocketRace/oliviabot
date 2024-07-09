@@ -99,7 +99,7 @@ class Gadgets(commands.Cog):
 
     @louna.command()
     async def stats(self, ctx: Context):
-        """how many louna?"""
+        """how many l\u200bouna?"""
         async with ctx.bot.db.cursor() as cur:
             await cur.execute(
                 """SELECT louna_command_count, louna_emoji_count FROM params;"""
