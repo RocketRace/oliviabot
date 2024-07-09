@@ -41,7 +41,7 @@ class OliviaBot(commands.Bot):
         intents.message_content = True
         super().__init__(
             commands.when_mentioned_or("+"),
-            description="Automated Olivia, for all your Automated Olivia needs",
+            description="Hi! I'm oliviabot, an automated version of Olivia!\nI try my best to bring you joy.",
             intents=intents,
             allowed_mentions=discord.AllowedMentions(
                 everyone=False,

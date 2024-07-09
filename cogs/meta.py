@@ -104,10 +104,7 @@ class Meta(commands.Cog):
             )
             # changes = f"`+{commit.stats.total["insertions"]}, -{commit.stats.total["deletions"]}`"
             lines.append(f"{url} {dt} {summary}")
-        embed = discord.Embed(
-            description="Hi! I'm oliviabot, an automated version of Olivia!\n"
-            "I try my best to provide joy to the world."
-        )
+        embed = discord.Embed(description=self.bot.description)
         embed.add_field(name="Recent commits", value="\n".join(lines), inline=False)
         await ctx.send(embed=embed)
 
