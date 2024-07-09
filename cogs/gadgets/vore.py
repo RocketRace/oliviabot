@@ -8,13 +8,10 @@ from discord.ext import commands
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 
-from bot import OliviaBot, Context, qwd_only
+from bot import Context, Cog, qwd_only
 
 
-class Vore(commands.Cog):
-    def __init__(self, bot: OliviaBot):
-        self.bot = bot
-
+class Vore(Cog):
     async def recent_vore(self):
         async with self.bot.db.cursor() as cur:
             await cur.execute("""SELECT * FROM vore ORDER BY timestamp DESC LIMIT 1;""")
@@ -157,7 +154,3 @@ class Vore(commands.Cog):
             await ctx.send(f"Found {len(results)} results. Updating the database!")
             async with self.bot.db.cursor() as cur:
                 await cur.executemany("""INSERT INTO vore VALUES(?, ?, ?);""", results)
-
-
-async def setup(bot: OliviaBot):
-    await bot.add_cog(Vore(bot))

@@ -9,7 +9,7 @@ from typing import Awaitable, Callable, Literal, TypedDict
 import discord
 from discord.ext import commands
 
-from bot import OliviaBot, Context
+from bot import OliviaBot, Context, Cog
 
 
 def dedent(s: str) -> str:
@@ -156,24 +156,22 @@ def typed_neofetch_row(row: dict[str, str]) -> NeofetchEntry:
     }
 
 
-class Neofetch(commands.Cog):
-    def __init__(self, bot: OliviaBot):
-        self.bot = bot
+class DistroNotFound(Exception):
+    """Valid neofetch distro not found"""
 
-    async def cog_load(self):
+    def __init__(self, query: str, mobile: bool, *args: object) -> None:
+        super().__init__(*args)
+        self.mobile = mobile
+        self.query = query
+
+
+class Neofetch(Cog):
+    async def neofetch_cog_load(self):
         def regexp(pattern: str, string: str) -> bool:
             return re.match(pattern, string) is not None
 
         await self.bot.db.create_function("regexp", 2, regexp, deterministic=True)
         await self.init_neofetch()
-
-    class DistroNotFound(Exception):
-        """Valid neofetch distro not found"""
-
-        def __init__(self, query: str, mobile: bool, *args: object) -> None:
-            super().__init__(*args)
-            self.mobile = mobile
-            self.query = query
 
     async def generate_neofetch(
         self, ctx: Context, distro: str | None = None, is_mobile: bool = False
@@ -198,7 +196,7 @@ class Neofetch(commands.Cog):
 
             results = list(await cur.fetchall())
             if not results:
-                raise self.DistroNotFound(distro or "<none>", is_mobile)
+                raise DistroNotFound(distro or "<none>", is_mobile)
 
         distro_found: str
         color_index: int
@@ -294,7 +292,7 @@ class Neofetch(commands.Cog):
         logging.warn(f"Neofetch error: {error}")
         match error:
             case commands.CommandInvokeError(
-                original=self.DistroNotFound(query=query, mobile=mobile)
+                original=DistroNotFound(query=query, mobile=mobile)
             ):
                 msg = f"I couldn't find a distro for the query '{query}'"
                 if mobile:
@@ -342,7 +340,3 @@ class Neofetch(commands.Cog):
                 )
 
         logging.info("Initialized neofetch data")
-
-
-async def setup(bot: OliviaBot):
-    await bot.add_cog(Neofetch(bot))

@@ -5,8 +5,13 @@ import git
 from bot import OliviaBot, Context
 
 
-class OliviaHelpCommand(commands.DefaultHelpCommand):
-    pass
+class HelpCommand(commands.DefaultHelpCommand):
+    async def send_pages(self) -> None:
+        destination = self.get_destination()
+        for page in self.paginator.pages:
+            # antihighlightification
+            page = page.replace("louna", "l\u200bouna")
+            await destination.send(page)
 
 
 class Meta(commands.Cog):
@@ -16,7 +21,7 @@ class Meta(commands.Cog):
         self.bot = bot
         self.repo = git.Repo(".")
         self.original_help = bot.help_command
-        bot.help_command = OliviaHelpCommand()
+        bot.help_command = HelpCommand()
         bot.help_command.cog = self
 
     async def cog_unload(self):
@@ -31,6 +36,7 @@ class Meta(commands.Cog):
     @commands.is_owner()
     @commands.guild_only()
     async def nick(self, ctx: Context):
+        """Update my nickname"""
         automated = [
             "\N{COMBINING LATIN SMALL LETTER A}",
             "\N{COMBINING LATIN SMALL LETTER U}",
@@ -59,6 +65,7 @@ class Meta(commands.Cog):
     @commands.command()
     @commands.is_owner()
     async def load(self, ctx: Context, cog: str | None = None):
+        """Reload cogs"""
         if cog is None:
             for extension in self.bot.activated_extensions:
                 await self.bot.reload_extension(extension)
@@ -70,6 +77,7 @@ class Meta(commands.Cog):
     @commands.command()
     @commands.is_owner()
     async def sql(self, ctx: Context, *, command: str):
+        """Execute SQL commands"""
         async with self.bot.db.cursor() as cur:
             await cur.execute(command)
             return await ctx.send(
@@ -78,7 +86,7 @@ class Meta(commands.Cog):
 
     @commands.command()
     async def about(self, ctx: Context):
-        """About me!"""
+        """About me"""
         lines = []
         for commit in self.repo.iter_commits(max_count=5):
             url = f"[`{commit.hexsha[:7]}`](https://github.com/RocketRace/oliviabot/commit/{commit.hexsha})"

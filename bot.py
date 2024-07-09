@@ -41,6 +41,7 @@ class OliviaBot(commands.Bot):
         intents.message_content = True
         super().__init__(
             commands.when_mentioned_or("+"),
+            description="Automated Olivia, for all your Automated Olivia needs",
             intents=intents,
             allowed_mentions=discord.AllowedMentions(
                 everyone=False,
@@ -51,11 +52,8 @@ class OliviaBot(commands.Bot):
         self.activated_extensions = [
             # external libraries
             "jishaku",
-            # gadget cogs
-            "cogs.neofetch",
-            "cogs.louna",
-            "cogs.vore",
-            # other cogs
+            # cogs
+            "cogs.gadgets",
             "cogs.meta",
             "cogs.errors",
         ]
@@ -137,6 +135,10 @@ class OliviaBot(commands.Bot):
         guild = discord.Object(self.testing_guild_id)
         self.tree.copy_global_to(guild=guild)
         await self.tree.sync(guild=guild)
+
+
+class Cog(commands.Cog):
+    bot: OliviaBot
 
 
 class Context(commands.Context[OliviaBot]):

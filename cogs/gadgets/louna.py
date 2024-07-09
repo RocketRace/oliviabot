@@ -3,13 +3,10 @@ from __future__ import annotations
 import random
 from discord.ext import commands
 
-from bot import OliviaBot, Context
+from bot import OliviaBot, Context, Cog
 
 
-class Louna(commands.Cog):
-    def __init__(self, bot: OliviaBot):
-        self.bot = bot
-
+class Louna(Cog):
     @commands.group(invoke_without_command=True)
     async def louna(self, ctx: Context):
         """l\u200bouna"""
@@ -80,7 +77,3 @@ class Louna(commands.Cog):
             case commands.BadArgument():
                 ctx.error_handled = True
                 await ctx.send("Value must be an integer")
-
-
-async def setup(bot: OliviaBot):
-    await bot.add_cog(Louna(bot))
