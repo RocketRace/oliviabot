@@ -60,7 +60,7 @@ class Gadgets(commands.Cog):
         await self.init_neofetch()
         await self.init_vore()
 
-    @commands.hybrid_command()
+    @commands.group(invoke_without_command=True)
     async def louna(self, ctx: Context):
         """l\u200bouna"""
         # fmt: off
@@ -89,7 +89,36 @@ class Gadgets(commands.Cog):
         # fmt: on
         k = random.randint(2, 3)
         choices = "".join(random.choices(emojis, k=k))
-        return await ctx.send(f"l\u200bouna {choices}")
+        await ctx.send(f"l\u200bouna {choices}")
+        async with ctx.bot.db.cursor() as cur:
+            await cur.execute(
+                """UPDATE params SET louna_command_count = louna_command_count + 1;"""
+            )
+            await cur.execute(
+                """UPDATE params SET louna_emoji_count = louna_emoji_count + ?;""", [k]
+            )
+
+    @louna.command()
+    async def stats(self, ctx: Context):
+        """how many louna?"""
+        async with ctx.bot.db.cursor() as cur:
+            await cur.execute(
+                """SELECT louna_command_count, louna_emoji_count FROM params;"""
+            )
+            result = await cur.fetchone()
+            assert result
+            command_count, emoji_count = result
+
+        msg = "\n".join(
+            [
+                "Born to spam",
+                "World is a mjau",
+                f"Love em all {command_count}",
+                "I am Louna ^_^",
+                f"{emoji_count} meaningful emoticons",
+            ]
+        )
+        await ctx.send(msg)
 
     @louna.error
     async def louna_error(self, ctx: Context, error: commands.CommandError):

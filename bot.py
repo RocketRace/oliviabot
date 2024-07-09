@@ -101,6 +101,14 @@ class OliviaBot(commands.Bot):
                 );
                 """
             )
+            try:
+                await cur.executescript(
+                    """ALTER TABLE params ADD COLUMN louna_command_count INTEGER DEFAULT 0;
+                    ALTER TABLE params ADD COLUMN louna_emoji_count INTEGER DEFAULT 0;
+                    """
+                )
+            except aiosqlite.ProgrammingError:
+                pass
 
         for extension in self.activated_extensions:
             await self.load_extension(extension)
