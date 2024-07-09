@@ -45,6 +45,121 @@ def dedent(s: str) -> str:
         return "\n".join(line[common_width:] for line in lines)
 
 
+class NeofetchFixer(discord.ui.View):
+    message: discord.Message
+
+    def __init__(
+        self,
+        embed: discord.Embed,
+        author_id: int,
+        regenerator: Callable[[bool], Awaitable[discord.Embed]],
+    ):
+        super().__init__(timeout=120.0)
+        self.regenerator = regenerator
+        self.embed = embed
+        self.author_id = author_id
+        self.embed_mode = True
+
+    async def interaction_check(
+        self, interaction: discord.Interaction[discord.Client]
+    ) -> bool:
+        if interaction.user.id == self.author_id:
+            return True
+        else:
+            await interaction.response.send_message(
+                "That's not your button to touch", ephemeral=True
+            )
+            return False
+
+    def fix_fixer(self):
+        fixer = self.children[0]
+        if isinstance(fixer, discord.ui.Button):
+            if len(self.embed.description or "") > 2000:
+                fixer.disabled = True
+                self.embed_mode = False
+                fixer.label = "Embed only (>2000 chars)"
+            else:
+                fixer.disabled = False
+                fixer.label = "Without embed" if self.embed_mode else "With embed"
+
+    @discord.ui.button(label="Without embed", style=discord.ButtonStyle.secondary)
+    async def fixup(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if self.embed_mode:
+            button.label = "With embed"
+            await interaction.response.edit_message(
+                content=self.embed.description or "", embeds=[], view=self
+            )
+            self.embed_mode = False
+        else:
+            button.label = "Without embed"
+            await interaction.response.edit_message(
+                content=None, embed=self.embed, view=self
+            )
+            self.embed_mode = True
+
+    async def regenerate_with(self, interaction: discord.Interaction, is_mobile: bool):
+        self.embed = await self.regenerator(is_mobile)
+        self.fix_fixer()
+        if self.embed_mode:
+            await interaction.response.edit_message(embed=self.embed, view=self)
+        else:
+            await interaction.response.edit_message(
+                content=self.embed.description or "", embeds=[], view=self
+            )
+
+    @discord.ui.button(
+        label="Regenerate (full width)", style=discord.ButtonStyle.primary
+    )
+    async def regenerate(
+        self, interaction: discord.Interaction, button: discord.ui.Button
+    ):
+        await self.regenerate_with(interaction, False)
+
+    @discord.ui.button(
+        label="Regenerate (mobile-width)", style=discord.ButtonStyle.primary
+    )
+    async def regenerate_mobile(
+        self, interaction: discord.Interaction, button: discord.ui.Button
+    ):
+        await self.regenerate_with(interaction, True)
+
+    async def on_timeout(self) -> None:
+        self.clear_items()
+        await self.message.edit(view=self)
+
+    @discord.ui.button(label="Stop", style=discord.ButtonStyle.red)
+    async def halt(self, interaction: discord.Interaction, button: discord.ui.Button):
+        self.stop()
+        if self.embed_mode:
+            await interaction.response.edit_message(embed=self.embed, view=None)
+        else:
+            await interaction.response.edit_message(
+                content=self.embed.description or "", embeds=[], view=None
+            )
+
+
+class NeofetchEntry(TypedDict):
+    distro: str
+    suffix: str
+    pattern: str
+    mobile_width: bool
+    color_index: int
+    color_rgb: str
+    logo: str
+
+
+def typed_neofetch_row(row: dict[str, str]) -> NeofetchEntry:
+    return {
+        "distro": row["distro"],
+        "suffix": row["suffix"],
+        "pattern": row["pattern"],
+        "mobile_width": row["mobile_width"] == "1",
+        "color_index": int(row["color_index"]),
+        "color_rgb": row["color_rgb"],
+        "logo": row["logo"],
+    }
+
+
 class Gadgets(commands.Cog):
     """Various gadgets and gizmos"""
 
@@ -158,7 +273,7 @@ class Gadgets(commands.Cog):
         async def regenerator(is_mobile: bool):
             return await self.generate_neofetch(ctx, None, is_mobile)
 
-        view = self.NeofetchFixer(embed, ctx.author.id, regenerator)
+        view = NeofetchFixer(embed, ctx.author.id, regenerator)
         view.message = await ctx.reply(embed=embed, mention_author=False, view=view)
 
     @neofetch.autocomplete("distro")
@@ -198,124 +313,6 @@ class Gadgets(commands.Cog):
                 await ctx.send(msg)
                 ctx.error_handled = True
 
-    class NeofetchFixer(discord.ui.View):
-        message: discord.Message
-
-        def __init__(
-            self,
-            embed: discord.Embed,
-            author_id: int,
-            regenerator: Callable[[bool], Awaitable[discord.Embed]],
-        ):
-            super().__init__(timeout=120.0)
-            self.regenerator = regenerator
-            self.embed = embed
-            self.author_id = author_id
-            self.embed_mode = True
-
-        async def interaction_check(
-            self, interaction: discord.Interaction[discord.Client]
-        ) -> bool:
-            if interaction.user.id == self.author_id:
-                return True
-            else:
-                await interaction.response.send_message(
-                    "That's not your button to touch", ephemeral=True
-                )
-                return False
-
-        def fix_fixer(self):
-            fixer = self.children[0]
-            if isinstance(fixer, discord.ui.Button):
-                if len(self.embed.description or "") > 2000:
-                    fixer.disabled = True
-                    self.embed_mode = False
-                    fixer.label = "Embed only (>2000 chars)"
-                else:
-                    fixer.disabled = False
-                    fixer.label = "Without embed" if self.embed_mode else "With embed"
-
-        @discord.ui.button(label="Without embed", style=discord.ButtonStyle.secondary)
-        async def fixup(
-            self, interaction: discord.Interaction, button: discord.ui.Button
-        ):
-            if self.embed_mode:
-                button.label = "With embed"
-                await interaction.response.edit_message(
-                    content=self.embed.description or "", embeds=[], view=self
-                )
-                self.embed_mode = False
-            else:
-                button.label = "Without embed"
-                await interaction.response.edit_message(
-                    content=None, embed=self.embed, view=self
-                )
-                self.embed_mode = True
-
-        async def regenerate_with(
-            self, interaction: discord.Interaction, is_mobile: bool
-        ):
-            self.embed = await self.regenerator(is_mobile)
-            self.fix_fixer()
-            if self.embed_mode:
-                await interaction.response.edit_message(embed=self.embed, view=self)
-            else:
-                await interaction.response.edit_message(
-                    content=self.embed.description or "", embeds=[], view=self
-                )
-
-        @discord.ui.button(
-            label="Regenerate (full width)", style=discord.ButtonStyle.primary
-        )
-        async def regenerate(
-            self, interaction: discord.Interaction, button: discord.ui.Button
-        ):
-            await self.regenerate_with(interaction, False)
-
-        @discord.ui.button(
-            label="Regenerate (mobile-width)", style=discord.ButtonStyle.primary
-        )
-        async def regenerate_mobile(
-            self, interaction: discord.Interaction, button: discord.ui.Button
-        ):
-            await self.regenerate_with(interaction, True)
-
-        async def on_timeout(self) -> None:
-            self.clear_items()
-            await self.message.edit(view=self)
-
-        @discord.ui.button(label="Stop", style=discord.ButtonStyle.red)
-        async def halt(
-            self, interaction: discord.Interaction, button: discord.ui.Button
-        ):
-            self.stop()
-            if self.embed_mode:
-                await interaction.response.edit_message(embed=self.embed, view=None)
-            else:
-                await interaction.response.edit_message(
-                    content=self.embed.description or "", embeds=[], view=None
-                )
-
-    class NeofetchEntry(TypedDict):
-        distro: str
-        suffix: str
-        pattern: str
-        mobile_width: bool
-        color_index: int
-        color_rgb: str
-        logo: str
-
-    def typed_neofetch_row(self, row: dict[str, str]) -> NeofetchEntry:
-        return {
-            "distro": row["distro"],
-            "suffix": row["suffix"],
-            "pattern": row["pattern"],
-            "mobile_width": row["mobile_width"] == "1",
-            "color_index": int(row["color_index"]),
-            "color_rgb": row["color_rgb"],
-            "logo": row["logo"],
-        }
-
     async def init_neofetch(self):
         async with self.bot.db.cursor() as cur:
             with open("data/neofetch_updated") as f:
@@ -327,9 +324,7 @@ class Gadgets(commands.Cog):
                 last_neofetch_update = await cur.fetchone()
                 if last_neofetch_update is None or last_neofetch_update[0] != timestamp:
                     with open("data/neofetch.csv") as f:
-                        rows = [
-                            self.typed_neofetch_row(row) for row in csv.DictReader(f)
-                        ]
+                        rows = [typed_neofetch_row(row) for row in csv.DictReader(f)]
                         await cur.executemany(
                             """INSERT INTO neofetch VALUES (
                                 :distro, :suffix, :pattern, :mobile_width, :color_index, :color_rgb, :logo

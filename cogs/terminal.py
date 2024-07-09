@@ -160,6 +160,21 @@ def indent(content: str, prefix: str) -> str:
 class Terminal(commands.Cog):
     """Terminal-based command execution for rapid local testing"""
 
+    def __init__(self, bot: OliviaBot):
+        self.bot = bot
+
+    async def cog_load(self):
+        with LogSuppressor():
+            self.tester = discord.Client(intents=discord.Intents.none())
+            await self.tester.login(self.bot.tester_bot_token)
+
+        logging.info("Starting terminal loop")
+        self.task = asyncio.create_task(self.test_loop())
+
+    async def cog_unload(self):
+        self.task.cancel()
+        await self.tester.close()
+
     async def wait_for_response(self):
         try:
             await self.bot.wait_for(
@@ -254,21 +269,6 @@ class Terminal(commands.Cog):
 
         ctx = await self.bot.get_context(message, cls=TestContext)
         await self.bot.invoke(ctx)
-
-    async def cog_load(self):
-        with LogSuppressor():
-            self.tester = discord.Client(intents=discord.Intents.none())
-            await self.tester.login(self.bot.tester_bot_token)
-
-        logging.info("Starting terminal loop")
-        self.task = asyncio.create_task(self.test_loop())
-
-    async def cog_unload(self):
-        self.task.cancel()
-        await self.tester.close()
-
-    def __init__(self, bot: OliviaBot):
-        self.bot = bot
 
 
 async def setup(bot: OliviaBot):
