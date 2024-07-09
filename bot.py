@@ -51,12 +51,13 @@ class OliviaBot(commands.Bot):
         self.activated_extensions = [
             # external libraries
             "jishaku",
-            # cogs
-            "cogs.gadgets",
+            # gadget cogs
+            "cogs.neofetch",
             "cogs.louna",
             "cogs.vore",
-            "cogs.errors",
+            # other cogs
             "cogs.meta",
+            "cogs.errors",
         ]
         if prod:
             # prod cogs

@@ -156,9 +156,7 @@ def typed_neofetch_row(row: dict[str, str]) -> NeofetchEntry:
     }
 
 
-class Gadgets(commands.Cog):
-    """Various gadgets and gizmos"""
-
+class Neofetch(commands.Cog):
     def __init__(self, bot: OliviaBot):
         self.bot = bot
 
@@ -347,4 +345,4 @@ class Gadgets(commands.Cog):
 
 
 async def setup(bot: OliviaBot):
-    await bot.add_cog(Gadgets(bot))
+    await bot.add_cog(Neofetch(bot))
