@@ -114,7 +114,7 @@ class Gadgets(commands.Cog):
                 "Born to spam",
                 "World is a mjau",
                 f"Love em all {command_count}",
-                "I am Louna ^_^",
+                "I am L\u200bouna ^_^",
                 f"{emoji_count} meaningful emoticons",
             ]
         )
