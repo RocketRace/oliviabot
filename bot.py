@@ -85,6 +85,40 @@ class OliviaBot(commands.Bot):
         logging.info(msg)
         await webhook.send(msg)
 
+    async def perform_migrations(self):
+        async with self.db.cursor() as cur:
+            await cur.executescript(
+                """CREATE TABLE IF NOT EXISTS params(
+                    last_neofetch_update INTEGER
+                );
+                CREATE TABLE IF NOT EXISTS neofetch(
+                    distro TEXT NOT NULL,
+                    suffix TEXT NOT NULL,
+                    pattern TEXT NOT NULL,
+                    mobile_width INTEGER NOT NULL,
+                    color_index INTEGER NOT NULL,
+                    color_rgb TEXT NOT NULL,
+                    logo TEXT NOT NULL
+                );
+                """
+            )
+            await cur.execute(
+                """CREATE TABLE IF NOT EXISTS vore(
+                    timestamp INTEGER PRIMARY KEY,
+                    channel_id INTEGER,
+                    message_id INTEGER
+                );
+                """
+            )
+            try:
+                await cur.execute(
+                    """ALTER TABLE params ADD COLUMN louna_command_count INTEGER DEFAULT 0;
+                    ALTER TABLE params ADD COLUMN louna_emoji_count INTEGER DEFAULT 0;
+                    """
+                )
+            except aiosqlite.OperationalError:
+                pass
+
     async def setup_hook(self) -> None:
         self.webhook = discord.Webhook.from_url(self.webhook_url, client=self)
 
@@ -93,22 +127,6 @@ class OliviaBot(commands.Bot):
             owner_id,
             config.tester_bot_id,
         }
-
-        async with self.db.cursor() as cur:
-            await cur.execute(
-                """CREATE TABLE IF NOT EXISTS params(
-                    last_neofetch_update INTEGER
-                );
-                """
-            )
-            try:
-                await cur.executescript(
-                    """ALTER TABLE params ADD COLUMN louna_command_count INTEGER DEFAULT 0;
-                    ALTER TABLE params ADD COLUMN louna_emoji_count INTEGER DEFAULT 0;
-                    """
-                )
-            except aiosqlite.OperationalError:
-                pass
 
         for extension in self.activated_extensions:
             await self.load_extension(extension)

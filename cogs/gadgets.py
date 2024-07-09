@@ -4,7 +4,6 @@ import asyncio
 import csv
 import datetime
 import io
-import itertools
 import logging
 import random
 import re
@@ -58,7 +57,6 @@ class Gadgets(commands.Cog):
 
         await self.bot.db.create_function("regexp", 2, regexp, deterministic=True)
         await self.init_neofetch()
-        await self.init_vore()
 
     @commands.group(invoke_without_command=True)
     async def louna(self, ctx: Context):
@@ -176,7 +174,6 @@ class Gadgets(commands.Cog):
         if recent is None:
             return await ctx.send("It had never been mentioned before... before you...")
         await ctx.send("Yum! " + recent)
-        await self.update_cached_graph()
 
     async def update_cached_graph(self):
         async with self.bot.db.cursor() as cur:
@@ -274,18 +271,6 @@ class Gadgets(commands.Cog):
             await ctx.send(f"Found {len(results)} results. Updating the database!")
             async with self.bot.db.cursor() as cur:
                 await cur.executemany("""INSERT INTO vore VALUES(?, ?, ?);""", results)
-
-    async def init_vore(self):
-        async with self.bot.db.cursor() as cur:
-            await cur.executescript(
-                """CREATE TABLE IF NOT EXISTS vore(
-                    timestamp INTEGER PRIMARY KEY,
-                    channel_id INTEGER,
-                    message_id INTEGER
-                );
-                """
-            )
-        await self.update_cached_graph()
 
     class DistroNotFound(Exception):
         """Valid neofetch distro not found"""
@@ -547,19 +532,6 @@ class Gadgets(commands.Cog):
 
     async def init_neofetch(self):
         async with self.bot.db.cursor() as cur:
-            await cur.executescript(
-                """CREATE TABLE IF NOT EXISTS neofetch(
-                    distro TEXT NOT NULL,
-                    suffix TEXT NOT NULL,
-                    pattern TEXT NOT NULL,
-                    mobile_width INTEGER NOT NULL,
-                    color_index INTEGER NOT NULL,
-                    color_rgb TEXT NOT NULL,
-                    logo TEXT NOT NULL
-                );
-                """
-            )
-
             with open("data/neofetch_updated") as f:
                 timestamp = int(f.read())
                 self.neofetch_updated = datetime.datetime.fromtimestamp(
