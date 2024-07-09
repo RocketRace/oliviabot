@@ -113,7 +113,7 @@ class Gadgets(commands.Cog):
             [
                 "BORN TO SPAM",
                 "WORLD IS A MJAU",
-                f"Love Em All {command_count}",
+                f"鬼神 Love Em All {command_count}",
                 "I Am L\u200bouna ^_^",
                 f"{emoji_count} MEANINGFUL EMOTICONS",
             ]
