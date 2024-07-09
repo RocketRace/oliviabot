@@ -5,8 +5,22 @@ import git
 from bot import OliviaBot, Context
 
 
+class OliviaHelpCommand(commands.DefaultHelpCommand):
+    pass
+
+
 class Meta(commands.Cog):
     """Commands related to the behavior of the bot itself"""
+
+    def __init__(self, bot: OliviaBot):
+        self.bot = bot
+        self.repo = git.Repo(".")
+        self.original_help = bot.help_command
+        bot.help_command = OliviaHelpCommand()
+        bot.help_command.cog = self
+
+    async def cog_unload(self):
+        self.bot.help_command = self.original_help
 
     @commands.command()
     async def hello(self, ctx: Context):
@@ -88,10 +102,6 @@ class Meta(commands.Cog):
         )
         embed.add_field(name="Recent commits", value="\n".join(lines), inline=False)
         await ctx.send(embed=embed)
-
-    def __init__(self, bot: OliviaBot):
-        self.repo = git.Repo(".")
-        self.bot = bot
 
 
 async def setup(bot: OliviaBot):
