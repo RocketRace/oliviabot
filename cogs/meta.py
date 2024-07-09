@@ -44,10 +44,14 @@ class Meta(commands.Cog):
 
     @commands.command()
     @commands.is_owner()
-    async def load(self, ctx: Context):
-        for extension in self.bot.activated_extensions:
-            await self.bot.reload_extension(extension)
-        await ctx.send("Loaded all extensions")
+    async def load(self, ctx: Context, cog: str | None = None):
+        if cog is None:
+            for extension in self.bot.activated_extensions:
+                await self.bot.reload_extension(extension)
+            await ctx.send("Loaded all extensions")
+        else:
+            await self.bot.reload_extension(cog)
+            await ctx.send(f"Loaded {cog}")
 
     @commands.command()
     @commands.is_owner()

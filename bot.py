@@ -53,6 +53,8 @@ class OliviaBot(commands.Bot):
             "jishaku",
             # cogs
             "cogs.gadgets",
+            "cogs.louna",
+            "cogs.vore",
             "cogs.errors",
             "cogs.meta",
         ]
