@@ -63,7 +63,7 @@ class Meta(commands.Cog):
         """About me!"""
         lines = []
         for commit in self.repo.iter_commits(max_count=5):
-            url = f"[`{commit.hexsha[:7]}`](https://RocketRace/oliviabot/commit/{commit.hexsha})"
+            url = f"[`{commit.hexsha[:7]}`](https://github.com/RocketRace/oliviabot/commit/{commit.hexsha})"
             dt = discord.utils.format_dt(commit.committed_datetime, "R")
             full_summary = (
                 bytes(commit.summary).decode("utf-8")
