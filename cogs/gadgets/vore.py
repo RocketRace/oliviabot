@@ -67,7 +67,10 @@ class Vore(Cog):
                 for [timestamp] in await cur.fetchall()
             ]
         fig, ax = plt.subplots()
-        ax.eventplot(dts, orientation="horizontal")
+        ax.eventplot(
+            dts,  # pyright: ignore[reportArgumentType]
+            orientation="horizontal",
+        )
         ax.set_title("All events across time")
         ax.set_yticks([])
         ax.xaxis.set_major_locator(ticker.LinearLocator(5))
