@@ -2,9 +2,9 @@ from __future__ import annotations
 
 
 from bot import OliviaBot
-from cogs.gadgets.louna import Louna
-from cogs.gadgets.neofetch import Neofetch
-from cogs.gadgets.vore import Vore
+from .louna import Louna
+from .neofetch import Neofetch
+from .vore import Vore
 
 
 class Gadgets(Louna, Neofetch, Vore):

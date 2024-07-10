@@ -1,9 +1,10 @@
 from __future__ import annotations
 
 import random
+
 from discord.ext import commands
 
-from bot import OliviaBot, Context, Cog
+from bot import Context, Cog
 
 
 class Louna(Cog):

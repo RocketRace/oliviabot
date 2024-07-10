@@ -6,10 +6,11 @@ import logging
 import random
 import re
 from typing import Awaitable, Callable, Literal, TypedDict
+
 import discord
 from discord.ext import commands
 
-from bot import OliviaBot, Context, Cog
+from bot import Context, Cog
 
 
 def dedent(s: str) -> str:

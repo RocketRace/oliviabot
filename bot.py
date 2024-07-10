@@ -92,7 +92,10 @@ class OliviaBot(commands.Bot):
                 """CREATE TABLE IF NOT EXISTS params(
                     last_neofetch_update INTEGER
                 );
-                CREATE TABLE IF NOT EXISTS neofetch(
+                """
+            )
+            await cur.executescript(
+                """CREATE TABLE IF NOT EXISTS neofetch(
                     distro TEXT NOT NULL,
                     suffix TEXT NOT NULL,
                     pattern TEXT NOT NULL,
@@ -103,7 +106,7 @@ class OliviaBot(commands.Bot):
                 );
                 """
             )
-            await cur.execute(
+            await cur.executescript(
                 """CREATE TABLE IF NOT EXISTS vore(
                     timestamp INTEGER PRIMARY KEY,
                     channel_id INTEGER,
@@ -112,7 +115,7 @@ class OliviaBot(commands.Bot):
                 """
             )
             try:
-                await cur.execute(
+                await cur.executescript(
                     """ALTER TABLE params ADD COLUMN louna_command_count INTEGER DEFAULT 0;
                     ALTER TABLE params ADD COLUMN louna_emoji_count INTEGER DEFAULT 0;
                     """
@@ -128,6 +131,8 @@ class OliviaBot(commands.Bot):
             owner_id,
             config.tester_bot_id,
         }
+
+        await self.perform_migrations()
 
         for extension in self.activated_extensions:
             await self.load_extension(extension)

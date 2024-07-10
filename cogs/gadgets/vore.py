@@ -3,6 +3,7 @@ from __future__ import annotations
 import asyncio
 import datetime
 import io
+
 import discord
 from discord.ext import commands
 import matplotlib.pyplot as plt
