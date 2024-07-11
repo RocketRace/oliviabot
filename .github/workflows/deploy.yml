@@ -29,20 +29,19 @@ jobs:
             script: |
               set -e
               cd ${{ secrets.PROJECT_PATH }}
-              git pull --rebase
               ~/.local/bin/poetry env use 3.12
-              ~/.local/bin/poetry install --only main
               py=$(~/.local/bin/poetry env info --executable)
-              output=$($py scripts/trigger_updates.py)
-              if [ -z $output ]; then
-                echo "Not restarting anything"
+              changes=$($py scripts/trigger_updates.py)
+              if [ -z $changes ]; then
+                echo "No actions needed"
               elif [ $output == bot ]; then
-                echo "Restarting bot"
+                echo "Updating dependencies, restarting bot"
+                ~/.local/bin/poetry install --only main
                 tmux send -t oliviabot C-c
                 sleep 2
                 tmux send -t oliviabot python3 Space run.py Space prod Enter
-              elif [ $output ]; then
-                echo "Restarting cogs"
-                tmux send -t oliviabot "$output"
+              elif [ $output == cogs ]; then
+                echo "Triggering cog reloads"
+                pid=$(tmux list-panes -t oliviabot:0 -F "#{pane_pid}")
+                kill -SIGUSR1 $pid
               fi
-

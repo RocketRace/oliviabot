@@ -1,34 +1,37 @@
+from collections import namedtuple
 import pathlib
-from typing import Literal, NamedTuple
+
 import git
 
 repo = git.Repo(".")
 assert not repo.bare
 
+Change = namedtuple("Change", "path mode")
 
-class Change(NamedTuple):
-    path: str
-    mode: Literal["load", "reload", "unload"]
+# fetch changes
+repo.remote().fetch()
 
-
+# compute touched files
+local_head = repo.head.commit
+remote_head: git.Commit = repo.remote().refs["main"].commit
 changes: list[Change] = []
+for item in local_head.diff(remote_head):
+    item: git.Diff
+    match item.change_type:
+        case "A":
+            changes.append(Change(item.a_path or "", "load"))
+        case "D":
+            changes.append(Change(item.a_path or "", "unload"))
+        case "M":
+            changes.append(Change(item.a_path or "", "reload"))
+        case "R":
+            changes.append(Change(item.a_path or "", "unload"))
+            changes.append(Change(item.b_path or "", "load"))
 
-head_commit = repo.head.commit
-for diff in head_commit.diff("HEAD~1"):
-    diff: git.Diff
-    a = diff.a_path
-    b = diff.b_path
-    if a is None and b is not None:
-        changes.append(Change(b, "load"))
-    elif b is None and a is not None:
-        changes.append(Change(a, "unload"))
-    elif a is not None and b is not None:
-        if a == b:
-            changes.append(Change(a, "reload"))
-        else:
-            changes.append(Change(a, "unload"))
-            changes.append(Change(b, "load"))
+# pull changes
+repo.remote().pull()
 
+# determine whether changes were significant
 is_important = lambda change: (
     change.path.startswith("data/")
     or change.path.startswith("scripts/")
@@ -40,10 +43,14 @@ is_important = lambda change: (
 actionable: list[Change] = list(filter(is_important, changes))
 cog_only = all(change.path.startswith("cogs/") for change in actionable)
 
+# restart the bot if needed
 if actionable:
     print("bot", end="")
 
-# elif actionable and cog_only:
-#     print(
-#         ",".join(f"{mode}:cogs.{pathlib.Path(path).stem}" for mode, path in actionable)
-#     )
+# load cogs if needed
+elif actionable and cog_only:
+    with open(".extensions", "w") as f:
+        f.writelines(
+            f"{mode}:cogs.{pathlib.Path(path).stem}" for mode, path in actionable
+        )
+    print("cogs", end="")

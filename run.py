@@ -1,6 +1,7 @@
 import asyncio
 import logging
 import pathlib
+import signal
 import sys
 
 import aiosqlite
@@ -43,6 +44,29 @@ async def main():
             qwd_id=config.qwd_id,
         ) as oliviabot,
     ):
+
+        # add cog reload handling
+        def signal_handler(*_):
+            asyncio.get_running_loop().call_soon_threadsafe(
+                lambda: oliviabot.dispatch("extension_update")
+            )
+
+        signal.signal(signal.SIGUSR1, signal_handler)
+
+        @oliviabot.listen()
+        async def on_extension_update():
+            for action, extension in [
+                change.strip().split(":") for change in open(".extensions")
+            ]:
+                match action:
+                    case "load":
+                        await oliviabot.load_extension(extension)
+                    case "unload":
+                        await oliviabot.unload_extension(extension)
+                    case "reload":
+                        await oliviabot.reload_extension(extension)
+                logging.info(f"{action}ed extension {extension}")
+            open(".extensions").truncate(0)
 
         try:
             await oliviabot.start()
