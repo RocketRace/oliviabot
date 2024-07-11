@@ -126,7 +126,8 @@ class OliviaBot(commands.Bot):
     async def setup_hook(self) -> None:
         self.webhook = discord.Webhook.from_url(self.webhook_url, client=self)
 
-        owner_id = (await self.application_info()).owner.id
+        app_info = await self.application_info()
+        owner_id = app_info.owner.id
         self.owner_ids = {  # pyright: ignore[reportIncompatibleVariableOverride]
             owner_id,
             config.tester_bot_id,
