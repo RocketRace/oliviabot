@@ -43,14 +43,15 @@ is_important = lambda change: (
 actionable: list[Change] = list(filter(is_important, changes))
 cog_only = all(change.path.startswith("cogs/") for change in actionable)
 
-# restart the bot if needed
-if actionable:
-    print("bot", end="")
 
 # load cogs if needed
-elif actionable and cog_only:
+if actionable and cog_only:
     with open(".extensions", "w") as f:
         f.writelines(
             f"{mode}:cogs.{pathlib.Path(path).stem}" for mode, path in actionable
         )
     print("cogs", end="")
+
+# restart the bot if needed
+elif actionable:
+    print("bot", end="")
