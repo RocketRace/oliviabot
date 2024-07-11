@@ -9,4 +9,3 @@ __pycache__
 config.py
 *.log
 .extensions
-.success
