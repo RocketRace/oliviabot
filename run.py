@@ -47,14 +47,15 @@ async def main():
 
         # add cog reload handling
         def signal_handler(*_):
-            asyncio.get_running_loop().call_soon_threadsafe(
-                lambda: oliviabot.dispatch("extension_update")
-            )
+            logging.info("Received signal")
+            asyncio.run_coroutine_threadsafe(
+                extension_update(), loop=oliviabot.loop
+            ).result(30.0)
 
         signal.signal(signal.SIGUSR1, signal_handler)
 
-        @oliviabot.listen()
-        async def on_extension_update():
+        async def extension_update():
+            logging.info("Updating extensions")
             for action, extension in [
                 change.strip().split(":") for change in open(".extensions")
             ]:
