@@ -51,14 +51,24 @@ class Meta(commands.Cog):
 
         assert isinstance(ctx.author, discord.Member)
         assert isinstance(ctx.me, discord.Member)
-        name = ctx.author.display_name.split()[0]
-        if len(name) >= 9:
-            nick = name[:-9] + "".join(a + b for a, b in zip(name[-9:], automated))
-        elif len(name) >= 4:
-            nick = name[:-4] + "".join(a + b for a, b in zip(name[-4:], automated[:4]))
+        segments = ctx.author.display_name.split(" ")
+        for i, segment in enumerate(segments):
+            if len(segment) >= 9:
+                segments[i] = segment[:-9] + "".join(
+                    a + b for a, b in zip(segment[-9:], automated)
+                )
+                break
         else:
-            return await ctx.send("Nickname too short")
+            for i, segment in enumerate(segments):
+                if len(segment) >= 4:
+                    segments[i] = segment[:-4] + "".join(
+                        a + b for a, b in zip(segment[-4:], automated)
+                    )
+                    break
+            else:
+                return await ctx.send("Nickname too short")
 
+        nick = " ".join(segments)
         await ctx.me.edit(nick=nick)
         await ctx.message.add_reaction("\N{WHITE HEAVY CHECK MARK}")
 
