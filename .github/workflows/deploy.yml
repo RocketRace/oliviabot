@@ -42,6 +42,7 @@ jobs:
                 tmux send -t oliviabot python3 Space run.py Space prod Enter
               elif [ $changes == cogs ]; then
                 echo "Triggering cog reloads"
-                pid=$(tmux list-panes -t oliviabot:0 -F "#{pane_pid}")
-                kill -SIGUSR1 $pid
+                tmux send -t oliviabot C-c
+                sleep 2
+                tmux send -t oliviabot python3 Space run.py Space prod Enter
               fi
