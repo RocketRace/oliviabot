@@ -51,7 +51,7 @@ class Meta(commands.Cog):
 
         assert isinstance(ctx.author, discord.Member)
         assert isinstance(ctx.me, discord.Member)
-        name = ctx.author.display_name
+        name = ctx.author.display_name.split()[0]
         if len(name) >= 9:
             nick = name[:-9] + "".join(a + b for a, b in zip(name[-9:], automated))
         elif len(name) >= 4:
