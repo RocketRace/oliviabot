@@ -51,6 +51,7 @@ class Meta(commands.Cog):
 
         assert isinstance(ctx.author, discord.Member)
         assert isinstance(ctx.me, discord.Member)
+
         segments = ctx.author.display_name.split(" ")
         for i, segment in enumerate(segments):
             if len(segment) >= 9:
