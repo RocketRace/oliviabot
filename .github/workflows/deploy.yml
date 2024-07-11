@@ -34,13 +34,13 @@ jobs:
               changes=$($py scripts/trigger_updates.py)
               if [ -z $changes ]; then
                 echo "No actions needed"
-              elif [ $output == bot ]; then
+              elif [ $changes == bot ]; then
                 echo "Updating dependencies, restarting bot"
                 ~/.local/bin/poetry install --only main
                 tmux send -t oliviabot C-c
                 sleep 2
                 tmux send -t oliviabot python3 Space run.py Space prod Enter
-              elif [ $output == cogs ]; then
+              elif [ $changes == cogs ]; then
                 echo "Triggering cog reloads"
                 pid=$(tmux list-panes -t oliviabot:0 -F "#{pane_pid}")
                 kill -SIGUSR1 $pid
