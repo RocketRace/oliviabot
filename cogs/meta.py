@@ -93,6 +93,7 @@ class Meta(commands.Cog):
             await cur.execute(command)
             return await ctx.send(
                 "\n".join([str(row) for row in await cur.fetchall()])[:2000]
+                or "<no result>"
             )
 
     @commands.command()
