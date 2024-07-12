@@ -109,6 +109,19 @@ class Vore(Cog):
         timestring, jump = self.extract_from_row(row)
         await ctx.send(f"From {timestring}: {jump}")
 
+    @commands.is_owner()
+    @vore.command()
+    async def disqualify(self, ctx: Context):
+        """It doesn't count!"""
+        async with self.bot.db.cursor() as cur:
+            await cur.execute("""DELETE FROM vore ORDER BY timestamp DESC LIMIT 1;""")
+            result = list(await cur.fetchall())
+        if not result:
+            return await ctx.send("No such thing!")
+        row = random.choice(result)
+        timestring, jump = self.extract_from_row(row)
+        await ctx.send(f"From {timestring}: {jump}")
+
     @vore.command()
     @commands.is_owner()
     async def scan(self, ctx: Context, after: discord.Object | None):
