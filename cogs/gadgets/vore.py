@@ -3,7 +3,9 @@ from __future__ import annotations
 import asyncio
 import datetime
 import io
+import random
 
+import aiosqlite
 import discord
 from discord.ext import commands
 import matplotlib.pyplot as plt
@@ -13,16 +15,11 @@ from bot import Context, Cog, qwd_only
 
 
 class Vore(Cog):
-    async def recent_vore(self):
-        async with self.bot.db.cursor() as cur:
-            await cur.execute("""SELECT * FROM vore ORDER BY timestamp DESC LIMIT 1;""")
-            result = await cur.fetchone()
-            if not result:
-                return None
+    def extract_from_row(self, row: aiosqlite.Row) -> tuple[str, str]:
         timestamp: int
         channel_id: int
         message_id: int
-        timestamp, channel_id, message_id = result
+        timestamp, channel_id, message_id = row
         timestring = discord.utils.format_dt(
             datetime.datetime.fromtimestamp(timestamp, datetime.UTC), "R"
         )
@@ -30,6 +27,15 @@ class Vore(Cog):
         assert isinstance(channel, discord.abc.Messageable)
         message = channel.get_partial_message(message_id)
         jump = message.jump_url
+        return timestring, jump
+
+    async def recent_vore(self):
+        async with self.bot.db.cursor() as cur:
+            await cur.execute("""SELECT * FROM vore ORDER BY timestamp DESC LIMIT 1;""")
+            result = await cur.fetchone()
+            if not result:
+                return None
+        timestring, jump = self.extract_from_row(result)
         return f"Last seen {timestring} ({jump})"
 
     @qwd_only()
@@ -89,6 +95,19 @@ class Vore(Cog):
     async def graph(self, ctx: Context):
         """More details"""
         await ctx.send(file=self.cached_graph)
+
+    @qwd_only()
+    @vore.command()
+    async def random(self, ctx: Context):
+        """Show a random instance"""
+        async with self.bot.db.cursor() as cur:
+            await cur.execute("""SELECT * FROM vore;""")
+            result = list(await cur.fetchall())
+        if not result:
+            return await ctx.send("No such thing!")
+        row = random.choice(result)
+        timestring, jump = self.extract_from_row(row)
+        await ctx.send(f"From {timestring}: {jump}")
 
     @vore.command()
     @commands.is_owner()
