@@ -120,10 +120,12 @@ class OliviaBot(commands.Bot):
                         and message.content.startswith("+")
                     ),
                 )
-                await message.channel.send(
-                    "Hint: You can enable proxy mode using `+proxy enable`, "
-                    "which lets this bot respond to your proxy messages."
-                )
+                # hack
+                if not new_message.content.startswith("+proxy"):
+                    await message.channel.send(
+                        "Hint: You can enable proxy mode using `+proxy enable`, "
+                        "which lets this bot respond to your proxy messages."
+                    )
             except asyncio.TimeoutError:
                 pass
 
