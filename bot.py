@@ -117,6 +117,7 @@ class OliviaBot(commands.Bot):
                         new_message.author.bot
                         and new_message.channel == message.channel
                         and new_message.content in message.content
+                        and message.content.startswith("+")
                     ),
                 )
                 await message.channel.send(
