@@ -124,11 +124,12 @@ class Meta(commands.Cog):
     async def proxy(self, ctx: Context, value: bool | None = None):
         """Configure this bot to respond to proxy messages.
 
+        Run this command with no arguments to see your current settings.
+
         Parameters
         -----------
         value: bool | None
-            Whether to enable or disable proxy mode. Skip this parameter
-            to just check your current settings.
+            Whether to enable or disable proxy mode.
         """
         proxied = await self.bot.is_proxied(ctx.author)
         negation = "" if proxied else " not"
