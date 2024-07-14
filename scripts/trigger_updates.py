@@ -42,16 +42,16 @@ is_important = lambda change: (
 )
 actionable: list[Change] = list(filter(is_important, changes))
 cog_only = all(change.path.startswith("cogs/") for change in actionable)
+dependencies = any(change.path == "poetry.lock" for change in actionable)
 
-
-# load cogs if needed
-if actionable and cog_only:
-    with open(".extensions", "w") as f:
-        f.writelines(
-            f"{mode}:cogs.{pathlib.Path(path).stem}" for mode, path in actionable
-        )
-    print("cogs", end="")
-
-# restart the bot if needed
-elif actionable:
-    print("bot", end="")
+if actionable:
+    if dependencies:
+        print("dependencies", end="")
+    elif cog_only:
+        print("cogs", end="")
+        with open(".extensions", "w") as f:
+            f.writelines(
+                f"{mode}:cogs.{pathlib.Path(path).stem}" for mode, path in actionable
+            )
+    else:
+        print("bot", end="")

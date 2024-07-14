@@ -7,12 +7,12 @@ python = ">=3.12,<3.13"
 "discord.py" = "^2.4.0"
 aiosqlite = "^0.20.0"
 jishaku = "^2.5.2"
-aioconsole = "^0.7.1"
 watchdog = { version = "^4.0.1" }
 gitpython = "^3.1.43"
 matplotlib = "^3.9.0"
 
 [tool.poetry.group.dev.dependencies]
+aioconsole = "^0.7.1"
 parse-discord = { git = "https://github.com/LyricLy/parse-discord", rev = "c7537a5" }
 HyFetch = "^1.4.11"
 colour-science = "^0.4.4"
