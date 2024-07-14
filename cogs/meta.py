@@ -122,7 +122,7 @@ class Meta(commands.Cog):
 
     @commands.command()
     async def proxy(self, ctx: Context, value: bool | None = None):
-        """Configure this bot to respond to proxy messages from webhooks.
+        """Configure this bot to respond to proxy messages.
 
         Parameters
         -----------
