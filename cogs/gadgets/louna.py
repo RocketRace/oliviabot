@@ -73,7 +73,7 @@ class Louna(Cog):
             case commands.RangeError():
                 ctx.error_handled = True
                 await ctx.send(
-                    f"Value must be an integer between {error.minimum} and {error.maximum} (you said {error.value}...)"
+                    f"Value must be an integer between {error.minimum} and {error.maximum} (you gave {error.value}...)"
                 )
             case commands.BadArgument():
                 ctx.error_handled = True
