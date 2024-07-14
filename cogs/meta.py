@@ -121,21 +121,21 @@ class Meta(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command()
-    async def pluralkit(self, ctx: Context, value: bool | None = None):
-        """Configure this bot to respond to proxy messages from PluralKit.
+    async def proxy(self, ctx: Context, value: bool | None = None):
+        """Configure this bot to respond to proxy messages from webhooks.
 
         Parameters
         -----------
         value: bool | None
-            Whether to enable or disable pluralkit integration. Omit this
-            parameter to check your current settings.
+            Whether to enable or disable proxy mode. Skip this parameter
+            to just check your current settings.
         """
         proxied = await self.bot.is_proxied(ctx.author)
         negation = "" if proxied else " not"
         if value is None:
             await ctx.send(
-                f"You have{negation} enabled PluralKit integration. "
-                "You can enable or disable it using `+pluralkit enable` or `+pluralkit disable`."
+                f"You have{negation} enabled proxy mode. "
+                "You can enable or disable it using `+proxy enable` or `+proxy disable`."
             )
         else:
             async with self.bot.db.cursor() as cur:

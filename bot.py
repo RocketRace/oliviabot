@@ -109,6 +109,22 @@ class OliviaBot(commands.Bot):
             await self.invoke(ctx)
         else:
             await super().process_commands(message)
+            try:
+                new_message = await self.wait_for(
+                    "message",
+                    timeout=2.0,
+                    check=lambda new_message: (
+                        new_message.author.bot
+                        and new_message.channel == message.channel
+                        and new_message.content in message.content
+                    ),
+                )
+                await message.channel.send(
+                    "Hint: You can enable proxy mode using `+proxy enable`, "
+                    "which lets this bot respond to your proxy messages."
+                )
+            except asyncio.TimeoutError:
+                pass
 
     async def on_ready(self) -> None:
         assert self.user
