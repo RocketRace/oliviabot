@@ -51,7 +51,8 @@ if actionable:
         print("cogs", end="")
         with open(".extensions", "w") as f:
             f.writelines(
-                f"{mode}:cogs.{pathlib.Path(path).stem}" for mode, path in actionable
+                f"{change.mode}:cogs.{pathlib.Path(change.path).stem}"
+                for change in actionable
             )
     else:
         print("bot", end="")
