@@ -121,7 +121,7 @@ class OliviaBot(commands.Bot):
                             and message.content.startswith("+")
                         ),
                     )
-                    # hack
+                    # hack for better ux
                     if not new_message.content.startswith("+proxy"):
                         await message.channel.send(
                             "Hint: You can enable proxy mode using `+proxy enable`, "
