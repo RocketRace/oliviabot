@@ -28,6 +28,7 @@ class Reloader(commands.Cog):
                         await self.bot.reload_extension(extension)
             with open(".extensions", "w") as _:
                 pass
+
             results = ", ".join(
                 f"{action}ed `{extension}`" for action, extension in changes
             )
