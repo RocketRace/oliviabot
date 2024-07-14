@@ -1,9 +1,11 @@
 from __future__ import annotations
 import asyncio
+import contextlib
 import logging
 from typing import Any, Coroutine
 
 import aiosqlite
+import aiosqlite.context
 import discord
 from discord.ext import commands
 
@@ -81,7 +83,7 @@ class OliviaBot(commands.Bot):
         return await super().get_context(message, cls=cls or Context)
 
     async def is_proxied(self, user: discord.abc.User) -> bool:
-        async with self.db.cursor() as cur:
+        async with self.cursor() as cur:
             await cur.execute(
                 "SELECT EXISTS (SELECT * FROM proxiers WHERE user_id = ?);",
                 [user.id],
@@ -138,7 +140,7 @@ class OliviaBot(commands.Bot):
         await webhook.send(msg)
 
     async def perform_migrations(self):
-        async with self.db.cursor() as cur:
+        async with self.cursor() as cur:
             await cur.executescript(
                 """CREATE TABLE IF NOT EXISTS params(
                     last_neofetch_update INTEGER
@@ -199,6 +201,10 @@ class OliviaBot(commands.Bot):
         self.tree.copy_global_to(guild=guild)
         await self.tree.sync(guild=guild)
 
+    def cursor(self) -> aiosqlite.context.Result[aiosqlite.Cursor]:
+        """Returns a context manager to a cursor object."""
+        return self.db.cursor()
+
 
 class Cog(commands.Cog):
     bot: OliviaBot
@@ -208,3 +214,7 @@ class Context(commands.Context[OliviaBot]):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.error_handled = False
+
+    def cursor(self) -> aiosqlite.context.Result[aiosqlite.Cursor]:
+        """Returns a context manager to a cursor object."""
+        return self.bot.cursor()

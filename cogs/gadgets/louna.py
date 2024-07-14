@@ -37,7 +37,7 @@ class Louna(Cog):
         k = random.randint(2, 3)
         choices = "".join(random.choices(emojis, k=k))
         await ctx.send(f"l\u200bouna {choices}")
-        async with ctx.bot.db.cursor() as cur:
+        async with ctx.cursor() as cur:
             await cur.execute(
                 """UPDATE params SET louna_command_count = louna_command_count + 1;"""
             )
@@ -48,7 +48,7 @@ class Louna(Cog):
     @louna.command()
     async def stats(self, ctx: Context):
         """how many l\u200bouna?"""
-        async with ctx.bot.db.cursor() as cur:
+        async with ctx.cursor() as cur:
             await cur.execute(
                 """SELECT louna_command_count, louna_emoji_count FROM params;"""
             )

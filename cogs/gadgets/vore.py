@@ -30,7 +30,7 @@ class Vore(Cog):
         return timestring, jump
 
     async def recent_vore(self):
-        async with self.bot.db.cursor() as cur:
+        async with self.bot.cursor() as cur:
             await cur.execute("""SELECT * FROM vore ORDER BY timestamp DESC LIMIT 1;""")
             result = await cur.fetchone()
             if not result:
@@ -52,7 +52,7 @@ class Vore(Cog):
     async def zero(self, ctx: Context):
         """Damn it, they did it again"""
         recent = await self.recent_vore()
-        async with self.bot.db.cursor() as cur:
+        async with ctx.cursor() as cur:
             await cur.execute(
                 """INSERT INTO vore VALUES(?, ?, ?);""",
                 [
@@ -66,7 +66,7 @@ class Vore(Cog):
         await ctx.send("Yum! " + recent)
 
     async def update_cached_graph(self):
-        async with self.bot.db.cursor() as cur:
+        async with self.bot.cursor() as cur:
             await cur.execute("""SELECT timestamp FROM vore;""")
             dts = [
                 datetime.datetime.fromtimestamp(timestamp, datetime.UTC)
@@ -100,7 +100,7 @@ class Vore(Cog):
     @vore.command()
     async def random(self, ctx: Context):
         """Show a random instance"""
-        async with self.bot.db.cursor() as cur:
+        async with ctx.cursor() as cur:
             await cur.execute("""SELECT * FROM vore;""")
             result = list(await cur.fetchall())
         if not result:
@@ -113,7 +113,7 @@ class Vore(Cog):
     @vore.command()
     async def disqualify(self, ctx: Context):
         """It doesn't count!"""
-        async with self.bot.db.cursor() as cur:
+        async with ctx.cursor() as cur:
             await cur.execute("""DELETE FROM vore ORDER BY timestamp DESC LIMIT 1;""")
             result = list(await cur.fetchall())
         if not result:
@@ -140,7 +140,7 @@ class Vore(Cog):
             else:
                 return await ctx.send("Then no")
 
-        async with self.bot.db.cursor() as cur:
+        async with ctx.cursor() as cur:
             await cur.execute(
                 """SELECT timestamp FROM vore ORDER BY timestamp ASC LIMIT 1;"""
             )
@@ -188,5 +188,5 @@ class Vore(Cog):
             await ctx.send("Found no results.")
         else:
             await ctx.send(f"Found {len(results)} results. Updating the database!")
-            async with self.bot.db.cursor() as cur:
+            async with ctx.cursor() as cur:
                 await cur.executemany("""INSERT INTO vore VALUES(?, ?, ?);""", results)

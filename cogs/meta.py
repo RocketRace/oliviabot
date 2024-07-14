@@ -89,7 +89,7 @@ class Meta(commands.Cog):
     @commands.is_owner()
     async def sql(self, ctx: Context, *, command: str):
         """Execute SQL commands"""
-        async with self.bot.db.cursor() as cur:
+        async with ctx.cursor() as cur:
             await cur.execute(command)
             return await ctx.send(
                 "\n".join([str(row) for row in await cur.fetchall()])[:2000]
@@ -139,7 +139,7 @@ class Meta(commands.Cog):
                 "You can enable or disable it using `+proxy enable` or `+proxy disable`."
             )
         else:
-            async with self.bot.db.cursor() as cur:
+            async with ctx.cursor() as cur:
                 if value:
                     await cur.execute(
                         """INSERT OR IGNORE INTO proxiers VALUES(?);""", [ctx.author.id]

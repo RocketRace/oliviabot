@@ -177,7 +177,7 @@ class Neofetch(Cog):
     async def generate_neofetch(
         self, ctx: Context, distro: str | None = None, is_mobile: bool = False
     ):
-        async with self.bot.db.cursor() as cur:
+        async with ctx.cursor() as cur:
             if is_mobile:
                 await cur.execute(
                     """SELECT distro, color_index, color_rgb, logo FROM neofetch
@@ -273,7 +273,7 @@ class Neofetch(Cog):
     async def distro_autocomplete(
         self, interaction: discord.Interaction, query: str
     ) -> list[discord.app_commands.Choice]:
-        async with self.bot.db.cursor() as cur:
+        async with self.bot.cursor() as cur:
             await cur.execute(
                 """SELECT DISTINCT distro FROM neofetch
                 WHERE instr(lower(distro), lower(:query))
@@ -307,7 +307,7 @@ class Neofetch(Cog):
                 ctx.error_handled = True
 
     async def init_neofetch(self):
-        async with self.bot.db.cursor() as cur:
+        async with self.bot.cursor() as cur:
             with open("data/neofetch_updated") as f:
                 timestamp = int(f.read())
                 self.neofetch_updated = datetime.datetime.fromtimestamp(
