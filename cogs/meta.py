@@ -129,7 +129,7 @@ class Meta(commands.Cog):
         Parameters
         -----------
         value: bool | None
-            Whether to enable or disable proxy mode.
+            ("enable" / "disable") Whether to enable or disable proxy mode.
         """
         proxied = await self.bot.is_proxied(ctx.author)
         negation = "" if proxied else " not"
