@@ -120,6 +120,38 @@ class Meta(commands.Cog):
         embed.add_field(name="Recent commits", value="\n".join(lines), inline=False)
         await ctx.send(embed=embed)
 
+    @commands.command()
+    async def pluralkit(self, ctx: Context, value: bool | None = None):
+        """Configure this bot to respond to proxy messages from PluralKit.
+
+        Parameters
+        -----------
+        value: bool | None
+            Whether to enable or disable pluralkit integration. Omit this
+            parameter to check your current settings.
+        """
+        proxied = await self.bot.is_proxied(ctx.author)
+        negation = "" if proxied else " not"
+        if value is None:
+            await ctx.send(
+                f"You have{negation} enabled PluralKit integration. "
+                "You can enable or disable it using `+pluralkit enable` or `+pluralkit disable`."
+            )
+        else:
+            async with self.bot.db.cursor() as cur:
+                if value:
+                    await cur.execute(
+                        """INSERT OR IGNORE INTO proxiers VALUES(?);""", [ctx.author.id]
+                    )
+                else:
+                    await cur.execute(
+                        """DELETE FROM proxiers WHERE user_id = ?;""", [ctx.author.id]
+                    )
+            action = "enabled" if value else "disabled"
+            await ctx.send(
+                f"You have {action} proxy mode (previously{negation} enabled)"
+            )
+
 
 async def setup(bot: OliviaBot):
     await bot.add_cog(Meta(bot))

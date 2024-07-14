@@ -1,4 +1,5 @@
 from __future__ import annotations
+import asyncio
 import logging
 from typing import Any, Coroutine
 
@@ -79,6 +80,36 @@ class OliviaBot(commands.Bot):
     async def get_context(self, message, *, cls: type[commands.Context] | None = None):
         return await super().get_context(message, cls=cls or Context)
 
+    async def is_proxied(self, user: discord.abc.User) -> bool:
+        async with self.db.cursor() as cur:
+            await cur.execute(
+                "SELECT EXISTS (SELECT * FROM proxiers WHERE user_id = ?);",
+                [user.id],
+            )
+            result = await cur.fetchone()
+        return bool(result and result[0])
+
+    async def process_commands(self, message: discord.Message) -> None:
+        if await self.is_proxied(message.author):
+            try:
+                new_message = await self.wait_for(
+                    "message",
+                    timeout=2.0,
+                    check=lambda new_message: (
+                        new_message.author.bot
+                        and new_message.channel == message.channel
+                        and new_message.content in message.content
+                    ),
+                )
+                ctx = await self.get_context(new_message)
+                ctx.author = message.author
+            except asyncio.TimeoutError:
+                ctx = await self.get_context(message)
+
+            await self.invoke(ctx)
+        else:
+            await super().process_commands(message)
+
     async def on_ready(self) -> None:
         assert self.user
         webhook = discord.Webhook.from_url(self.webhook_url, client=self)
@@ -122,6 +153,12 @@ class OliviaBot(commands.Bot):
                 )
             except aiosqlite.OperationalError:
                 pass
+            await cur.executescript(
+                """CREATE TABLE IF NOT EXISTS proxiers(
+                    user_id INTEGER PRIMARY KEY
+                )
+                """
+            )
 
     async def setup_hook(self) -> None:
         self.webhook = discord.Webhook.from_url(self.webhook_url, client=self)
