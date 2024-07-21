@@ -142,7 +142,7 @@ class OliviaBot(commands.Bot):
         async with self.cursor() as cur:
             await cur.executescript(
                 """CREATE TABLE IF NOT EXISTS params(
-                    last_neofetch_update INTEGER
+                    last_neofetch_update INTEGER NOT NULL
                 );
                 """
             )
@@ -161,8 +161,8 @@ class OliviaBot(commands.Bot):
             await cur.executescript(
                 """CREATE TABLE IF NOT EXISTS vore(
                     timestamp INTEGER PRIMARY KEY,
-                    channel_id INTEGER,
-                    message_id INTEGER
+                    channel_id INTEGER NOT NULL,
+                    message_id INTEGER NOT NULL
                 );
                 """
             )
@@ -177,6 +177,13 @@ class OliviaBot(commands.Bot):
             await cur.executescript(
                 """CREATE TABLE IF NOT EXISTS proxiers(
                     user_id INTEGER PRIMARY KEY
+                )
+                """
+            )
+            await cur.executescript(
+                """CREATE TABLE IF NOT EXISTS likers(
+                    user_id INTEGER PRIMARY KEY,
+                    enabled_after REAL NOT NULL
                 )
                 """
             )
