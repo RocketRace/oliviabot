@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 import datetime
 import random
 import re
@@ -20,6 +21,7 @@ class Like(Cog):
         active_after = await self.enabled_after(message.author.id)
         now = datetime.datetime.now()
         if now > active_after:
+            await asyncio.sleep(random.random())
             await message.add_reaction("\N{THUMBS UP SIGN}")
 
     async def enabled_after(self, user_id: int):
