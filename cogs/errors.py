@@ -12,8 +12,9 @@ class ErrorHandler(commands.Cog):
         self.bot = bot
 
     async def log_error(self, ctx: Context, error: commands.CommandError):
+        original = getattr(error, "original", error)
         tb = "\n".join(
-            traceback.format_exception(type(error), error, error.__traceback__)
+            traceback.format_exception(type(original), original, original.__traceback__)
         )
         embed = discord.Embed(
             title=error,
