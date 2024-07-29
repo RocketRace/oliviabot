@@ -2,20 +2,17 @@ from __future__ import annotations
 
 import asyncio
 import datetime
-import io
 import random
 
 import aiosqlite
 import discord
 from discord.ext import commands
-import matplotlib.pyplot as plt
-import matplotlib.ticker as ticker
 
 from bot import Context, Cog, qwd_only
 
 
 class Vore(Cog):
-    def extract_from_row(self, row: aiosqlite.Row) -> tuple[str, str]:
+    def extract_vore_from_row(self, row: aiosqlite.Row) -> tuple[str, str]:
         timestamp: int
         channel_id: int
         message_id: int
@@ -35,7 +32,7 @@ class Vore(Cog):
             result = await cur.fetchone()
             if not result:
                 return None
-        timestring, jump = self.extract_from_row(result)
+        timestring, jump = self.extract_vore_from_row(result)
         return f"Last seen {timestring} ({jump})"
 
     @qwd_only()
@@ -65,37 +62,6 @@ class Vore(Cog):
             return await ctx.send("It had never been mentioned before... before you...")
         await ctx.send("Yum! " + recent)
 
-    async def update_cached_graph(self):
-        async with self.bot.cursor() as cur:
-            await cur.execute("""SELECT timestamp FROM vore;""")
-            dts = [
-                datetime.datetime.fromtimestamp(timestamp, datetime.UTC)
-                for [timestamp] in await cur.fetchall()
-            ]
-        fig, ax = plt.subplots()
-        ax.eventplot(
-            dts,  # pyright: ignore[reportArgumentType]
-            orientation="horizontal",
-        )
-        ax.set_title("All events across time")
-        ax.set_yticks([])
-        ax.xaxis.set_major_locator(ticker.LinearLocator(5))
-        file = io.BytesIO()
-        fig.savefig(file)
-        file.seek(0)
-        self.cached_graph = discord.File(
-            file,
-            filename="graph.png",
-            description="Graph of event occurrences across time",
-        )
-
-    @qwd_only()
-    @commands.is_owner()
-    @vore.command()
-    async def graph(self, ctx: Context):
-        """More details"""
-        await ctx.send(file=self.cached_graph)
-
     @qwd_only()
     @vore.command()
     async def random(self, ctx: Context):
@@ -106,7 +72,7 @@ class Vore(Cog):
         if not result:
             return await ctx.send("No such thing!")
         row = random.choice(result)
-        timestring, jump = self.extract_from_row(row)
+        timestring, jump = self.extract_vore_from_row(row)
         await ctx.send(f"From {timestring}: {jump}")
 
     @commands.is_owner()
@@ -119,7 +85,7 @@ class Vore(Cog):
         if not result:
             return await ctx.send("No such thing!")
         row = random.choice(result)
-        timestring, jump = self.extract_from_row(row)
+        timestring, jump = self.extract_vore_from_row(row)
         await ctx.send(f"From {timestring}: {jump}")
 
     @vore.command()

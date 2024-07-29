@@ -18,13 +18,13 @@ class Like(Cog):
     async def on_message(self, message: discord.Message):
         if not self.pattern.search(message.content):
             return
-        active_after = await self.enabled_after(message.author.id)
+        active_after = await self.like_enabled_after(message.author.id)
         now = datetime.datetime.now()
         if now > active_after:
             await asyncio.sleep(random.random())
             await message.add_reaction("\N{THUMBS UP SIGN}")
 
-    async def enabled_after(self, user_id: int):
+    async def like_enabled_after(self, user_id: int):
         async with self.bot.cursor() as cur:
             await cur.execute(
                 "SELECT enabled_after FROM likers WHERE user_id = ?;",
@@ -35,7 +35,7 @@ class Like(Cog):
             return datetime.datetime.max
         return datetime.datetime.fromtimestamp(result[0])
 
-    async def set_enabled_after(self, user_id: int, dt: datetime.datetime):
+    async def set_like_enabled_after(self, user_id: int, dt: datetime.datetime):
         async with self.bot.cursor() as cur:
             await cur.execute(
                 """INSERT INTO likers(user_id, enabled_after) VALUES(?, ?)
@@ -56,7 +56,7 @@ class Like(Cog):
         value: bool | None
             ("enable" / "disable") Whether to enable or disable auto\N{THUMBS UP SIGN}ing.
         """
-        active_after = await self.enabled_after(ctx.author.id)
+        active_after = await self.like_enabled_after(ctx.author.id)
         now = datetime.datetime.now()
         if active_after == datetime.datetime.max:
             status = "not enabled"
@@ -76,7 +76,7 @@ class Like(Cog):
             async with ctx.cursor() as cur:
                 if value:
                     now = datetime.datetime.now(datetime.UTC)
-                    await self.set_enabled_after(ctx.author.id, now)
+                    await self.set_like_enabled_after(ctx.author.id, now)
                 else:
                     await cur.execute(
                         """DELETE FROM likers WHERE user_id = ?;""", [ctx.author.id]
@@ -90,7 +90,7 @@ class Like(Cog):
     @like.command()
     async def chill(self, ctx: Context):
         """Chill out my auto\N{THUMBS UP SIGN}ing for a few hours B)"""
-        active_after = await self.enabled_after(ctx.author.id)
+        active_after = await self.like_enabled_after(ctx.author.id)
         if active_after == datetime.datetime.max:
             return await ctx.send("I'm already chilling for you B)")
 
@@ -98,7 +98,7 @@ class Like(Cog):
         if now >= active_after:
             hours = random.randint(1, 24)
             dt = ctx.message.created_at + datetime.timedelta(hours=hours)
-            await self.set_enabled_after(ctx.author.id, dt)
+            await self.set_like_enabled_after(ctx.author.id, dt)
             timestring = discord.utils.format_dt(dt, "R")
             await ctx.send(f"Okay then, I'll be back {timestring} B)")
         else:
