@@ -20,6 +20,7 @@ matplotlib = "^3.9.0"
 # requires ICU to be installed, might need to explicitly set $ICU_ROOT too
 watchdog = { version = "^4.0.1", extras = ["watchmedo"] }
 requests = "^2.32.3"
+ipykernel = "^6.29.5"
 
 [build-system]
 requires = ["poetry-core"]
