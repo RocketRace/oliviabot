@@ -24,3 +24,6 @@ class Chain(Cog):
         start: str | None
             The first word of the chain
         """
+        max_token = 2
+        tokens = {" ": 0, "hello": 1, "world": 2}
+        weights = [[0.0, 0.5, 0.5], [1.0, 0.0, 0.0], [1.0, 0.0, 0.0]]
