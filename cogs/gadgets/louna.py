@@ -38,7 +38,7 @@ class Louna(Cog):
             "<:t42:1134085866189508608>",
             "<:sillygroove:1134083563957014528>",
         ]
-        if random.random() < 0.1:
+        if random.random() < 1 / 25:
             k = 4
         else:
             k = random.randint(2, 3)
