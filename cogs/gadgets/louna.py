@@ -24,7 +24,7 @@ class Louna(Cog):
             "🦡", "🦢", "🦤", "🦥", "🦩", "🦫", "🦮", "🧘‍♀️",
             "🧚‍♂️", "🧝‍♀️", "🧠", "🧸", "🪿", "🫒", "🫡", "🫣",
             "🫵", "😇", "😭", "😳", "😼", "🙏", "🚀", "🚲",
-            "🛀",
+            "🛀", "🇫🇮", "🇸🇪", "🍵",
             # fmt: on
             "<:bottomemoji:1163608118375235655>",
             "<:kaboom:1134083088725573743>",
@@ -38,11 +38,20 @@ class Louna(Cog):
             "<:t42:1134085866189508608>",
             "<:sillygroove:1134083563957014528>",
         ]
-        if random.random() < 1 / 25:
+        if random.random() < 1 / 1000:
             k = 4
+            choices = "".join([
+                "<:racher1:1229156537155584102>",
+                "<:racher2:1229156538556485695>",
+                "<:racher3:1229156540477345863>",
+                "<:racher4:1229156542381686895>",
+            ])
         else:
-            k = random.randint(2, 3)
-        choices = "".join(random.choices(emojis, k=k))
+            if random.random() < 1 / 25:
+                k = 4
+            else:
+                k = random.randint(2, 3)
+            choices = "".join(random.choices(emojis, k=k))
         await ctx.send(f"l\u200bouna {choices}")
         async with ctx.cursor() as cur:
             await cur.execute(
