@@ -12,7 +12,7 @@ class Chain(Cog):
         pass
 
     @commands.is_owner()
-    @commands.hybrid_command()
+    @commands.command()
     async def chain(
         self,
         ctx: Context,
