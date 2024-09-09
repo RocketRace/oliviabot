@@ -33,6 +33,11 @@ class Meta(commands.Cog):
         await ctx.send(f"Hello! I'm {ctx.me}!")
 
     @commands.command()
+    async def howdy(self, ctx: Context):
+        """Howdy pardner"""
+        await ctx.send(f"Howdy to you too! I'm {ctx.me} 🤠")
+
+    @commands.command()
     @commands.is_owner()
     @commands.guild_only()
     async def nick(self, ctx: Context):
