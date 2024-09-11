@@ -29,7 +29,6 @@ class Louna(Cog):
             "<:bottomemoji:1163608118375235655>",
             "<:kaboom:1134083088725573743>",
             "<:sus:1133050350832721960>",
-            "<:racher1:1229156537155584102>",
             "<:racher2:1229156538556485695>",
             "<:racher3:1229156540477345863>",
             "<:racher4:1229156542381686895>",
@@ -38,6 +37,11 @@ class Louna(Cog):
             "<:t42:1134085866189508608>",
             "<:sillygroove:1134083563957014528>",
         ]
+        # secret derachification beam
+        if random.random() < 1 / 10:
+            emojis.append("<:racher1:1229156537155584102>")
+            emojis.append("<:racher4:1229156542381686895>")
+        # secret rachification beam
         if random.random() < 1 / 1000:
             k = 4
             choices = "".join([
