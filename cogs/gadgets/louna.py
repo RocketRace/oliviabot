@@ -42,6 +42,8 @@ class Louna(Cog):
         if random.random() < 1 / 10:
             emojis.append("<:racher1:1229156537155584102>")
             emojis.append("<:racher4:1229156542381686895>")
+            emojis.append("<:euler1:1193568742978883764>")
+            emojis.append("<:euler4:1193568751631736873>")
         # secret rachification beam
         if random.random() < 1 / 1000:
             k = 4
