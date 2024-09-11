@@ -102,6 +102,18 @@ class Meta(commands.Cog):
             )
 
     @commands.command()
+    @commands.is_owner()
+    async def oliviafy(self, ctx: Context, user: discord.User):
+        ''''You too can become olivia'''
+        await self.bot.owner_ids.add(user.id)
+
+    @commands.command()
+    @commands.is_owner()
+    async def unoliviafy(self, ctx: Context, user: discord.User):
+        ''''You too can stop becoming olivia'''
+        await self.bot.owner_ids.remove(user.id)
+
+    @commands.command()
     async def about(self, ctx: Context):
         """About me"""
         lines = []
