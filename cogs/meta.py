@@ -104,14 +104,14 @@ class Meta(commands.Cog):
     @commands.command()
     @commands.is_owner()
     async def oliviafy(self, ctx: Context, user: discord.User):
-        ''''You too can become olivia'''
+        '''You too can become olivia'''
         self.bot.owner_ids.add(user.id)
         await ctx.send(f"{user.mention} hi, olivia")
 
     @commands.command()
     @commands.is_owner()
     async def unoliviafy(self, ctx: Context, user: discord.User):
-        ''''You too can stop becoming olivia'''
+        '''You too can stop becoming olivia'''
         if user.id == 156021301654454272:
             return await ctx.send("what no I'm not doing that")
         self.bot.owner_ids.remove(user.id)
