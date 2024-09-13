@@ -13,12 +13,19 @@ class ErrorHandler(commands.Cog):
 
     async def log_error(self, ctx: Context, error: commands.CommandError):
         original = getattr(error, "original", error)
-        tb = "\n".join(
-            traceback.format_exception(type(original), original, original.__traceback__)
-        )
+        
+        skip_tb = (commands.NotOwner, )
+        if type(original) in skip_tb:
+            description = None
+        else:
+            tb = "\n".join(
+                traceback.format_exception(type(original), original, original.__traceback__)
+            )
+            description = f"```py\n{tb}\n```"
+        
         embed = discord.Embed(
             title=error,
-            description=f"```py\n{tb}\n```",
+            description=description,
             color=discord.Color.from_str("#db7420"),
             timestamp=ctx.message.created_at,
         )
