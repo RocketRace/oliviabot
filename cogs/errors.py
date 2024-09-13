@@ -16,7 +16,7 @@ class ErrorHandler(commands.Cog):
         original = getattr(error, "original", error)
         
         skip_tb = (commands.NotOwner, aiosqlite.Error)
-        if type(original) in skip_tb:
+        if isinstance(original, skip_tb):
             description = None
         else:
             tb = "\n".join(
