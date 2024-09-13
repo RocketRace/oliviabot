@@ -103,8 +103,8 @@ class Meta(commands.Cog):
             )
 
     @sql.error
-    async def sql_error(self, ctx: Context, error: Exception):
-        if isinstance(error, aiosqlite.Error):
+    async def sql_error(self, ctx: Context, error: commands.CommandError):
+        if isinstance(error, commands.CommandInvokeError) and isinstance(error.original, aiosqlite.Error):
             inner = discord.utils.escape_markdown(str(error))
             await ctx.send(f"Something raised {type(error).__name__} inside the command\n-# {inner}")
             ctx.error_handled = True
