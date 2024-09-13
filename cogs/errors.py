@@ -15,7 +15,7 @@ class ErrorHandler(commands.Cog):
     async def log_error(self, ctx: Context, error: commands.CommandError):
         original = getattr(error, "original", error)
         
-        skip_tb = (commands.NotOwner, aiosqlite.OperationalError)
+        skip_tb = (commands.NotOwner, aiosqlite.Error)
         if type(original) in skip_tb:
             description = None
         else:

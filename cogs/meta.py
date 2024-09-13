@@ -1,3 +1,4 @@
+import aiosqlite
 import discord
 from discord.ext import commands
 import git
@@ -100,6 +101,13 @@ class Meta(commands.Cog):
                 "\n".join([str(row) for row in await cur.fetchall()])[:2000]
                 or "<no result>"
             )
+
+    @sql.error
+    async def sql_error(self, ctx: Context, error: Exception):
+        if isinstance(error, aiosqlite.Error):
+            inner = discord.utils.escape_markdown(str(error))
+            await ctx.send(f"Something raised {type(error).__name__} inside the command\n-# {inner}")
+            ctx.error_handled = True
 
     @commands.command()
     @commands.is_owner()
