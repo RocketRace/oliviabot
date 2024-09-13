@@ -1,6 +1,7 @@
 import logging
 import traceback
 
+import aiosqlite
 import discord
 from discord.ext import commands
 
@@ -14,7 +15,7 @@ class ErrorHandler(commands.Cog):
     async def log_error(self, ctx: Context, error: commands.CommandError):
         original = getattr(error, "original", error)
         
-        skip_tb = (commands.NotOwner, )
+        skip_tb = (commands.NotOwner, aiosqlite.OperationalError)
         if type(original) in skip_tb:
             description = None
         else:
