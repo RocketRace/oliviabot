@@ -102,6 +102,17 @@ class Meta(commands.Cog):
                 or "<no result>"
             )
 
+    @commands.command()
+    @commands.is_owner()
+    async def strql(self, ctx: Context, *, command: str):
+        """Execute SQL commands, concatenating all columns and joining the rows with newlines"""
+        async with ctx.cursor() as cur:
+            await cur.execute(command)
+            return await ctx.send(
+                "\n".join(["".join([str(item) for item in row]) for row in await cur.fetchall()])[:2000]
+                or "<no result>"
+            )
+
     @sql.error
     async def sql_error(self, ctx: Context, error: commands.CommandError):
         if isinstance(error, commands.CommandInvokeError) and isinstance(error.original, aiosqlite.Error):
