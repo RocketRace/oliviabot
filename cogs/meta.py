@@ -91,14 +91,14 @@ class Meta(commands.Cog):
             await self.bot.reload_extension(cog)
             await ctx.send(f"Loaded {cog}")
 
-    @commands.command()
+    @commands.command(aliases=['strql'])
     @commands.is_owner()
     async def sql(self, ctx: Context, *, command: str):
         """Execute SQL commands"""
         async with ctx.cursor() as cur:
             await cur.execute(command)
             return await ctx.send(
-                "\n".join([str(row) for row in await cur.fetchall()])[:2000]
+                "\n".join(["".join([str(item) for item in row]) if ctx.invoked_with == "strql" else str(row) for row in await cur.fetchall()])[:2000]
                 or "<no result>"
             )
 
