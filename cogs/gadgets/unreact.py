@@ -22,9 +22,9 @@ class Unreact(Cog):
             "🔜",
         ]
         k = random.choice([
-            1, 1,
-            2, 2, 2,
-            3, 3,
+            1, 1, 1,
+            2, 2, 2, 2,
+            3, 3, 
             4,
         ])
         # fmt: on
