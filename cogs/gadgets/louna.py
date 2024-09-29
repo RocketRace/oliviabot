@@ -53,15 +53,3 @@ class Louna(Cog):
             ]
         )
         await ctx.send(msg)
-
-    @louna.error
-    async def louna_error(self, ctx: Context, error: commands.CommandError):
-        match error:
-            case commands.RangeError():
-                ctx.error_handled = True
-                await ctx.send(
-                    f"Value must be an integer between {error.minimum} and {error.maximum} (you gave {error.value}...)"
-                )
-            case commands.BadArgument():
-                ctx.error_handled = True
-                await ctx.send("Value must be an integer")
