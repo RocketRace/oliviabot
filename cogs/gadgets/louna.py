@@ -48,33 +48,11 @@ class Louna(Cog):
             emojis.append("<:racher4:1229156542381686895>")
             emojis.append("<:euler1:1193568742978883764>")
             emojis.append("<:euler4:1193568751631736873>")
-        # secret rachification beam
-        if random.random() < 1 / 1000:
+        if random.random() < 1 / 25:
             k = 4
-            if random.random() < 1 / 2:
-                choices = "".join(
-                    [
-                        "<:racher1:1229156537155584102>",
-                        "<:racher2:1229156538556485695>",
-                        "<:racher3:1229156540477345863>",
-                        "<:racher4:1229156542381686895>",
-                    ]
-                )
-            else:
-                choices = "".join(
-                    [
-                        "<:euler1:1193568742978883764>",
-                        "<:euler2:1193568746304983171>",
-                        "<:euler3:1193568748867686480>",
-                        "<:euler4:1193568751631736873>",
-                    ]
-                )
         else:
-            if random.random() < 1 / 25:
-                k = 4
-            else:
-                k = random.randint(2, 3)
-            choices = "".join(random.choices(emojis, k=k))
+            k = random.randint(2, 3)
+        choices = "".join(random.choices(emojis, k=k))
         await ctx.send(f"l\u200bouna {choices}")
         async with ctx.cursor() as cur:
             await cur.execute(
