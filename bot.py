@@ -37,6 +37,7 @@ class OliviaBot(commands.Bot):
         tester_bot_id: int,
         tester_bot_token: str,
         qwd_id: int,
+        louna_emojis: list[str],
         **kwargs: Any,
     ) -> None:
         intents = discord.Intents.default()
@@ -73,6 +74,7 @@ class OliviaBot(commands.Bot):
         self.tester_bot_id = tester_bot_id
         self.tester_bot_token = tester_bot_token
         self.qwd_id = qwd_id
+        self.louna_emojis = louna_emojis
         self.terminal_cog_interrupted = False
 
     def start(self, *args, **kwargs) -> Coroutine[Any, Any, None]:
