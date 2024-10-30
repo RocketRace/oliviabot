@@ -96,6 +96,7 @@ class Meta(commands.Cog):
     async def sync(self, ctx: Context):
         """Sync application commands"""
         await self.bot.tree.sync()
+        await ctx.send("done")
 
     @commands.command(aliases=['strql'])
     @commands.is_owner()
