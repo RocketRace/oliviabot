@@ -27,6 +27,7 @@ unmapping = {
 alted = unmapping | {
     "🐎": "g",
     "🥺": "i",
+    "🦈": "a",
 }
 unpattern = re.compile("|".join(re.escape(emoji) for emoji in alted))
 
