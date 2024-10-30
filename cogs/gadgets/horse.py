@@ -51,7 +51,6 @@ class Horse(Cog):
         await ctx.send(f"horse dictionary:\n{fmt}")
 
     async def horse_cog_load(self):
-        self.horse_mapping = mapping
         self.bot.tree.add_command(horse_menu)
         self.bot.tree.add_command(unhorse_menu)
 

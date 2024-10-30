@@ -20,6 +20,7 @@ class Gadgets(Louna, Neofetch, Vore, Like, Chain, Unreact, Horse):
     async def cog_load(self):
         await self.neofetch_cog_load()
         await self.chain_cog_load()
+        await self.horse_cog_load()
 
 
 async def setup(bot: OliviaBot):
