@@ -9,29 +9,31 @@ from discord.ext import commands
 from bot import Context, Cog
 
 mapping = {
-    ord("g"): "🐴",
-    ord("m"): "🐑",
-    ord("i"): "<:pleading:1133073270304931980>",
-    ord("l"): "🦔",
-    ord("f"): "🦊",
-    ord("a"): "<:Blobhaj:1133053397940052071>"
+    "g": "🐴",
+    "m": "🐑",
+    "i": "<:pleading:1133073270304931980>",
+    "l": "🦔",
+    "f": "🦊",
+    "a": "<:Blobhaj:1133053397940052071>"
 }
 case = {
-    ord(chr(c).upper()): emoji for c, emoji in mapping.items() if 'a' <= chr(c) <= 'z'
+    c.upper(): emoji for c, emoji in mapping.items() if 'a' <= c <= 'z'
 }
+pattern = re.compile(r"<:\w+:\d+>|" + "|".join(re.escape(c) for c in mapping))
 
 unmapping = {
-    emoji: chr(c) for c, emoji in mapping.items()
+    emoji: c for c, emoji in mapping.items()
 }
-pattern = "|".join(re.escape(emoji) for emoji in unmapping)
+unpattern = re.compile("|".join(re.escape(emoji) for emoji in unmapping))
 
 def horsify(text: str):
-    return text.translate(mapping | case) or "\u200b"
+    # don't horse emojis
+    return re.sub(pattern, lambda match: match.group() if match.group().startswith("<:") else (mapping | case)[match.group()], text) or "\u200b"
 
 def unhorsify(text: str):
     # this is slightly less trivial as we don't want to recurse
     # e.g. <:plead<:pleading:1133073270304931980>ng:1133073270304931980>
-    return re.sub(pattern, lambda match: unmapping[match.group()], text) or "\u200b"
+    return re.sub(unpattern, lambda match: unmapping[match.group()], text) or "\u200b"
 
 def get_reply_content(ctx: Context):
     ref = ctx.message.reference
