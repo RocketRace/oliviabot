@@ -16,7 +16,7 @@ mapping = {
     "f": "🦊",
     "a": "<:Blobhaj:1133053397940052071>"
 }
-case = {
+cased = mapping | {
     c.upper(): emoji for c, emoji in mapping.items() if 'a' <= c <= 'z'
 }
 pattern = re.compile(r"<:\w+:\d+>|" + "|".join(re.escape(c) for c in mapping))
@@ -27,12 +27,11 @@ unmapping = {
 unpattern = re.compile("|".join(re.escape(emoji) for emoji in unmapping))
 
 def horsify(text: str):
-    # don't horse emojis
-    return re.sub(pattern, lambda match: match.group() if match.group().startswith("<:") else (mapping | case)[match.group()], text) or "\u200b"
+    # leave custom emojis as they are
+    return re.sub(pattern, lambda match: match.group() if match.group().startswith("<:") else cased[match.group()], text) or "\u200b"
 
 def unhorsify(text: str):
-    # this is slightly less trivial as we don't want to recurse
-    # e.g. <:plead<:pleading:1133073270304931980>ng:1133073270304931980>
+    # we don't want to recurse e.g. <:plead<:pleading:1133073270304931980>ng:1133073270304931980>
     return re.sub(unpattern, lambda match: unmapping[match.group()], text) or "\u200b"
 
 def get_reply_content(ctx: Context):
