@@ -28,7 +28,7 @@ alted = unmapping | {
     "🐎": "g",
     "🥺": "i",
 }
-unpattern = re.compile("|".join(re.escape(emoji) for emoji in unmapping))
+unpattern = re.compile("|".join(re.escape(emoji) for emoji in alted))
 
 def horsify(text: str):
     # leave custom emojis as they are
