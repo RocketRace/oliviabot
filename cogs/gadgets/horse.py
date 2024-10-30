@@ -24,6 +24,10 @@ pattern = re.compile(r"<:\w+:\d+>|" + "|".join(re.escape(c) for c in mapping))
 unmapping = {
     emoji: c for c, emoji in mapping.items()
 }
+alted = unmapping | {
+    "🐎": "g",
+    "🥺": "i",
+}
 unpattern = re.compile("|".join(re.escape(emoji) for emoji in unmapping))
 
 def horsify(text: str):
@@ -32,7 +36,7 @@ def horsify(text: str):
 
 def unhorsify(text: str):
     # we don't want to recurse e.g. <:plead<:pleading:1133073270304931980>ng:1133073270304931980>
-    return re.sub(unpattern, lambda match: unmapping[match.group()], text) or "\u200b"
+    return re.sub(unpattern, lambda match: alted[match.group()], text) or "\u200b"
 
 def get_reply_content(ctx: Context):
     ref = ctx.message.reference
