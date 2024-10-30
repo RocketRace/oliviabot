@@ -39,8 +39,10 @@ class Louna(Cog):
     async def hevonen(self, msg: discord.Message):
         before, after = msg.content, unhorsify(msg.content)
         if before != after and after == "+louna":
-            msg.content = "+louna"
-            await self.bot.process_commands(msg)
+            # clone is required as the same Message object is used across listeners
+            new_msg = await msg.channel.fetch_message(msg.id)
+            new_msg.content = "+louna"
+            await self.bot.process_commands(new_msg)
 
     @louna.command()
     async def stats(self, ctx: Context):
