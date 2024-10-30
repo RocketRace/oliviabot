@@ -14,7 +14,8 @@ mapping = {
     "i": "<:pleading:1133073270304931980>",
     "l": "🦔",
     "f": "🦊",
-    "a": "<:Blobhaj:1133053397940052071>"
+    "a": "<:Blobhaj:1133053397940052071>",
+    "b": "🐇",
 }
 cased = mapping | {
     c.upper(): emoji for c, emoji in mapping.items() if 'a' <= c <= 'z'
