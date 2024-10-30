@@ -21,6 +21,7 @@ mapping = {
     "w": "🐌",
     "c": "😼",
     "n": "🎑",
+    "j": "✝️",
 }
 cased = mapping | {
     c.upper(): emoji for c, emoji in mapping.items() if 'a' <= c <= 'z'
