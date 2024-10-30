@@ -90,6 +90,12 @@ class Meta(commands.Cog):
         else:
             await self.bot.reload_extension(cog)
             await ctx.send(f"Loaded {cog}")
+    
+    @commands.command()
+    @commands.is_owner()
+    async def sync(self, ctx: Context):
+        """Sync application commands"""
+        await self.bot.tree.sync()
 
     @commands.command(aliases=['strql'])
     @commands.is_owner()

@@ -8,9 +8,10 @@ from .neofetch import Neofetch
 from .vore import Vore
 from .markov import Chain
 from .unreact import Unreact
+from .horse import Horse
 
 
-class Gadgets(Louna, Neofetch, Vore, Like, Chain, Unreact):
+class Gadgets(Louna, Neofetch, Vore, Like, Chain, Unreact, Horse):
     """Various gadgets and gizmos"""
 
     def __init__(self, bot: OliviaBot):

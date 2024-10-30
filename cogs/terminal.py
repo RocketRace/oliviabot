@@ -6,8 +6,8 @@ from discord.ext import commands
 import discord
 import aioconsole
 import discord.http
-import parse_discord
-import parse_discord.formatting
+# import parse_discord
+# import parse_discord.formatting
 
 from bot import Context, OliviaBot
 
@@ -25,119 +25,120 @@ def mention(inner: str) -> str:
 
 
 class TestContext(Context):
-    def format_node(self, node: parse_discord.Node) -> str:
-        match node:
-            case parse_discord.Text():
-                return node.text
-            case parse_discord.Bold():
-                return sgr(1) + self.format_markup(node.inner) + sgr(22)
-            case parse_discord.Italic():
-                return sgr(3) + self.format_markup(node.inner) + sgr(23)
-            case parse_discord.Underline():
-                return sgr(4) + self.format_markup(node.inner) + sgr(24)
-            case parse_discord.Strikethrough():
-                return sgr(9) + self.format_markup(node.inner) + sgr(29)
-            case parse_discord.Spoiler():
-                return colored(self.format_markup(node.inner), 37, 48, 5, 243)
-            case parse_discord.Quote():
-                return indent(self.format_markup(node.inner), colored("> ", 37))
-            case parse_discord.Header():
-                return indent(
-                    self.format_markup(node.inner),
-                    colored("#" * node.level + " ", 37),
-                )
-            case parse_discord.List():
-                out = []
-                if node.start:
-                    for i, item in enumerate(node.items):
-                        bullet = f"{node.start + i}. "
-                        out.append(
-                            indent(
-                                f"{bullet}{self.format_markup(item)}",
-                                " " * len(bullet),
-                            )
-                        )
-                else:
-                    for item in node.items:
-                        out.append(
-                            indent(
-                                f"- {self.format_markup( item)}",
-                                "  ",
-                            )
-                        )
+    # def format_node(self, node: parse_discord.Node) -> str:
+    #     match node:
+    #         case parse_discord.Text():
+    #             return node.text
+    #         case parse_discord.Bold():
+    #             return sgr(1) + self.format_markup(node.inner) + sgr(22)
+    #         case parse_discord.Italic():
+    #             return sgr(3) + self.format_markup(node.inner) + sgr(23)
+    #         case parse_discord.Underline():
+    #             return sgr(4) + self.format_markup(node.inner) + sgr(24)
+    #         case parse_discord.Strikethrough():
+    #             return sgr(9) + self.format_markup(node.inner) + sgr(29)
+    #         case parse_discord.Spoiler():
+    #             return colored(self.format_markup(node.inner), 37, 48, 5, 243)
+    #         case parse_discord.Quote():
+    #             return indent(self.format_markup(node.inner), colored("> ", 37))
+    #         case parse_discord.Header():
+    #             return indent(
+    #                 self.format_markup(node.inner),
+    #                 colored("#" * node.level + " ", 37),
+    #             )
+    #         case parse_discord.List():
+    #             out = []
+    #             if node.start:
+    #                 for i, item in enumerate(node.items):
+    #                     bullet = f"{node.start + i}. "
+    #                     out.append(
+    #                         indent(
+    #                             f"{bullet}{self.format_markup(item)}",
+    #                             " " * len(bullet),
+    #                         )
+    #                     )
+    #             else:
+    #                 for item in node.items:
+    #                     out.append(
+    #                         indent(
+    #                             f"- {self.format_markup( item)}",
+    #                             "  ",
+    #                         )
+    #                     )
 
-                return "\n".join(out)
-            case parse_discord.Link():
-                text = node.title if node.title else node.display_target
-                # hyperlink, limited terminal support
-                return f"\x1b[]8;;{node.target}\x1b\\{text}\x1b[]8;;\x1b\\"
-            case parse_discord.InlineCode():
-                return colored(node.content, 48, 5, 243)
-            case parse_discord.Codeblock():
-                # TODO
-                if node.language:
-                    return colored(f"```{node.language}\n{node.content}```", 48, 5, 243)
-                else:
-                    return colored(f"```\n{node.content}```", 48, 5, 243)
-            case parse_discord.UserMention():
-                if self.guild:
-                    member = self.guild.get_member(node.id)
-                    if member:
-                        return mention(f"@{member.nick}")
-                user = self.bot.get_user(node.id)
-                if user:
-                    return mention(f"@{user.name}")
-                return mention(f"<@{node.id}>")
-            case parse_discord.ChannelMention():
-                channel = self.bot.get_channel(node.id)
-                if channel and isinstance(
-                    channel, (discord.abc.GuildChannel, discord.Thread)
-                ):
-                    return mention(f"#{channel.name}")
-                return mention(f"<#{node.id}>")
-            case parse_discord.RoleMention():
-                if self.guild:
-                    role = self.guild.get_role(node.id)
-                    if role:
-                        name = role.name
-                        r, g, b = role.color.to_rgb()
-                        return colored(f"@{name}", 38, 2, r, g, b)
-                return mention(f"<@&{node.id}>")
-            case parse_discord.Everyone():
-                return mention("@everyone")
-            case parse_discord.Here():
-                return mention("@here")
-            case parse_discord.CustomEmoji():
-                return f":{node.name}:"
-            case parse_discord.UnicodeEmoji():
-                return node.char
-            case parse_discord.Timestamp():
-                try:
-                    datetime = node.as_datetime()
-                    return mention(datetime.strftime("%Y-%m-%d %H:%M:%S"))
-                except OverflowError:
-                    pass
-                if node.format:
-                    return mention(f"<t:{node.timestamp}:{node.format}>")
-                else:
-                    return mention(f"<t:{node.timestamp}>")
+    #             return "\n".join(out)
+    #         case parse_discord.Link():
+    #             text = node.title if node.title else node.display_target
+    #             # hyperlink, limited terminal support
+    #             return f"\x1b[]8;;{node.target}\x1b\\{text}\x1b[]8;;\x1b\\"
+    #         case parse_discord.InlineCode():
+    #             return colored(node.content, 48, 5, 243)
+    #         case parse_discord.Codeblock():
+    #             # TODO
+    #             if node.language:
+    #                 return colored(f"```{node.language}\n{node.content}```", 48, 5, 243)
+    #             else:
+    #                 return colored(f"```\n{node.content}```", 48, 5, 243)
+    #         case parse_discord.UserMention():
+    #             if self.guild:
+    #                 member = self.guild.get_member(node.id)
+    #                 if member:
+    #                     return mention(f"@{member.nick}")
+    #             user = self.bot.get_user(node.id)
+    #             if user:
+    #                 return mention(f"@{user.name}")
+    #             return mention(f"<@{node.id}>")
+    #         case parse_discord.ChannelMention():
+    #             channel = self.bot.get_channel(node.id)
+    #             if channel and isinstance(
+    #                 channel, (discord.abc.GuildChannel, discord.Thread)
+    #             ):
+    #                 return mention(f"#{channel.name}")
+    #             return mention(f"<#{node.id}>")
+    #         case parse_discord.RoleMention():
+    #             if self.guild:
+    #                 role = self.guild.get_role(node.id)
+    #                 if role:
+    #                     name = role.name
+    #                     r, g, b = role.color.to_rgb()
+    #                     return colored(f"@{name}", 38, 2, r, g, b)
+    #             return mention(f"<@&{node.id}>")
+    #         case parse_discord.Everyone():
+    #             return mention("@everyone")
+    #         case parse_discord.Here():
+    #             return mention("@here")
+    #         case parse_discord.CustomEmoji():
+    #             return f":{node.name}:"
+    #         case parse_discord.UnicodeEmoji():
+    #             return node.char
+    #         case parse_discord.Timestamp():
+    #             try:
+    #                 datetime = node.as_datetime()
+    #                 return mention(datetime.strftime("%Y-%m-%d %H:%M:%S"))
+    #             except OverflowError:
+    #                 pass
+    #             if node.format:
+    #                 return mention(f"<t:{node.timestamp}:{node.format}>")
+    #             else:
+    #                 return mention(f"<t:{node.timestamp}>")
 
-            case other:
-                return parse_discord.formatting.format_markup(
-                    parse_discord.Markup([other])
-                )
+    #         case other:
+    #             return parse_discord.formatting.format_markup(
+    #                 parse_discord.Markup([other])
+    #             )
 
-    def format_markup(self, markup: parse_discord.Markup) -> str:
-        formatted = ""
-        for node in markup.nodes:
-            formatted += self.format_node(node)
+    # def format_markup(self, markup: parse_discord.Markup) -> str:
+    #     formatted = ""
+    #     for node in markup.nodes:
+    #         formatted += self.format_node(node)
 
-        return formatted
+    #     return formatted
 
     async def send(self, content: str | None = None, **kwargs):
         if content:
-            markup = parse_discord.parse(content)
-            formatted = self.format_markup(markup)
+            # markup = parse_discord.parse(content)
+            # formatted = self.format_markup(markup)
+            formatted = content
             print("Out:", formatted)
         return await super().send(content, **kwargs)
 
