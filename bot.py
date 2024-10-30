@@ -169,6 +169,12 @@ class OliviaBot(commands.Bot):
                 )
                 """
             )
+            await cur.executescript(
+                """CREATE TABLE IF NOT EXISTS auto_olivias(
+                    user_id INTEGER PRIMARY KEY
+                )
+                """
+            )
 
     async def setup_hook(self) -> None:
         self.webhook = discord.Webhook.from_url(self.webhook_url, client=self)
@@ -181,6 +187,12 @@ class OliviaBot(commands.Bot):
         }
 
         await self.perform_migrations()
+
+        async with self.cursor() as cur:
+            await cur.execute("""SELECT user_id FROM auto_olivias;""")
+            olivias = await cur.fetchall()
+            for [olivia] in olivias:
+                self.owner_ids.add(olivia)
 
         for extension in self.activated_extensions:
             await self.load_extension(extension)
