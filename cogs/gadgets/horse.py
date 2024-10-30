@@ -41,7 +41,8 @@ def get_reply_content(ctx: Context):
 
 class Horse(Cog):
     async def horse_help(self, ctx: Context):
-        await ctx.send("horse dictionary:")
+        fmt = "\n".join([f"{emoji}: `{c}`" for emoji, c in unmapping.items()])
+        await ctx.send(f"horse dictionary:\n{fmt}")
 
     async def horse_cog_load(self):
         self.horse_mapping = mapping
