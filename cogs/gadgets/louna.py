@@ -2,9 +2,12 @@ from __future__ import annotations
 
 import random
 
+import discord
 from discord.ext import commands
 
 from bot import Context, Cog
+
+from .horse import unhorsify
 
 
 class Louna(Cog):
@@ -31,6 +34,13 @@ class Louna(Cog):
             await cur.execute(
                 """UPDATE params SET louna_emoji_count = louna_emoji_count + ?;""", [k]
             )
+
+    @commands.Cog.listener(name="on_message")
+    async def hevonen(self, msg: discord.Message):
+        before, after = msg.content, unhorsify(msg.content)
+        if before != after and after == "+louna":
+            msg.content = "+louna"
+            await self.bot.process_commands(msg)
 
     @louna.command()
     async def stats(self, ctx: Context):
