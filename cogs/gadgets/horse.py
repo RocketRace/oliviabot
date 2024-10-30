@@ -56,7 +56,13 @@ class Horse(Cog):
 
     @commands.command()
     async def horse(self, ctx: Context, *, text: str | None = None):
-        """Translates a message into 🐴"""
+        """Translates a message into 🐴
+        
+        Parameters
+        -----------
+        text: str | None
+            The text / reply to be translated.
+        """
         if text is None:
             text = get_reply_content(ctx)
         if text is None:
@@ -65,7 +71,13 @@ class Horse(Cog):
 
     @commands.command()
     async def unhorse(self, ctx: Context, *, text: str | None = None):
-        """Translates a 🐴 message back to normal"""
+        """Translates a 🐴 message back to normal
+        
+        Parameters
+        -----------
+        text: str | None
+            The text / reply to be translated.
+        """
         if text is None:
             text = get_reply_content(ctx)
         if text is None:
