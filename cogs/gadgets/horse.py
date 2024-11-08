@@ -28,6 +28,7 @@ mapping = {
     "z": "🤖",
     "ö": "👽",
     "t": "🪱",
+    "p": "🐷",
 }
 cased = mapping | {
     c.upper(): emoji for c, emoji in mapping.items() if 'a' <= c <= 'z'
@@ -41,6 +42,7 @@ alted = unmapping | {
     "🐎": "g",
     "🥺": "i",
     "🦈": "a",
+    "🐖": "p",
 }
 unpattern = re.compile("|".join(re.escape(emoji) for emoji in alted))
 
