@@ -30,9 +30,9 @@ mapping = {
     "p": "🐷",
 }
 cased = mapping | {
-    c.upper(): emoji for c, emoji in mapping.items() if 'a' <= c <= 'z'
+    c.upper(): emoji for c, emoji in mapping.items()
 }
-pattern = re.compile(r"<:\w+:\d+>|" + "|".join(re.escape(c) for c in mapping))
+pattern = re.compile(r"<:\w+:\d+>|" + "|".join(re.escape(c) for c in cased))
 
 unmapping = {
     emoji: c for c, emoji in mapping.items()
