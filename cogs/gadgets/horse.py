@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import re
-import unicodedata
 
 import discord
 from discord import app_commands
@@ -47,8 +46,6 @@ alted = unmapping | {
 unpattern = re.compile("|".join(re.escape(emoji) for emoji in alted))
 
 def horsify(text: str):
-    # for ö purposes
-    text = unicodedata.normalize("NFKC", text)
     # leave custom emojis as they are
     return re.sub(pattern, lambda match: match.group() if match.group().startswith("<:") else cased[match.group()], text) or "\u200b"
 
