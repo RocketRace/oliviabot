@@ -125,8 +125,9 @@ class ErrorHandler(commands.Cog):
                 await ctx.send("Something went wrong with the parsing here")
             case commands.CommandInvokeError():
                 inner = discord.utils.escape_markdown(str(error.original))
+                smaller = '\n'.join(f"-# {line}" for line in inner.splitlines())
                 await ctx.send(
-                    f"Something raised {error.original.__class__.__name__} from inside the command\n-# {inner}"
+                    f"Something raised {error.original.__class__.__name__} from inside the command\n{smaller}"
                 )
                 logging.exception(
                     f"Exception in command {command_name}",
