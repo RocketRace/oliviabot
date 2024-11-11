@@ -218,3 +218,17 @@ class Context(commands.Context[OliviaBot]):
     def cursor(self) -> aiosqlite.context.Result[aiosqlite.Cursor]:
         """Returns a context manager to a cursor object."""
         return self.bot.cursor()
+    
+    async def ack(self, message: str | None = None, emoji: str = "🫶") -> None:
+        if message:
+            await self.send(message)
+        await self.message.add_reaction(emoji)
+
+    async def send(self, content: str | None = None, /, **kwargs) -> discord.Message:
+        # - under 2000 is unchanged
+        # - over 2000 is cropped down to fit the suffix at exactly 2000 chars
+        limit = 2000
+        if content and len(content) > limit:
+            suffix = " [... I have so much to say!]"
+            content = content[:limit - len(suffix)] + suffix
+        return await super().send(content, **kwargs)

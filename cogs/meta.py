@@ -77,7 +77,7 @@ class Meta(commands.Cog):
 
         nick = " ".join(segments)
         await ctx.me.edit(nick=nick)
-        await ctx.message.add_reaction("\N{WHITE HEAVY CHECK MARK}")
+        await ctx.ack()
 
     @commands.command()
     @commands.is_owner()
@@ -86,17 +86,17 @@ class Meta(commands.Cog):
         if cog is None:
             for extension in self.bot.activated_extensions:
                 await self.bot.reload_extension(extension)
-            await ctx.send("Loaded all extensions")
+            await ctx.ack("Loaded all extensions")
         else:
             await self.bot.reload_extension(cog)
-            await ctx.send(f"Loaded {cog}")
+            await ctx.ack(f"Loaded {cog}")
     
     @commands.command()
     @commands.is_owner()
     async def sync(self, ctx: Context):
         """Sync application commands"""
         await self.bot.tree.sync()
-        await ctx.send("done")
+        await ctx.ack()
 
     @commands.command(aliases=['strql'])
     @commands.is_owner()
@@ -114,7 +114,7 @@ class Meta(commands.Cog):
     async def oliviafy(self, ctx: Context, user: discord.User):
         '''You too can become olivia'''
         self.bot.owner_ids.add(user.id)
-        await ctx.send(f"{user.mention} hi, olivia")
+        await ctx.ack(f"{user.mention} hi, olivia")
 
     @commands.command()
     @commands.is_owner()
