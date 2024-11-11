@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import re
+import string
 
 import discord
 from discord import app_commands
@@ -62,7 +63,8 @@ def get_reply_content(ctx: Context):
 class Horse(Cog):
     async def horse_help(self, ctx: Context):
         fmt = "\n".join([f"{emoji}: `{c}`" for emoji, c in sorted(unmapping.items(), key=lambda x: x[1])])
-        await ctx.send(f"horse dictionary:\n{fmt}")
+        missing = ", ".join(f"`{c}`" for c in sorted(set(string.ascii_lowercase) - mapping.keys() - set("horse")))
+        await ctx.send(f"horse dictionary:\n{fmt}\nmissing: {missing}")
 
     async def horse_cog_load(self):
         self.bot.tree.add_command(horse_menu)
