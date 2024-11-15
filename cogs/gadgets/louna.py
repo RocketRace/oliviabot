@@ -26,7 +26,7 @@ class Louna(Cog):
         else:
             k = random.randint(2, 3)
         choices = "".join(random.choices(emojis, k=k))
-        await ctx.send(f"l\u200bouna {choices}")
+        await ctx.reply(f"l\u200bouna {choices}", mention_author=False)
         async with ctx.cursor() as cur:
             await cur.execute(
                 """UPDATE params SET louna_command_count = louna_command_count + 1;"""
