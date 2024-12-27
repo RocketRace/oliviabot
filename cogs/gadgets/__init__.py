@@ -9,9 +9,10 @@ from .vore import Vore
 from .markov import Chain
 from .unreact import Unreact
 from .horse import Horse
+from .tempemoji import TempEmoji
 
 
-class Gadgets(Louna, Neofetch, Vore, Like, Chain, Unreact, Horse):
+class Gadgets(Louna, Neofetch, Vore, Like, Chain, Unreact, Horse, TempEmoji):
     """Various gadgets and gizmos"""
 
     def __init__(self, bot: OliviaBot):

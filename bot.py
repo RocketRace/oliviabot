@@ -25,6 +25,7 @@ def qwd_only():
 class OliviaBot(commands.Bot):
     owner_ids: set[int]
     terminal_cog_interrupted: bool
+    qwd: discord.Guild
 
     def __init__(
         self,
@@ -200,6 +201,11 @@ class OliviaBot(commands.Bot):
         guild = discord.Object(self.testing_guild_id)
         self.tree.copy_global_to(guild=guild)
         await self.tree.sync(guild=guild)
+
+        qwd = self.get_guild(self.qwd_id)
+        if qwd is None:
+            print("QWD is missing!")
+        self.qwd = qwd # type: ignore[reportAttributeAccessIssue]
 
     def cursor(self) -> aiosqlite.context.Result[aiosqlite.Cursor]:
         """Returns a context manager to a cursor object."""
