@@ -9,7 +9,7 @@ class TempEmoji(Cog):
     @commands.guild_only()
     @commands.bot_has_permissions(create_expressions=True)
     @commands.command()
-    @commands.is_owner() # temporary
+    @commands.is_owner() # temporary check since the command isn't done yet
     async def tempemoji(self, ctx: Context, name: str, image: discord.Attachment):
         """Creates a temporary emoji that lasts for 24 hours
         
