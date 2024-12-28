@@ -116,6 +116,10 @@ class OliviaBot(commands.Bot):
 
     async def on_ready(self) -> None:
         assert self.user
+        await self.webhook.send(f"Logged in as {self.user} (ID: {self.user.id})")
+    
+    async def webhook_send(self, message: str) -> None:
+        assert self.user
         webhook = discord.Webhook.from_url(self.webhook_url, client=self)
         msg = f"Logged in as {self.user} (ID: {self.user.id})"
         logging.info(msg)
@@ -173,6 +177,14 @@ class OliviaBot(commands.Bot):
             await cur.executescript(
                 """CREATE TABLE IF NOT EXISTS auto_olivias(
                     user_id INTEGER PRIMARY KEY
+                )
+                """
+            )
+            await cur.executescript(
+                """CREATE TABLE IF NOT EXISTS tempemoji(
+                    emoji_id INTEGER PRIMARY KEY,
+                    guild_id INTEGER NOT NULL,
+                    delete_at REAL NOT NULL
                 )
                 """
             )

@@ -22,6 +22,10 @@ class Gadgets(Louna, Neofetch, Vore, Like, Chain, Unreact, Horse, TempEmoji):
         await self.neofetch_cog_load()
         await self.chain_cog_load()
         await self.horse_cog_load()
+        await self.tempemoji_cog_load()
+    
+    async def cog_unload(self) -> None:
+        await self.tempemoji_cog_unload()
 
 async def setup(bot: OliviaBot):
     await bot.add_cog(Gadgets(bot))
