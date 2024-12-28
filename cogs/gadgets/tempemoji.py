@@ -50,8 +50,9 @@ class TempEmoji(Cog):
             reason=f"+tempemoji :{name}: by {ctx.author.display_name}"
         )
 
+        hours = 1
         now = datetime.datetime.now()
-        then = now + datetime.timedelta(hours=1)
+        then = now + datetime.timedelta(hours=hours)
 
         async with ctx.bot.cursor() as cur:
             await cur.execute(
@@ -60,7 +61,7 @@ class TempEmoji(Cog):
             )
         await ctx.message.add_reaction(emoji)
         await ctx.reply(f"{emoji} is here!\n-# it will poof {discord.utils.format_dt(then, "R")}!")
-        await asyncio.sleep(60 * 60)
+        await asyncio.sleep(60 * 60 * hours)
         await self.try_delete_emoji(emoji.id, guild.id)
 
     @tempemoji.error
