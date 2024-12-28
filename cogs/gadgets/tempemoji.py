@@ -10,7 +10,7 @@ from bot import Context, Cog
 
 class EmojiNameConverter(commands.Converter[str]):
     async def convert(self, ctx: commands.Context, argument: str):
-        match = re.match(r":(\w{2,32}):|(\w{2,32})", argument)
+        match = re.match(r":(\w{1,27}):|(\w{1,27})", argument)
         if match is not None:
             # groups across branches aren't merged
             return list(filter(None, match.groups()))[0]
@@ -45,9 +45,9 @@ class TempEmoji(Cog):
             return await ctx.send("Sorry... there's no space left :(")
         
         emoji = await guild.create_custom_emoji(
-            name=name,
+            name=name + "_temp",
             image=await image.read(),
-            reason=f"+tempemoji :{name}: by {ctx.author.display_name}"
+            reason=f"+tempemoji :{name}_temp: by {ctx.author.display_name}"
         )
 
         hours = 1
