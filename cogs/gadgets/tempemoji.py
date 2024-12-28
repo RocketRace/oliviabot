@@ -92,7 +92,7 @@ class TempEmoji(Cog):
                 await ctx.send("you have to send an image file for the emoji, sorry if that was unclear")
                 ctx.error_handled = True
             case discord.HTTPException():
-                await ctx.send("the image isn't quite right... i think it's too big")
+                await ctx.send("the image isn't quite right... i think it's too big (in the future i can rescale them)")
                 ctx.error_handled = True
 
     async def try_delete_emoji(self, emoji_id: int, guild_id: int):
