@@ -27,7 +27,7 @@ class TempEmoji(Cog):
 
     @commands.guild_only()
     @commands.bot_has_permissions(create_expressions=True)
-    @commands.command(enabled=False)
+    @commands.command()
     async def tempemoji(self, ctx: Context, image: discord.Attachment, name: str = commands.parameter(converter=EmojiNameConverter)):
         """Creates a temporary emoji from an attachment
 
