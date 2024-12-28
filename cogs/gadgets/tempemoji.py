@@ -84,6 +84,9 @@ class TempEmoji(Cog):
             case commands.BadArgument():
                 await ctx.send("That name is too short! Or too long I didn't check")
                 ctx.error_handled = True
+            case commands.MissingRequiredArgument():
+                await ctx.send("you have to include a name to the message as well !")
+                ctx.error_handled = True
             case commands.MissingRequiredAttachment():
                 await ctx.send("you have to send an image file for the emoji, sorry if that was unclear")
                 ctx.error_handled = True
