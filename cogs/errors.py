@@ -15,7 +15,11 @@ class ErrorHandler(commands.Cog):
     async def log_error(self, ctx: Context, error: commands.CommandError):
         original = getattr(error, "original", error)
         
-        skip_tb = (commands.NotOwner, aiosqlite.Error)
+        skip_tb = (
+            aiosqlite.Error, # kinda just to avoid spam
+            commands.CheckFailure, # all things related to bad checks
+            commands.UserInputError, # all things related to bad input
+        )
         if isinstance(original, skip_tb):
             description = None
         else:
@@ -65,7 +69,7 @@ class ErrorHandler(commands.Cog):
     @commands.Cog.listener()
     async def on_command_error(self, ctx: Context, error: commands.CommandError):
         # skip errors that we don't want to report in any way
-        if isinstance(error, commands.CommandNotFound):
+        if isinstance(error, (commands.CommandNotFound, commands.DisabledCommand)):
             return
 
         await self.log_error(ctx, error)
@@ -88,6 +92,10 @@ class ErrorHandler(commands.Cog):
             case commands.MissingRequiredArgument():
                 await ctx.send(
                     f"Command {command_name} missing required parameter '{error.param}'"
+                )
+            case commands.MissingRequiredArgument():
+                await ctx.send(
+                    f"Command {command_name} missing required attachment '{error.param}'"
                 )
             case commands.ArgumentParsingError():
                 await ctx.send(
