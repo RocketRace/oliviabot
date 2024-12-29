@@ -113,18 +113,18 @@ class TempEmoji(Cog):
                 ctx.error_handled = True
 
     async def try_delete_emoji(self, emoji_id: int, guild_id: int):
-        guild = await self.bot.fetch_guild(guild_id)
-        if guild is not None:
-            if guild.get_emoji(emoji_id) is None:
-                return
-            await self.bot.webhook.send(f"Deleting emoji <:__:{emoji_id}> in `{guild.name}`")
-            try:
-                await guild.delete_emoji(discord.Object(emoji_id))
-                return await self.bot.webhook.send(f"Deleted!")
-            except discord.HTTPException:
-                # nothing to do really, either we can't delete or it's already gone
-                return await self.bot.webhook.send(f"Did not delete!")
-        return await self.bot.webhook.send(f"Can't delete {emoji_id} in {guild_id}! (No guild)")
+        emoji = self.bot.get_emoji(emoji_id)
+        if emoji is None:
+            return
+        guild = self.bot.get_guild(guild_id)
+        guild_display = guild.name if guild else str(guild_id)
+        await self.bot.webhook.send(f"Deleting emoji <:__:{emoji_id}> in `{guild_display}`")
+        try:
+            await emoji.delete()
+            return await self.bot.webhook.send(f"Deleted!")
+        except discord.HTTPException:
+            # nothing to do really, either we can't delete or it's already gone
+            return await self.bot.webhook.send(f"Did not delete!")
 
     @tasks.loop(minutes=15)
     async def deleter_task(self):
