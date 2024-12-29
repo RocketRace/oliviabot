@@ -214,10 +214,6 @@ class OliviaBot(commands.Bot):
         self.tree.copy_global_to(guild=guild)
         await self.tree.sync(guild=guild)
 
-        qwd = self.get_guild(self.qwd_id)
-        if qwd is None:
-            print("QWD is missing!")
-        self.qwd = qwd # type: ignore[reportAttributeAccessIssue]
 
     def cursor(self) -> aiosqlite.context.Result[aiosqlite.Cursor]:
         """Returns a context manager to a cursor object."""

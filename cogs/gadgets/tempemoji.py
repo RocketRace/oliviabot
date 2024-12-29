@@ -1,6 +1,7 @@
 from __future__ import annotations
 import asyncio
 import datetime
+import random
 import re
 
 import discord
@@ -8,15 +9,18 @@ from discord.ext import commands, tasks
 
 from bot import Context, Cog
 
-class EmojiNameConverter(commands.Converter[str]):
+class EmojiNameConverter(commands.Converter):
     async def convert(self, ctx: commands.Context, argument: str):
-        match = re.match(r":(\w{1,27}):|(\w{1,27})", argument)
-        if match is not None:
-            # groups across branches aren't merged
-            return list(filter(None, match.groups()))[0]
+        argument = re.sub(r"[^\w]", "", argument)
+        if re.match(r"\w{1,27}", argument):
+            return argument
         else:
             raise commands.BadArgument()
-            
+
+class SimplePronoun(commands.Converter):
+    async def convert(self, ctx: commands.Context, argument: str):
+        [pronoun, *_] = argument.split("/")
+        return pronoun
 
 class TempEmoji(Cog):
     async def tempemoji_cog_load(self):
@@ -29,15 +33,25 @@ class TempEmoji(Cog):
     # fixme: When discord fixes their shit, change this!
     @commands.bot_has_guild_permissions(manage_expressions=True)
     @commands.command()
-    async def tempemoji(self, ctx: Context, image: discord.Attachment, name: str = commands.parameter(converter=EmojiNameConverter)):
+    async def tempemoji(
+        self,
+        ctx: Context,
+        image: discord.Attachment,
+        name: str = commands.parameter(converter=EmojiNameConverter),
+        pronouns: commands.Greedy[str] = commands.parameter(converter=commands.Greedy[SimplePronoun])
+    ):
         """Creates a temporary emoji from an attachment
 
         The emoji lasts for 1 hour.
+
+        Example: +tempemoji robotgirl she/her it/its
         
         Parameters
         -----------
         name: str
             The emoji name
+        pronouns: str
+            The emoji's pronouns (multiple allowed, use e.g. she/her they/them instead of she/they)
         """
         guild = ctx.guild
         assert guild
@@ -59,8 +73,10 @@ class TempEmoji(Cog):
                 """INSERT INTO tempemoji VALUES(?, ?, ?);""",
                 [emoji.id, guild.id, then.timestamp()]
             )
+
+        pronoun = random.choice(pronouns) if pronouns else "it"
         await ctx.message.add_reaction(emoji)
-        await ctx.reply(f"{emoji} is here!\n-# it will poof {discord.utils.format_dt(then, "R")}!")
+        await ctx.reply(f"{emoji} is here!\n-# {pronoun} will poof {discord.utils.format_dt(then, "R")}!")
         await asyncio.sleep(60 * 60 * hours)
         await self.try_delete_emoji(emoji.id, guild.id)
 
@@ -87,13 +103,13 @@ class TempEmoji(Cog):
                 await ctx.send("That name is too short! Or too long I didn't check")
                 ctx.error_handled = True
             case commands.MissingRequiredArgument():
-                await ctx.send("you have to include a name to the message as well !")
+                await ctx.send("You have to include a name to the message as well !")
                 ctx.error_handled = True
             case commands.MissingRequiredAttachment():
-                await ctx.send("you have to send an image file for the emoji, sorry if that was unclear")
+                await ctx.send("you have to send an image file for the emoji!")
                 ctx.error_handled = True
-            case discord.HTTPException():
-                await ctx.send("the image isn't quite right... i think it's too big (in the future i can rescale them)")
+            case commands.CommandInvokeError(original=discord.HTTPException()):
+                await ctx.send("The image isn't quite right... I think it's too big (in the future I can learn to rescale them)")
                 ctx.error_handled = True
 
     async def try_delete_emoji(self, emoji_id: int, guild_id: int):
