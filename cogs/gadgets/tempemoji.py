@@ -113,7 +113,7 @@ class TempEmoji(Cog):
                 ctx.error_handled = True
 
     async def try_delete_emoji(self, emoji_id: int, guild_id: int):
-        guild = self.bot.get_guild(guild_id)
+        guild = await self.bot.fetch_guild(guild_id)
         if guild is not None:
             if guild.get_emoji(emoji_id) is None:
                 return
