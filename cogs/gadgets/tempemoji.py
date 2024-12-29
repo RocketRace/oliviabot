@@ -124,7 +124,7 @@ class TempEmoji(Cog):
             return await self.bot.webhook.send(f"Deleted!")
         except discord.HTTPException:
             # nothing to do really, either we can't delete or it's already gone
-            return await self.bot.webhook.send(f"Did not delete!")
+            return await self.bot.webhook.send(f"Failed!")
 
     @tasks.loop(minutes=15)
     async def deleter_task(self):
