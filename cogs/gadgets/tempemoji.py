@@ -24,7 +24,6 @@ class SimplePronoun(commands.Converter):
 
 class TempEmoji(Cog):
     async def tempemoji_cog_load(self):
-        await asyncio.sleep(60)
         self.deleter_task.start()
     
     async def tempemoji_cog_unload(self):
@@ -129,6 +128,7 @@ class TempEmoji(Cog):
 
     @tasks.loop(minutes=15)
     async def deleter_task(self):
+        await asyncio.sleep(60)
         now = datetime.datetime.now()
         async with self.bot.cursor() as cur:
             await cur.execute(
