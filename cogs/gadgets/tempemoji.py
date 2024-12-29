@@ -24,6 +24,7 @@ class SimplePronoun(commands.Converter):
 
 class TempEmoji(Cog):
     async def tempemoji_cog_load(self):
+        await asyncio.sleep(60)
         self.deleter_task.start()
     
     async def tempemoji_cog_unload(self):
