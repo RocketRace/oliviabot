@@ -37,7 +37,7 @@ class Swish(Cog):
         items: str = commands.parameter(), # blank param for syntax
         *,
         message: str | None = None
-        ):
+    ):
         """swisha mig 100 000 kronor"""
         match = re.match(r"(\d*)(.*)", items)
         assert match
