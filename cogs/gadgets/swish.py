@@ -48,6 +48,6 @@ class Swish(Cog):
             allowed_mentions=discord.AllowedMentions.none()
         )
         if message is None:
-            await user.send(f"🌀 Received **{amount} {thing}** from {ctx.author}!")
+            await user.send(f"🌀 Received **{amount} {thing}** from {ctx.author.mention} ({ctx.message.jump_url})!")
         else:
-            await user.send(f"🌀 Received **{amount} {thing}** from {ctx.author} with message:\n>>> {message}")
+            await user.send(f"🌀 Received **{amount} {thing}** from {ctx.author.mention} ({ctx.message.jump_url}) with message:\n>>> {message}")
