@@ -38,7 +38,17 @@ class Swish(Cog):
         *,
         message: str | None = None
     ):
-        """swisha mig 100 000 kronor"""
+        """swisha mig 100 000 kronor
+        
+        Parameters
+        -----------
+        user: discord.Member
+            Who to send to?
+        items: str
+            What to send?
+        message: str | None
+            Optional message :)
+        """
         match = re.match(r"(-?\d*)(.*)", items)
         assert match
         amount, thing = match.groups()
