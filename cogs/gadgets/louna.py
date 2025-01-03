@@ -108,20 +108,21 @@ class Louna(Cog):
     async def add_emoji(self, ctx: Context, weight: float | None, *emojis: str):
         weight = 1.0 if weight is None else weight
         async with self.bot.cursor() as cur:
-            await cur.executemany(
-                """INSERT INTO louna_emojis VALUES(?, ?);""",
-                [(emoji, weight) for emoji in emojis]
-            )
+            try:
+                await cur.executemany(
+                    """INSERT INTO louna_emojis VALUES(?, ?);""",
+                    [(emoji, weight) for emoji in emojis]
+                )
+            except aiosqlite.IntegrityError:
+                await cur.executemany(
+                    """SELECT emoji FROM louna_emojis WHERE emoji = ?""",
+                    [(emoji,) for emoji in emojis]
+                )
+                rows = await cur.fetchall()
+                extant = " ".join([row[0] for row in rows])
+                return await ctx.send(f"{extant} already exists!")
         await self.reload_emoji()
         await ctx.ack()
-
-    @add_emoji.error
-    async def add_emoji_error(self, ctx: Context, error: commands.CommandError):
-        match error:
-            case commands.CommandInvokeError(original=aiosqlite.IntegrityError()):
-                await ctx.send("that emoji already exists!")
-                ctx.error_handled = True
-
     
     @emoji_config.command(name="edit", aliases=["update"])
     @commands.is_owner()
