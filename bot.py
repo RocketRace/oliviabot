@@ -42,6 +42,7 @@ class OliviaBot(commands.Bot):
     ) -> None:
         intents = discord.Intents.default()
         intents.message_content = True
+        intents.members = True
         super().__init__(
             commands.when_mentioned_or("+"),
             description="Hi! I'm oliviabot, an automated version of Olivia!\nI try my best to bring you joy.",
