@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import random
 
+import aiosqlite
 import discord
 from discord.ext import commands
 
@@ -113,6 +114,14 @@ class Louna(Cog):
             )
         await self.reload_emoji()
         await ctx.ack()
+
+    @add_emoji.error
+    async def add_emoji_error(self, ctx: Context, error: commands.CommandError):
+        match error:
+            case commands.CommandInvokeError(original=aiosqlite.IntegrityError()):
+                await ctx.send("that emoji already exists!")
+                ctx.error_handled = True
+
     
     @emoji_config.command(name="edit", aliases=["update"])
     @commands.is_owner()
