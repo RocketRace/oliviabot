@@ -56,17 +56,17 @@ class Swish(Cog):
             amount = "1"
         if not thing:
             thing = "1"
+        
         if message is None:
-            await ctx.send(
-                f"✅ Swished **{amount} {thing}** to {user.mention}! 🌀",
-                allowed_mentions=discord.AllowedMentions.none()
-            )
-            if user.id != ctx.me.id:
-                await user.send(f"🌀 Received **{amount} {thing}** from {ctx.author.mention}! ({ctx.message.jump_url})")
+            sender = f"✅ Swished **{amount} {thing}** to {user.mention}! 🌀"
+            sendee = f"🌀 Received **{amount} {thing}** from {ctx.author.mention}! ({ctx.message.jump_url})"
         else:
-            await ctx.send(
-                f"✅ Swished **{amount} {thing}** to {user.mention}! 🌀\n>>> {message}",
-                allowed_mentions=discord.AllowedMentions.none()
-            )
-            if user.id != ctx.me.id:
-                await user.send(f"🌀 Received **{amount} {thing}** from {ctx.author.mention} ({ctx.message.jump_url}) with message:\n>>> {message}")
+            sender = f"✅ Swished **{amount} {thing}** to {user.mention}! 🌀\n>>> {message}"
+            sendee = f"🌀 Received **{amount} {thing}** from {ctx.author.mention} ({ctx.message.jump_url}) with message:\n>>> {message}"
+
+        await ctx.send(
+            sender,
+            allowed_mentions=discord.AllowedMentions.none()
+        )
+        if user.id != ctx.me.id:
+            await user.send(sendee)
