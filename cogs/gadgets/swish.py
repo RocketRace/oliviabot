@@ -68,4 +68,5 @@ class Swish(Cog):
                 f"✅ Swished **{amount} {thing}** to {user.mention}! 🌀\n>>> {message}",
                 allowed_mentions=discord.AllowedMentions.none()
             )
-            await user.send(f"🌀 Received **{amount} {thing}** from {ctx.author.mention} ({ctx.message.jump_url}) with message:\n>>> {message}")
+            if user.id != ctx.me.id:
+                await user.send(f"🌀 Received **{amount} {thing}** from {ctx.author.mention} ({ctx.message.jump_url}) with message:\n>>> {message}")
