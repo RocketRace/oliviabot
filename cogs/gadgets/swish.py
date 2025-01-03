@@ -49,7 +49,7 @@ class Swish(Cog):
         message: str | None
             Optional message :)
         """
-        match = re.match(r"(-?\d*)(.*)", items)
+        match = re.match(r"(-?\d*)\s*(.*)", items)
         assert match
         amount, thing = match.groups()
         if not amount:
