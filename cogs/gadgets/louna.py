@@ -42,7 +42,7 @@ class Louna(Cog):
     @commands.Cog.listener(name="on_message")
     async def hevonen(self, msg: discord.Message):
         before, after = msg.content, unhorsify(msg.content)
-        if before != after and after.startswith("+louna"):
+        if before != after and after.startswith("+louna") and not before.startswith("+louna config"):
             # clone is required as the same Message object is used across listeners
             new_msg = await msg.channel.fetch_message(msg.id)
             new_msg.content = after
