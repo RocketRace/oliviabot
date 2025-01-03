@@ -6,17 +6,24 @@ from discord.ext import commands
 
 from bot import Context, Cog, OliviaBot, qwd_only
 
-class QwdieConverter(commands.Converter[discord.User]):
+class QwdieConverter(commands.Converter[discord.Member | discord.User]):
     async def convert(self, ctx: commands.Context[OliviaBot], argument: str):
         try:
-            return await commands.UserConverter().convert(ctx, argument)
+            return await commands.MemberConverter().convert(ctx, argument)
         except commands.MemberNotFound:
-            # try again
-            argument = argument.lower()
-        try:
-            return await commands.UserConverter().convert(ctx, argument)
-        except commands.MemberNotFound:
-            # todo add aliases (i'd copy from esobot but that's gpl3)
+            # try again with some lax
+            result = discord.utils.find(
+                lambda user: user.name.lower() == argument.lower(),
+                ctx.bot.users
+            )
+            if result is not None:
+                return result
+            result = discord.utils.find(
+                lambda user: user.global_name and user.global_name.lower() == argument.lower(),
+                ctx.bot.users
+            )
+            if result is not None:
+                return result
             raise
 
 class Swish(Cog):
@@ -25,8 +32,9 @@ class Swish(Cog):
     async def swish(
         self,
         ctx: Context,
-        user: discord.User = commands.parameter(converter=QwdieConverter),
+        user: discord.Member | discord.User = commands.parameter(converter=QwdieConverter),
         items: str = commands.parameter(), # blank param for syntax
+        *,
         message: str | None = None
         ):
         """swisha mig 100 000 kronor"""
