@@ -20,6 +20,7 @@ class Gadgets(Louna, Neofetch, Vore, Like, Chain, Unreact, Horse, TempEmoji):
 
     async def cog_load(self):
         await self.neofetch_cog_load()
+        await self.louna_cog_load()
         await self.chain_cog_load()
         await self.horse_cog_load()
         await self.tempemoji_cog_load()

@@ -16,7 +16,7 @@ class ErrorHandler(commands.Cog):
         original = getattr(error, "original", error)
         
         skip_tb = (
-            aiosqlite.Error, # kinda just to avoid spam
+            #aiosqlite.Error, # kinda just to avoid spam
             commands.CheckFailure, # all things related to bad checks
             commands.UserInputError, # all things related to bad input
         )

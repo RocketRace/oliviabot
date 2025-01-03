@@ -41,7 +41,6 @@ async def main():
             tester_bot_id=config.tester_bot_id,
             tester_bot_token=config.tester_bot_token,
             qwd_id=config.qwd_id,
-            louna_emojis=config.louna_emojis,
         ) as oliviabot,
     ):
         try:
