@@ -39,7 +39,7 @@ class Swish(Cog):
         message: str | None = None
     ):
         """swisha mig 100 000 kronor"""
-        match = re.match(r"(\d*)(.*)", items)
+        match = re.match(r"(-?\d*)(.*)", items)
         assert match
         amount, thing = match.groups()
         if not amount:
