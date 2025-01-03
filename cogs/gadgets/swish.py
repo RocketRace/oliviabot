@@ -25,6 +25,7 @@ class QwdieConverter(commands.Converter[discord.Member | discord.User]):
             if result is not None:
                 return result
             raise
+            # i'd copy aliases from esobot but i'm lazy and also gpl3
 
 class Swish(Cog):
     @qwd_only()
