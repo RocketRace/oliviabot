@@ -114,13 +114,15 @@ class Louna(Cog):
                     [(emoji, weight) for emoji in emojis]
                 )
             except aiosqlite.IntegrityError:
-                await cur.executemany(
-                    """SELECT emoji FROM louna_emojis WHERE emoji = ?""",
-                    [(emoji,) for emoji in emojis]
-                )
-                rows = await cur.fetchall()
-                extant = " ".join([row[0] for row in rows])
-                return await ctx.send(f"{extant} already exists!")
+                extant = []
+                for emoji in emojis:
+                    await cur.execute(
+                        """SELECT emoji FROM louna_emojis WHERE emoji = ?;""",
+                        [emoji]
+                    )
+                    rows = await cur.fetchall()
+                    extant.extend([row[0] for row in rows])
+                return await ctx.send(f"{" ".join(extant)} already exists!")
         await self.reload_emoji()
         await ctx.ack()
     
