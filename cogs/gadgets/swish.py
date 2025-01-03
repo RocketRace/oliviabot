@@ -56,11 +56,15 @@ class Swish(Cog):
             amount = "1"
         if not thing:
             thing = "1"
-        await ctx.send(
-            f"✅ Swished **{amount} {thing}** to {user.mention}! 🌀",
-            allowed_mentions=discord.AllowedMentions.none()
-        )
         if message is None:
+            await ctx.send(
+                f"✅ Swished **{amount} {thing}** to {user.mention}! 🌀",
+                allowed_mentions=discord.AllowedMentions.none()
+            )
             await user.send(f"🌀 Received **{amount} {thing}** from {ctx.author.mention}! ({ctx.message.jump_url})")
         else:
+            await ctx.send(
+                f"✅ Swished **{amount} {thing}** to {user.mention}! 🌀\n>>> {message}",
+                allowed_mentions=discord.AllowedMentions.none()
+            )
             await user.send(f"🌀 Received **{amount} {thing}** from {ctx.author.mention} ({ctx.message.jump_url}) with message:\n>>> {message}")
