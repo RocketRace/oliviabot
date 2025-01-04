@@ -68,5 +68,5 @@ class Swish(Cog):
             sender,
             allowed_mentions=discord.AllowedMentions.none()
         )
-        if user.id != ctx.me.id:
+        if user.id != ctx.me.id and not user.bot:
             await user.send(sendee)
