@@ -1,11 +1,16 @@
 from __future__ import annotations
+from ast import If
 import asyncio
 import datetime
+from io import BytesIO
+import math
 import random
 import re
 
 import discord
 from discord.ext import commands, tasks
+from PIL import Image
+from scipy import optimize
 
 from bot import Context, Cog
 
@@ -58,9 +63,33 @@ class TempEmoji(Cog):
         if len(guild.emojis) >= guild.emoji_limit:
             return await ctx.send("Sorry... there's no space left :(")
         
+        image_bytes = await image.read()
+        byte_size = len(image_bytes)
+        max_size = 256000
+        if byte_size > max_size:
+            img = Image.open(BytesIO(image_bytes))
+            # approximate file size using pixels
+            # this is okay, since the final size should stay within
+            # 64kb and 256kb, aka a pretty large margin of error
+            # for this purpose I also overshoot by 1.5x lol
+            w, h = img.size
+            shrink_factor = math.sqrt(byte_size / max_size) * 1.5
+            # ensure that we don't shrink *both* axes under 128px
+            # as long as one axis is greater, then we have not
+            # lost any precision unnecessarily
+            shrink_factor = min(shrink_factor, max(w / 128, h / 128))
+            
+            new_size = w // shrink_factor, h // shrink_factor
+            img.thumbnail(new_size)
+            new_bytes = BytesIO()
+            img.show()
+            img.save(new_bytes, "png")
+            image_bytes = new_bytes.getvalue()
+            byte_size = len(image_bytes)
+
         emoji = await guild.create_custom_emoji(
             name=name + "_temp",
-            image=await image.read(),
+            image=image_bytes,
             reason=f"+tempemoji :{name}_temp: by {ctx.author.display_name}"
         )
 
@@ -109,7 +138,7 @@ class TempEmoji(Cog):
                 await ctx.send("you have to send an image file for the emoji!")
                 ctx.error_handled = True
             case commands.CommandInvokeError(original=discord.HTTPException()):
-                await ctx.send("The image isn't quite right... I think it's too big (in the future I can learn to rescale them)")
+                await ctx.send("The image isn't quite right... I think it's too big (even though I resized it?)")
                 ctx.error_handled = True
 
     async def try_delete_emoji(self, emoji_id: int, guild_id: int):

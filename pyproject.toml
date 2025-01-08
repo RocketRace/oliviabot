@@ -9,7 +9,8 @@ aiosqlite = "^0.20.0"
 jishaku = "^2.5.2"
 watchdog = { version = "^4.0.1" }
 gitpython = "^3.1.43"
-numpy = ">=1.22"
+numpy = "^1.26.4"
+pillow = "^11.1.0"
 
 [tool.poetry.group.dev.dependencies]
 aioconsole = "^0.7.1"
