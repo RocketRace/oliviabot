@@ -38,11 +38,7 @@ class Meta(commands.Cog):
         """Howdy pardner"""
         await ctx.send(f"Howdy to you too! I'm {ctx.me} 🤠")
 
-    @commands.command()
-    @commands.is_owner()
-    @commands.guild_only()
-    async def nick(self, ctx: Context):
-        """Update my nickname"""
+    async def change_nickname(self, ctx: Context):
         automated = [
             "\N{COMBINING LATIN SMALL LETTER A}",
             "\N{COMBINING LATIN SMALL LETTER U}",
@@ -73,11 +69,26 @@ class Meta(commands.Cog):
                     )
                     break
             else:
-                return await ctx.send("Nickname too short")
+                return await ctx.send("the nickname too short for my taste")
 
         nick = " ".join(segments)
         await ctx.me.edit(nick=nick)
         await ctx.ack()
+
+    @commands.command()
+    @commands.is_owner()
+    @commands.guild_only()
+    async def nick(self, ctx: Context):
+        """Update my nickname"""
+        await self.change_nickname(ctx)
+    
+    @nick.error
+    async def nick_error(self, ctx: Context, error: commands.CommandError):
+        match error:
+            case commands.NotOwner():
+                await ctx.send("well you're not olivia... but I like you so I'll do it :)")
+                await self.change_nickname(ctx)
+                ctx.error_handled = True
 
     @commands.command()
     @commands.is_owner()
