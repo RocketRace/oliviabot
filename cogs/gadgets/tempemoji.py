@@ -80,7 +80,6 @@ class TempEmoji(Cog):
             new_size = w // shrink_factor, h // shrink_factor
             img.thumbnail(new_size)
             new_bytes = BytesIO()
-            img.show()
             img.save(new_bytes, "png")
             image_bytes = new_bytes.getvalue()
             byte_size = len(image_bytes)
