@@ -1,5 +1,4 @@
 from __future__ import annotations
-from ast import If
 import asyncio
 import datetime
 from io import BytesIO
@@ -10,7 +9,6 @@ import re
 import discord
 from discord.ext import commands, tasks
 from PIL import Image
-from scipy import optimize
 
 from bot import Context, Cog
 
