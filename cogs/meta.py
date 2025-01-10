@@ -90,6 +90,39 @@ class Meta(commands.Cog):
                 await self.change_nickname(ctx)
                 ctx.error_handled = True
 
+    @commands.group()
+    @commands.is_owner()
+    async def alias(self, ctx: Context):
+        pass
+
+    @alias.command(name="add", aliases=["new"])
+    @commands.is_owner()
+    async def add_alias(self, ctx: Context, alias: str, user: discord.User):
+        async with self.bot.cursor() as cur:
+            await cur.execute(
+                """INSERT INTO person_aliases VALUES(?, ?);""",
+                [alias, user.id]
+            )
+        await ctx.send(
+            f"{user.mention} hi {alias} :)",
+            allowed_mentions=discord.AllowedMentions.none()
+        )
+        await self.bot.refresh_aliases()
+    
+    @alias.command(name="delete", aliases=["remove"])
+    @commands.is_owner()
+    async def delete_alias(self, ctx: Context, alias: str):
+        async with self.bot.cursor() as cur:
+            await cur.execute(
+                """DELETE FROM person_aliases WHERE id = ?;""",
+                [alias]
+            )
+        await ctx.send(
+            f"{alias} no more :)",
+            allowed_mentions=discord.AllowedMentions.none()
+        )
+        await self.bot.refresh_aliases()
+
     @commands.command()
     @commands.is_owner()
     async def load(self, ctx: Context, cog: str | None = None):

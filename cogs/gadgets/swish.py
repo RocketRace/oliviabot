@@ -4,28 +4,7 @@ import re
 import discord
 from discord.ext import commands
 
-from bot import Context, Cog, OliviaBot, qwd_only
-
-class QwdieConverter(commands.Converter[discord.Member | discord.User]):
-    async def convert(self, ctx: commands.Context[OliviaBot], argument: str):
-        try:
-            return await commands.MemberConverter().convert(ctx, argument)
-        except commands.MemberNotFound:
-            # try again with some lax
-            result = discord.utils.find(
-                lambda user: user.name.lower() == argument.lower(),
-                ctx.bot.users
-            )
-            if result is not None:
-                return result
-            result = discord.utils.find(
-                lambda user: user.global_name and user.global_name.lower() == argument.lower(),
-                ctx.bot.users
-            )
-            if result is not None:
-                return result
-            raise
-            # i'd copy aliases from esobot but i'm lazy and also gpl3
+from bot import Context, Cog, QwdieConverter
 
 class Swish(Cog):
     @commands.command()

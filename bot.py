@@ -1,7 +1,7 @@
 from __future__ import annotations
 import asyncio
 import logging
-from typing import Any, Coroutine
+from typing import Any, Callable, Coroutine
 
 import aiosqlite
 import aiosqlite.context
@@ -26,6 +26,7 @@ class OliviaBot(commands.Bot):
     owner_ids: set[int]
     terminal_cog_interrupted: bool
     qwd: discord.Guild
+    person_aliases: dict[str, int]
 
     def __init__(
         self,
@@ -76,6 +77,7 @@ class OliviaBot(commands.Bot):
         self.tester_bot_token = tester_bot_token
         self.qwd_id = qwd_id
         self.terminal_cog_interrupted = False
+        self.person_aliases = {}
 
     def start(self, *args, **kwargs) -> Coroutine[Any, Any, None]:
         return super().start(config.bot_token, *args, **kwargs)
@@ -194,6 +196,21 @@ class OliviaBot(commands.Bot):
                 )
                 """
             )
+            await cur.executescript(
+                """CREATE TABLE IF NOT EXISTS person_aliases(
+                    alias TEXT PRIMARY KEY,
+                    id INTEGER NOT NULL
+                )
+                """
+            )
+
+    async def refresh_aliases(self):
+        self.person_aliases = {}
+        async with self.cursor() as cur:
+            await cur.execute("""SELECT alias, id FROM person_aliases;""")
+            aliases = await cur.fetchall()
+            for alias, user_id in aliases:
+                self.person_aliases[alias] = user_id
 
     async def setup_hook(self) -> None:
         self.webhook = discord.Webhook.from_url(self.webhook_url, client=self)
@@ -212,6 +229,8 @@ class OliviaBot(commands.Bot):
             olivias = await cur.fetchall()
             for [olivia] in olivias:
                 self.owner_ids.add(olivia)
+        
+        await self.refresh_aliases()
 
         for extension in self.activated_extensions:
             await self.load_extension(extension)
@@ -252,3 +271,31 @@ class Context(commands.Context[OliviaBot]):
             suffix = " [... I have so much to say!]"
             content = content[:limit - len(suffix)] + suffix
         return await super().send(content, **kwargs)
+
+
+class QwdieConverter(commands.Converter[discord.Member | discord.User]):
+    def try_fetch_user(self, bot: OliviaBot, key, mapper: Callable[[discord.User]]):
+        return discord.utils.find(
+            lambda user: mapper(user) == key,
+            bot.users
+        )
+
+    async def convert(self, ctx: commands.Context[OliviaBot], argument: str):
+        try:
+            return await commands.MemberConverter().convert(ctx, argument)
+        except commands.MemberNotFound:
+            # try again with some lax
+            lower = argument.lower()
+            result = self.try_fetch_user(ctx.bot, lower, lambda user: user.name.lower())
+            if result is not None:
+                return result
+            result = self.try_fetch_user(ctx.bot, lower, lambda user: user.global_name and user.global_name.lower())
+            if result is not None:
+                return result
+            alias = ctx.bot.person_aliases.get(argument)
+            if alias is not None:
+                result = ctx.bot.get_user(alias)
+                if result is not None:
+                    return result
+            raise
+            # i'd copy aliases from esobot but i'm lazy and also gpl3
