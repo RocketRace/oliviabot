@@ -101,6 +101,7 @@ class Meta(commands.Cog):
     @commands.is_owner()
     async def add_alias(self, ctx: Context, alias: str, user: discord.User):
         """Add a new person alias"""
+        alias = alias.lower()
         async with self.bot.cursor() as cur:
             await cur.execute(
                 """INSERT INTO person_aliases VALUES(?, ?);""",
@@ -116,6 +117,7 @@ class Meta(commands.Cog):
     @commands.is_owner()
     async def delete_alias(self, ctx: Context, alias: str):
         """Delete a person alias"""
+        alias = alias.lower()
         async with self.bot.cursor() as cur:
             await cur.execute(
                 """DELETE FROM person_aliases WHERE id = ?;""",
