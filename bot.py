@@ -292,10 +292,9 @@ class QwdieConverter(commands.Converter[discord.Member | discord.User]):
             result = self.try_fetch_user(ctx.bot, lower, lambda user: user.global_name and user.global_name.lower())
             if result is not None:
                 return result
-            alias = ctx.bot.person_aliases.get(argument)
+            alias = ctx.bot.person_aliases.get(lower)
             if alias is not None:
                 result = ctx.bot.get_user(alias)
                 if result is not None:
                     return result
             raise
-            # i'd copy aliases from esobot but i'm lazy and also gpl3
