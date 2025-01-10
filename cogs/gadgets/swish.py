@@ -48,3 +48,10 @@ class Swish(Cog):
         )
         if user.id != ctx.me.id and not user.bot:
             await user.send(sendee)
+    
+    @swish.error
+    async def swish_error(self, ctx: Context, error: commands.CommandError):
+        match error:
+            case commands.MemberNotFound():
+                await ctx.send("Swish failed... recepient not found! :(")
+                ctx.error_handled = True
