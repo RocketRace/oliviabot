@@ -72,6 +72,8 @@ class Meta(commands.Cog):
                 return await ctx.send("the nickname too short for my taste")
 
         nick = " ".join(segments)
+        if len(nick) > 32:
+            return await ctx.send("that nikcname is too long! it & my personal touch can't combined be more than 32 characters")
         await ctx.me.edit(nick=nick)
         await ctx.ack()
 
