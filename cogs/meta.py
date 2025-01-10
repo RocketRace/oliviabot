@@ -93,11 +93,12 @@ class Meta(commands.Cog):
     @commands.group()
     @commands.is_owner()
     async def alias(self, ctx: Context):
-        pass
+        """Person aliases"""
 
     @alias.command(name="add", aliases=["new"])
     @commands.is_owner()
     async def add_alias(self, ctx: Context, alias: str, user: discord.User):
+        """Add a new person alias"""
         async with self.bot.cursor() as cur:
             await cur.execute(
                 """INSERT INTO person_aliases VALUES(?, ?);""",
@@ -112,6 +113,7 @@ class Meta(commands.Cog):
     @alias.command(name="delete", aliases=["remove"])
     @commands.is_owner()
     async def delete_alias(self, ctx: Context, alias: str):
+        """Delete a person alias"""
         async with self.bot.cursor() as cur:
             await cur.execute(
                 """DELETE FROM person_aliases WHERE id = ?;""",

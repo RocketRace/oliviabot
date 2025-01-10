@@ -74,7 +74,7 @@ class Louna(Cog):
     @louna.group(name="config", invoke_without_command=True)
     @commands.is_owner()
     async def emoji_config(self, ctx: Context):
-        """for internal use only"""
+        """The louna emoji config"""
         weighted: dict[float, list[str]] = {}
         for emoji, weight in zip(self.louna_emojis, self.louna_weights):
             weighted.setdefault(weight, []).append(emoji)
@@ -92,6 +92,7 @@ class Louna(Cog):
     @emoji_config.command(name="get", aliases=["check"])
     @commands.is_owner()
     async def get_emoji(self, ctx: Context, emoji: str):
+        """Get an emoji from the louna list"""
         async with self.bot.cursor() as cur:
             await cur.execute(
                 """SELECT weight FROM louna_emojis WHERE emoji = ?;""",
@@ -107,6 +108,7 @@ class Louna(Cog):
     @emoji_config.command(name="add", aliases=["new"])
     @commands.is_owner()
     async def add_emoji(self, ctx: Context, weight: float | None, *emojis: str):
+        """Add an emoji to the louna list"""
         weight = 1.0 if weight is None else weight
         async with self.bot.cursor() as cur:
             try:
@@ -130,7 +132,7 @@ class Louna(Cog):
     @emoji_config.command(name="edit", aliases=["update"])
     @commands.is_owner()
     async def edit_emoji(self, ctx: Context, weight: float | None, *emojis: str):
-        """for internal use only"""
+        """Edit an emoji's weight in the louna list"""
         weight = 1.0 if weight is None else weight
         async with self.bot.cursor() as cur:
             await cur.executemany(
@@ -143,7 +145,7 @@ class Louna(Cog):
     @emoji_config.command(name="delete", aliases=["remove"])
     @commands.is_owner()
     async def delete_emoji(self, ctx: Context, *emojis: str):
-        """for internal use only"""
+        """Delete an emoji from the louna list"""
         async with self.bot.cursor() as cur:
             await cur.executemany(
                 """DELETE FROM louna_emojis WHERE emoji = ?;""",
