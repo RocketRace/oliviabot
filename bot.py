@@ -1,6 +1,7 @@
 from __future__ import annotations
 import asyncio
 import logging
+import random
 from typing import Any, Callable, Coroutine
 
 import aiosqlite
@@ -9,7 +10,6 @@ import discord
 from discord.ext import commands
 
 import config
-
 
 def qwd_only():
     async def predicate(ctx: Context) -> bool:
@@ -297,4 +297,6 @@ class QwdieConverter(commands.Converter[discord.Member | discord.User]):
                 result = ctx.bot.get_user(alias)
                 if result is not None:
                     return result
+            if lower == "random":
+                return random.choice(ctx.bot.users)
             raise
