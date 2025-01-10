@@ -297,6 +297,4 @@ class QwdieConverter(commands.Converter[discord.Member | discord.User]):
                 result = ctx.bot.get_user(alias)
                 if result is not None:
                     return result
-            if lower == "random":
-                return random.choice(ctx.bot.users)
             raise
