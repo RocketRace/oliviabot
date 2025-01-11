@@ -1,7 +1,8 @@
 from __future__ import annotations
 import asyncio
+from datetime import datetime
 import logging
-import random
+from pathlib import Path
 from typing import Any, Callable, Coroutine
 
 import aiosqlite
@@ -204,6 +205,23 @@ class OliviaBot(commands.Bot):
                 """
             )
 
+    async def backup_database(self):
+        backup_dir = Path.cwd() / "backups"
+        backup_dir.mkdir(exist_ok=True)
+        previous_backups = sorted(list(backup_dir.glob("backup-*.db")))
+        # allow only 8 live backups at a time
+        for i in range(len(previous_backups) - 7):
+            old_backup = previous_backups[i]
+            old_backup.unlink()
+        # create new backup
+        now = datetime.now().isoformat(timespec="seconds")
+        new_backup = backup_dir / f"backup-{now}.db"
+        logging.info(f"creating backup at {new_backup}")
+        async with aiosqlite.connect(new_backup) as conn:
+            await self.db.backup(conn)
+        logging.info("backup successful")
+        await self.webhook.send(file=discord.File(new_backup))
+
     async def refresh_aliases(self):
         self.person_aliases = {}
         async with self.cursor() as cur:
@@ -222,6 +240,7 @@ class OliviaBot(commands.Bot):
             config.tester_bot_id,
         }
 
+        await self.backup_database()
         await self.perform_migrations()
 
         async with self.cursor() as cur:
