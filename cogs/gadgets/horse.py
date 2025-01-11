@@ -33,7 +33,7 @@ mapping = {
 cased = mapping | {
     c.upper(): emoji for c, emoji in mapping.items()
 }
-pattern = re.compile(r"<:\w+:\d+>|" + "|".join(re.escape(c) for c in cased))
+pattern = re.compile(r"<:\w+:\d+>|(\Bg\b)|" + "|".join(re.escape(c) for c in cased))
 
 unmapping = {
     emoji: c for c, emoji in mapping.items()
@@ -48,7 +48,17 @@ unpattern = re.compile("|".join(re.escape(emoji) for emoji in alted))
 
 def horsify(text: str):
     # leave custom emojis as they are
-    return re.sub(pattern, lambda match: match.group() if match.group().startswith("<:") else cased[match.group()], text) or "\u200b"
+    return re.sub(
+        pattern,
+        lambda match:
+            match.group()
+            if match.group().startswith("<:")
+            # hack to special case word-ending Gs
+            # this detects whether a specific branch was taken
+            else "🐎" if match.group(1)
+            else cased[match.group()],
+        text
+    ) or "\u200b"
 
 def unhorsify(text: str):
     # we don't want to recurse e.g. <:plead<:pleading:1133073270304931980>ng:1133073270304931980>
