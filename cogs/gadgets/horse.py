@@ -67,9 +67,8 @@ class Horse(Cog):
         await ctx.send(f"horse dictionary:\n{fmt}\nmissing: {missing}")
 
     async def horse_cog_load(self):
-        pass
-        # self.bot.tree.add_command(horse_menu)
-        # self.bot.tree.add_command(unhorse_menu)
+        self.bot.tree.add_command(horse_menu)
+        self.bot.tree.add_command(unhorse_menu)
 
     @commands.command()
     async def horse(self, ctx: Context, *, text: str | None = None):
