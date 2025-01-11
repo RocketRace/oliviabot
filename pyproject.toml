@@ -17,7 +17,7 @@ aioconsole = "^0.7.1"
 # icupy fails to build for arcane compiler reasons
 # parse-discord = { git = "https://github.com/LyricLy/parse-discord", rev = "c7537a5" }
 HyFetch = "^1.4.11"
-colour-science = "^0.4.4"
+colour-science = "^0.4"
 matplotlib = "^3.9.0"
 watchdog = { version = "^4.0.1", extras = ["watchmedo"] }
 requests = "^2.32.3"
