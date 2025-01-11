@@ -239,7 +239,8 @@ class Neofetch(Cog):
             timestamp=self.neofetch_updated,
         ).set_footer(text="Neofetch data last updated")
 
-    @commands.hybrid_command()
+    # @commands.hybrid_command()
+    @commands.command()
     async def neofetch(
         self,
         ctx: Context,
@@ -269,7 +270,7 @@ class Neofetch(Cog):
         view = NeofetchFixer(embed, ctx.author.id, regenerator)
         view.message = await ctx.reply(embed=embed, mention_author=False, view=view)
 
-    @neofetch.autocomplete("distro")
+    # @neofetch.autocomplete("distro")
     async def distro_autocomplete(
         self, interaction: discord.Interaction, query: str
     ) -> list[discord.app_commands.Choice]:
@@ -290,7 +291,7 @@ class Neofetch(Cog):
 
     @neofetch.error
     async def neofetch_error(self, ctx: Context, error: commands.CommandError):
-        logging.warn(f"Neofetch error: {error}")
+        logging.warning(f"Neofetch error: {error}")
         match error:
             case commands.CommandInvokeError(
                 original=DistroNotFound(query=query, mobile=mobile)
