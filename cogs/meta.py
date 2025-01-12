@@ -1,4 +1,6 @@
-import aiosqlite
+import inspect
+from pathlib import Path
+
 import discord
 from discord.ext import commands
 import git
@@ -227,6 +229,32 @@ class Meta(commands.Cog):
             "I might change my mind on the privacy policy and tweak it without warning so watch out! "
             "but I'll never do anything creepy so don't worry :) plus I'm literally just a girl"
         )
+
+    @commands.command()
+    async def source(self, ctx: Context, *, command: str):
+        """Show the source code for a command
+        
+        Example: `+source vore 0`
+
+        Parameters
+        -----------
+        command: str
+            The name of the command including any subcommands
+        """
+        cmd = self.bot.get_command(command)
+        if cmd is None:
+            return await ctx.send(f"couldn't find a command with that name `{command}`")
+        fn = cmd.callback
+
+        file = inspect.getfile(fn)
+        [lines, lineno] = inspect.getsourcelines(fn)
+        path = Path(file).relative_to(Path.cwd())
+        prefix = ''.join(lines[:5])
+        await ctx.send(
+            f"<https://github.com/RocketRace/oliviabot/blob/main/{path}#L{lineno}-L{lineno+len(lines)}>\n"
+            f"```py\n{prefix}\n```"
+        )
+
 
     @commands.command()
     async def proxy(self, ctx: Context, value: bool | None = None):
