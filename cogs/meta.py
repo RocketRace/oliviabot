@@ -1,5 +1,6 @@
 import inspect
 from pathlib import Path
+import textwrap
 
 import discord
 from discord.ext import commands
@@ -249,7 +250,17 @@ class Meta(commands.Cog):
         file = inspect.getfile(fn)
         [lines, lineno] = inspect.getsourcelines(fn)
         path = Path(file).relative_to(Path.cwd())
-        prefix = ''.join(lines[:8])
+        # find the last position of the function signature
+        end = [i for i, line in enumerate(lines) if line.strip().endswith(":")][0]
+        # find the last position of the docstring, if any
+        for quote in ["'''", '"""']:
+            if lines[end + 1].strip().startswith(quote):
+                end = [
+                    i for i, line in enumerate(lines[end + 1:], end + 1)
+                    if line.strip().endswith(quote)
+                ][0]
+                break
+        prefix = textwrap.dedent(''.join(lines[end + 1:end + 1 + 8]))
         await ctx.send(
             f"<https://github.com/RocketRace/oliviabot/blob/main/{path}#L{lineno}-L{lineno+len(lines)}>\n"
             f"```py\n{prefix}\n```"
