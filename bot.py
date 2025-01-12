@@ -27,7 +27,7 @@ class OliviaBot(commands.Bot):
     owner_ids: set[int]
     terminal_cog_interrupted: bool
     qwd: discord.Guild
-    person_aliases: dict[str, int]
+    person_aliases: dict[str, list[int]]
 
     def __init__(
         self,
@@ -254,7 +254,7 @@ class OliviaBot(commands.Bot):
             await cur.execute("""SELECT alias, id FROM person_aliases;""")
             aliases = await cur.fetchall()
             for alias, user_id in aliases:
-                self.person_aliases[alias] = user_id
+                self.person_aliases.setdefault(alias, []).append(user_id)
 
     async def setup_hook(self) -> None:
         self.webhook = discord.Webhook.from_url(self.webhook_url, client=self)
@@ -337,9 +337,12 @@ class QwdieConverter(commands.Converter[discord.Member | discord.User]):
             result = self.try_fetch_user(ctx.bot, lower, lambda user: user.global_name and user.global_name.lower())
             if result is not None:
                 return result
-            alias = ctx.bot.person_aliases.get(lower)
-            if alias is not None:
-                result = ctx.bot.get_user(alias)
+            aliases = ctx.bot.person_aliases.get(lower)
+            if aliases and len(aliases) == 1:
+                result = ctx.bot.get_user(aliases[0])
                 if result is not None:
                     return result
+            elif aliases:
+                # implement a disambiguation screen here
+                pass
             raise
