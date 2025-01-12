@@ -345,4 +345,6 @@ class QwdieConverter(commands.Converter[discord.Member | discord.User]):
             elif aliases:
                 # implement a disambiguation screen here
                 pass
+            elif lower == "me":
+                return ctx.author
             raise
