@@ -204,6 +204,32 @@ class OliviaBot(commands.Bot):
                 )
                 """
             )
+            # huge shuffle just to change the primary key fr
+            try:
+                await cur.executescript(
+                    """ALTER TABLE params ADD COLUMN using_new_person_aliases INTEGER DEFAULT 0
+                    """
+                )
+            except aiosqlite.OperationalError:
+                pass
+            await cur.execute(
+                """SELECT using_new_person_aliases FROM params
+                """
+            )
+            [[using_new_person_aliases]] = list(await cur.fetchall())
+            if not using_new_person_aliases:
+                await cur.executescript(
+                    """CREATE TABLE IF NOT EXISTS new_person_aliases(
+                        alias TEXT NOT NULL,
+                        id INTEGER NOT NULL,
+                        PRIMARY KEY(alias, id)
+                    );
+                    INSERT INTO new_person_aliases SELECT * FROM person_aliases;
+                    DROP TABLE person_aliases;
+                    ALTER TABLE new_person_aliases RENAME TO person_aliases;
+                    UPDATE params SET using_new_person_aliases = 1;
+                    """
+                )
 
     async def backup_database(self):
         backup_dir = Path.cwd() / "backups"
