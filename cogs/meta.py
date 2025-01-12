@@ -95,7 +95,7 @@ class Meta(commands.Cog):
                 await self.change_nickname(ctx)
                 ctx.error_handled = True
 
-    @commands.group()
+    @commands.group(invoke_without_command=True)
     @commands.is_owner()
     async def alias(self, ctx: Context):
         """Person aliases"""
