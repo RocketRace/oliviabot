@@ -9,7 +9,7 @@ class Reloader(commands.Cog):
     def __init__(self, bot: OliviaBot):
         self.is_reloading = False
         self.bot = bot
-        self.check_for_extensions.start()
+        # self.check_for_extensions.start()
 
     async def cog_unload(self):
         self.check_for_extensions.cancel()
