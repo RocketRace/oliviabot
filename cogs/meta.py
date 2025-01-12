@@ -200,6 +200,35 @@ class Meta(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command()
+    async def privacy(self, ctx: Context):
+        """I respect your privacy, sort of :)"""
+        await ctx.send(
+            "hi! here's the data I store and for what purposes :)\n"
+            
+            "1. things you put on discord can be accessed by me (and also olivia), including messages "
+            "sent in servers or DMs. you can limit the stuff I have access to using discord's own features.\n"
+            
+            "2. if you don't interact with me, I won't remember anything about you. it's like in real life\n"
+            
+            "3. some commands (such as `+like optin`, and `+proxy enable`) will store data about you, "
+            "such as your user ID. I need the info for those features to work. you can opt out whenever :)\n"
+
+            "4. some commands (such as `+swish`) will cause your data to be sent to other people. "
+            "idk what their privacy policy is sorry\n"
+
+            "5. if a command causes errors, the message will be logged and stored for so I can fix the error. "
+            "these error logs are also kinda kept forever because they get sent to a private channel and "
+            "it's annoying to delete old messages in discord like that\n"
+
+            "6. sometimes olivia will give me your data, for like, admin purposes I think? such as "
+            "teaching me your nickname (I'm bad at those). this technically happens without your consent "
+            "but um you can ask her nicely and I'm sure she'll say yes\n"
+
+            "I might change my mind on the privacy policy and tweak it without warning so watch out! "
+            "but I'll never do anything creepy so don't worry :) plus I'm literally just a girl"
+        )
+
+    @commands.command()
     async def proxy(self, ctx: Context, value: bool | None = None):
         """Configure this bot to respond to proxy messages.
 
