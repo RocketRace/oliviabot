@@ -6,7 +6,7 @@ import discord
 from discord.ext import commands
 import git
 
-from bot import OliviaBot, Context
+from bot import OliviaBot, Context, QwdieConverter
 
 
 class HelpCommand(commands.DefaultHelpCommand):
@@ -103,7 +103,7 @@ class Meta(commands.Cog):
 
     @alias.command(name="add", aliases=["new"])
     @commands.is_owner()
-    async def add_alias(self, ctx: Context, alias: str, user: discord.User):
+    async def add_alias(self, ctx: Context, alias: str, user: discord.User = commands.parameter(converter=QwdieConverter)):
         """Add a new person alias
         
         Parameters
@@ -181,7 +181,7 @@ class Meta(commands.Cog):
 
     @commands.command()
     @commands.is_owner()
-    async def oliviafy(self, ctx: Context, user: discord.User):
+    async def oliviafy(self, ctx: Context, user: discord.User = commands.parameter(converter=QwdieConverter)):
         '''You too can become olivia
         
         Parameters
@@ -194,7 +194,7 @@ class Meta(commands.Cog):
 
     @commands.command()
     @commands.is_owner()
-    async def unoliviafy(self, ctx: Context, user: discord.User):
+    async def unoliviafy(self, ctx: Context, user: discord.User = commands.parameter(converter=QwdieConverter)):
         '''You too can stop becoming olivia
         
         Parameters
