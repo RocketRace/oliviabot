@@ -34,12 +34,12 @@ class Meta(commands.Cog):
     @commands.command()
     async def hello(self, ctx: Context):
         """Hi!"""
-        await ctx.send(f"Hello! I'm {ctx.me}!")
+        await ctx.send(f"hi! I'm {ctx.me}!")
 
     @commands.command()
     async def howdy(self, ctx: Context):
         """Howdy pardner"""
-        await ctx.send(f"Howdy to you too! I'm {ctx.me} 🤠")
+        await ctx.send(f"howdy to you too! I'm {ctx.me.display_name} 🤠")
 
     async def change_nickname(self, ctx: Context):
         automated = [
@@ -99,11 +99,20 @@ class Meta(commands.Cog):
     @commands.is_owner()
     async def alias(self, ctx: Context):
         """Person aliases"""
+        await ctx.send_help("alias")
 
     @alias.command(name="add", aliases=["new"])
     @commands.is_owner()
     async def add_alias(self, ctx: Context, alias: str, user: discord.User):
-        """Add a new person alias"""
+        """Add a new person alias
+        
+        Parameters
+        -----------
+        alias: str
+            The alias to create
+        user: discord.User
+            The person to link it to
+        """
         alias = alias.lower()
         async with self.bot.cursor() as cur:
             await cur.execute(
@@ -119,7 +128,13 @@ class Meta(commands.Cog):
     @alias.command(name="delete", aliases=["remove"])
     @commands.is_owner()
     async def delete_alias(self, ctx: Context, alias: str):
-        """Delete a person alias"""
+        """Delete a person alias
+        
+        Parameters
+        -----------
+        alias: str
+            The alias to delete
+        """
         alias = alias.lower()
         async with self.bot.cursor() as cur:
             await cur.execute(
@@ -134,15 +149,11 @@ class Meta(commands.Cog):
 
     @commands.command()
     @commands.is_owner()
-    async def load(self, ctx: Context, cog: str | None = None):
+    async def load(self, ctx: Context):
         """Reload cogs"""
-        if cog is None:
-            for extension in self.bot.activated_extensions:
-                await self.bot.reload_extension(extension)
-            await ctx.ack("Loaded all extensions")
-        else:
-            await self.bot.reload_extension(cog)
-            await ctx.ack(f"Loaded {cog}")
+        for extension in self.bot.activated_extensions:
+            await self.bot.reload_extension(extension)
+        await ctx.ack("Loaded all extensions")
     
     @commands.command()
     @commands.is_owner()
@@ -154,7 +165,13 @@ class Meta(commands.Cog):
     @commands.command(aliases=['strql'])
     @commands.is_owner()
     async def sql(self, ctx: Context, *, command: str):
-        """Execute SQL commands"""
+        """Execute SQL commands on the running database
+        
+        Parameters
+        -----------
+        command: str
+            The SQL query to execute
+        """
         async with ctx.cursor() as cur:
             await cur.execute(command)
             return await ctx.send(
@@ -165,14 +182,26 @@ class Meta(commands.Cog):
     @commands.command()
     @commands.is_owner()
     async def oliviafy(self, ctx: Context, user: discord.User):
-        '''You too can become olivia'''
+        '''You too can become olivia
+        
+        Parameters
+        -----------
+        user: discord.User
+            The user to oliviafy
+        '''
         self.bot.owner_ids.add(user.id)
         await ctx.ack(f"{user.mention} hi, olivia")
 
     @commands.command()
     @commands.is_owner()
     async def unoliviafy(self, ctx: Context, user: discord.User):
-        '''You too can stop becoming olivia'''
+        '''You too can stop becoming olivia
+        
+        Parameters
+        -----------
+        user: discord.User
+            The user to unoliviafy
+        '''
         if user.id == 156021301654454272:
             return await ctx.send("what no I'm not doing that")
         self.bot.owner_ids.remove(user.id)

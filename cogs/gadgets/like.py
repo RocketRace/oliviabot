@@ -45,17 +45,7 @@ class Like(Cog):
                 [user_id, dt.timestamp()],
             )
 
-    @commands.group(invoke_without_command=True)
-    async def like(self, ctx: Context, value: bool | None = None):
-        """auto\N{THUMBS UP SIGN} messages that end with "like"
-
-        Run this command with no arguments to see your current settings.
-
-        Parameters
-        -----------
-        value: bool | None
-            ("enable" / "disable") Whether to enable or disable auto\N{THUMBS UP SIGN}ing.
-        """
+    async def like_status(self, ctx: Context):
         active_after = await self.like_enabled_after(ctx.author.id)
         now = datetime.datetime.now()
         if active_after == datetime.datetime.max:
@@ -65,27 +55,44 @@ class Like(Cog):
         else:
             timestring = discord.utils.format_dt(active_after, "R")
             status = f"enabled but chilling, back {timestring}"
+        return status
 
-        if value is None:
-            await ctx.message.add_reaction("\N{THUMBS UP SIGN}")
-            await ctx.send(
-                f"Auto\N{THUMBS UP SIGN}ing is {status}. "
-                "You can enable or disable it using `+like enable` or `+like disable`."
+    @commands.group(invoke_without_command=True)
+    async def like(self, ctx: Context):
+        """auto\N{THUMBS UP SIGN} messages that end with "like"
+
+        Run this command with no arguments to see your current settings.
+        """
+        status = await self.like_status(ctx)
+        await ctx.message.add_reaction("\N{THUMBS UP SIGN}")
+        await ctx.send(
+            f"Auto\N{THUMBS UP SIGN}ing is {status}. "
+            "You can enable or disable it using `+like enable` or `+like disable`."
+        )
+
+    @like.command(name="enable")
+    async def enable_like(self, ctx: Context):
+        """Enable auto\N{THUMBS UP SIGN}ing"""
+        status = await self.like_status(ctx)
+        now = datetime.datetime.now(datetime.UTC)
+        await self.set_like_enabled_after(ctx.author.id, now)
+        await ctx.message.add_reaction("\N{THUMBS UP SIGN}")
+        await ctx.send(
+            f"You have enabled auto\N{THUMBS UP SIGN}ing (previously {status})"
+        )
+
+    @like.command(name="disable")
+    async def disable_like(self, ctx: Context):
+        """Disable auto\N{THUMBS UP SIGN}ing"""
+        status = await self.like_status(ctx)
+        async with ctx.cursor() as cur:
+            await cur.execute(
+                """DELETE FROM likers WHERE user_id = ?;""", [ctx.author.id]
             )
-        else:
-            async with ctx.cursor() as cur:
-                if value:
-                    now = datetime.datetime.now(datetime.UTC)
-                    await self.set_like_enabled_after(ctx.author.id, now)
-                else:
-                    await cur.execute(
-                        """DELETE FROM likers WHERE user_id = ?;""", [ctx.author.id]
-                    )
-            action = "enabled" if value else "disabled"
-            await ctx.message.add_reaction("\N{THUMBS UP SIGN}")
-            await ctx.send(
-                f"You have {action} auto\N{THUMBS UP SIGN}ing (previously {status})"
-            )
+        await ctx.message.add_reaction("\N{THUMBS UP SIGN}")
+        await ctx.send(
+            f"You have disabled auto\N{THUMBS UP SIGN}ing (previously {status})"
+        )
 
     @like.command()
     async def chill(self, ctx: Context):

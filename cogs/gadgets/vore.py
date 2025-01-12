@@ -78,7 +78,10 @@ class Vore(Cog):
     @commands.is_owner()
     @vore.command()
     async def disqualify(self, ctx: Context):
-        """It doesn't count!"""
+        """It doesn't count!
+        
+        Removes the most recent instance
+        """
         async with ctx.cursor() as cur:
             await cur.execute("""DELETE FROM vore ORDER BY timestamp DESC LIMIT 1;""")
             result = list(await cur.fetchall())
@@ -91,6 +94,13 @@ class Vore(Cog):
     @vore.command()
     @commands.is_owner()
     async def scan(self, ctx: Context, after: discord.Object | None):
+        """Scan server history for legacy commands.
+        
+        Parameters
+        -----------
+        after: discord.Object | None
+            Snowflake to search after
+        """
         if not after:
             await ctx.send("Searching all of history. Are you sure? [yes/no]")
 

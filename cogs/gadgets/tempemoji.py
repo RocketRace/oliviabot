@@ -54,7 +54,7 @@ class TempEmoji(Cog):
         name: str
             The emoji name
         pronouns: str
-            The emoji's pronouns (multiple allowed, use e.g. she/her they/them instead of she/they)
+            The emoji's pronouns (multiple allowed, use e.g. `she/her they/them` instead of `she/they`)
         """
         guild = ctx.guild
         assert guild
