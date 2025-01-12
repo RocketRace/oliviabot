@@ -156,7 +156,7 @@ def escaper(st: str):
     return [n for n in out if n is not None]
 
 def unescaper(s: list[int]):
-    return f"\x1b[{";".join(map(str, s))}m"
+    return f"\x1b[{';'.join(map(str, s))}m"
 
 discorder = {escape: unescaper(escaper(escape)) for escape in escapes if escaper(escape)}
 

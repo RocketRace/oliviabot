@@ -102,7 +102,7 @@ class TempEmoji(Cog):
 
         pronoun = random.choice(pronouns) if pronouns else "it"
         await ctx.message.add_reaction(emoji)
-        await ctx.reply(f"{emoji} is here!\n-# {pronoun} will poof {discord.utils.format_dt(then, "R")}!")
+        await ctx.reply(f"{emoji} is here!\n-# {pronoun} will poof {discord.utils.format_dt(then, 'R')}!")
         await asyncio.sleep(60 * 60 * hours)
         await self.try_delete_emoji(emoji.id, guild.id)
 

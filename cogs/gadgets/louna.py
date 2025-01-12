@@ -81,7 +81,7 @@ class Louna(Cog):
         for emojis in weighted.values():
             emojis.sort()
         rows = [
-            f"{weight} {" ".join(e)}" for weight, e in sorted(weighted.items(), reverse=True)
+            f"{weight} {' '.join(e)}" for weight, e in sorted(weighted.items(), reverse=True)
         ]
         response = "\n\n".join(rows)
         if response:
@@ -125,7 +125,7 @@ class Louna(Cog):
                     )
                     rows = await cur.fetchall()
                     extant.extend([row[0] for row in rows])
-                return await ctx.send(f"{" ".join(extant)} already exists!")
+                return await ctx.send(f"{' '.join(extant)} already exists!")
         await self.reload_emoji()
         await ctx.ack()
     

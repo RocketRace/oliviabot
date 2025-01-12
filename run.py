@@ -31,7 +31,7 @@ async def main():
         discord.utils.setup_logging(level=logging.INFO)
 
     async with (
-        aiosqlite.connect(config.database_path, autocommit=True) as db,
+        aiosqlite.connect(config.database_path, isolation_level=None) as db,
         OliviaBot(
             prod=prod,
             db=db,

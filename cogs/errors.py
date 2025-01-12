@@ -45,7 +45,7 @@ class ErrorHandler(commands.Cog):
             else f"Channel: {ctx.channel} (ID: {ctx.channel.id})"
         )
         guild = (
-            f"Guild: {ctx.guild} ({ctx.guild.member_count or "<unknown>"} members, ID: {ctx.guild.id})"
+            f"Guild: {ctx.guild} ({ctx.guild.member_count or '<unknown>'} members, ID: {ctx.guild.id})"
             if ctx.guild
             else "Private messages"
         )
