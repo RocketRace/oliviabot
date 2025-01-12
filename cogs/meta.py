@@ -227,7 +227,7 @@ class Meta(commands.Cog):
             "but um you can ask her nicely and I'm sure she'll say yes\n"
 
             "I might change my mind on the privacy policy and tweak it without warning so watch out! "
-            "but I'll never do anything creepy so don't worry :) plus I'm literally just a girl"
+            "but I'll never do anything creepy so don't worry :) I will do my best to treat everyone kindly!"
         )
 
     @commands.command()
