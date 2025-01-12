@@ -289,7 +289,8 @@ class Meta(commands.Cog):
                     if line.strip().endswith(quote)
                 ][0]
                 break
-        prefix = textwrap.dedent(''.join(lines[end + 1:end + 1 + 8]))
+        rows = 10
+        prefix = textwrap.dedent(''.join(lines[end + 1:end + 1 + rows]))
         await ctx.send(
             f"<https://github.com/RocketRace/oliviabot/blob/main/{path}#L{lineno}-L{lineno+len(lines)}>\n"
             f"```py\n{prefix}\n```"
