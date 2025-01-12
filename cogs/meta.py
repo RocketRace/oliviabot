@@ -324,7 +324,7 @@ class Meta(commands.Cog):
                 break
         rows = 10
         prefix = textwrap.dedent(''.join(lines[end + 1:end + 1 + rows]))
-        extra = "\n-# *results truncated*" if len(lines[end + 1:]) > rows else ""
+        extra = "\n-# results truncated" if len(lines[end + 1:]) > rows else ""
         await ctx.send(
             f"<https://github.com/RocketRace/oliviabot/blob/main/{path}#L{lineno}-L{lineno+len(lines)-1}>\n"
             f"```py\n{prefix}\n```{extra}"
