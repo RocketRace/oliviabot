@@ -249,7 +249,7 @@ class Meta(commands.Cog):
         file = inspect.getfile(fn)
         [lines, lineno] = inspect.getsourcelines(fn)
         path = Path(file).relative_to(Path.cwd())
-        prefix = ''.join(lines[:5])
+        prefix = ''.join(lines[:8])
         await ctx.send(
             f"<https://github.com/RocketRace/oliviabot/blob/main/{path}#L{lineno}-L{lineno+len(lines)}>\n"
             f"```py\n{prefix}\n```"
