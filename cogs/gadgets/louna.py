@@ -32,7 +32,7 @@ class Louna(Cog):
         choices = "".join(random.choices(self.louna_emojis, self.louna_weights, k=k))
         
         # future considerations:
-        # - we need to determine whether oliviabot has sentiance
+        # - we need to determine whether oliviabot has sentience
         # - we also need to make sure she's happy
         await ctx.reply(f"l\u200bouna {choices}", mention_author=False)
         async with ctx.cursor() as cur:
