@@ -261,6 +261,39 @@ class Meta(commands.Cog):
         )
 
     @commands.command()
+    async def proxy(self, ctx: Context, value: bool | None = None):
+        """Configure this bot to respond to proxy messages.
+
+        Run this command with no arguments to see your current settings.
+
+        Parameters
+        -----------
+        value: bool | None
+            ("enable" / "disable") Whether to enable or disable proxy mode.
+        """
+        proxied = await self.bot.is_proxied(ctx.author)
+        negation = "" if proxied else " not"
+        if value is None:
+            await ctx.send(
+                f"You have{negation} enabled proxy mode. "
+                "You can enable or disable it using `+proxy enable` or `+proxy disable`."
+            )
+        else:
+            async with ctx.cursor() as cur:
+                if value:
+                    await cur.execute(
+                        """INSERT OR IGNORE INTO proxiers VALUES(?);""", [ctx.author.id]
+                    )
+                else:
+                    await cur.execute(
+                        """DELETE FROM proxiers WHERE user_id = ?;""", [ctx.author.id]
+                    )
+            action = "enabled" if value else "disabled"
+            await ctx.send(
+                f"You have {action} proxy mode (previously{negation} enabled)"
+            )
+
+    @commands.command()
     async def source(self, ctx: Context, *, command: str):
         """Show the source code for a command
         
@@ -296,41 +329,6 @@ class Meta(commands.Cog):
             f"<https://github.com/RocketRace/oliviabot/blob/main/{path}#L{lineno}-L{lineno+len(lines)}>\n"
             f"```py\n{prefix}\n```{extra}"
         )
-
-
-    @commands.command()
-    async def proxy(self, ctx: Context, value: bool | None = None):
-        """Configure this bot to respond to proxy messages.
-
-        Run this command with no arguments to see your current settings.
-
-        Parameters
-        -----------
-        value: bool | None
-            ("enable" / "disable") Whether to enable or disable proxy mode.
-        """
-        proxied = await self.bot.is_proxied(ctx.author)
-        negation = "" if proxied else " not"
-        if value is None:
-            await ctx.send(
-                f"You have{negation} enabled proxy mode. "
-                "You can enable or disable it using `+proxy enable` or `+proxy disable`."
-            )
-        else:
-            async with ctx.cursor() as cur:
-                if value:
-                    await cur.execute(
-                        """INSERT OR IGNORE INTO proxiers VALUES(?);""", [ctx.author.id]
-                    )
-                else:
-                    await cur.execute(
-                        """DELETE FROM proxiers WHERE user_id = ?;""", [ctx.author.id]
-                    )
-            action = "enabled" if value else "disabled"
-            await ctx.send(
-                f"You have {action} proxy mode (previously{negation} enabled)"
-            )
-
 
 async def setup(bot: OliviaBot):
     await bot.add_cog(Meta(bot))
