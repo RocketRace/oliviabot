@@ -3,6 +3,7 @@ import asyncio
 from datetime import datetime
 import logging
 from pathlib import Path
+import re
 from typing import Any, Callable, Coroutine
 
 import aiosqlite
@@ -318,56 +319,71 @@ class Context(commands.Context[OliviaBot]):
         return await super().send(content, **kwargs)
 
 
-class QwdieConverter(commands.Converter[discord.Member | discord.User]):
-    def try_fetch_user(self, bot: OliviaBot, key, mapper: Callable[[discord.User]]):
+class QwdieConverter(commands.Converter[discord.User | discord.Member]):
+    def try_find_user(self, bot: OliviaBot, key, mapper: Callable[[discord.User]]):
         return discord.utils.find(
             lambda user: mapper(user) == key,
             bot.users
         )
 
     async def convert(self, ctx: commands.Context[OliviaBot], argument: str):
-        try:
-            return await commands.MemberConverter().convert(ctx, argument)
-        except commands.MemberNotFound:
-            # try again with some lax
-            lower = argument.lower()
-            result = self.try_fetch_user(ctx.bot, lower, lambda user: user.name.lower())
-            if result is not None:
-                return result
-            result = self.try_fetch_user(ctx.bot, lower, lambda user: user.global_name and user.global_name.lower())
-            if result is not None:
-                return result
-            ids = ctx.bot.person_aliases.get(lower)
-            if ids:
-                choices = [ctx.bot.get_user(id) or id for id in ids]
-                valid = [user for user in choices if isinstance(user, discord.User)]
-                if len(valid) == 1:
-                    return valid[0]
-                elif len(valid) >= 2:
-                    # disambiguate between aliases
-                    content = f"which {lower}?"
-                    view = QwdieDisambiguator(target=ctx.author, choices=choices)
-                    await ctx.send(content, view=view)
-                    await view.wait()
-                    if view.selected is None:
-                        raise TimeoutError
-                    else:
-                        return view.selected
-            elif lower in ("me", "🪟"):
-                return ctx.author
-            raise
+        choices: list[discord.User | discord.Member | None] = []
+        # id, mention and username are all unique
+        if re.match(r"[0-9]{15,20}", argument):
+            choices.append(ctx.bot.get_user(int(argument)))
+        mention_match = re.match(r"<@!?([0-9]{15,20})>$", argument)
+        if mention_match:
+            choices.append(ctx.bot.get_user(int(mention_match.group(1))))
+        discrim_match = re.match(r"(.+)#([0-9]{4})", argument)
+        if discrim_match:
+            choices.append(discord.utils.get(
+                ctx.bot.users,
+                name=discrim_match.group(1),
+                discriminator=discrim_match.group(2)
+            ))
+        choices.append(discord.utils.get(ctx.bot.users, name=argument))
+        # global name and guild nickname are not unique, so scan all the options
+        # this may change later for performance purposes but I only have 100ish users
+        choices.extend([
+            user for user in ctx.bot.users
+            if user.global_name and user.global_name.lower() == argument.lower()
+        ])
+        if ctx.guild:
+            choices.extend([
+                member for member in ctx.guild.members
+                if member.nick and member.nick.lower() == argument.lower()
+            ])
+        # aliases
+        choices.extend(ctx.bot.get_user(id) for id in ctx.bot.person_aliases.get(argument.lower(), []))
+        # special results
+        if argument.lower() in ("me", "🪟"):
+            choices.append(ctx.author)
+        # finally resolve the user
+        valid_choices = list(set(filter(None, choices)))
+        if len(valid_choices) == 1:
+            return valid_choices[0]
+        elif len(valid_choices) >= 2:
+            # disambiguate between choices
+            content = f"which {argument.lower()}?"
+            view = QwdieDisambiguator(target=ctx.author, choices=valid_choices)
+            await ctx.send(content, view=view)
+            await view.wait()
+            if view.selected is None:
+                raise TimeoutError
+            else:
+                return view.selected
+        else:
+            raise commands.UserNotFound(argument)
 
 class QwdieButton(discord.ui.Button['QwdieDisambiguator']):
-    def __init__(self, user: discord.User | int):
+    def __init__(self, user: discord.User | discord.Member):
         # A bit kludgey
-        msg = f"@{user.name}" if isinstance(user, discord.User) else f"<@{user}>"
-        super().__init__(style=discord.ButtonStyle.gray, label=msg, disabled=isinstance(user, int))
+        super().__init__(style=discord.ButtonStyle.gray, label=f"@{user.name}")
         self.user = user
     
     async def callback(self, interaction: discord.Interaction):
         assert self.view
         view: QwdieDisambiguator = self.view
-        assert isinstance(self.user, discord.User)
         view.selected = self.user
         for child in view.children:
             assert isinstance(child, QwdieButton)
@@ -377,10 +393,10 @@ class QwdieButton(discord.ui.Button['QwdieDisambiguator']):
         view.stop()
 
 class QwdieDisambiguator(discord.ui.View):
-    def __init__(self, *, target: discord.User | discord.Member, choices: list[discord.User | int]):
+    def __init__(self, *, target: discord.User | discord.Member, choices: list[discord.User | discord.Member]):
         super().__init__()
         self.target = target
-        self.selected: discord.User | None = None
+        self.selected: discord.User | discord.Member | None = None
         self.msg: discord.Message
         for choice in choices:
             self.add_item(QwdieButton(choice))
