@@ -337,14 +337,57 @@ class QwdieConverter(commands.Converter[discord.Member | discord.User]):
             result = self.try_fetch_user(ctx.bot, lower, lambda user: user.global_name and user.global_name.lower())
             if result is not None:
                 return result
-            aliases = ctx.bot.person_aliases.get(lower)
-            if aliases and len(aliases) == 1:
-                result = ctx.bot.get_user(aliases[0])
-                if result is not None:
-                    return result
-            elif aliases:
-                # implement a disambiguation screen here
-                pass
+            ids = ctx.bot.person_aliases.get(lower)
+            if ids:
+                choices = [ctx.bot.get_user(id) or id for id in ids]
+                valid = [user for user in choices if isinstance(user, discord.User)]
+                if len(valid) == 1:
+                    return valid[0]
+                elif len(valid) >= 2:
+                    # disambiguate between aliases
+                    content = f"which {lower}?"
+                    view = QwdieDisambiguator(target=ctx.author, choices=choices)
+                    await ctx.send(content, view=view)
+                    await view.wait()
+                    if view.selected is None:
+                        raise TimeoutError
+                    else:
+                        return view.selected
             elif lower in ("me", "🪟"):
                 return ctx.author
             raise
+
+class QwdieButton(discord.ui.Button['QwdieDisambiguator']):
+    def __init__(self, user: discord.User | int):
+        # A bit kludgey
+        msg = f"@{user.name}" if isinstance(user, discord.User) else f"<@{user}>"
+        super().__init__(style=discord.ButtonStyle.gray, label=msg, disabled=isinstance(user, int))
+        self.user = user
+    
+    async def callback(self, interaction: discord.Interaction):
+        assert self.view
+        view: QwdieDisambiguator = self.view
+        assert isinstance(self.user, discord.User)
+        view.selected = self.user
+        for child in view.children:
+            assert isinstance(child, QwdieButton)
+            child.disabled = True
+        self.style = discord.ButtonStyle.green
+        await interaction.response.edit_message(view=view)
+        view.stop()
+
+class QwdieDisambiguator(discord.ui.View):
+    def __init__(self, *, target: discord.User | discord.Member, choices: list[discord.User | int]):
+        super().__init__()
+        self.target = target
+        self.selected: discord.User | None = None
+        self.msg: discord.Message
+        for choice in choices:
+            self.add_item(QwdieButton(choice))
+
+    async def interaction_check(self, interaction: discord.Interaction):
+        if interaction.user != self.target:
+            await interaction.response.send_message("not for you!", ephemeral=True)
+            return False
+        else:
+            return True
