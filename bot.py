@@ -322,8 +322,9 @@ class Context(commands.Context[OliviaBot]):
             content = content[:limit - len(suffix)] + suffix
         return await super().send(content, **kwargs)
 
+AnyUser = discord.User | discord.Member | discord.ClientUser
 
-class QwdieConverter(commands.Converter[discord.User | discord.Member]):
+class QwdieConverter(commands.Converter[AnyUser]):
     def try_find_user(self, bot: OliviaBot, key, mapper: Callable[[discord.User]]):
         return discord.utils.find(
             lambda user: mapper(user) == key,
@@ -331,7 +332,7 @@ class QwdieConverter(commands.Converter[discord.User | discord.Member]):
         )
 
     async def convert(self, ctx: commands.Context[OliviaBot], argument: str):
-        choices: list[discord.User | discord.Member | None] = []
+        choices: list[AnyUser | None] = []
         # id, mention and username are all unique
         if re.match(r"[0-9]{15,20}", argument):
             choices.append(ctx.bot.get_user(int(argument)))
@@ -362,6 +363,13 @@ class QwdieConverter(commands.Converter[discord.User | discord.Member]):
         # special results
         if argument.lower() in ("me", "🪟"):
             choices.append(ctx.author)
+        everyone = ""
+        if argument.lower() in ("@everyone", "🪩"):
+            everyone = " (you have to pick one, sorry)"
+            if ctx.guild:
+                choices = list(ctx.guild.members)
+            else:
+                choices = [ctx.author, ctx.me]
         # finally resolve the user
         valid_choices = list(set(filter(None, choices)))
         if len(valid_choices) == 1:
@@ -369,7 +377,7 @@ class QwdieConverter(commands.Converter[discord.User | discord.Member]):
         elif len(valid_choices) >= 2:
             # disambiguate between choices
             valid_choices = sorted(valid_choices, key=lambda user: user.name)
-            content = f"which {argument.lower()}?"
+            content = f"which {argument.lower()}?{everyone}"
             view = QwdieDisambiguator(target=ctx.author, choices=valid_choices)
             await ctx.send(content, view=view)
             await view.wait()
@@ -381,7 +389,7 @@ class QwdieConverter(commands.Converter[discord.User | discord.Member]):
             raise commands.UserNotFound(argument)
 
 class QwdieButton(discord.ui.Button['QwdieDisambiguator']):
-    def __init__(self, user: discord.User | discord.Member):
+    def __init__(self, user: AnyUser):
         # A bit kludgey
         super().__init__(style=discord.ButtonStyle.gray, label=f"@{user.name}")
         self.user = user
@@ -407,9 +415,9 @@ def first_difference_at(a: str, b: str) -> int:
 class QwdieSelect(discord.ui.Select['QwdieDisambiguator']):
     def __init__(
             self,
-            previous: discord.User | discord.Member | None,
-            users: list[discord.User | discord.Member],
-            next: discord.User | discord.Member | None
+            previous: AnyUser | None,
+            users: list[AnyUser],
+            next: AnyUser | None
         ):
         # when previous is None, users is 25 long
         # when next is None, users may be as short as 1 long
@@ -418,7 +426,7 @@ class QwdieSelect(discord.ui.Select['QwdieDisambiguator']):
                 *(users[0].name, users[1].name)
                 if previous is None
                 else (previous.name, users[0].name)
-            )
+            ) + 1
         ]
         if len(users) > 1:
             end = users[-1].name[
@@ -426,7 +434,7 @@ class QwdieSelect(discord.ui.Select['QwdieDisambiguator']):
                     *(users[-2].name, users[-1].name)
                     if next is None else
                     (users[-1].name, next.name)
-                )
+                ) + 1
             ]
             placeholder = f"Select ({start} – {end})"
         else:
@@ -434,7 +442,8 @@ class QwdieSelect(discord.ui.Select['QwdieDisambiguator']):
         super().__init__(
             placeholder=placeholder,
             options=[
-                discord.SelectOption(label=f"{user.name}", value=str(user.id)) for user in users
+                discord.SelectOption(label=f"@{user.name}", value=str(i))
+                for i, user in enumerate(users)
             ]
         )
         self.users = users
@@ -442,26 +451,33 @@ class QwdieSelect(discord.ui.Select['QwdieDisambiguator']):
     async def callback(self, interaction: discord.Interaction):
         assert self.view
         view: QwdieDisambiguator = self.view
-        self.values
+        view.selected = self.users[int(self.values[0])]
+        for child in view.children:
+            assert isinstance(child, QwdieSelect)
+            child.disabled = True
+        self.placeholder = f"@{view.selected.name}"
         await interaction.response.edit_message(view=view)
         view.stop()
 
 class QwdieDisambiguator(discord.ui.View):
-    def __init__(self, *, target: discord.User | discord.Member, choices: list[discord.User | discord.Member]):
+    def __init__(self, *, target: AnyUser, choices: list[AnyUser]):
         super().__init__()
         self.target = target
-        self.selected: discord.User | discord.Member | None = None
+        self.selected: AnyUser | None = None
         self.msg: discord.Message
         if len(choices) <= 25:
             for choice in choices:
                 self.add_item(QwdieButton(choice))
         elif len(choices) <= 125:
-            for i in range(0, 125, 25):
+            max = len(choices)
+            for i in range(0, max, 25):
                 self.add_item(QwdieSelect(
                     choices[i - 1] if i != 0 else None,
                     choices[i : i + 25],
-                    choices[i + 25] if i != 100 else None
+                    choices[i + 25] if i + 25 < max else None
                 ))
+        else:
+            raise RuntimeError("i don't know what to do here")
 
     async def interaction_check(self, interaction: discord.Interaction):
         if interaction.user != self.target:

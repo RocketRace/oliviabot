@@ -4,7 +4,7 @@ from __future__ import annotations
 import discord
 from discord.ext import commands
 
-from bot import Context, Cog, QwdieConverter
+from bot import Context, Cog, QwdieConverter, AnyUser
 
 class HelpCommand(commands.DefaultHelpCommand):
     async def send_pages(self) -> None:
@@ -57,7 +57,7 @@ class Admin(Cog):
 
     @commands.command()
     @commands.is_owner()
-    async def oliviafy(self, ctx: Context, user: discord.User = commands.parameter(converter=QwdieConverter)):
+    async def oliviafy(self, ctx: Context, user: AnyUser = commands.parameter(converter=QwdieConverter)):
         '''You too can become olivia
         
         Parameters
@@ -70,7 +70,7 @@ class Admin(Cog):
 
     @commands.command()
     @commands.is_owner()
-    async def unoliviafy(self, ctx: Context, user: discord.User = commands.parameter(converter=QwdieConverter)):
+    async def unoliviafy(self, ctx: Context, user: AnyUser = commands.parameter(converter=QwdieConverter)):
         '''You too can stop becoming olivia
         
         Parameters

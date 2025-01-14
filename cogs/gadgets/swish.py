@@ -4,14 +4,14 @@ import re
 import discord
 from discord.ext import commands
 
-from bot import Context, Cog, QwdieConverter
+from bot import Context, Cog, QwdieConverter, AnyUser
 
 class Swish(Cog):
     @commands.command()
     async def swish(
         self,
         ctx: Context,
-        user: discord.Member | discord.User = commands.parameter(converter=QwdieConverter),
+        user: AnyUser = commands.parameter(converter=QwdieConverter),
         items: str = commands.parameter(), # blank param for syntax
         *,
         message: str | None = None
@@ -46,7 +46,7 @@ class Swish(Cog):
             sender,
             allowed_mentions=discord.AllowedMentions.none()
         )
-        if user.id != ctx.me.id and not user.bot:
+        if not user.bot and not isinstance(user, discord.ClientUser):
             await user.send(sendee)
     
     @swish.error

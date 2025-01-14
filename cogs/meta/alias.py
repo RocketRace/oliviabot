@@ -4,7 +4,7 @@ from __future__ import annotations
 import discord
 from discord.ext import commands
 
-from bot import Context, Cog, QwdieConverter
+from bot import Context, Cog, QwdieConverter, AnyUser
 
 class Alias(Cog):
     @commands.group(invoke_without_command=True)
@@ -24,7 +24,7 @@ class Alias(Cog):
         l = "\n".join([f"- {alias}" for alias in aliases])
         return await ctx.send(f"Your aliases:\n{l}")
     
-    async def alias_addition(self, ctx: Context, alias: str, user: discord.User | discord.Member, extra: bool = False):
+    async def alias_addition(self, ctx: Context, alias: str, user: AnyUser, extra: bool = False):
         alias = alias.lower()
         if alias in self.bot.inv_person_aliases.get(ctx.author.id, []):
             return await ctx.send("already got that one!")
@@ -42,7 +42,7 @@ class Alias(Cog):
         )
         await self.bot.refresh_aliases()
 
-    async def alias_deletion(self, ctx: Context, alias: str, user: discord.User | discord.Member):
+    async def alias_deletion(self, ctx: Context, alias: str, user: AnyUser):
         alias = alias.lower()
         if alias not in self.bot.inv_person_aliases.get(ctx.author.id, []):
             return await ctx.send("don't have that one!")
@@ -87,28 +87,28 @@ class Alias(Cog):
 
     @alias_override.command(name="add", aliases=["new"])
     @commands.is_owner()
-    async def add_override_alias(self, ctx: Context, alias: str, *, user: discord.User = commands.parameter(converter=QwdieConverter)):
+    async def add_override_alias(self, ctx: Context, alias: str, *, user: AnyUser = commands.parameter(converter=QwdieConverter)):
         """Add a new person alias
         
         Parameters
         -----------
         alias: str
             The alias to create
-        user: discord.User
+        user: AnyUser
             The person to link it to
         """
         await self.alias_addition(ctx, alias, user)
     
     @alias_override.command(name="delete", aliases=["remove"])
     @commands.is_owner()
-    async def delete_override_alias(self, ctx: Context, alias: str, *, user: discord.User = commands.parameter(converter=QwdieConverter)):
+    async def delete_override_alias(self, ctx: Context, alias: str, *, user: AnyUser = commands.parameter(converter=QwdieConverter)):
         """Delete a person alias
         
         Parameters
         -----------
         alias: str
             The alias to delete
-        user: discord.User
+        user: AnyUser
             The person to delete it from
         """
         await self.alias_deletion(ctx, alias, user)
