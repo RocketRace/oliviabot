@@ -36,7 +36,10 @@ class Alias(Cog):
         msg = f"{user.mention} hi {alias} :)"
         if extra:
             msg += "\n-# consider `+alias add` next time"
-        await ctx.send(msg)
+        await ctx.send(
+            msg,
+            allowed_mentions=discord.AllowedMentions.none()
+        )
         await self.bot.refresh_aliases()
 
     async def alias_deletion(self, ctx: Context, alias: str, user: discord.User | discord.Member):
@@ -48,7 +51,10 @@ class Alias(Cog):
                 """DELETE FROM person_aliases WHERE alias = ? AND id = ?;""",
                 [alias, user.id]
             )
-        await ctx.send(f"{alias} no more :)")
+        await ctx.send(
+            f"{alias} no more :)",
+            allowed_mentions=discord.AllowedMentions.none()
+        )
         await self.bot.refresh_aliases()
 
     @alias.command(name="add", aliases=["new"])
