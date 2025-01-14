@@ -33,7 +33,10 @@ class Swish(Cog):
         if not amount:
             amount = "1"
         if not thing:
-            thing = "1"
+            if message:
+                thing, _, message = message.partition(" ")
+            else:
+                thing = "1"
         
         if message is None:
             sender = f"✅ Swished **{amount} {thing}** to {user.mention}! 🌀"
