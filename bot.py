@@ -385,7 +385,7 @@ class QwdieConverter(commands.Converter[AnyUser]):
             view = QwdieDisambiguator(
                 target=ctx.author,
                 choices=valid_choices,
-                whole_guild=set(valid_choices) == set(ctx.guild and ctx.guild.members or [])
+                whole_guild=set(valid_choices) == set(ctx.guild and ctx.guild.members or [ctx.author, ctx.me])
             )
             msg = await ctx.send(content, view=view)
             await view.wait()
