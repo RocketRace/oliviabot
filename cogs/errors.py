@@ -1,11 +1,10 @@
 import logging
 import traceback
 
-import aiosqlite
 import discord
 from discord.ext import commands
 
-from bot import Context, OliviaBot
+from bot import Context, OliviaBot, QwdieConverter
 
 
 class ErrorHandler(commands.Cog):
@@ -129,6 +128,8 @@ class ErrorHandler(commands.Cog):
                 await ctx.send(f"Check failure in command {command_name}: {error}")
 
             # Other base errors
+            case commands.ConversionError(converter=QwdieConverter(), original=TimeoutError()):
+                await ctx.send("Timed out")
             case commands.ConversionError():
                 await ctx.send("Something went wrong with the parsing here")
             case commands.CommandInvokeError():
