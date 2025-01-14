@@ -38,7 +38,7 @@ class Swish(Cog):
             else:
                 thing = "1"
         
-        if message is None:
+        if not message:
             sender = f"✅ Swished **{amount} {thing}** to {user.mention}! 🌀"
             sendee = f"🌀 Received **{amount} {thing}** from {ctx.author.mention}! ({ctx.message.jump_url})"
         else:
