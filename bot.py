@@ -397,14 +397,71 @@ class QwdieButton(discord.ui.Button['QwdieDisambiguator']):
         await interaction.response.edit_message(view=view)
         view.stop()
 
+def first_difference_at(a: str, b: str) -> int:
+    i = 0
+    for i, (x, y) in enumerate(zip(a, b)):
+        if x != y:
+            return i
+    return i + 1
+
+class QwdieSelect(discord.ui.Select['QwdieDisambiguator']):
+    def __init__(
+            self,
+            previous: discord.User | discord.Member | None,
+            users: list[discord.User | discord.Member],
+            next: discord.User | discord.Member | None
+        ):
+        # when previous is None, users is 25 long
+        # when next is None, users may be as short as 1 long
+        start = users[0].name[
+            :first_difference_at(
+                *(users[0].name, users[1].name)
+                if previous is None
+                else (previous.name, users[0].name)
+            )
+        ]
+        if len(users) > 1:
+            end = users[-1].name[
+                :first_difference_at(
+                    *(users[-2].name, users[-1].name)
+                    if next is None else
+                    (users[-1].name, next.name)
+                )
+            ]
+            placeholder = f"Select ({start} – {end})"
+        else:
+            placeholder = f"Select ({start})"
+        super().__init__(
+            placeholder=placeholder,
+            options=[
+                discord.SelectOption(label=f"{user.name}", value=str(user.id)) for user in users
+            ]
+        )
+        self.users = users
+    
+    async def callback(self, interaction: discord.Interaction):
+        assert self.view
+        view: QwdieDisambiguator = self.view
+        self.values
+        await interaction.response.edit_message(view=view)
+        view.stop()
+
 class QwdieDisambiguator(discord.ui.View):
     def __init__(self, *, target: discord.User | discord.Member, choices: list[discord.User | discord.Member]):
         super().__init__()
         self.target = target
         self.selected: discord.User | discord.Member | None = None
         self.msg: discord.Message
-        for choice in choices:
-            self.add_item(QwdieButton(choice))
+        if len(choices) <= 25:
+            for choice in choices:
+                self.add_item(QwdieButton(choice))
+        elif len(choices) <= 125:
+            for i in range(0, 125, 25):
+                self.add_item(QwdieSelect(
+                    choices[i - 1] if i != 0 else None,
+                    choices[i : i + 25],
+                    choices[i + 25] if i != 100 else None
+                ))
 
     async def interaction_check(self, interaction: discord.Interaction):
         if interaction.user != self.target:
