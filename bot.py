@@ -379,9 +379,13 @@ class QwdieConverter(commands.Converter[AnyUser]):
             valid_choices = sorted(valid_choices, key=lambda user: str(user).lower())
             content = f"which {argument.lower()}?{everyone}"
             view = QwdieDisambiguator(target=ctx.author, choices=valid_choices)
-            await ctx.send(content, view=view)
+            msg = await ctx.send(content, view=view)
             await view.wait()
             if view.selected is None:
+                for child in view.children:
+                    assert isinstance(child, (QwdieButton, QwdieSelect))
+                    child.disabled = True
+                await msg.edit(view=view)
                 raise TimeoutError
             else:
                 return view.selected
