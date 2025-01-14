@@ -376,7 +376,7 @@ class QwdieConverter(commands.Converter[AnyUser]):
             return valid_choices[0]
         elif len(valid_choices) >= 2:
             # disambiguate between choices
-            valid_choices = sorted(valid_choices, key=lambda user: user.name)
+            valid_choices = sorted(valid_choices, key=lambda user: str(user).lower())
             content = f"which {argument.lower()}?{everyone}"
             view = QwdieDisambiguator(target=ctx.author, choices=valid_choices)
             await ctx.send(content, view=view)
@@ -391,7 +391,7 @@ class QwdieConverter(commands.Converter[AnyUser]):
 class QwdieButton(discord.ui.Button['QwdieDisambiguator']):
     def __init__(self, user: AnyUser):
         # A bit kludgey
-        super().__init__(style=discord.ButtonStyle.gray, label=f"@{user.name}")
+        super().__init__(style=discord.ButtonStyle.gray, label=f"@{user}")
         self.user = user
     
     async def callback(self, interaction: discord.Interaction):
@@ -408,7 +408,8 @@ class QwdieButton(discord.ui.Button['QwdieDisambiguator']):
 def first_difference_at(a: str, b: str) -> int:
     i = 0
     for i, (x, y) in enumerate(zip(a, b)):
-        if x != y:
+        # technically can cause issues due to unicode case folding
+        if x.lower() != y.lower():
             return i
     return i + 1
 
@@ -421,19 +422,19 @@ class QwdieSelect(discord.ui.Select['QwdieDisambiguator']):
         ):
         # when previous is None, users is 25 long
         # when next is None, users may be as short as 1 long
-        start = users[0].name[
+        start = str(users[0])[
             :first_difference_at(
-                *(users[0].name, users[1].name)
+                *(str(users[0]), str(users[1]))
                 if previous is None
-                else (previous.name, users[0].name)
+                else (str(previous), str(users[0]))
             ) + 1
         ]
         if len(users) > 1:
-            end = users[-1].name[
+            end = str(users[-1])[
                 :first_difference_at(
-                    *(users[-2].name, users[-1].name)
+                    *(str(users[-2]), str(users[-1]))
                     if next is None else
-                    (users[-1].name, next.name)
+                    (str(users[-1]), str(next))
                 ) + 1
             ]
             placeholder = f"Select ({start} – {end})"
@@ -442,7 +443,7 @@ class QwdieSelect(discord.ui.Select['QwdieDisambiguator']):
         super().__init__(
             placeholder=placeholder,
             options=[
-                discord.SelectOption(label=f"@{user.name}", value=str(i))
+                discord.SelectOption(label=f"@{user}", value=str(i))
                 for i, user in enumerate(users)
             ]
         )
@@ -455,7 +456,7 @@ class QwdieSelect(discord.ui.Select['QwdieDisambiguator']):
         for child in view.children:
             assert isinstance(child, QwdieSelect)
             child.disabled = True
-        self.placeholder = f"@{view.selected.name}"
+        self.placeholder = f"@{view.selected}"
         await interaction.response.edit_message(view=view)
         view.stop()
 
