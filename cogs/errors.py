@@ -128,7 +128,7 @@ class ErrorHandler(commands.Cog):
                 await ctx.send(f"Check failure in command {command_name}: {error}")
 
             # Other base errors
-            case commands.ConversionError(converter=QwdieConverter(), original=TimeoutError()):
+            case commands.ConversionError(original=TimeoutError()):
                 await ctx.send("Timed out")
             case commands.ConversionError():
                 await ctx.send("Something went wrong with the parsing here")
