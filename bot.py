@@ -365,7 +365,7 @@ class QwdieConverter(commands.Converter[AnyUser]):
             choices.append(ctx.author)
         everyone = ""
         if argument.lower() in ("@everyone", "🪩"):
-            everyone = " (you have to pick one, sorry)"
+            everyone = " (you have to pick one sorry)"
             if ctx.guild:
                 choices = list(ctx.guild.members)
             else:
