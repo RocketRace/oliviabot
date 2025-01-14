@@ -387,7 +387,7 @@ class QwdieConverter(commands.Converter[AnyUser]):
             await view.wait()
             if view.selected is None:
                 for child in view.children:
-                    assert isinstance(child, (QwdieButton, QwdieSelect))
+                    assert isinstance(child, (QwdieButton, QwdieSelect, QwdieUserSelect))
                     child.disabled = True
                 await msg.edit(view=view)
                 raise TimeoutError
