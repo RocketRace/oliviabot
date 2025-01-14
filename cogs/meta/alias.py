@@ -8,15 +8,23 @@ from bot import Context, Cog, QwdieConverter
 
 class Alias(Cog):
     @commands.group(invoke_without_command=True)
-    async def alias(self, ctx: Context):
-        """See your current aliases"""
+    async def alias(self, ctx: Context, alias: str | None = None):
+        """See your current aliases
+        
+        Parameters
+        -----------
+        alias: str | None = None
+            The alias to create (but consider `+alias add` instead)
+        """
+        if alias:
+            return await self.alias_addition(ctx, alias, ctx.author, True)
         aliases = self.bot.inv_person_aliases.get(ctx.author.id, [])
         if not aliases:
             return await ctx.send("You don't have any aliases set")
         l = "\n".join([f"- {alias}" for alias in aliases])
         return await ctx.send(f"Your aliases:\n{l}")
     
-    async def alias_addition(self, ctx: Context, alias: str, user: discord.User | discord.Member):
+    async def alias_addition(self, ctx: Context, alias: str, user: discord.User | discord.Member, extra: bool = False):
         alias = alias.lower()
         if alias in self.bot.inv_person_aliases.get(ctx.author.id, []):
             return await ctx.send("already got that one!")
@@ -25,7 +33,10 @@ class Alias(Cog):
                 """INSERT INTO person_aliases VALUES(?, ?);""",
                 [alias, user.id]
             )
-        await ctx.send(f"{user.mention} hi {alias} :)")
+        msg = f"{user.mention} hi {alias} :)"
+        if extra:
+            msg += "\n-# consider `+alias add` next time"
+        await ctx.send(msg)
         await self.bot.refresh_aliases()
 
     async def alias_deletion(self, ctx: Context, alias: str, user: discord.User | discord.Member):
