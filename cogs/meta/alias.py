@@ -18,7 +18,7 @@ class Alias(Cog):
         """
         if alias:
             return await self.alias_addition(ctx, alias, ctx.author, True)
-        aliases = self.bot.inv_person_aliases.get(ctx.author.id, [])
+        aliases = sorted(self.bot.inv_person_aliases.get(ctx.author.id, []))
         if not aliases:
             return await ctx.send("You don't have any aliases set")
         l = "\n".join([f"- {alias}" for alias in aliases])

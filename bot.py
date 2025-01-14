@@ -368,6 +368,7 @@ class QwdieConverter(commands.Converter[discord.User | discord.Member]):
             return valid_choices[0]
         elif len(valid_choices) >= 2:
             # disambiguate between choices
+            valid_choices = sorted(valid_choices, key=lambda user: user.name)
             content = f"which {argument.lower()}?"
             view = QwdieDisambiguator(target=ctx.author, choices=valid_choices)
             await ctx.send(content, view=view)
