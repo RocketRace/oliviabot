@@ -367,9 +367,9 @@ class QwdieConverter(commands.Converter[AnyUser]):
         if argument.lower() in ("@everyone", "🪩"):
             everyone = " (you have to pick one sorry)"
             if ctx.guild:
-                choices = list(ctx.guild.members)
+                choices.extend(ctx.guild.members)
             else:
-                choices = [ctx.author, ctx.me]
+                choices.extend([ctx.author, ctx.me])
         # finally resolve the user
         valid_choices = list(set(filter(None, choices)))
         if len(valid_choices) == 1:
