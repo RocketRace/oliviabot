@@ -13,6 +13,7 @@ class Swish(Cog):
         ctx: Context,
         user: AnyUser = commands.parameter(converter=QwdieConverter),
         items: str = commands.parameter(), # blank param for syntax
+        first_word_of_message_or_items_it_depends_on_context: str | None = None,
         *,
         message: str | None = None
     ):
@@ -33,11 +34,15 @@ class Swish(Cog):
         if not amount:
             amount = "1"
         if not thing:
-            if message:
-                thing, _, message = message.partition(" ")
+            if first_word_of_message_or_items_it_depends_on_context:
+                thing = first_word_of_message_or_items_it_depends_on_context
+                first_word_of_message_or_items_it_depends_on_context = None
             else:
                 thing = "1"
         
+        if first_word_of_message_or_items_it_depends_on_context:
+            message = (first_word_of_message_or_items_it_depends_on_context + " " + (message or "")).strip()
+
         if not message:
             sender = f"✅ Swished **{amount} {thing}** to {user.mention}! 🌀"
             sendee = f"🌀 Received **{amount} {thing}** from {ctx.author.mention}! ({ctx.message.jump_url})"
