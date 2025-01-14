@@ -29,6 +29,7 @@ class OliviaBot(commands.Bot):
     terminal_cog_interrupted: bool
     qwd: discord.Guild
     person_aliases: dict[str, list[int]]
+    inv_person_aliases: dict[int, list[str]]
 
     def __init__(
         self,
@@ -80,6 +81,7 @@ class OliviaBot(commands.Bot):
         self.qwd_id = qwd_id
         self.terminal_cog_interrupted = False
         self.person_aliases = {}
+        self.inv_person_aliases = {}
 
     def start(self, *args, **kwargs) -> Coroutine[Any, Any, None]:
         return super().start(config.bot_token, *args, **kwargs)
@@ -251,11 +253,13 @@ class OliviaBot(commands.Bot):
 
     async def refresh_aliases(self):
         self.person_aliases = {}
+        self.inv_person_aliases = {}
         async with self.cursor() as cur:
             await cur.execute("""SELECT alias, id FROM person_aliases;""")
             aliases = await cur.fetchall()
             for alias, user_id in aliases:
                 self.person_aliases.setdefault(alias, []).append(user_id)
+                self.inv_person_aliases.setdefault(user_id, []).append(alias)
 
     async def setup_hook(self) -> None:
         self.webhook = discord.Webhook.from_url(self.webhook_url, client=self)
