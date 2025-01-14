@@ -346,7 +346,11 @@ class QwdieConverter(commands.Converter[AnyUser]):
                 name=discrim_match.group(1),
                 discriminator=discrim_match.group(2)
             ))
-        choices.append(discord.utils.get(ctx.bot.users, name=argument))
+        # okay technically the username is nonunique because bots still don't have pomelo
+        choices.extend([
+            user for user in ctx.bot.users
+            if user.name.lower() == argument.lower()
+        ])
         # global name and guild nickname are not unique, so scan all the options
         # this may change later for performance purposes but I only have 100ish users
         choices.extend([
