@@ -378,7 +378,11 @@ class QwdieConverter(commands.Converter[AnyUser]):
             # disambiguate between choices
             valid_choices = sorted(valid_choices, key=lambda user: str(user).lower())
             content = f"which {argument.lower()}?{everyone}"
-            view = QwdieDisambiguator(target=ctx.author, choices=valid_choices)
+            view = QwdieDisambiguator(
+                target=ctx.author,
+                choices=valid_choices,
+                whole_guild=True or set(valid_choices) == set(ctx.guild and ctx.guild.members or [])
+            )
             msg = await ctx.send(content, view=view)
             await view.wait()
             if view.selected is None:
@@ -441,9 +445,9 @@ class QwdieSelect(discord.ui.Select['QwdieDisambiguator']):
                     (str(users[-1]), str(next))
                 ) + 1
             ]
-            placeholder = f"Select ({start} – {end})"
+            placeholder = f"Select ({start.upper()} –- {end.upper()})"
         else:
-            placeholder = f"Select ({start})"
+            placeholder = f"Select ({start.upper()})"
         super().__init__(
             placeholder=placeholder,
             options=[
@@ -464,13 +468,28 @@ class QwdieSelect(discord.ui.Select['QwdieDisambiguator']):
         await interaction.response.edit_message(view=view)
         view.stop()
 
+class QwdieUserSelect(discord.ui.UserSelect['QwdieDisambiguator']):
+    def __init__(self) -> None:
+        super().__init__(placeholder = "Select user")
+
+    async def callback(self, interaction: discord.Interaction):
+        assert self.view
+        view: QwdieDisambiguator = self.view
+        view.selected = self.values[0]
+        self.placeholder = f"@{view.selected}"
+        self.disabled = True
+        await interaction.response.edit_message(view=view)
+        view.stop()
+
 class QwdieDisambiguator(discord.ui.View):
-    def __init__(self, *, target: AnyUser, choices: list[AnyUser]):
+    def __init__(self, *, target: AnyUser, choices: list[AnyUser], whole_guild: bool):
         super().__init__()
         self.target = target
         self.selected: AnyUser | None = None
         self.msg: discord.Message
-        if len(choices) <= 25:
+        if whole_guild:
+            self.add_item(QwdieUserSelect())
+        elif len(choices) <= 25:
             for choice in choices:
                 self.add_item(QwdieButton(choice))
         elif len(choices) <= 125:
