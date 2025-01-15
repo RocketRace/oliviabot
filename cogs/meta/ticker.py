@@ -25,7 +25,7 @@ class Ticker(Cog):
     async def on_command_completion(self, ctx: Context):
         assert ctx.command 
         qualname = ctx.command.qualified_name
-        timestamp = ctx.message.created_at.replace(hour=0, minute=0, second=0)
+        timestamp = ctx.message.created_at.replace(hour=0, minute=0, second=0, microsecond=0)
         # The unique identifier is constructed using
         mishmash = hash((
             # The guild and channel (~6 bits)
