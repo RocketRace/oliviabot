@@ -69,7 +69,7 @@ class Ticker(Cog):
             "🪺", "🪽", "🔣", "⛲", "🐦", "🔮", "🎇", "🕊️", "🌃", "🧬", "🌲", "⚗️", "📚", "🔭", "⚧",
             "🦢", "⚖️", "⚕️", "☄️", "🌫️", "🦌", "🔬", "🛰️", "🏞️", "🎏", "⛰️", "🎆", "🪐", "🏔️", "🌌",
         ]
-        return sequence[min((n - 1) // 2, len(sequence) - 1)]
+        return sequence[min(n, len(sequence) - 1)]
 
     @commands.command()
     async def ticker(self, ctx: Context):
@@ -78,7 +78,7 @@ class Ticker(Cog):
             "\n".join([
                 f"{self.ticker_emoji(n)} `{name}`"
                 for n, name in sorted([
-                    (len(hashes), name)
+                    ((len(hashes) - 1) // 2, name)
                     for name, hashes in self.tickers.items()
                 ], reverse=True)
             ])
