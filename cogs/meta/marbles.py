@@ -37,7 +37,10 @@ class Marbles(Cog):
             key=lambda t: discord.utils.snowflake_time(t.last_message_id or 0) if mode == "recent" else t.message_count,
             reverse=True
         )
-        await ctx.reply("\n".join(t.mention for t in threads) or "no threads!")
+        if not threads:
+            await ctx.reply("no threads!")
+        else:
+            await ctx.reply(f"{mode} threads:\n" + "\n".join(t.mention for t in threads))
 
     async def change_nickname(self, ctx: Context):
         automated = [
