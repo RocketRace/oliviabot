@@ -167,7 +167,8 @@ class DistroNotFound(Exception):
 
 
 class Neofetch(Cog):
-    async def neofetch_cog_load(self):
+    async def cog_load(self):
+        await super().cog_load()
         def regexp(pattern: str, string: str) -> bool:
             return re.match(pattern, string) is not None
 

@@ -12,7 +12,8 @@ from .horse import unhorsify
 
 
 class Louna(Cog):
-    async def louna_cog_load(self):
+    async def cog_load(self):
+        await super().cog_load()
         await self.reload_emoji()
     
     async def reload_emoji(self):

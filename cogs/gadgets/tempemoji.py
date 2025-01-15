@@ -26,10 +26,12 @@ class SimplePronoun(commands.Converter):
         return pronoun
 
 class TempEmoji(Cog):
-    async def tempemoji_cog_load(self):
+    async def cog_load(self):
+        await super().cog_load()
         self.deleter_task.start()
     
-    async def tempemoji_cog_unload(self):
+    async def cog_unload(self):
+        await super().cog_unload()
         self.deleter_task.stop()
 
     @commands.guild_only()

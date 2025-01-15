@@ -8,9 +8,6 @@ from bot import Context, Cog
 
 
 class Chain(Cog):
-    async def chain_cog_load(self):
-        pass
-
     @commands.is_owner()
     # @commands.command()
     async def chain(

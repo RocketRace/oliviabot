@@ -76,7 +76,8 @@ class Horse(Cog):
         missing = ", ".join(f"`{c}`" for c in sorted(set(string.ascii_lowercase) - mapping.keys() - set("horse")))
         await ctx.send(f"horse dictionary:\n{fmt}\nmissing: {missing}")
 
-    async def horse_cog_load(self):
+    async def cog_load(self):
+        await super().cog_load()
         self.bot.tree.add_command(horse_menu)
         self.bot.tree.add_command(unhorse_menu)
 

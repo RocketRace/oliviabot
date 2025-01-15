@@ -11,7 +11,8 @@ import git
 from bot import Context, Cog
 
 class Info(Cog):
-    async def info_cog_load(self):
+    async def cog_load(self):
+        await super().cog_load()
         self.repo = git.Repo(".")
 
     @commands.command()

@@ -15,7 +15,8 @@ class HelpCommand(commands.DefaultHelpCommand):
             await destination.send(page)
 
 class Admin(Cog):
-    async def admin_cog_load(self):
+    async def cog_load(self):
+        await super().cog_load()
         self.original_help = self.bot.help_command
         self.bot.help_command = HelpCommand()
         self.bot.help_command.cog = self
