@@ -28,8 +28,7 @@ class Ticker(Cog):
         timestamp = ctx.message.created_at.replace(hour=0, minute=0, second=0, microsecond=0)
         # The unique identifier is constructed using
         mishmash = hash((
-            # The guild and channel (~6 bits)
-            ctx.guild,
+            # The channel (~6 bits)
             ctx.channel.id,
             # The author (~6 bits)
             ctx.author.id,
