@@ -64,6 +64,9 @@ class Info(Cog):
             "teaching me your nickname (I'm bad at those). this technically happens without your consent "
             "but um you can ask her nicely and I'm sure she'll say yes\n"
 
+            "7. some commands store a hash containing your data. I think that counts as not storing the "
+            "data, but to be safe I delete all such hashes within 30 days.\n"
+
             "I might change my mind on the privacy policy and tweak it without warning so watch out! "
             "but I'll never do anything creepy so don't worry :) I will do my best to treat everyone kindly!"
         )
