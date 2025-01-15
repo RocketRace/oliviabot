@@ -78,7 +78,7 @@ class Ticker(Cog):
             "\n".join([
                 f"{self.ticker_emoji(n)} `{name}`"
                 for n, name in sorted([
-                    ((len(hashes) - 1) // 2, name)
+                    (len(hashes) - 1, name)
                     for name, hashes in self.tickers.items()
                 ], reverse=True)
             ])
