@@ -25,7 +25,8 @@ class Marbles(Cog):
         Parameters
         -----------
         mode: "recent" | "popular" = "popular"
-            If "recent", shows threads with recent messages. If "popular", shows threads with many messages.
+            either "recent" or "popular",
+            sorting the list by most recent / most total activity
         """
         assert ctx.guild
         threads = [
