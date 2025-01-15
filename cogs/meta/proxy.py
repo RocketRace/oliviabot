@@ -9,12 +9,7 @@ class Proxy(Cog):
     async def proxy(self, ctx: Context, value: bool | None = None):
         """Configure this bot to respond to proxy messages.
 
-        Run this command with no arguments to see your current settings.
-
-        Parameters
-        -----------
-        value: bool | None
-            ("enable" / "disable") Whether to enable or disable proxy mode.
+        See your current proxy settings.
         """
         negation = "" if await self.bot.is_proxied(ctx.author) else " not"
         await ctx.send(
@@ -24,6 +19,7 @@ class Proxy(Cog):
     
     @proxy.command(name="enable", aliases=["on", "optin"])
     async def proxy_enable(self, ctx: Context):
+        """Enable proxy mode"""
         negation = "" if await self.bot.is_proxied(ctx.author) else " not"
         async with ctx.cursor() as cur:
             await cur.execute(
@@ -35,6 +31,7 @@ class Proxy(Cog):
 
     @proxy.command(name="disable", aliases=["off", "optout"])
     async def proxy_disable(self, ctx: Context):
+        """Disable proxy mode"""
         negation = "" if await self.bot.is_proxied(ctx.author) else " not"
         async with ctx.cursor() as cur:
             await cur.execute(
