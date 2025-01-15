@@ -1,4 +1,5 @@
 from __future__ import annotations
+from typing import Literal
 
 import discord
 from discord.ext import commands
@@ -15,6 +16,27 @@ class Marbles(Cog):
     async def howdy(self, ctx: Context):
         """Howdy pardner"""
         await ctx.send(f"howdy to you too! I'm {ctx.me.display_name} 🤠")
+    
+    @commands.command()
+    @commands.guild_only()
+    async def threads(self, ctx: Context, mode: Literal["recent", "popular"] = "popular"):
+        """Shows a list of the threads in the server.
+        
+        Parameters
+        -----------
+        mode: "recent" | "popular" = "popular"
+            If "recent", shows threads with recent messages. If "popular", shows threads with many messages.
+        """
+        assert ctx.guild
+        threads = [
+            t for t in ctx.guild.threads 
+            if t.invitable and not t.locked and not t.archived and t.parent and t.parent.name != "cw"
+        ]
+        threads.sort(
+            key=lambda t: discord.utils.snowflake_time(t.last_message_id or 0) if mode == "recent" else t.message_count,
+            reverse=True
+        )
+        await ctx.reply("\n".join(t.mention for t in threads) or "no threads!")
 
     async def change_nickname(self, ctx: Context):
         automated = [
