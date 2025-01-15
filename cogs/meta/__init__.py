@@ -5,8 +5,9 @@ from .alias import Alias
 from .admin import Admin
 from .info import Info
 from .marbles import Marbles
+from .ticker import Ticker
 
-class Meta(Alias, Admin, Info, Marbles):
+class Meta(Alias, Admin, Info, Marbles, Ticker):
     """Commands related to the behavior of the bot itself"""
     def __init__(self, bot: OliviaBot):
         self.bot = bot

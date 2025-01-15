@@ -233,6 +233,14 @@ class OliviaBot(commands.Bot):
                     UPDATE params SET using_new_person_aliases = 1;
                     """
                 )
+            await cur.executescript(
+                """CREATE TABLE IF NOT EXISTS ticker_hashes(
+                    command TEXT NOT NULL,
+                    hash INTEGER NOT NULL,
+                    delete_at REAL NOT NULL,
+                    PRIMARY KEY(command, hash)
+                )"""
+            )
 
     async def backup_database(self):
         backup_dir = Path.cwd() / "backups"
