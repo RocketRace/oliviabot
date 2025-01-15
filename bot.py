@@ -169,20 +169,20 @@ class OliviaBot(commands.Bot):
             await cur.executescript(
                 """CREATE TABLE IF NOT EXISTS proxiers(
                     user_id INTEGER PRIMARY KEY
-                )
+                );
                 """
             )
             await cur.executescript(
                 """CREATE TABLE IF NOT EXISTS likers(
                     user_id INTEGER PRIMARY KEY,
                     enabled_after REAL NOT NULL
-                )
+                );
                 """
             )
             await cur.executescript(
                 """CREATE TABLE IF NOT EXISTS auto_olivias(
                     user_id INTEGER PRIMARY KEY
-                )
+                );
                 """
             )
             await cur.executescript(
@@ -190,33 +190,33 @@ class OliviaBot(commands.Bot):
                     emoji_id INTEGER PRIMARY KEY,
                     guild_id INTEGER NOT NULL,
                     delete_at REAL NOT NULL
-                )
+                );
                 """
             )
             await cur.executescript(
                 """CREATE TABLE IF NOT EXISTS louna_emojis(
                     emoji TEXT PRIMARY KEY,
                     weight REAL NOT NULL DEFAULT 0
-                )
+                );
                 """
             )
             await cur.executescript(
                 """CREATE TABLE IF NOT EXISTS person_aliases(
                     alias TEXT PRIMARY KEY,
                     id INTEGER NOT NULL
-                )
+                );
                 """
             )
             # huge shuffle just to change the primary key fr
             try:
                 await cur.executescript(
-                    """ALTER TABLE params ADD COLUMN using_new_person_aliases INTEGER DEFAULT 0
+                    """ALTER TABLE params ADD COLUMN using_new_person_aliases INTEGER DEFAULT 0;
                     """
                 )
             except aiosqlite.OperationalError:
                 pass
             await cur.execute(
-                """SELECT using_new_person_aliases FROM params
+                """SELECT using_new_person_aliases FROM params;
                 """
             )
             [[using_new_person_aliases]] = list(await cur.fetchall())
