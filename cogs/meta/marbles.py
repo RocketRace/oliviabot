@@ -33,14 +33,22 @@ class Marbles(Cog):
             t for t in ctx.guild.threads 
             if t.invitable and not t.locked and not t.archived and t.parent and t.parent.name != "cw"
         ]
-        threads.sort(
-            key=lambda t: discord.utils.snowflake_time(t.last_message_id or 0) if mode == "recent" else t.message_count,
-            reverse=True
-        )
         if not threads:
-            await ctx.reply("no threads!")
+            await ctx.reply("no public threads!")
+        if mode == "popular":
+            threads.sort(key=lambda t: t.message_count, reverse=True)
+            await ctx.reply(f"popular threads:\n" + "\n".join(f"{t.mention}: ~{t.message_count}" for t in threads))
         else:
-            await ctx.reply(f"{mode} threads:\n" + "\n".join(t.mention for t in threads))
+            threads.sort(
+                key=lambda t: discord.utils.snowflake_time(t.last_message_id or 0),
+                reverse=True
+            )
+            await ctx.reply(
+                f"recently active threads:\n"
+                + "\n".join(
+                    f"{t.mention}: {discord.utils.format_dt(discord.utils.snowflake_time(t.last_message_id or 0), 'R')}"
+                    for t in threads
+                ))
 
     async def change_nickname(self, ctx: Context):
         automated = [
