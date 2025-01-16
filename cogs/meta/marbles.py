@@ -59,9 +59,11 @@ class Marbles(Cog):
             def fmt(t: discord.Thread):
                 if mode == "popular":
                     return f"{t.mention}: {t.message_count}"
-                else:
+                elif mode == "popular_db":
                     db = 10 * math.log10(t.message_count / reference_signal)
                     return f"{t.mention}: {db:.3}dB"
+                else:
+                    raise RuntimeError("invalid mode")
 
             await ctx.reply(
                 f"{limit} popular threads:\n"
