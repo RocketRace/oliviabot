@@ -19,14 +19,17 @@ class Marbles(Cog):
     
     @commands.command()
     @commands.guild_only()
-    async def threads(self, ctx: Context, mode: Literal["recent", "popular"] = "popular"):
+    async def threads(self, ctx: Context, mode: Literal["recent", "popular"] = "popular", limit: int | Literal["all"] = 20):
         """Shows a list of the threads in the server.
         
         Parameters
         -----------
-        mode: "recent" | "popular" = "popular"
-            either "recent" or "popular",
+        mode: Literal["recent", "popular"] = "popular"
+            Either "recent" or "popular",
             sorting the list by most recent / most total activity
+        limit: int | Literal["all"]
+            How many threads to show (default: 20).
+            Use "all" to show all threads.
         """
         assert ctx.guild
         threads = [
@@ -35,20 +38,22 @@ class Marbles(Cog):
         ]
         if not threads:
             await ctx.reply("no public threads!")
-        if mode == "popular":
-            threads.sort(key=lambda t: t.message_count, reverse=True)
-            await ctx.reply(f"popular threads:\n" + "\n".join(f"{t.mention}: ~{t.message_count}" for t in threads))
-        else:
+        limit_num = len(threads) if limit == "all" else limit
+
+        if mode == "recent":
             threads.sort(
                 key=lambda t: discord.utils.snowflake_time(t.last_message_id or 0),
                 reverse=True
             )
             await ctx.reply(
-                f"recently active threads:\n"
+                f"{limit} recently active threads:\n"
                 + "\n".join(
                     f"{t.mention}: {discord.utils.format_dt(discord.utils.snowflake_time(t.last_message_id or 0), 'R')}"
-                    for t in threads
+                    for t in threads[:limit_num]
                 ))
+        else:
+            threads.sort(key=lambda t: t.message_count, reverse=True)
+            await ctx.reply(f"{limit} popular threads:\n" + "\n".join(f"{t.mention}: {t.message_count}" for t in threads[:limit_num]))
 
     async def change_nickname(self, ctx: Context):
         automated = [
