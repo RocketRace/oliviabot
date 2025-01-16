@@ -1,4 +1,5 @@
 from __future__ import annotations
+import math
 from typing import Literal
 
 import discord
@@ -19,7 +20,7 @@ class Marbles(Cog):
     
     @commands.command()
     @commands.guild_only()
-    async def threads(self, ctx: Context, mode: Literal["recent", "popular"] = "popular", limit: int | Literal["all"] = 20):
+    async def threads(self, ctx: Context, mode: Literal["recent", "popular", "popular_db"] = "popular", limit: int | Literal["all"] = 20):
         """Shows a list of the threads in the server.
         
         Parameters
@@ -53,7 +54,19 @@ class Marbles(Cog):
                 ))
         else:
             threads.sort(key=lambda t: t.message_count, reverse=True)
-            await ctx.reply(f"{limit} popular threads:\n" + "\n".join(f"{t.mention}: {t.message_count}" for t in threads[:limit_num]))
+
+            reference_signal = threads[0].message_count
+            def fmt(t: discord.Thread):
+                if mode == "popular":
+                    return f"{t.mention}: {t.message_count}"
+                else:
+                    db = 10 * math.log10(t.message_count / reference_signal)
+                    return f"{t.mention}: {db:.3}dB"
+
+            await ctx.reply(
+                f"{limit} popular threads:\n"
+                + "\n".join(fmt(t) for t in threads[:limit_num])
+            )
 
     async def change_nickname(self, ctx: Context):
         automated = [
