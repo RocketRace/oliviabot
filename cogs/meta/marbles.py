@@ -55,8 +55,8 @@ class Marbles(Cog):
         else:
             threads.sort(key=lambda t: t.message_count, reverse=True)
 
-            reference_signal = threads[0].message_count
             def fmt(t: discord.Thread):
+                reference_signal = threads[0].message_count
                 if mode == "popular":
                     return f"{t.mention}: {t.message_count}"
                 elif mode == "popular_db":
