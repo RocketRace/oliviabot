@@ -70,12 +70,18 @@ class Ticker(Cog):
         ]
         return sequence[min(n, len(sequence) - 1)]
 
+
     @commands.command()
     async def ticker(self, ctx: Context):
         """Show a count of how my commands have been used in the past month"""
+        def fmt(name: str, n: int):
+            e = self.ticker_emoji(n)
+            name = name.replace('louna', 'l\u200bouna')
+            return f"{e} `{name}`"
+
         return await ctx.send(
             "\n".join([
-                f"{self.ticker_emoji(n)} `{name}`"
+                fmt(name, n)
                 for n, name in sorted([
                     (len(hashes) - 1, name)
                     for name, hashes in self.tickers.items()
