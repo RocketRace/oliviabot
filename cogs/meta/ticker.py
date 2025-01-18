@@ -1,6 +1,5 @@
 from __future__ import annotations
 import datetime
-import random
 
 import discord
 from discord.ext import commands, tasks
@@ -11,15 +10,18 @@ class Ticker(Cog):
     async def cog_load(self):
         await super().cog_load()
         self.tickers: dict[str, dict[int, datetime.datetime]] = {}
+        self.snapshot: str = ""
         async with self.bot.cursor() as cur:
             await cur.execute("""SELECT * FROM ticker_hashes;""")
             results = list(await cur.fetchall())
             for command, hash, delete_at in results:
                 self.tickers.setdefault(command, {})[hash] = delete_at
+        self.ticker_cleanup.start()
 
     async def cog_unload(self):
         await super().cog_unload()
         self.tickers = {}
+        self.ticker_cleanup.stop()
 
     @commands.Cog.listener()
     async def on_command_completion(self, ctx: Context):
@@ -59,6 +61,8 @@ class Ticker(Cog):
                 """DELETE FROM ticker_hashes WHERE delete_at < ?;""",
                 [now.timestamp()]
             )
+        
+        self.snapshot = self.generate_snapshot()
 
     def ticker_emoji(self, n: int):
         sequence = [
@@ -70,23 +74,33 @@ class Ticker(Cog):
         ]
         return sequence[min(n, len(sequence) - 1)]
 
-
-    @commands.command()
-    async def ticker(self, ctx: Context):
-        """Show a count of how my commands have been used in the past month"""
+    def generate_snapshot(self):
         def fmt(name: str, n: int):
             e = self.ticker_emoji(n)
             name = name.replace('louna', 'l\u200bouna')
             return f"{e} `{name}`"
 
-        return await ctx.send(
-            "\n".join([
-                fmt(name, n)
-                for n, name in sorted([
-                    (len(hashes) - 1, name)
-                    for name, hashes in self.tickers.items()
-                ], reverse=True)
-            ])
-        )
+        lines = "\n".join([
+            fmt(name, n)
+            for n, name in sorted([
+                (len(hashes) - 1, name)
+                for name, hashes in self.tickers.items()
+            ], reverse=True)
+        ])
+
+        now = discord.utils.format_dt(datetime.datetime.now(), "R")
+
+        self.snapshot = f"-# Counts as of {now}:\n{lines}"
+        return self.snapshot
+
+
+    @commands.command()
+    async def ticker(self, ctx: Context):
+        """Show a count of how my commands have been used in the past month"""
+        if self.snapshot:
+            return await ctx.send(self.snapshot)
+        else:
+            return await ctx.send(self.generate_snapshot())
+        
 
     
