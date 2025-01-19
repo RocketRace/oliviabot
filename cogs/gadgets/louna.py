@@ -54,6 +54,10 @@ class Louna(Cog):
             new_msg.content = after
             await self.bot.process_commands(new_msg)
 
+        # minecraft :)
+        if msg.channel.id == 1329510028998082733:
+            await self.bot.process_commands(msg)
+
     @louna.command()
     async def stats(self, ctx: Context):
         """how many l\u200bouna?"""
