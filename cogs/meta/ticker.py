@@ -62,7 +62,7 @@ class Ticker(Cog):
                 [now.timestamp()]
             )
         
-        self.snapshot = self.generate_snapshot()
+        self.generate_snapshot()
 
     def ticker_emoji(self, n: int):
         sequence = [
