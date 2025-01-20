@@ -45,7 +45,7 @@ class Ticker(Cog):
                 [qualname, mishmash, delete_at.timestamp()]
             )
     
-    @tasks.loop(time=datetime.time(hour=0, minute=0))
+    @tasks.loop(hours=24)
     async def ticker_cleanup(self):
         now = datetime.datetime.now()
 
