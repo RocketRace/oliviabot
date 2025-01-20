@@ -14,8 +14,8 @@ class Ticker(Cog):
         async with self.bot.cursor() as cur:
             await cur.execute("""SELECT * FROM ticker_hashes;""")
             results = list(await cur.fetchall())
-            for command, hash, delete_at in results:
-                self.tickers.setdefault(command, {})[hash] = delete_at
+            for command, hash, del_ts in results:
+                self.tickers.setdefault(command, {})[hash] = datetime.datetime.fromtimestamp(del_ts)
         self.ticker_cleanup.start()
 
     async def cog_unload(self):
@@ -45,7 +45,7 @@ class Ticker(Cog):
                 [qualname, mishmash, delete_at.timestamp()]
             )
     
-    @tasks.loop(hours=24)
+    @tasks.loop(time=datetime.time(hour=0, minute=0))
     async def ticker_cleanup(self):
         now = datetime.datetime.now()
 

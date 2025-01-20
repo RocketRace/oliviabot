@@ -321,7 +321,7 @@ class Context(commands.Context[OliviaBot]):
             await self.send(message)
         await self.message.add_reaction(emoji)
 
-    async def send(self, content: str | None = None, /, **kwargs) -> discord.Message:
+    async def send(self, content: str | None = None, **kwargs) -> discord.Message:
         # - under 2000 is unchanged
         # - over 2000 is cropped down to fit the suffix at exactly 2000 chars
         limit = 2000
