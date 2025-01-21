@@ -15,7 +15,7 @@ class Ticker(Cog):
             await cur.execute("""SELECT * FROM ticker_hashes;""")
             results = list(await cur.fetchall())
             for command, hash, del_ts in results:
-                self.tickers.setdefault(command, {})[hash] = datetime.datetime.fromtimestamp(del_ts)
+                self.tickers.setdefault(command, {})[hash] = datetime.datetime.fromtimestamp(del_ts, datetime.UTC)
         self.ticker_cleanup.start()
 
     async def cog_unload(self):
@@ -47,7 +47,7 @@ class Ticker(Cog):
     
     @tasks.loop(time=datetime.time(hour=0, minute=0))
     async def ticker_cleanup(self):
-        now = datetime.datetime.now()
+        now = datetime.datetime.now(datetime.UTC)
 
         for cmd in self.tickers:
             for hash in self.tickers[cmd]:
@@ -88,7 +88,7 @@ class Ticker(Cog):
             ], reverse=True)
         ])
 
-        now = discord.utils.format_dt(datetime.datetime.now(), "R")
+        now = discord.utils.format_dt(datetime.datetime.now(datetime.UTC), "R")
 
         self.snapshot = f"-# Counts as of {now}:\n{lines}"
         return self.snapshot
