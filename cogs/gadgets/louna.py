@@ -23,6 +23,10 @@ class Louna(Cog):
             self.louna_emojis: list[str] = [row[0] for row in rows]
             self.louna_weights: list[float] = [row[1] for row in rows]
 
+    @commands.command(hidden=True)
+    async def dada(self, ctx: Context):
+        pass
+
     @commands.group(invoke_without_command=True)
     async def louna(self, ctx: Context):
         """l\u200bouna"""

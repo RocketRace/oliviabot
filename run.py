@@ -41,6 +41,8 @@ async def main():
             tester_bot_id=config.tester_bot_id,
             tester_bot_token=config.tester_bot_token,
             qwd_id=config.qwd_id,
+            real_olivia_id=config.real_olivia_id,
+            louna_id=config.louna_id,
         ) as oliviabot,
     ):
         try:

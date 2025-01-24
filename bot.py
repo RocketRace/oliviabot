@@ -23,6 +23,11 @@ def qwd_only():
 
     return commands.check(predicate)
 
+def louna_only():
+    async def predicate(ctx: Context) -> bool:
+        return ctx.author.id in (ctx.bot.louna_id, ctx.bot.real_olivia_id)
+    return commands.check(predicate)
+
 
 class OliviaBot(commands.Bot):
     owner_ids: set[int]
@@ -42,6 +47,8 @@ class OliviaBot(commands.Bot):
         tester_bot_id: int,
         tester_bot_token: str,
         qwd_id: int,
+        real_olivia_id: int,
+        louna_id: int,
         **kwargs: Any,
     ) -> None:
         intents = discord.Intents.default()
@@ -79,6 +86,8 @@ class OliviaBot(commands.Bot):
         self.tester_bot_id = tester_bot_id
         self.tester_bot_token = tester_bot_token
         self.qwd_id = qwd_id
+        self.louna_id = louna_id
+        self.real_olivia_id = real_olivia_id
         self.terminal_cog_interrupted = False
         self.person_aliases = {}
         self.inv_person_aliases = {}
