@@ -59,8 +59,10 @@ class Louna(Cog):
             await self.bot.process_commands(new_msg)
 
         # minecraft :)
-        if msg.channel.id == 1329510028998082733:
-            await self.bot.process_commands(msg)
+        # technically fails on proxied webhook users
+        if msg.channel.id == 1329510028998082733 and msg.author.bot:
+            ctx = await self.bot.get_context(msg)
+            await self.bot.invoke(ctx)
 
     @louna.command()
     async def stats(self, ctx: Context):
