@@ -43,6 +43,7 @@ async def main():
             qwd_id=config.qwd_id,
             real_olivia_id=config.real_olivia_id,
             louna_id=config.louna_id,
+            allowed_webhook_channel_id=config.allowed_webhook_channel_id
         ) as oliviabot,
     ):
         try:

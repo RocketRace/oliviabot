@@ -60,7 +60,7 @@ class Louna(Cog):
 
         # minecraft :)
         # technically fails on proxied webhook users
-        if msg.channel.id == 1329510028998082733 and msg.author.bot:
+        if msg.channel.id == self.bot.allowed_webhook_channel_id and msg.author.bot:
             ctx = await self.bot.get_context(msg)
             await self.bot.invoke(ctx)
 

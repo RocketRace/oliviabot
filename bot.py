@@ -48,6 +48,7 @@ class OliviaBot(commands.Bot):
         tester_bot_token: str,
         qwd_id: int,
         real_olivia_id: int,
+        allowed_webhook_channel_id: int,
         louna_id: int,
         **kwargs: Any,
     ) -> None:
@@ -88,6 +89,7 @@ class OliviaBot(commands.Bot):
         self.qwd_id = qwd_id
         self.louna_id = louna_id
         self.real_olivia_id = real_olivia_id
+        self.allowed_webhook_channel_id = allowed_webhook_channel_id
         self.terminal_cog_interrupted = False
         self.person_aliases = {}
         self.inv_person_aliases = {}
