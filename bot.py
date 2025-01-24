@@ -1,6 +1,6 @@
 from __future__ import annotations
 import asyncio
-from datetime import datetime
+from datetime import datetime, timedelta
 import logging
 from pathlib import Path
 import re
@@ -255,13 +255,21 @@ class OliviaBot(commands.Bot):
         backup_dir = Path.cwd() / "backups"
         backup_dir.mkdir(exist_ok=True)
         previous_backups = sorted(list(backup_dir.glob("backup-*.db")))
+        now = datetime.now()
+        # skip if the last backup was less than 24 hours ago
+        if previous_backups:
+            _, _, iso = previous_backups[-1].stem.partition("-")
+            last_backup = datetime.fromisoformat(iso)
+            if last_backup + timedelta(days=1) > now:
+                logging.info(f"Skipping backup as one exists from {last_backup}")
+                return
         # allow only 8 live backups at a time
         for i in range(len(previous_backups) - 7):
             old_backup = previous_backups[i]
             old_backup.unlink()
         # create new backup
-        now = datetime.now().isoformat(timespec="seconds")
-        new_backup = backup_dir / f"backup-{now}.db"
+        backup_ts = now.isoformat(timespec="seconds")
+        new_backup = backup_dir / f"backup-{backup_ts}.db"
         logging.info(f"creating backup at {new_backup}")
         async with aiosqlite.connect(new_backup) as conn:
             await self.db.backup(conn)
