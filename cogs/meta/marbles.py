@@ -110,16 +110,9 @@ class Marbles(Cog):
         await ctx.ack()
 
     @commands.command()
-    @commands.is_owner()
     @commands.guild_only()
     async def nick(self, ctx: Context):
         """Update my nickname"""
+        if ctx.author.id not in self.bot.owner_ids:
+            await ctx.send("well you're not olivia... but I like you so I'll do it :)")
         await self.change_nickname(ctx)
-    
-    @nick.error
-    async def nick_error(self, ctx: Context, error: commands.CommandError):
-        match error:
-            case commands.NotOwner():
-                await ctx.send("well you're not olivia... but I like you so I'll do it :)")
-                await self.change_nickname(ctx)
-                ctx.error_handled = True
