@@ -11,7 +11,7 @@ class Marbles(Cog):
     @commands.command()
     async def hello(self, ctx: Context):
         """Hi!"""
-        await ctx.send(f"hi! I'm {ctx.me}!")
+        await ctx.send(f"hi! I'm {ctx.me.display_name}!")
 
     @commands.command()
     async def howdy(self, ctx: Context):
