@@ -20,7 +20,7 @@ class Marbles(Cog):
     
     @commands.command()
     @commands.guild_only()
-    async def threads(self, ctx: Context, mode: Literal["recent", "popular", "popular_db"] = "popular", limit: int | Literal["all"] = 20):
+    async def threads(self, ctx: Context, mode: Literal["recent", "popular", "popular_db"] = "recent", limit: int | Literal["all"] = 20):
         """Shows a list of the threads in the server.
         
         Parameters
