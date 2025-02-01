@@ -60,7 +60,7 @@ class TempEmoji(Cog):
         """
         guild = ctx.guild
         assert guild
-        if len(guild.emojis) >= guild.emoji_limit:
+        if len([e for e in guild.emojis if not e.animated]) >= guild.emoji_limit:
             return await ctx.send("Sorry... there's no space left :(")
         
         image_bytes = await image.read()
