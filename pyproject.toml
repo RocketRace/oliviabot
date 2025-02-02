@@ -1,5 +1,8 @@
 [tool.poetry]
 package-mode = false
+name = "oliviabot"
+description = "we finally figured out how to automate olivia"
+version = "0.1.0"
 license = "MIT"
 
 [tool.poetry.dependencies]
@@ -9,13 +12,13 @@ aiosqlite = "^0.20.0"
 jishaku = "^2.5.2"
 watchdog = { version = "^4.0.1" }
 gitpython = "^3.1.43"
-numpy = "^1.26.4"
+numpy = "^2.2.2"
 pillow = "^11.1.0"
 
 [tool.poetry.group.dev.dependencies]
 aioconsole = "^0.7.1"
-# icupy fails to build for arcane compiler reasons
-# parse-discord = { git = "https://github.com/LyricLy/parse-discord", rev = "c7537a5" }
+# icupy is fucked up
+# parse-discord = {git = "https://github.com/LyricLy/parse-discord"}
 HyFetch = "^1.4.11"
 colour-science = "^0.4"
 matplotlib = "^3.9.0"

@@ -1,0 +1,50 @@
+{
+  description = "oliviabot";
+
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  inputs.flake-utils.url = "github:numtide/flake-utils";
+  inputs.poetry2nix.url = "github:nix-community/poetry2nix";
+
+  outputs = { self, nixpkgs, poetry2nix, flake-utils }:
+    flake-utils.lib.eachDefaultSystem (sys:
+    let
+      pkgs = nixpkgs.legacyPackages.${sys};
+      inherit (poetry2nix.lib.mkPoetry2Nix { inherit pkgs; }) mkPoetryEnv overrides;
+      problematic-dependencies = (deps: overrides.withDefaults
+        (final: prev:
+          (builtins.mapAttrs (dep: extras:
+            prev.${dep}.overridePythonAttrs
+            (old: {
+              buildInputs = (old.buildInputs or [ ]) ++ map (package: prev.${package}) extras;
+            })
+          ) deps)
+        ));
+      env = mkPoetryEnv {
+        projectDir = ./.;
+        python = pkgs.python311;
+        preferWheels = true;
+        extraPackages = (pkgs: [ pkgs.pip ]);
+        overrides = problematic-dependencies {
+          HyFetch = [ "setuptools" ];
+          colour-science = [ "hatchling" ];
+        };
+      };
+    in 
+    {
+      devShells.default = pkgs.mkShell {
+        buildInputs = [env];
+        packages = [
+          pkgs.poetry
+          (pkgs.writeScriptBin "x" ''
+            ${env}/bin/watchmedo auto-restart \
+              --debounce-interval 2 \
+              --directory . \
+              --pattern .reload-trigger \
+              --no-restart-on-command-exit \
+              ${env}/bin/python3.11 -- run.py
+          '')
+        ];
+      };
+    }
+  );
+}
