@@ -9,6 +9,7 @@
     flake-utils.lib.eachDefaultSystem (sys:
     let
       pkgs = nixpkgs.legacyPackages.${sys};
+      python = pkgs.python311;
       inherit (poetry2nix.lib.mkPoetry2Nix { inherit pkgs; }) mkPoetryEnv overrides;
       problematic-dependencies = (deps: overrides.withDefaults
         (final: prev:
@@ -21,7 +22,7 @@
         ));
       env = mkPoetryEnv {
         projectDir = ./.;
-        python = pkgs.python311;
+        inherit python;
         preferWheels = true;
         extraPackages = (pkgs: [ pkgs.pip ]);
         overrides = problematic-dependencies {
