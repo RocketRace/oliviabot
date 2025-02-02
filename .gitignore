@@ -10,3 +10,4 @@ config.py
 *.log
 .extensions
 backups
+.direnv
