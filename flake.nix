@@ -44,6 +44,9 @@
               --no-restart-on-command-exit \
               ${env}/bin/python3.11 -- run.py
           '')
+          (pkgs.writeScriptBin "pyload" ''
+            echo '{"python.defaultInterpreterPath": "${env}/bin/python"}' > ./.vscode/settings.json
+          '')
         ];
       };
     }
