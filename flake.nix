@@ -44,10 +44,13 @@
               --no-restart-on-command-exit \
               ${env}/bin/python3.11 -- run.py
           '')
-          (pkgs.writeScriptBin "hack" ''
-            echo '{"python.defaultInterpreterPath": "${env}/bin/python"}' > ./.vscode/settings.json
-          '')
         ];
+        # This is a bit of a hack but it is quite helpful!
+        shellHook = ''
+          ${pkgs.coreutils}/bin/cat ./.vscode/settings.json |
+          ${pkgs.jq}/bin/jq -n 'input? // {} | .["python.defaultInterpreterPath"] = "${env}/bin/python"' |
+          ${pkgs.moreutils}/bin/sponge ./.vscode/settings.json
+        '';
       };
     }
   );
