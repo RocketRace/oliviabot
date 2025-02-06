@@ -72,6 +72,7 @@ class OliviaBot(commands.Bot):
             "cogs.gadgets",
             "cogs.meta",
             "cogs.errors",
+            "cogs.utilities",
         ]
         if prod:
             # prod cogs
