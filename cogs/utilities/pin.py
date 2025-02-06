@@ -33,10 +33,11 @@ class Pin(commands.Cog):
         if msg is None:
             return await ctx.send("I need a valid message target to pin")
         await msg.pin(reason=f"+pin by {ctx.author}")
-        all_pins = len(await ctx.channel.pins())
         pins = ["📌", "📍", "🧷", "🎳"]
         pin = random.choice(pins)
-        await ctx.send(f"{pin} {msg.jump_url} ({all_pins} / 50 pins)")
+        result = await ctx.send(f"{pin} {msg.jump_url} (<loading> / 50 pins)")
+        all_pins = len(await ctx.channel.pins())
+        await result.edit(f"{pin} {msg.jump_url} ({all_pins} / 50 pins)")
 
     @pin.error
     async def pin_error(self, ctx: Context, error: commands.CommandError):
