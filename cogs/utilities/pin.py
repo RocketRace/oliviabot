@@ -36,7 +36,7 @@ class Pin(commands.Cog):
         pins = ["📌", "📍", "🧷", "🎳"]
         pin = random.choice(pins)
         result = await ctx.send(f"{pin} {msg.jump_url} (<loading> / 50 pins)")
-        all_pins = len(await ctx.channel.pins())
+        all_pins = len(await msg.channel.pins())
         await result.edit(content=f"{pin} {msg.jump_url} ({all_pins} / 50 pins)")
 
     @pin.error
