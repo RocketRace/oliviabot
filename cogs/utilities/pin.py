@@ -27,7 +27,7 @@ class Pin(commands.Cog):
         
         Parameters
         -----------
-        message: discord.Message
+        msg: discord.Message
             Reply or message link to pin
         """
         if msg is None:
