@@ -1,6 +1,8 @@
 from __future__ import annotations
+import math
 from typing import Literal
 
+import discord
 from discord.ext import commands
 
 from bot import Context, Cog
