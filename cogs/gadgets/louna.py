@@ -30,10 +30,7 @@ class Louna(Cog):
     @commands.group(invoke_without_command=True)
     async def louna(self, ctx: Context):
         """l\u200bouna"""
-        if random.random() < 1 / 25:
-            k = 4
-        else:
-            k = random.randint(2, 3)
+        [k] = random.choices([2, 3, 4, 5], [1/2, 1/2, 1/25, 1/400])
         choices = "".join(random.choices(self.louna_emojis, self.louna_weights, k=k))
         
         # future considerations:
