@@ -18,7 +18,7 @@ pillow = "^11.1.0"
 [tool.poetry.group.dev.dependencies]
 aioconsole = "^0.7.1"
 # icupy is fucked up
-# parse-discord = {git = "https://github.com/LyricLy/parse-discord"}
+parse-discord = {git = "https://github.com/LyricLy/parse-discord"}
 HyFetch = "^1.4.11"
 colour-science = "^0.4"
 matplotlib = "^3.9.0"

@@ -28,7 +28,24 @@
         overrides = problematic-dependencies {
           HyFetch = [ "setuptools" ];
           colour-science = [ "hatchling" ];
-        };
+          parse-discord = [ "flit" ];
+        } # extra problematic dependencies
+        ++ (overrides.withoutDefaults
+          (final: prev:{
+            icupy = prev.icupy.overridePythonAttrs (old: {
+              buildInputs = (old.buildInputs or [ ]) ++ [ prev.setuptools pkgs.icu76 ];
+              nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.cmake pkgs.icu76 ];
+              preConfigure = ''
+                export PKG_CONFIG_PATH=${pkgs.icu76}/lib/pkg-config:$PKG_CONFIG_PATH
+                export LD_LIBRARY_PATH=${pkgs.icu76}/lib:$LD_LIBRARY_PATH
+                cd src
+              '';
+              preBuild = ''
+                cd ../..
+              '';
+            });
+          })
+        );
       };
     in 
     {
