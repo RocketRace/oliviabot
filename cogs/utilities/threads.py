@@ -25,7 +25,7 @@ class Threads(commands.Cog):
         assert ctx.guild
         threads = [
             t for t in ctx.guild.threads 
-            if t.invitable and not t.locked and not t.archived and t.parent and t.parent.name != "cw"
+            if not t.is_private() and not t.locked and not t.archived and t.parent and t.parent.name != "cw"
         ]
         if not threads:
             await ctx.reply("no public threads!")
