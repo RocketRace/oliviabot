@@ -26,16 +26,16 @@ class Like(Cog):
                     "SELECT enabled_in_cw FROM likers WHERE user_id = ?;",
                     [message.author.id],
                 )
-            result = await cur.fetchone()
-            if result is not None:
-                [enabled_in_cw] = result
-                if (
-                    not enabled_in_cw
-                    and isinstance(message.channel, discord.Thread)
-                    and message.channel.parent
-                    and message.channel.parent.name == "cw"
-                ):
-                    return
+                result = await cur.fetchone()
+                if result is not None:
+                    [enabled_in_cw] = result
+                    if (
+                        not enabled_in_cw
+                        and isinstance(message.channel, discord.Thread)
+                        and message.channel.parent
+                        and message.channel.parent.name == "cw"
+                    ):
+                        return
             await asyncio.sleep(random.random())
             await message.add_reaction("\N{THUMBS UP SIGN}")
 
