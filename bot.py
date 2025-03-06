@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 import logging
 from pathlib import Path
 import re
-from typing import Any, Callable, Coroutine
+from typing import Any, Callable
 
 import aiosqlite
 import aiosqlite.context
@@ -95,8 +95,8 @@ class OliviaBot(commands.Bot):
         self.person_aliases = {}
         self.inv_person_aliases = {}
 
-    def start(self, *args, **kwargs) -> Coroutine[Any, Any, None]:
-        return super().start(config.bot_token, *args, **kwargs)
+    async def start(self, *args, **kwargs):
+        return await super().start(config.bot_token, *args, **kwargs)
 
     async def get_context(self, message, *, cls: type[commands.Context] | None = None):
         return await super().get_context(message, cls=cls or Context)
@@ -253,6 +253,13 @@ class OliviaBot(commands.Bot):
                     PRIMARY KEY(command, hash)
                 )"""
             )
+            try:
+                await cur.executescript(
+                    """ALTER TABLE likers ADD COLUMN enabled_in_cw INTEGER DEFAULT 0;
+                    """
+                )
+            except aiosqlite.OperationalError:
+                pass
 
     async def backup_database(self):
         backup_dir = Path.cwd() / "backups"

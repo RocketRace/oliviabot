@@ -21,6 +21,21 @@ class Like(Cog):
         active_after = await self.like_enabled_after(message.author.id)
         now = datetime.datetime.now()
         if now > active_after:
+            async with self.bot.cursor() as cur:
+                await cur.execute(
+                    "SELECT enabled_in_cw FROM likers WHERE user_id = ?;",
+                    [message.author.id],
+                )
+            result = await cur.fetchone()
+            if result is not None:
+                [enabled_in_cw] = result
+                if (
+                    not enabled_in_cw
+                    and isinstance(message.channel, discord.Thread)
+                    and message.channel.parent
+                    and message.channel.parent.name == "cw"
+                ):
+                    return
             await asyncio.sleep(random.random())
             await message.add_reaction("\N{THUMBS UP SIGN}")
 
@@ -93,6 +108,50 @@ class Like(Cog):
         await ctx.send(
             f"You have disabled auto\N{THUMBS UP SIGN}ing (previously {status})"
         )
+    
+    @like.group(name="cw", invoke_without_command=True)
+    async def like_cw(self, ctx: Context):
+        """Manage auto\N{THUMBS UP SIGN}ing in #cw"""
+        async with ctx.cursor() as cur:
+            await cur.execute(
+                """SELECT enabled_in_cw FROM likers WHERE user_id = ?;""", [ctx.author.id]
+            )
+            row = await cur.fetchone()
+            if row is None:
+                return await ctx.send(
+                    "You currently don't have auto\N{THUMBS UP SIGN}ing enabled, see `+like` for more"
+                )
+            else:
+                [enabled_in_cw] = row
+                return await ctx.send(
+                    f"You are currently {'not ' * enabled_in_cw}filtering \N{THUMBS UP SIGN}s from #cw"
+                )
+
+
+    @like_cw.command(name="enable")
+    async def enable_like_cw(self, ctx: Context):
+        """Enable auto\N{THUMBS UP SIGN}ing in #cw"""
+        if await self.like_status(ctx) == "not enabled":
+            return await ctx.send("You don't have auto\N{THUMBS UP SIGN}ing enabled")
+        async with ctx.cursor() as cur:
+            await cur.execute(
+                """UPDATE OR IGNORE likers SET enabled_in_cw = 1 WHERE user_id = ?;""", [ctx.author.id]
+            )
+        await ctx.message.add_reaction("\N{THUMBS UP SIGN}")
+        await ctx.send("Enabled auto\N{THUMBS UP SIGN}ing in #cw")
+
+    @like_cw.command(name="disable")
+    async def disable_like_cw(self, ctx: Context):
+        """Disable auto\N{THUMBS UP SIGN}ing in #cw"""
+        if await self.like_status(ctx) == "not enabled":
+            return await ctx.send("You don't have auto\N{THUMBS UP SIGN}ing enabled")
+        async with ctx.cursor() as cur:
+            await cur.execute(
+                """UPDATE OR IGNORE likers SET enabled_in_cw = 0 WHERE user_id = ?;""", [ctx.author.id]
+            )
+        await ctx.message.add_reaction("\N{THUMBS UP SIGN}")
+        await ctx.send("Disabled auto\N{THUMBS UP SIGN}ing in #cw")
+
 
     @like.command()
     async def chill(self, ctx: Context):
