@@ -135,7 +135,7 @@ class Like(Cog):
             return await ctx.send("You don't have auto\N{THUMBS UP SIGN}ing enabled")
         async with ctx.cursor() as cur:
             await cur.execute(
-                """UPDATE OR IGNORE likers SET enabled_in_cw = 1 WHERE user_id = ?;""", [ctx.author.id]
+                """UPDATE likers SET enabled_in_cw = 1 WHERE user_id = ?;""", [ctx.author.id]
             )
         await ctx.message.add_reaction("\N{THUMBS UP SIGN}")
         await ctx.send("Enabled auto\N{THUMBS UP SIGN}ing in #cw")
@@ -147,7 +147,7 @@ class Like(Cog):
             return await ctx.send("You don't have auto\N{THUMBS UP SIGN}ing enabled")
         async with ctx.cursor() as cur:
             await cur.execute(
-                """UPDATE OR IGNORE likers SET enabled_in_cw = 0 WHERE user_id = ?;""", [ctx.author.id]
+                """UPDATE likers SET enabled_in_cw = 0 WHERE user_id = ?;""", [ctx.author.id]
             )
         await ctx.message.add_reaction("\N{THUMBS UP SIGN}")
         await ctx.send("Disabled auto\N{THUMBS UP SIGN}ing in #cw")
