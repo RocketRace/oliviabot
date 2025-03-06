@@ -123,8 +123,9 @@ class Like(Cog):
                 )
             else:
                 [enabled_in_cw] = row
+                action = "enabled" if enabled_in_cw else "disables"
                 return await ctx.send(
-                    f"You are currently {'not ' * enabled_in_cw}filtering \N{THUMBS UP SIGN}s from #cw"
+                    f"Auto\N{THUMBS UP SIGN}ing for you is currently {action} in #cw"
                 )
 
 
