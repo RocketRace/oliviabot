@@ -4,7 +4,7 @@ import traceback
 import discord
 from discord.ext import commands
 
-from bot import Context, OliviaBot, QwdieConverter
+from bot import Context, NotLouna, NotQwd, OliviaBot, QwdieConverter
 
 
 class ErrorHandler(commands.Cog):
@@ -124,6 +124,10 @@ class ErrorHandler(commands.Cog):
                     )
             case commands.NotOwner():
                 await ctx.send("well you're not olivia")
+            case NotLouna():
+                await ctx.send("Sorry this is for louna only")
+            case NotQwd():
+                await ctx.send("Sorry this is for qwd only")
             case commands.CheckFailure():
                 await ctx.send(f"Check failure in command {command_name}: {error}")
 

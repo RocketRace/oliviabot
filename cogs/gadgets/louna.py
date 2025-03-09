@@ -6,7 +6,7 @@ import aiosqlite
 import discord
 from discord.ext import commands
 
-from bot import Context, Cog
+from bot import Context, Cog, louna_only
 
 from .horse import unhorsify
 
@@ -84,7 +84,7 @@ class Louna(Cog):
         await ctx.send(msg)
     
     @louna.group(name="config", invoke_without_command=True)
-    @commands.is_owner()
+    @louna_only()
     async def emoji_config(self, ctx: Context):
         """The +louna emoji configuration"""
         weighted: dict[float, list[str]] = {}
@@ -102,7 +102,7 @@ class Louna(Cog):
             await ctx.send("I have no emojis")
 
     @emoji_config.command(name="get", aliases=["check"])
-    @commands.is_owner()
+    @louna_only()
     async def get_emoji(self, ctx: Context, emoji: str):
         """Get an emoji from the configuration
         
@@ -124,7 +124,7 @@ class Louna(Cog):
                 return await ctx.ack(f"{emoji} appears with a weight of {weight}")
 
     @emoji_config.command(name="add", aliases=["new"])
-    @commands.is_owner()
+    @louna_only()
     async def add_emoji(self, ctx: Context, weight: float | None, *emojis: str):
         """Add emojis to the configuration
         
@@ -156,7 +156,7 @@ class Louna(Cog):
         await ctx.ack()
     
     @emoji_config.command(name="edit", aliases=["update"])
-    @commands.is_owner()
+    @louna_only()
     async def edit_emoji(self, ctx: Context, weight: float | None, *emojis: str):
         """Edit emojis' weights in the configuration
         
@@ -177,7 +177,7 @@ class Louna(Cog):
         await ctx.ack()
 
     @emoji_config.command(name="delete", aliases=["remove"])
-    @commands.is_owner()
+    @louna_only()
     async def delete_emoji(self, ctx: Context, *emojis: str):
         """Delete emojis from the configuration
         

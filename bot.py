@@ -19,14 +19,23 @@ def qwd_only():
             return True
         if ctx.guild and ctx.guild.id == ctx.bot.qwd_id:
             return True
-        return False
+        raise NotQwd
 
     return commands.check(predicate)
+
 
 def louna_only():
     async def predicate(ctx: Context) -> bool:
-        return ctx.author.id in (ctx.bot.louna_id, ctx.bot.real_olivia_id)
+        if ctx.author.id not in (ctx.bot.louna_id, ctx.bot.real_olivia_id, ctx.bot.tester_bot_id):
+            raise NotLouna
+        return True
     return commands.check(predicate)
+
+class NotQwd(commands.CheckFailure):
+    pass
+
+class NotLouna(commands.CheckFailure):
+    pass
 
 
 class OliviaBot(commands.Bot):
