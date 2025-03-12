@@ -26,7 +26,7 @@ def qwd_only():
 
 def louna_only():
     async def predicate(ctx: Context) -> bool:
-        if ctx.author.id not in (ctx.bot.louna_id, ctx.bot.real_olivia_id, ctx.bot.tester_bot_id):
+        if ctx.author.id != ctx.bot.louna_id:
             raise NotLouna
         return True
     return commands.check(predicate)
