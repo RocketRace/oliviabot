@@ -269,6 +269,14 @@ class OliviaBot(commands.Bot):
                 )
             except aiosqlite.OperationalError:
                 pass
+            # await cur.executescript(
+            #     """CREATE TABLE IF NOT EXISTS user_settings(
+            #         id INTEGER PRIMARY KEY,
+            #         proxied INTEGER NOT NULL DEFAULT 0,
+            #         autoliking_after REAL,
+            #         cw_allowed INTEGER NOT NULL DEFAULT 0,
+            #     )"""
+            # )
 
     async def backup_database(self):
         backup_dir = Path.cwd() / "backups"
