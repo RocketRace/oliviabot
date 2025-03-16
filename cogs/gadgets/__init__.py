@@ -11,9 +11,10 @@ from .unreact import Unreact
 from .horse import Horse
 from .tempemoji import TempEmoji
 from .swish import Swish
+from .stack import Stack
 
 
-class Gadgets(Louna, Neofetch, Vore, Like, Chain, Unreact, Horse, TempEmoji, Swish):
+class Gadgets(Louna, Neofetch, Vore, Like, Chain, Unreact, Horse, TempEmoji, Swish, Stack):
     """Various gadgets and gizmos"""
     def __init__(self, bot: OliviaBot):
         self.bot = bot

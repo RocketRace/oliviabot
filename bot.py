@@ -269,6 +269,15 @@ class OliviaBot(commands.Bot):
                 )
             except aiosqlite.OperationalError:
                 pass
+            await cur.executescript(
+                """CREATE TABLE IF NOT EXISTS user_stacks(
+                    user_id INTEGER NOT NULL,
+                    index INTEGER NOT NULL,
+                    value TEXT NOT NULL,
+                    type TEXT NOT NULL,
+                    PRIMARY KEY(user_id, index)
+                )"""
+            )
             # await cur.executescript(
             #     """CREATE TABLE IF NOT EXISTS user_settings(
             #         id INTEGER PRIMARY KEY,
