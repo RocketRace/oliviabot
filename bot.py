@@ -272,10 +272,10 @@ class OliviaBot(commands.Bot):
             await cur.executescript(
                 """CREATE TABLE IF NOT EXISTS user_stacks(
                     user_id INTEGER NOT NULL,
-                    index INTEGER NOT NULL,
+                    idx INTEGER NOT NULL,
                     value TEXT NOT NULL,
                     type TEXT NOT NULL,
-                    PRIMARY KEY(user_id, index)
+                    PRIMARY KEY(user_id, idx)
                 )"""
             )
             # await cur.executescript(
