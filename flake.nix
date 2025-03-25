@@ -26,7 +26,7 @@
         preferWheels = true;
       };
       app = mkPoetryApplication (config // {
-        checkGroups = [ ];
+        doCheck = false;
       });
       env = mkPoetryEnv (config // {
         extraPackages = (pkgs: [ pkgs.pip ]);
