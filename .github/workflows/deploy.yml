@@ -34,5 +34,5 @@ jobs:
               git pull
               tmux send -t oliviabot C-c
               sleep 2
-              tmux send -t oliviabot python3 Space run.py Space prod Enter
+              tmux send -t oliviabot prod Enter
 
