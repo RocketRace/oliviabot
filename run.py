@@ -1,7 +1,5 @@
 import asyncio
 import logging
-import pathlib
-import sys
 
 import aiosqlite
 import discord
@@ -9,19 +7,7 @@ import discord
 import config
 from bot import OliviaBot
 
-
-match sys.argv:
-    case [_, arg] if arg.lower() == "prod":
-        prod = True
-    case [_]:
-        prod = False
-    case _:
-        relative = pathlib.Path(__file__).relative_to(pathlib.Path.cwd())
-        print(f"Usage: python3 {relative} [prod]")
-        exit(1)
-
-
-async def main():
+async def main(prod: bool):
     print("Running the bot in", "production" if prod else "development", "mode:")
 
     if prod:
@@ -53,5 +39,8 @@ async def main():
         finally:
             logging.info("Shutting down...")
 
+def dev():
+    asyncio.run(main(False))
 
-asyncio.run(main())
+def prod():
+    asyncio.run(main(True))

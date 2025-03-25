@@ -10,7 +10,7 @@
     let
       pkgs = nixpkgs.legacyPackages.${sys};
       python = pkgs.python311;
-      inherit (poetry2nix.lib.mkPoetry2Nix { inherit pkgs; }) mkPoetryEnv overrides;
+      inherit (poetry2nix.lib.mkPoetry2Nix { inherit pkgs; }) mkPoetryApplication mkPoetryEnv overrides;
       problematic-dependencies = (deps: overrides.withDefaults
         (final: prev:
           (builtins.mapAttrs (dep: extras:
@@ -20,10 +20,15 @@
             })
           ) deps)
         ));
-      env = mkPoetryEnv {
+      config = {
         projectDir = ./.;
         inherit python;
         preferWheels = true;
+      };
+      app = mkPoetryApplication (config // {
+        checkGroups = [ ];
+      });
+      env = mkPoetryEnv (config // {
         extraPackages = (pkgs: [ pkgs.pip ]);
         overrides = problematic-dependencies {
           HyFetch = [ "setuptools" ];
@@ -31,7 +36,7 @@
           parse-discord = [ "flit" ];
         } # extra problematic dependencies
         ++ (overrides.withoutDefaults
-          (final: prev:{
+          (final: prev: {
             icupy = prev.icupy.overridePythonAttrs (old: {
               buildInputs = (old.buildInputs or [ ]) ++ [ prev.setuptools pkgs.icu76 ];
               nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.cmake pkgs.icu76 ];
@@ -46,9 +51,13 @@
             });
           })
         );
-      };
+      });
     in 
     {
+      apps.default = {
+        type = "app";
+        program = "${env}/bin/prod";
+      };
       devShells.default = pkgs.mkShell {
         buildInputs = [env];
         packages = [
@@ -59,7 +68,7 @@
               --directory . \
               --pattern .reload-trigger \
               --no-restart-on-command-exit \
-              ${env}/bin/python3.11 -- run.py
+              ${env}/bin/dev
           '')
         ];
         # This is a bit of a hack but it is quite helpful!
