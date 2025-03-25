@@ -54,10 +54,7 @@
       });
     in 
     {
-      apps.default = {
-        type = "app";
-        program = "${env}/bin/prod";
-      };
+      packages.default = app;
       devShells.default = pkgs.mkShell {
         buildInputs = [env];
         packages = [
