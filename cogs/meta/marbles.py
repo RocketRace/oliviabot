@@ -6,7 +6,7 @@ from discord.ext import commands
 from bot import Context, Cog
 
 class Marbles(Cog):
-    @commands.command()
+    @commands.command(aliases=["hi"])
     async def hello(self, ctx: Context):
         """Hi!"""
         await ctx.send(f"hi! I'm {ctx.me.display_name}!")
