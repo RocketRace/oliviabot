@@ -10,7 +10,7 @@
     let
       pkgs = nixpkgs.legacyPackages.${sys};
       python = pkgs.python311;
-      inherit (poetry2nix.lib.mkPoetry2Nix { inherit pkgs; }) mkPoetryApplication mkPoetryEnv overrides;
+      inherit (poetry2nix.lib.mkPoetry2Nix { inherit pkgs; }) mkPoetryEnv overrides;
       problematic-dependencies = (deps: overrides.withDefaults
         (final: prev:
           (builtins.mapAttrs (dep: extras:
@@ -25,8 +25,9 @@
         inherit python;
         preferWheels = true;
       };
-      app = mkPoetryApplication (config // {
-        doCheck = false;
+      app = mkPoetryEnv (config // {
+        groups = [ "main" ];
+        checkGroups = [ ];
       });
       env = mkPoetryEnv (config // {
         extraPackages = (pkgs: [ pkgs.pip ]);
@@ -54,7 +55,10 @@
       });
     in 
     {
-      packages.default = app;
+      apps.default = {
+        type = "app";
+        program = "${app}/bin/prod";
+      };
       devShells.default = pkgs.mkShell {
         buildInputs = [env];
         packages = [
