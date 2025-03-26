@@ -9,4 +9,4 @@ class Stickerboard(Cog):
     @commands.group(invoke_without_command=True, aliases=["sticker"], enabled=False)
     async def stickerboard(self, ctx: Context):
         '''View the collaborative sticker board and leave your own stickers!'''
-    
+
