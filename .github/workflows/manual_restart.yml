@@ -21,9 +21,4 @@ jobs:
             username: ${{ secrets.SSH_USERNAME }}
             password: ${{ secrets.SSH_PASSWORD }}
             script: |
-              set -e
-              cd ${{ secrets.PROJECT_PATH }}
-              git pull --rebase
-              tmux send -t oliviabot C-c
-              sleep 2
-              tmux send -t oliviabot "poetry run python -c 'import run; run.prod()'" Enter
+              echo hello
