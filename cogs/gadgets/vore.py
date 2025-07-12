@@ -8,7 +8,8 @@ import aiosqlite
 import discord
 from discord.ext import commands
 
-from bot import Context, Cog, qwd_only
+from bot import Context, Cog
+from qwd import qwd_only
 
 
 class Vore(Cog):

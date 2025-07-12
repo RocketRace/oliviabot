@@ -4,7 +4,8 @@ from __future__ import annotations
 import discord
 from discord.ext import commands
 
-from bot import Context, Cog, QwdieConverter, AnyUser
+from bot import Context, Cog
+from qwd import QwdieConverter, AnyUser
 
 class HelpCommand(commands.DefaultHelpCommand):
     async def send_pages(self) -> None:

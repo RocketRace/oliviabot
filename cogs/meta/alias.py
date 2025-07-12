@@ -4,7 +4,8 @@ from __future__ import annotations
 import discord
 from discord.ext import commands
 
-from bot import Context, Cog, QwdieConverter, AnyUser
+from bot import Context, Cog
+from qwd import QwdieConverter, AnyUser
 
 class Alias(Cog):
     @commands.group(invoke_without_command=True)

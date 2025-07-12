@@ -4,7 +4,8 @@ import re
 import discord
 from discord.ext import commands
 
-from bot import Context, Cog, QwdieConverter, AnyUser
+from bot import Context, Cog
+from qwd import QwdieConverter, AnyUser
 
 class Swish(Cog):
     @commands.command()

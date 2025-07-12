@@ -4,7 +4,8 @@ import traceback
 import discord
 from discord.ext import commands
 
-from bot import Context, NotLouna, NotQwd, OliviaBot, QwdieConverter
+from bot import Context, OliviaBot
+from qwd import QwdieConverter, NotQwd, NotLouna, NotQwd
 
 
 class ErrorHandler(commands.Cog):

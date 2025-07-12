@@ -6,7 +6,8 @@ import aiosqlite
 import discord
 from discord.ext import commands
 
-from bot import Context, Cog, louna_only
+from bot import Context, Cog
+from qwd import louna_only
 
 from .horse import unhorsify
 
