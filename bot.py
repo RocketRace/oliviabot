@@ -25,6 +25,7 @@ class OliviaBot(commands.Bot):
         *,
         prod: bool,
         db: aiosqlite.Connection,
+        chitter_db: aiosqlite.Connection,
         testing_guild_id: int,
         testing_channel_id: int,
         webhook_url: str,
@@ -34,6 +35,7 @@ class OliviaBot(commands.Bot):
         real_olivia_id: int,
         allowed_webhook_channel_id: int,
         louna_id: int,
+        bot_chitter_id: int,
         **kwargs: Any,
     ) -> None:
         intents = discord.Intents.default()
@@ -57,6 +59,7 @@ class OliviaBot(commands.Bot):
             "cogs.meta",
             "cogs.errors",
             "cogs.utilities",
+            "cogs.chitter"
         ]
         if prod:
             # prod cogs
@@ -75,6 +78,7 @@ class OliviaBot(commands.Bot):
         self.louna_id = louna_id
         self.real_olivia_id = real_olivia_id
         self.allowed_webhook_channel_id = allowed_webhook_channel_id
+        self.bot_chitter_id = bot_chitter_id
         self.terminal_cog_interrupted = False
         self.person_aliases = {}
         self.inv_person_aliases = {}

@@ -17,10 +17,12 @@ async def main(prod: bool):
         discord.utils.setup_logging(level=logging.INFO)
 
     async with (
-        aiosqlite.connect(config.database_path, isolation_level=None) as db,
+        aiosqlite.connect(config.database_path, isolation_level=None) as main_db,
+        aiosqlite.connect(config.chitter_database_path, isolation_level=None) as chitter_db,
         OliviaBot(
             prod=prod,
-            db=db,
+            db=main_db,
+            chitter_db=chitter_db,
             testing_guild_id=config.testing_guild_id,
             testing_channel_id=config.testing_channel_id,
             webhook_url=config.webhook_url,
@@ -29,7 +31,8 @@ async def main(prod: bool):
             qwd_id=config.qwd_id,
             real_olivia_id=config.real_olivia_id,
             louna_id=config.louna_id,
-            allowed_webhook_channel_id=config.allowed_webhook_channel_id
+            allowed_webhook_channel_id=config.allowed_webhook_channel_id,
+            bot_chitter_id=config.bot_chitter_id,
         ) as oliviabot,
     ):
         try:

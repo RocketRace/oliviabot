@@ -11,3 +11,5 @@ qwd_id: int
 louna_id: int
 real_olivia_id: int
 allowed_webhook_channel_id: int
+chitter_database_path: str
+bot_chitter_id: int
