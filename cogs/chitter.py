@@ -7,7 +7,7 @@ import aiosqlite
 from discord.ext import commands
 import discord
 
-from bot import OliviaBot, Context
+from bot import OliviaBot, Context, Cog
 
 T = TypeVar("T")
 
@@ -20,7 +20,7 @@ null = Null()
 
 AnyValue = str | float | discord.Object | discord.PartialMessage | discord.PartialEmoji | datetime.datetime | bool | Null
 
-class BotChitter(commands.Cog):
+class BotChitter(Cog):
     def __init__(self, bot: OliviaBot):
         self.bot = bot
         self.own_tables = {123: self.serialize_generic_row}

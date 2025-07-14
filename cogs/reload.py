@@ -1,9 +1,9 @@
 from discord.ext import commands, tasks
 
-from bot import OliviaBot
+from bot import OliviaBot, Cog
 
 
-class Reloader(commands.Cog):
+class Reloader(Cog):
     """Automatic bot reloading, to replace the Terminal cog in prod"""
 
     def __init__(self, bot: OliviaBot):

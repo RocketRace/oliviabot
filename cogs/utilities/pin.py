@@ -14,7 +14,7 @@ def default_message_target(ctx: Context):
         return None
     return resolved
 
-class Pin(commands.Cog):
+class Pin(Cog):
     @commands.command()
     @commands.guild_only()
     @commands.bot_has_permissions(manage_messages=True)

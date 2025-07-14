@@ -7,7 +7,7 @@ from discord.ext import commands
 
 from bot import Context, Cog
 
-class Threads(commands.Cog):
+class Threads(Cog):
     @commands.command()
     @commands.guild_only()
     async def threads(self, ctx: Context, mode: Literal["recent", "popular", "popular_db"] = "recent", limit: int | Literal["all"] = 20):

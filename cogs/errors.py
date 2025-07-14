@@ -4,11 +4,11 @@ import traceback
 import discord
 from discord.ext import commands
 
-from bot import Context, OliviaBot
+from bot import Context, OliviaBot, Cog
 from qwd import QwdieConverter, NotQwd, NotLouna, NotQwd
 
 
-class ErrorHandler(commands.Cog):
+class ErrorHandler(Cog):
     def __init__(self, bot: OliviaBot):
         self.bot = bot
 

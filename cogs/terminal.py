@@ -9,7 +9,7 @@ import discord.http
 import parse_discord
 import parse_discord.formatting
 
-from bot import Context, OliviaBot
+from bot import Context, OliviaBot, Cog
 
 
 def sgr(*ns: int) -> str:
@@ -158,7 +158,7 @@ def indent(content: str, prefix: str) -> str:
     return "".join(f"{prefix}{line}\n" for line in content.split("\n"))
 
 
-class Terminal(commands.Cog):
+class Terminal(Cog):
     """Terminal-based command execution for rapid local testing"""
 
     def __init__(self, bot: OliviaBot):
