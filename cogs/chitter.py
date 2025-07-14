@@ -15,13 +15,17 @@ def get_partial_message(bot: OliviaBot, guild_id: int, channel_id: int, message_
 
 class Null:
     pass
+null = Null()
 
 AnyValue = str | float | discord.Object | discord.PartialMessage | discord.PartialEmoji | datetime.datetime | bool | Null
 
 class BotChitter(commands.Cog):
     def __init__(self, bot: OliviaBot):
         self.bot = bot
-        self.bot_chitter_id = self.bot.bot_chitter_id
+        self.own_tables = {123: self.serialize_generic_row}
+        self.known_tables = {123: self.parse_generic_row}
+        # TODO initialize
+        self.raw_chitter_store: dict[int, dict[int, list[AnyValue]]] = {}
 
     def parse_string(self, string: str, transformer: Callable[[str], T] = lambda x: x) -> tuple[T, str] | None:
         escapes = r'\\[^a-zA-Z0-9]|\\[nrt0]|\\x[0-7][0-9a-fA-F]'
@@ -72,7 +76,7 @@ class BotChitter(commands.Cog):
     
     def parse_null(self, string: str) -> tuple[Null, str] | None:
         if string.startswith("🦖"):
-            return Null(), string[1:]
+            return null, string[1:]
 
     def parse_generic_row(self, row: str) -> list[AnyValue] | None:
         results = []
@@ -99,6 +103,9 @@ class BotChitter(commands.Cog):
                 return None
             else:
                 results.append(parsed)
+        # A row must have 1 or more values
+        if len(results) == 0:
+            return None
         return results
 
     def escape_string(self, string: str) -> str:
@@ -148,15 +155,115 @@ class BotChitter(commands.Cog):
 
         return " ".join(parts)
 
+    @commands.Cog.listener()
+    async def on_message(self, message: discord.Message):
+        if not message.author.bot:
+            return
+        if not isinstance(message.channel, discord.Thread):
+            return
+        if message.channel.parent_id != self.bot.bot_chitter_id:
+            return
+
+        table_id = message.channel.id
+        row = self.parse_generic_row(message.content)
+        if row is None:
+            # 
+            if table_id in self.known_tables:
+                # A bot has sent an invalid row. Inform them of this, in case it's a bug
+                try:
+                    await message.add_reaction("\N{EXCLAMATION QUESTION MARK}")
+                except discord.HTTPException:
+                    pass
+            return 
+        
+        # Add the message to the default store
+        self.raw_chitter_store.setdefault(table_id, {})[message.id] = row
+        
+        if table_id in self.own_tables:
+            pass # TODO
+        
+        if table_id in self.known_tables:
+            pass # TODO
+
+    @commands.Cog.listener()
+    async def on_raw_message_edit(self, payload: discord.RawMessageUpdateEvent):
+        if payload.channel_id not in self.raw_chitter_store:
+            return
+        if payload.message_id not in self.raw_chitter_store[payload.channel_id]:
+            return
+
+        message = payload.message
+        row = row = self.parse_generic_row(message.content)
+        if row is None:
+            if payload.channel_id in self.known_tables:
+                try:
+                    await message.add_reaction("\N{EXCLAMATION QUESTION MARK}")
+                except discord.HTTPException:
+                    pass
+            return 
+
+        self.raw_chitter_store[payload.channel_id][payload.message_id] = row
+
+        # TODO custom
+
+    @commands.Cog.listener()
+    async def on_raw_message_delete(self, payload: discord.RawMessageDeleteEvent):
+        if payload.channel_id not in self.raw_chitter_store:
+            return
+        if payload.message_id not in self.raw_chitter_store[payload.channel_id]:
+            return
+        
+        del self.raw_chitter_store[payload.channel_id][payload.message_id]
+
+        # TODO custom
+
+    @commands.Cog.listener()
+    async def on_thread_create(self, thread: discord.Thread):
+        if thread.parent_id != self.bot.bot_chitter_id:
+            return
+        
+        self.raw_chitter_store[thread.id] = {}
+        # can't be in the known tables unless by an act of clairvoyance
+
+    @commands.Cog.listener()
+    async def on_raw_thread_update(self, payload: discord.RawThreadUpdateEvent):
+        if payload.parent_id != self.bot.bot_chitter_id:
+            return
+        thread = payload.thread
+        if thread is None:
+            return
+        if thread.locked:
+            if thread.id not in self.raw_chitter_store:
+                return
+            del self.raw_chitter_store[thread.id]
+            # TODO custom
+        else:
+            if thread.id in self.raw_chitter_store:
+                return
+            self.raw_chitter_store[thread.id] = {}
+            # TODO queue bulk insert
+            # TODO custom
+
+    @commands.Cog.listener()
+    async def on_raw_thread_delete(self, payload: discord.RawThreadDeleteEvent):
+        if payload.parent_id != self.bot.bot_chitter_id:
+            return
+        thread = payload.thread
+        if thread is None:
+            return
+        if thread.id not in self.raw_chitter_store:
+            return
+        del self.raw_chitter_store[thread.id]
+        # TODO custom
 
     @commands.is_owner()
     @commands.group(invoke_without_command=True)
     async def table(self, ctx: Context):
         '''Administrative commands for handling #bot-chitter tables'''
-        # TODO
+        # TODO show information on followed & stored tables
 
     @commands.is_owner()
-    @commands.command()
+    @table.command()
     async def refresh(self, ctx: Context, table: str):
         '''Fetches all the data for the given table, accounting for any newly defined handlers'''
         # TODO
