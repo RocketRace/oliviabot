@@ -108,7 +108,7 @@ class BotChitter(commands.Cog):
             return None
         return results
 
-    def serialize_string(self, string: str) -> str:
+    def serialize_string(self, string: str, backticks = 0) -> str:
         contents = string.translate({
             ord('"'): '\\"',
             ord('\\'): '\\\\',
@@ -121,7 +121,7 @@ class BotChitter(commands.Cog):
             ord(c): '\\' + c
             for c in "*_`|~-@#<>[]()/:"
         })
-        return f'``"{contents}"``'
+        return f'{backticks * "`"}"{contents}"{backticks * "`"}'
     
     serialize_bool = lambda _, b: "❌✅"[b]
     serialize_number = str
@@ -135,7 +135,6 @@ class BotChitter(commands.Cog):
 
     def serialize_generic_row(self, items: list[AnyValue]) -> str:
         '''This is meant to be used for rows parsed with parse_generic_row.
-        For rows with custom transformers, it 
         '''
         parts: list[str] = []
         for item in items:
@@ -165,7 +164,10 @@ class BotChitter(commands.Cog):
                     parts.append(self.serialize_null(item))
 
         return " ".join(parts)
-
+    
+    def serialize_alias(self, user: discord.User, alias: str):
+        return " ".join([self.serialize_user(user), self.serialize_string(alias)])
+    
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message):
         if not message.author.bot:
