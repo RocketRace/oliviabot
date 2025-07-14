@@ -123,6 +123,7 @@ class OliviaBot(commands.Bot):
     async def on_ready(self) -> None:
         assert self.user
         await self.webhook.send(f"Logged in as {self.user} (ID: {self.user.id})")
+        await self.refresh_aliases()
     
     async def webhook_send(self, message: str) -> None:
         assert self.user
@@ -303,11 +304,18 @@ class OliviaBot(commands.Bot):
         self.person_aliases = {}
         self.inv_person_aliases = {}
         async with self.cursor() as cur:
-            await cur.execute("""SELECT alias, id FROM person_aliases;""")
+            await cur.execute("""SELECT alias, id, chitter_message_id FROM person_aliases;""")
             aliases = await cur.fetchall()
-            for alias, user_id in aliases:
+            for alias, user_id, chitter_message_id in aliases:
                 self.person_aliases.setdefault(alias, []).append(user_id)
                 self.inv_person_aliases.setdefault(user_id, []).append(alias)
+                if chitter_message_id is None:
+                    logging.info(f"Catching others up to {user_id}'s alias '{alias}'")
+                    message_id = await self.chitter_send("aliases", discord.Object(user_id), alias)
+                    await cur.execute(
+                        """UPDATE person_aliases SET chitter_message_id = ? WHERE alias = ? AND id = ?""",
+                        [message_id, alias, user_id]
+                    )
 
     async def setup_hook(self) -> None:
         self.webhook = discord.Webhook.from_url(self.webhook_url, client=self)
@@ -328,8 +336,6 @@ class OliviaBot(commands.Bot):
             for [olivia] in olivias:
                 self.owner_ids.add(olivia)
         
-        await self.refresh_aliases()
-
         for extension in self.activated_extensions:
             await self.load_extension(extension)
 

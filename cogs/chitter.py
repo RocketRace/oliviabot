@@ -128,7 +128,7 @@ class TimezoneChitter(ChitterBase):
         async with self.bot.chitter_db.cursor() as cur:
             await cur.executescript(
                 """CREATE TABLE IF NOT EXISTS timezones(
-                    message_id INTEGER PRIMARY KEY,
+                    chitter_message_id INTEGER PRIMARY KEY,
                     user INTEGER UNIQUE NOT NULL,
                     timezone TEXT NOT NULL
                 );
