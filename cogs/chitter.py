@@ -108,8 +108,8 @@ class BotChitter(commands.Cog):
             return None
         return results
 
-    def escape_string(self, string: str) -> str:
-        return string.translate({
+    def serialize_string(self, string: str) -> str:
+        contents = string.translate({
             ord('"'): '\\"',
             ord('\\'): '\\\\',
             ord('\n'): '\\n',
@@ -121,6 +121,17 @@ class BotChitter(commands.Cog):
             ord(c): '\\' + c
             for c in "*_`|~-@#<>[]()/:"
         })
+        return f'``"{contents}"``'
+    
+    serialize_bool = lambda _, b: "❌✅"[b]
+    serialize_number = str
+    def serialize_channel(self, c: discord.abc.Snowflake): return f"<#{c.id}>"
+    def serialize_user(self, u: discord.abc.Snowflake): return f"<@{u.id}>"
+    def serialize_role(self, r: discord.abc.Snowflake): return f"<@&{r.id}>"
+    def serialize_message(self, m: discord.PartialMessage | discord.Message): return m.jump_url
+    serialize_emoji = str
+    def serialize_timestamp(self, dt: datetime.datetime): return discord.utils.format_dt(dt)
+    serialize_null = lambda _, _n: "🦖"
 
     def serialize_generic_row(self, items: list[AnyValue]) -> str:
         '''This is meant to be used for rows parsed with parse_generic_row.
@@ -130,28 +141,28 @@ class BotChitter(commands.Cog):
         for item in items:
             match item:
                 case str():
-                    parts.append(f'``"{self.escape_string(item)}"``')
+                    parts.append(self.serialize_string(item))
                 case bool(): # this needs to be before the int() case, due to:
-                    parts.append("❌✅"[item])
+                    parts.append(self.serialize_bool(item))
                 case float() | int(): # note: seems like the `float` in the type alias actually desugared to `float | int`
-                    parts.append(str(item))
+                    parts.append(self.serialize_number(item))
                 case discord.Object():
                     if item.type == discord.abc.GuildChannel:
-                        parts.append(f"<#{item.id}>")
+                        parts.append(self.serialize_channel(item))
                     elif item.type == discord.User:
-                        parts.append(f"<@{item.id}>")
+                        parts.append(self.serialize_user(item))
                     elif item.type == discord.Role:
-                        parts.append(f"<@&{item.id}>")
+                        parts.append(self.serialize_role(item))
                     else:
                         raise RuntimeError("unreachable")
                 case discord.PartialMessage():
-                    parts.append(item.jump_url)
+                    parts.append(self.serialize_message(item))
                 case discord.PartialEmoji():
-                    parts.append(str(item))
+                    parts.append(self.serialize_emoji(item))
                 case datetime.datetime():
-                    parts.append(discord.utils.format_dt(item))
+                    parts.append(self.serialize_timestamp(item))
                 case Null():
-                    parts.append("🦖")
+                    parts.append(self.serialize_null(item))
 
         return " ".join(parts)
 
