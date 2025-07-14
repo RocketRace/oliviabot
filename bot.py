@@ -69,6 +69,7 @@ class OliviaBot(commands.Bot):
             self.activated_extensions.append("cogs.terminal")
 
         self.db = db
+        self.chitter_db = chitter_db
         self.testing_guild_id = testing_guild_id
         self.testing_channel_id = testing_channel_id
         self.webhook_url = webhook_url

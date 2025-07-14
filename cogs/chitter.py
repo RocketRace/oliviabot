@@ -1,6 +1,7 @@
 import datetime
 import logging
 import re
+import time
 from typing import Any, Callable, TypeVar, overload
 
 import aiosqlite
@@ -20,65 +21,9 @@ null = Null()
 
 AnyValue = str | float | discord.Object | discord.PartialMessage | discord.PartialEmoji | datetime.datetime | bool | Null
 
-class BotChitter(Cog):
-    def __init__(self, bot: OliviaBot):
+class ChitterBase:
+    def __init__(self, bot: OliviaBot) -> None:
         self.bot = bot
-        self.own_tables = {1394390638405091438: self.serialize_alias}
-        self.known_tables = {1394390757124608134: self.parse_generic_row}
-        self.table_aliases = { "aliases": 1394390638405091438 }
-        # Is is not that bad to 
-        self.raw_chitter_store: dict[int, dict[int, list[AnyValue]]] = {}
-
-    async def cog_load(self) -> None:
-        self.original_chitter_send = self.bot.chitter_send
-        self.original_chitter_edit = self.bot.chitter_edit
-        self.original_chitter_delete = self.bot.chitter_delete
-        self.bot.chitter_send = self.chitter_send
-        self.bot.chitter_edit = self.chitter_edit
-        self.bot.chitter_delete = self.chitter_delete
-
-        chitter = self.bot.get_channel(self.bot.bot_chitter_id)
-        if not isinstance(chitter, discord.ForumChannel):
-            logging.warning("bot-chitter channel is not a forum channel")
-        if not isinstance(chitter, (discord.TextChannel, discord.ForumChannel)):
-            return
-        
-        for thread in chitter.threads:
-            await self.assign_history(thread)
-
-
-    async def cog_unload(self) -> None:
-        self.bot.chitter_send = self.original_chitter_send
-        self.bot.chitter_edit = self.original_chitter_edit
-        self.bot.chitter_delete = self.original_chitter_delete
-
-    async def chitter_send(self, table_name: str, *args: Any) -> int | None:
-        table_id = self.table_aliases[table_name]
-        serialized = self.own_tables[table_id](*args)
-        thread = self.bot.get_channel(table_id)
-        if not isinstance(thread, discord.Thread):
-            logging.warning(f"Bad thread id set for {table_name} table")
-            return None
-        try:
-            msg = await thread.send(serialized, allowed_mentions=discord.AllowedMentions.none())
-        except discord.HTTPException:
-            return None
-        return msg.id
-
-    async def chitter_edit(self, table_name: str, message_id: int, *args: Any):
-        table_id = self.table_aliases[table_name]
-        serialized = self.own_tables[table_id](*args)
-        thread = self.bot.get_channel(table_id)
-        if not isinstance(thread, discord.Thread):
-            raise RuntimeError("Bad table?")
-        await thread.get_partial_message(message_id).edit(content = serialized)
-        
-    async def chitter_delete(self, table_name: str, message_id: int):
-        table_id = self.table_aliases[table_name]
-        thread = self.bot.get_channel(table_id)
-        if not isinstance(thread, discord.Thread):
-            raise RuntimeError("Bad table?")
-        await thread.get_partial_message(message_id).delete()
 
     def parse_string(self, string: str, transformer: Callable[[str], T] = lambda x: x) -> tuple[T, str] | None:
         escapes = r'\\[^a-zA-Z0-9]|\\[nrt0]|\\x[0-7][0-9a-fA-F]'
@@ -161,6 +106,121 @@ class BotChitter(Cog):
             return None
         return results
 
+    def parse_row_by_schema(self, row: str, parsers: list[Callable[[str], tuple[AnyValue, str] | None]]) -> list[AnyValue] | None:
+        results = []
+        for parser in parsers:
+            row = row.lstrip(" \r\n\t")
+            parsed = None
+            val = parser(row)
+            if val is not None:
+                parsed, row = val
+            if parsed is None:
+                return None
+            else:
+                results.append(parsed)
+        # A row must have 1 or more values
+        if len(results) == 0:
+            return None
+        return results
+
+class TimezoneChitter(ChitterBase):
+    async def on_load(self):
+        async with self.bot.chitter_db.cursor() as cur:
+            await cur.executescript(
+                """CREATE TABLE IF NOT EXISTS timezones(
+                    message_id INTEGER PRIMARY KEY,
+                    user INTEGER UNIQUE NOT NULL,
+                    timezone TEXT NOT NULL
+                );
+                """
+            )
+
+    async def assign_row(self, message: discord.Message):
+        row = self.parse_row_by_schema(message.content, [self.parse_user, self.parse_string])
+        if row is None:
+            return
+        user: discord.Object
+        timezone: str
+        user, timezone = row # pyright: ignore[reportAssignmentType]
+        async with self.bot.chitter_db.cursor() as cur:
+            await cur.execute(
+                """INSERT OR REPLACE INTO timezones VALUES (?, ?, ?)""",
+                [message.id, user.id, timezone]
+            )
+
+    async def delete_row(self, message_id: int):
+        async with self.bot.chitter_db.cursor() as cur:
+            await cur.execute(
+                """DELETE FROM timezones WHERE message_id = ?""",
+                [message_id]
+            )
+
+class BotChitter(Cog, ChitterBase):
+    def __init__(self, bot: OliviaBot):
+        self.bot = bot
+        self.own_tables = {1394390638405091438: self.serialize_alias_row}
+        self.own_table_aliases = { "aliases": 1394390638405091438 }
+        self.known_tables = { 1394390757124608134: TimezoneChitter(bot) }
+        # Is is that bad to refill the store on each login?
+        self.raw_chitter_store: dict[int, dict[int, list[AnyValue]]] = {}
+
+    async def cog_load(self) -> None:
+        self.original_chitter_send = self.bot.chitter_send
+        self.original_chitter_edit = self.bot.chitter_edit
+        self.original_chitter_delete = self.bot.chitter_delete
+        self.bot.chitter_send = self.chitter_send
+        self.bot.chitter_edit = self.chitter_edit
+        self.bot.chitter_delete = self.chitter_delete
+
+        for known_table in self.known_tables.values():
+            await known_table.on_load()
+
+    @commands.Cog.listener()
+    async def on_ready(self) -> None:
+        chitter = self.bot.get_channel(self.bot.bot_chitter_id)
+        if not isinstance(chitter, discord.ForumChannel):
+            logging.warning("bot-chitter channel is not a forum channel")
+        if not isinstance(chitter, (discord.TextChannel, discord.ForumChannel)):
+            return
+        
+        logging.info("Catching up on bot chitter")
+        for thread in chitter.threads:
+            await self.assign_history(thread)
+        logging.info("All caught up")
+
+    async def cog_unload(self) -> None:
+        self.bot.chitter_send = self.original_chitter_send
+        self.bot.chitter_edit = self.original_chitter_edit
+        self.bot.chitter_delete = self.original_chitter_delete
+
+    async def chitter_send(self, table_name: str, *args: Any) -> int | None:
+        table_id = self.own_table_aliases[table_name]
+        serialized = self.own_tables[table_id](*args)
+        thread = self.bot.get_channel(table_id)
+        if not isinstance(thread, discord.Thread):
+            logging.warning(f"Bad thread id set for {table_name} table")
+            return None
+        try:
+            msg = await thread.send(serialized, allowed_mentions=discord.AllowedMentions.none())
+        except discord.HTTPException:
+            return None
+        return msg.id
+
+    async def chitter_edit(self, table_name: str, message_id: int, *args: Any):
+        table_id = self.own_table_aliases[table_name]
+        serialized = self.own_tables[table_id](*args)
+        thread = self.bot.get_channel(table_id)
+        if not isinstance(thread, discord.Thread):
+            raise RuntimeError("Bad table?")
+        await thread.get_partial_message(message_id).edit(content = serialized)
+        
+    async def chitter_delete(self, table_name: str, message_id: int):
+        table_id = self.own_table_aliases[table_name]
+        thread = self.bot.get_channel(table_id)
+        if not isinstance(thread, discord.Thread):
+            raise RuntimeError("Bad table?")
+        await thread.get_partial_message(message_id).delete()
+
     def serialize_string(self, string: str, backticks = 0) -> str:
         contents = string.translate({
             ord('"'): '\\"',
@@ -218,7 +278,7 @@ class BotChitter(Cog):
 
         return " ".join(parts)
     
-    def serialize_alias(self, user: discord.User, alias: str):
+    def serialize_alias_row(self, user: discord.User, alias: str):
         return " ".join([self.serialize_user(user), self.serialize_string(alias)])
 
     async def assign_history(self, thread: discord.Thread):
@@ -228,7 +288,6 @@ class BotChitter(Cog):
     async def assign_row(self, table_id: int, message: discord.Message):
         row = self.parse_generic_row(message.content)
         if row is None:
-            # 
             if table_id in self.known_tables and message.author.bot:
                 # A bot has sent an invalid row. Inform them of this, in case it's a bug
                 try:
@@ -239,11 +298,13 @@ class BotChitter(Cog):
         
         # Add the message to the default store
         self.raw_chitter_store.setdefault(table_id, {})[message.id] = row
-        # TODO custom
+        if table_id in self.known_tables:
+            await self.known_tables[table_id].assign_row(message)
 
     async def remove_row(self, table_id: int, message_id: int):
         del self.raw_chitter_store[table_id][message_id]
-        # TODO custom
+        if table_id in self.known_tables:
+            await self.known_tables[table_id].delete_row(message_id)
 
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message):
@@ -307,7 +368,7 @@ class BotChitter(Cog):
         if thread.id not in self.raw_chitter_store:
             return
         del self.raw_chitter_store[thread.id]
-        # TODO custom
+        # TODO need for custom?
 
     @commands.is_owner()
     @commands.group(invoke_without_command=True)
