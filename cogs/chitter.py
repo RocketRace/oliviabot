@@ -23,27 +23,29 @@ AnyValue = str | float | discord.Object | discord.PartialMessage | discord.Parti
 class BotChitter(Cog):
     def __init__(self, bot: OliviaBot):
         self.bot = bot
-        self.own_tables = {123: self.serialize_generic_row}
-        self.known_tables = {123: self.parse_generic_row}
-        self.table_aliases = { "aliases": 123 }
-        # TODO initialize
+        self.own_tables = {1394390638405091438: self.serialize_alias}
+        self.known_tables = {1394390757124608134: self.parse_generic_row}
+        self.table_aliases = { "aliases": 1394390638405091438 }
+        # Is is not that bad to 
         self.raw_chitter_store: dict[int, dict[int, list[AnyValue]]] = {}
 
     async def cog_load(self) -> None:
-        chitter = self.bot.get_channel(self.bot.bot_chitter_id)
-        if not isinstance(chitter, discord.ForumChannel):
-            logging.warning("bot-chitter channel is not a forum channel")
-            return
-        
-        for thread in chitter.threads:
-            await self.assign_history(thread)
-
         self.original_chitter_send = self.bot.chitter_send
         self.original_chitter_edit = self.bot.chitter_edit
         self.original_chitter_delete = self.bot.chitter_delete
         self.bot.chitter_send = self.chitter_send
         self.bot.chitter_edit = self.chitter_edit
         self.bot.chitter_delete = self.chitter_delete
+
+        chitter = self.bot.get_channel(self.bot.bot_chitter_id)
+        if not isinstance(chitter, discord.ForumChannel):
+            logging.warning("bot-chitter channel is not a forum channel")
+        if not isinstance(chitter, (discord.TextChannel, discord.ForumChannel)):
+            return
+        
+        for thread in chitter.threads:
+            await self.assign_history(thread)
+
 
     async def cog_unload(self) -> None:
         self.bot.chitter_send = self.original_chitter_send
@@ -52,7 +54,7 @@ class BotChitter(Cog):
 
     async def chitter_send(self, table_name: str, *args: Any) -> int:
         table_id = self.table_aliases[table_name]
-        serialized = self.own_tables[table_id](list(args))
+        serialized = self.own_tables[table_id](*args)
         thread = self.bot.get_channel(table_id)
         if not isinstance(thread, discord.Thread):
             raise RuntimeError("Bad table?")
@@ -61,7 +63,7 @@ class BotChitter(Cog):
 
     async def chitter_edit(self, table_name: str, message_id: int, *args: Any):
         table_id = self.table_aliases[table_name]
-        serialized = self.own_tables[table_id](list(args))
+        serialized = self.own_tables[table_id](*args)
         thread = self.bot.get_channel(table_id)
         if not isinstance(thread, discord.Thread):
             raise RuntimeError("Bad table?")
@@ -180,7 +182,7 @@ class BotChitter(Cog):
     def serialize_timestamp(self, dt: datetime.datetime): return discord.utils.format_dt(dt)
     serialize_null = lambda _, _n: "🦖"
 
-    def serialize_generic_row(self, items: list[AnyValue]) -> str:
+    def serialize_generic_row(self, *items: AnyValue) -> str:
         '''This is meant to be used for rows parsed with parse_generic_row.
         '''
         parts: list[str] = []
