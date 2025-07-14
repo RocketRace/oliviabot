@@ -32,8 +32,8 @@ class Alias(Cog):
         message_id = await self.bot.chitter_send("aliases", user, alias)
         async with self.bot.cursor() as cur:
             await cur.execute(
-                """INSERT INTO person_aliases VALUES(?, ?);""",
-                [alias, user.id]
+                """INSERT INTO person_aliases VALUES(?, ?, ?);""",
+                [alias, user.id, message_id]
             )
         msg = f"{user.mention} hi {alias} :)"
         if extra:
@@ -50,6 +50,14 @@ class Alias(Cog):
             return await ctx.send("don't have that one!")
         async with self.bot.cursor() as cur:
             await cur.execute(
+                """SELECT chitter_message_id FROM person_aliases WHERE alias = ? AND id = ?;""",
+                [alias, user.id]
+            )
+            row = await cur.fetchone()
+            message_id = None
+            if row is not None:
+                message_id = row[0]
+            await cur.execute(
                 """DELETE FROM person_aliases WHERE alias = ? AND id = ?;""",
                 [alias, user.id]
             )
@@ -57,6 +65,8 @@ class Alias(Cog):
             f"{alias} no more :)",
             allowed_mentions=discord.AllowedMentions.none()
         )
+        if isinstance(message_id, int):
+            await self.bot.chitter_delete("aliases", message_id)
         await self.bot.refresh_aliases()
         # await self.bot.chitter_delete("aliases", )
 

@@ -52,13 +52,17 @@ class BotChitter(Cog):
         self.bot.chitter_edit = self.original_chitter_edit
         self.bot.chitter_delete = self.original_chitter_delete
 
-    async def chitter_send(self, table_name: str, *args: Any) -> int:
+    async def chitter_send(self, table_name: str, *args: Any) -> int | None:
         table_id = self.table_aliases[table_name]
         serialized = self.own_tables[table_id](*args)
         thread = self.bot.get_channel(table_id)
         if not isinstance(thread, discord.Thread):
-            raise RuntimeError("Bad table?")
-        msg = await thread.send(serialized, allowed_mentions=discord.AllowedMentions.none())
+            logging.warning(f"Bad thread id set for {table_name} table")
+            return None
+        try:
+            msg = await thread.send(serialized, allowed_mentions=discord.AllowedMentions.none())
+        except discord.HTTPException:
+            return None
         return msg.id
 
     async def chitter_edit(self, table_name: str, message_id: int, *args: Any):
@@ -225,10 +229,10 @@ class BotChitter(Cog):
         row = self.parse_generic_row(message.content)
         if row is None:
             # 
-            if table_id in self.known_tables:
+            if table_id in self.known_tables and message.author.bot:
                 # A bot has sent an invalid row. Inform them of this, in case it's a bug
                 try:
-                    await message.add_reaction("\N{EXCLAMATION QUESTION MARK}")
+                    await message.add_reaction("\N{EXCLAMATION QUESTION MARK}\ufe0f")
                 except discord.HTTPException:
                     pass
             return 

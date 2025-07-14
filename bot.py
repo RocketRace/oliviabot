@@ -257,6 +257,13 @@ class OliviaBot(commands.Bot):
                     PRIMARY KEY(user_id, idx)
                 )"""
             )
+            try:
+                await cur.executescript(
+                    """ALTER TABLE person_aliases ADD COLUMN chitter_message_id INTEGER DEFAULT NULL;
+                    """
+                )
+            except aiosqlite.OperationalError:
+                pass
             # await cur.executescript(
             #     """CREATE TABLE IF NOT EXISTS user_settings(
             #         id INTEGER PRIMARY KEY,
@@ -335,7 +342,7 @@ class OliviaBot(commands.Bot):
         return self.db.cursor()
     
     # These will be overridden by the chitter cog
-    async def chitter_send(self, table_name: str, *args: Any) -> int: ...
+    async def chitter_send(self, table_name: str, *args: Any) -> int | None: ...
     async def chitter_edit(self, table_name: str, message_id: int, *args: Any): ...
     async def chitter_delete(self, table_name: str, message_id: int): ...
 
