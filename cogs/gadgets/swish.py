@@ -44,12 +44,17 @@ class Swish(Cog):
         if first_word_of_message_or_items_it_depends_on_context:
             message = (first_word_of_message_or_items_it_depends_on_context + " " + (message or "")).strip()
 
+        if isinstance(ctx.channel, discord.DMChannel):
+            source = ""
+        else:
+            source = f" ({ctx.message.jump_url}))"
+
         if not message:
             sender = f"✅ Swished **{amount} {thing}** to {user.mention}! 🌀"
-            sendee = f"🌀 Received **{amount} {thing}** from {ctx.author.mention}! ({ctx.message.jump_url})"
+            sendee = f"🌀 Received **{amount} {thing}** from {ctx.author.mention}!{source}"
         else:
             sender = f"✅ Swished **{amount} {thing}** to {user.mention}! 🌀\n>>> {message}"
-            sendee = f"🌀 Received **{amount} {thing}** from {ctx.author.mention} ({ctx.message.jump_url}) with message:\n>>> {message}"
+            sendee = f"🌀 Received **{amount} {thing}** from {ctx.author.mention}{source} with message:\n>>> {message}"
 
         await ctx.send(
             sender,
