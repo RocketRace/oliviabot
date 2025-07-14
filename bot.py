@@ -333,6 +333,11 @@ class OliviaBot(commands.Bot):
     def cursor(self) -> aiosqlite.context.Result[aiosqlite.Cursor]:
         """Returns a context manager to a cursor object."""
         return self.db.cursor()
+    
+    # These will be overridden by the chitter cog
+    async def chitter_send(self, table_name: str, *args: Any) -> int: ...
+    async def chitter_edit(self, table_name: str, message_id: int, *args: Any): ...
+    async def chitter_delete(self, table_name: str, message_id: int): ...
 
 
 class Cog(commands.Cog):

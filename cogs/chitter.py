@@ -1,7 +1,7 @@
 import datetime
 import logging
 import re
-from typing import Callable, TypeVar
+from typing import Any, Callable, TypeVar, overload
 
 import aiosqlite
 from discord.ext import commands
@@ -25,6 +25,7 @@ class BotChitter(commands.Cog):
         self.bot = bot
         self.own_tables = {123: self.serialize_generic_row}
         self.known_tables = {123: self.parse_generic_row}
+        self.table_aliases = { "aliases": 123 }
         # TODO initialize
         self.raw_chitter_store: dict[int, dict[int, list[AnyValue]]] = {}
 
@@ -36,6 +37,42 @@ class BotChitter(commands.Cog):
         
         for thread in chitter.threads:
             await self.assign_history(thread)
+
+        self.original_chitter_send = self.bot.chitter_send
+        self.original_chitter_edit = self.bot.chitter_edit
+        self.original_chitter_delete = self.bot.chitter_delete
+        self.bot.chitter_send = self.chitter_send
+        self.bot.chitter_edit = self.chitter_edit
+        self.bot.chitter_delete = self.chitter_delete
+
+    async def cog_unload(self) -> None:
+        self.bot.chitter_send = self.original_chitter_send
+        self.bot.chitter_edit = self.original_chitter_edit
+        self.bot.chitter_delete = self.original_chitter_delete
+
+    async def chitter_send(self, table_name: str, *args: Any) -> int:
+        table_id = self.table_aliases[table_name]
+        serialized = self.own_tables[table_id](list(args))
+        thread = self.bot.get_channel(table_id)
+        if not isinstance(thread, discord.Thread):
+            raise RuntimeError("Bad table?")
+        msg = await thread.send(serialized)
+        return msg.id
+
+    async def chitter_edit(self, table_name: str, message_id: int, *args: Any):
+        table_id = self.table_aliases[table_name]
+        serialized = self.own_tables[table_id](list(args))
+        thread = self.bot.get_channel(table_id)
+        if not isinstance(thread, discord.Thread):
+            raise RuntimeError("Bad table?")
+        await thread.get_partial_message(message_id).edit(content = serialized)
+        
+    async def chitter_delete(self, table_name: str, message_id: int):
+        table_id = self.table_aliases[table_name]
+        thread = self.bot.get_channel(table_id)
+        if not isinstance(thread, discord.Thread):
+            raise RuntimeError("Bad table?")
+        await thread.get_partial_message(message_id).delete()
 
     def parse_string(self, string: str, transformer: Callable[[str], T] = lambda x: x) -> tuple[T, str] | None:
         escapes = r'\\[^a-zA-Z0-9]|\\[nrt0]|\\x[0-7][0-9a-fA-F]'

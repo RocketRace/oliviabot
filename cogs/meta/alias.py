@@ -29,6 +29,7 @@ class Alias(Cog):
         alias = alias.lower()
         if alias in self.bot.inv_person_aliases.get(ctx.author.id, []):
             return await ctx.send("already got that one!")
+        message_id = await self.bot.chitter_send("aliases", user, alias)
         async with self.bot.cursor() as cur:
             await cur.execute(
                 """INSERT INTO person_aliases VALUES(?, ?);""",
@@ -57,6 +58,7 @@ class Alias(Cog):
             allowed_mentions=discord.AllowedMentions.none()
         )
         await self.bot.refresh_aliases()
+        # await self.bot.chitter_delete("aliases", )
 
     @alias.command(name="add", aliases=["new"])
     async def add_alias(self, ctx: Context, alias: str):
