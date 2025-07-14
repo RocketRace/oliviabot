@@ -58,7 +58,7 @@ class BotChitter(Cog):
         thread = self.bot.get_channel(table_id)
         if not isinstance(thread, discord.Thread):
             raise RuntimeError("Bad table?")
-        msg = await thread.send(serialized)
+        msg = await thread.send(serialized, allowed_mentions=discord.AllowedMentions.none())
         return msg.id
 
     async def chitter_edit(self, table_name: str, message_id: int, *args: Any):
