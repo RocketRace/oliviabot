@@ -349,9 +349,12 @@ class OliviaBot(commands.Bot):
         return self.db.cursor()
     
     # These will be overridden by the chitter cog
-    async def chitter_send(self, table_name: str, *args: Any) -> int | None: ...
-    async def chitter_edit(self, table_name: str, message_id: int, *args: Any): ...
-    async def chitter_delete(self, table_name: str, message_id: int): ...
+    async def chitter_send(self, table_name: str, *args: Any) -> int | None:
+        logging.warning("chitter_send called before initialized")
+    async def chitter_edit(self, table_name: str, message_id: int, *args: Any):
+        logging.warning("chitter_edit called before initialized")
+    async def chitter_delete(self, table_name: str, message_id: int):
+        logging.warning("chitter_delete called before initialized")
 
 
 class Cog(commands.Cog):
