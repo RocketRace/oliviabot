@@ -158,9 +158,9 @@ class TimezoneChitter(ChitterBase):
 class BotChitter(Cog, ChitterBase):
     def __init__(self, bot: OliviaBot):
         self.bot = bot
-        self.own_tables = {1394390638405091438: self.serialize_alias_row}
-        self.own_table_aliases = { "aliases": 1394390638405091438 }
-        self.known_tables = { 1394390757124608134: TimezoneChitter(bot) }
+        self.own_tables = { 1394575943049281626: self.serialize_alias_row }
+        self.own_table_aliases = { "aliases": 1394575943049281626 }
+        self.known_tables = { 1394562583348121620: TimezoneChitter(bot) }
         # Is is that bad to refill the store on each login?
         self.raw_chitter_store: dict[int, dict[int, list[AnyValue]]] = {}
 
