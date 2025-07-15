@@ -232,7 +232,7 @@ class BotChitter(Cog, ChitterBase):
         } | {
             # things that may or may not be relevant for discord 
             ord(c): '\\' + c
-            for c in "*_`|~-@#<>[]()/:"
+            for c in "*_`|~-@#[]()/"
         })
         return f'{backticks * "`"}"{contents}"{backticks * "`"}'
     
