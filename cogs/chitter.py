@@ -154,6 +154,20 @@ class TimezoneChitter(ChitterBase):
                 """DELETE FROM timezones WHERE message_id = ?""",
                 [message_id]
             )
+    
+    # kind of annoying to slot this in but oh well
+    async def synchronize(self, found_ids: list[int]):
+        async with self.bot.chitter_db.cursor() as cur:
+            await cur.execute(
+                """SELECT chitter_message_id FROM timezones;"""
+            )
+            stored_ids = {int(x[0]) for x in await cur.fetchall()}
+        to_delete = stored_ids - set(found_ids)
+        for delete_id in to_delete:
+            await cur.execute(
+                """DELETE FROM timezones WHERE message_id = ?""",
+                [delete_id]
+            )
 
 class BotChitter(Cog, ChitterBase):
     def __init__(self, bot: OliviaBot):
@@ -282,8 +296,13 @@ class BotChitter(Cog, ChitterBase):
         return " ".join([self.serialize_user(user), self.serialize_string(alias)])
 
     async def assign_history(self, thread: discord.Thread):
+        message_ids = []
         async for message in thread.history(limit=None):
             await self.assign_row(thread.id, message)
+            message_ids.append(message.id)
+        if thread.id in self.known_tables:
+            await self.known_tables[thread.id].synchronize(found_ids=message_ids)
+            
 
     async def assign_row(self, table_id: int, message: discord.Message):
         row = self.parse_generic_row(message.content)
