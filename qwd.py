@@ -58,26 +58,26 @@ class QwdieConverter(commands.Converter[AnyUser]):
         # okay technically the username is nonunique because bots still don't have pomelo
         choices.extend([
             user for user in ctx.bot.users
-            if user.name.lower() == argument.lower()
+            if user.name.casefold() == argument.casefold()
         ])
         # global name and guild nickname are not unique, so scan all the options
         # this may change later for performance purposes but I only have 100ish users
         choices.extend([
             user for user in ctx.bot.users
-            if user.global_name and user.global_name.lower() == argument.lower()
+            if user.global_name and user.global_name.casefold() == argument.casefold()
         ])
         if ctx.guild:
             choices.extend([
                 member for member in ctx.guild.members
-                if member.nick and member.nick.lower() == argument.lower()
+                if member.nick and member.nick.casefold() == argument.casefold()
             ])
-        # aliases
-        choices.extend(ctx.bot.get_user(id) for id in ctx.bot.person_aliases.get(argument.lower(), []))
+        # aliases -- casefolded comparison
+        choices.extend(ctx.bot.get_user(id) for alias, ids in ctx.bot.person_aliases.items() for id in ids if alias.casefold() == argument.casefold())
         # special results
-        if argument.lower() in ("me", "🪟"):
+        if argument == "🪟" or argument.casefold().rstrip("e").startswith("m"):
             choices.append(ctx.author)
         everyone = ""
-        if argument.lower() in ("@everyone", "🪩"):
+        if argument in ("@everyone", "🪩"):
             everyone = " (you have to pick one sorry)"
             if ctx.guild:
                 choices.extend(ctx.guild.members)
@@ -89,8 +89,8 @@ class QwdieConverter(commands.Converter[AnyUser]):
             return valid_choices[0]
         elif len(valid_choices) >= 2:
             # disambiguate between choices
-            valid_choices = sorted(valid_choices, key=lambda user: str(user).lower())
-            content = f"which {argument.lower()}?{everyone}"
+            valid_choices = sorted(valid_choices, key=lambda user: str(user).casefold())
+            content = f"which {argument}?{everyone}"
             view = QwdieDisambiguator(
                 target=ctx.author,
                 choices=valid_choices,
@@ -130,7 +130,7 @@ def first_difference_at(a: str, b: str) -> int:
     i = 0
     for i, (x, y) in enumerate(zip(a, b)):
         # technically can cause issues due to unicode case folding
-        if x.lower() != y.lower():
+        if x.casefold() != y.casefold():
             return i
     return i + 1
 

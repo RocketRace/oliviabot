@@ -9,7 +9,7 @@ from qwd import QwdieConverter, AnyUser
 
 class Alias(Cog):
     @commands.group(invoke_without_command=True)
-    async def alias(self, ctx: Context, alias: str | None = None):
+    async def alias(self, ctx: Context):
         """See your current aliases
         
         Parameters
@@ -17,8 +17,6 @@ class Alias(Cog):
         alias: str | None = None
             The alias to create (but consider `+alias add` instead)
         """
-        if alias:
-            return await self.alias_addition(ctx, alias, ctx.author, True)
         aliases = sorted(self.bot.inv_person_aliases.get(ctx.author.id, []))
         if not aliases:
             return await ctx.send("You don't have any aliases set")
@@ -26,7 +24,6 @@ class Alias(Cog):
         return await ctx.send(f"Your aliases:\n{l}")
     
     async def alias_addition(self, ctx: Context, alias: str, user: AnyUser, extra: bool = False):
-        alias = alias.lower()
         if alias in self.bot.inv_person_aliases.get(ctx.author.id, []):
             return await ctx.send("already got that one!")
         message_id = await self.bot.chitter_send("aliases", user, alias)
@@ -45,7 +42,6 @@ class Alias(Cog):
         await self.bot.refresh_aliases()
 
     async def alias_deletion(self, ctx: Context, alias: str, user: AnyUser):
-        alias = alias.lower()
         if alias not in self.bot.inv_person_aliases.get(ctx.author.id, []):
             return await ctx.send("don't have that one!")
         async with self.bot.cursor() as cur:
