@@ -40,6 +40,10 @@ class Swish(Cog):
                 first_word_of_message_or_items_it_depends_on_context = None
             else:
                 thing = "1"
+        six_seven = amount in {"67", "6.7", "+67", "+6.7"} or (amount in {"6", "+6"} and thing == "7")
+        anti_six_seven = amount in {"-67", "-6.7"} or (amount == "-6" and thing == "7")
+        attachment1 = discord.File("67.png") if six_seven else discord.File("-67.png") if anti_six_seven else None
+        attachment2 = discord.File("67.png") if six_seven else discord.File("-67.png") if anti_six_seven else None
         
         if first_word_of_message_or_items_it_depends_on_context:
             message = (first_word_of_message_or_items_it_depends_on_context + " " + (message or "")).strip()
@@ -58,10 +62,11 @@ class Swish(Cog):
 
         await ctx.send(
             sender,
-            allowed_mentions=discord.AllowedMentions.none()
+            allowed_mentions=discord.AllowedMentions.none(),
+            file=attachment1,
         )
         if not user.bot and not isinstance(user, discord.ClientUser):
-            await user.send(sendee)
+            await user.send(content=sendee, files=[attachment2] if attachment2 is not None else [])
     
     @swish.error
     async def swish_error(self, ctx: Context, error: commands.CommandError):
