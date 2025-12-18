@@ -14,19 +14,19 @@ class Mjau(Cog):
                 match = re.fullmatch(f"\\+{re.escape(mjau)}((?:\\s.*)?)", msg.content)
                 if match:
                     msg.content = f"+mjau{match.group(1)}"
-                    return await self.bot.process_commands(msg)
+                    return
                 match = re.fullmatch(f"\\+new{re.escape(mjau)}((?:\\s.*)?)", msg.content)
                 if match:
                     msg.content = f"+newmjau{match.group(1)}"
-                    return await self.bot.process_commands(msg)
+                    return
                 match = re.fullmatch(f"\\+no{re.escape(mjau)}((?:\\s.*)?)", msg.content)
                 if match:
                     msg.content = f"+nomjau{match.group(1)}"
-                    return await self.bot.process_commands(msg)
+                    return
                 match = re.fullmatch(f"\\+{re.escape(mjau)}s((?:\\s.*)?)", msg.content)
                 if match:
                     msg.content = f"+mjaus{match.group(1)}"
-                    return await self.bot.process_commands(msg)
+                    return
 
     @commands.command()
     async def mjau(self, ctx: Context):
