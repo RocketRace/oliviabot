@@ -274,6 +274,12 @@ class OliviaBot(commands.Bot):
             #         cw_allowed INTEGER NOT NULL DEFAULT 0,
             #     )"""
             # )
+            await cur.executescript(
+                """CREATE TABLE IF NOT EXISTS mjaus(
+                    mjau TEXT PRIMARY KEY
+                );
+                """
+            )
 
     async def backup_database(self):
         backup_dir = Path.cwd() / "backups"

@@ -13,9 +13,10 @@ from .tempemoji import TempEmoji
 from .swish import Swish
 from .stack import Stack
 from .stickerboard import Stickerboard
+from .mjau import Mjau
 
 
-class Gadgets(Louna, Neofetch, Vore, Like, Chain, Unreact, Horse, TempEmoji, Swish, Stack, Stickerboard):
+class Gadgets(Louna, Neofetch, Vore, Like, Chain, Unreact, Horse, TempEmoji, Swish, Stack, Stickerboard, Mjau):
     """Various gadgets and gizmos"""
     def __init__(self, bot: OliviaBot):
         self.bot = bot
