@@ -30,8 +30,9 @@ class Mjau(Cog):
 
     @commands.command()
     async def mjau(self, ctx: Context):
-        """:mjau:
+        """:mjau: (twice)
         """
+        await ctx.send(f"<a:meow:1236434880238456933>")
         await ctx.send(f"<a:meow:1236434880238456933>")
     
     @commands.command()
