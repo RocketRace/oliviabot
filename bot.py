@@ -118,6 +118,7 @@ class OliviaBot(commands.Bot):
 
             await self.invoke(ctx)
         else:
+            print(123)
             await super().process_commands(message)
 
     async def on_ready(self) -> None:

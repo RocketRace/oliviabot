@@ -12,19 +12,19 @@ class Mjau(Cog):
         if msg.content.startswith("+"):
             for mjau in self.mjau_set:
                 print(mjau)
-                match = re.match(f"\\+{re.escape(mjau)}\b(.*)", msg.content)
+                match = re.match(f"\\+{re.escape(mjau)}((?:\\s.*)?)", msg.content)
                 if match:
                     msg.content = f"+mjau{match.group(1)}"
                     return await self.bot.process_commands(msg)
-                match = re.match(f"\\+new{re.escape(mjau)}\b(.*)", msg.content)
+                match = re.match(f"\\+new{re.escape(mjau)}((?:\\s.*)?)", msg.content)
                 if match:
                     msg.content = f"+newmjau{match.group(1)}"
                     return await self.bot.process_commands(msg)
-                match = re.match(f"\\+no{re.escape(mjau)}\b(.*)", msg.content)
+                match = re.match(f"\\+no{re.escape(mjau)}((?:\\s.*)?)", msg.content)
                 if match:
                     msg.content = f"+nomjau{match.group(1)}"
                     return await self.bot.process_commands(msg)
-                match = re.match(f"\\+{re.escape(mjau)}s\b(.*)", msg.content)
+                match = re.match(f"\\+{re.escape(mjau)}s((?:\\s.*)?)", msg.content)
                 if match:
                     msg.content = f"+mjaus{match.group(1)}"
                     return await self.bot.process_commands(msg)
