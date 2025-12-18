@@ -11,7 +11,6 @@ class Mjau(Cog):
     async def mjau_detector(self, msg: discord.Message):
         if msg.content.startswith("+"):
             for mjau in self.mjau_set:
-                print(mjau)
                 match = re.match(f"\\+{re.escape(mjau)}((?:\\s.*)?)", msg.content)
                 if match:
                     msg.content = f"+mjau{match.group(1)}"
