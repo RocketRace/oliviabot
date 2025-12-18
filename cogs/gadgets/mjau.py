@@ -59,6 +59,8 @@ class Mjau(Cog):
         mjau: str
             the new mjau
         """
+        if self.bot.get_command(mjau) != None:
+            return await ctx.send("that would be confusing")
         async with ctx.cursor() as cur:
             await cur.execute("""INSERT INTO mjaus VALUES(?);""", [mjau])
             self.mjau_set.add(mjau)
