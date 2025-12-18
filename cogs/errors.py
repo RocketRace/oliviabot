@@ -30,7 +30,7 @@ class ErrorHandler(Cog):
         
         embed = discord.Embed(
             title=error,
-            description=description,
+            description=(description or "")[:4096] or None,
             color=discord.Color.from_str("#db7420"),
             timestamp=ctx.message.created_at,
         )
