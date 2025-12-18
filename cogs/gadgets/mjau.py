@@ -40,7 +40,7 @@ class Mjau(Cog):
         """
         await ctx.send(
             f"list of {ctx.invoked_with} <a:mjau:1236434880238456933>\n" + 
-            "\n".join(f"- {mjau} <a:meow:1236434880238456933>" for mjau in ["mjau", *self.mjau_set])
+            "\n".join(f"- {mjau} <a:meow:1236434880238456933>" for mjau in ["mjau", *sorted(self.mjau_set)])
         )
 
     async def cog_load(self):
