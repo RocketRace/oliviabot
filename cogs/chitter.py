@@ -178,7 +178,7 @@ class BotChitter(Cog, ChitterBase):
         # Is is that bad to refill the store on each login?
         self.raw_chitter_store: dict[int, dict[int, list[AnyValue]]] = {}
 
-    async def cog_load(self) -> None:
+    async def cog_load(self):
         self.original_chitter_send = self.bot.chitter_send
         self.original_chitter_edit = self.bot.chitter_edit
         self.original_chitter_delete = self.bot.chitter_delete
