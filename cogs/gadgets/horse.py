@@ -29,6 +29,7 @@ mapping = {
     "ö": "👽",
     "t": "🪱",
     "p": "🐷",
+    "y": "🤔",
 }
 cased = mapping | {
     c.upper(): emoji for c, emoji in mapping.items()
